@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MarchingCubes
 {
     public Mesh March(PointGrid grid, float isoLevel)
     {
-        List<Vector3> vertices = new List<Vector3>();
         List<int> tris = new List<int>();
+        VertexSet vSet = new VertexSet();
 
         //Iterate over each cube
         for (int i = 0; i < grid.points.GetLength(0) - 1; i++)
@@ -40,26 +41,20 @@ public class MarchingCubes
                     if (cubeCorners[7].w < isoLevel) cubeIndex |= 128;
 
                     //Build surface and append tris
-                    BuildTriangles(vertices, tris, cubeIndex, cubeCorners, isoLevel);
+                    BuildTriangles(tris, cubeIndex, cubeCorners, isoLevel, vSet);
 
                 }
             }
         }
 
-        //Verts are already in tri order
-        for (int i = 0; i < tris.Count; i++)
-        {
-            tris[i] = i;
-        }
-
         Mesh outMesh = new Mesh();
         outMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-        outMesh.vertices = vertices.ToArray();
+        outMesh.vertices = vSet.GetVertices().ToArray();
         outMesh.triangles = tris.ToArray();
         return outMesh;
     }
 
-    void BuildTriangles(List<Vector3> vertices, List<int> tris, int cubeIndex, Vector4[] cubeCorners, float isoLevel)
+    void BuildTriangles(List<int> tris, int cubeIndex, Vector4[] cubeCorners, float isoLevel, VertexSet vSet)
     {
         for (int i = 0; MarchingCubesConst.TRI_TABLE[cubeIndex][i] != -1; i += 3)
         {
@@ -72,13 +67,9 @@ public class MarchingCubes
             int a2 = MarchingCubesConst.cornerIndexAFromEdge[MarchingCubesConst.TRI_TABLE[cubeIndex][i + 2]];
             int b2 = MarchingCubesConst.cornerIndexBFromEdge[MarchingCubesConst.TRI_TABLE[cubeIndex][i + 2]];
 
-            vertices.Add(linearInterpolate(cubeCorners[a0], cubeCorners[b0], isoLevel));
-            vertices.Add(linearInterpolate(cubeCorners[a1], cubeCorners[b1], isoLevel));
-            vertices.Add(linearInterpolate(cubeCorners[a2], cubeCorners[b2], isoLevel));
-
-            tris.Add(0);
-            tris.Add(0);
-            tris.Add(0);
+            tris.Add(vSet.AddVertexRetrieveIndex(linearInterpolate(cubeCorners[a0], cubeCorners[b0], isoLevel)));
+            tris.Add(vSet.AddVertexRetrieveIndex(linearInterpolate(cubeCorners[a1], cubeCorners[b1], isoLevel)));
+            tris.Add(vSet.AddVertexRetrieveIndex(linearInterpolate(cubeCorners[a2], cubeCorners[b2], isoLevel)));
         }
 
     }
@@ -417,7 +408,6 @@ public static class MarchingCubesConst
     };
 }
 
-[System.Serializable]
 public struct PointGrid
 {
     public PointGrid(int x, int y, int z)
@@ -441,4 +431,30 @@ public struct PointGrid
 
     public Vector4[,,] points;
 
+}
+
+
+//Allows for shared verts between cubes
+public class VertexSet
+{
+    Dictionary<Vector3, int> hash;
+    List<Vector3> vertices;
+
+    public int AddVertexRetrieveIndex(Vector3 vertex)
+    {
+        if(hash == null) { hash = new Dictionary<Vector3, int>(); }
+        if(vertices == null) { vertices = new List<Vector3>(); }
+        if (!hash.ContainsKey(vertex))
+        {
+            vertices.Add(vertex);
+            hash.Add(vertex, vertices.Count - 1);
+        }
+        return hash[vertex];
+    }
+
+    public List<Vector3> GetVertices()
+    {
+        if (vertices == null) { vertices = new List<Vector3>(); }
+        return vertices;
+    }
 }
