@@ -209,8 +209,8 @@ MonoBehaviour:
   _gridSize: 40
   _visualisePoints: 0
   _baseGroundHeight: 2
-  _brushSize: 1
-  _brushStrength: 0.1
+  _brushSize: 3
+  _brushStrength: 0.2
 --- !u!4 &144805408
 Transform:
   m_ObjectHideFlags: 0

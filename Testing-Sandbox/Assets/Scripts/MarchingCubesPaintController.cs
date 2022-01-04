@@ -78,28 +78,88 @@ public class MarchingCubesPaintController : MarchingCubesController
             int pZ = (int)p.z;
             if (positive) 
             {
-                MinusValueAtCoord(pX, pY, pZ, _brushStrength);
+                EditValueAtCoord(pX, pY, pZ, _brushStrength, false);
                 for (int i = 1; i < _brushSize; i++)
                 {
-                    MinusValueAtCoord(pX + i, pY, pZ, _brushStrength * (.8f / i));
-                    MinusValueAtCoord(pX, pY + i, pZ, _brushStrength * (.8f / i));
-                    MinusValueAtCoord(pX, pY, pZ + i, _brushStrength * (.8f / i));
-                    MinusValueAtCoord(pX - i, pY, pZ, _brushStrength * (.8f / i));
-                    MinusValueAtCoord(pX, pY - i, pZ, _brushStrength * (.8f / i));
-                    MinusValueAtCoord(pX, pY, pZ - i, _brushStrength * (.8f / i));
+                    //Orthogonally adjacent
+                    EditValueAtCoord(pX + i, pY, pZ, _brushStrength * (.8f / i), false);
+                    EditValueAtCoord(pX, pY + i, pZ, _brushStrength * (.8f / i), false);
+                    EditValueAtCoord(pX, pY, pZ + i, _brushStrength * (.8f / i), false);
+                    EditValueAtCoord(pX - i, pY, pZ, _brushStrength * (.8f / i), false);
+                    EditValueAtCoord(pX, pY - i, pZ, _brushStrength * (.8f / i), false);
+                    EditValueAtCoord(pX, pY, pZ - i, _brushStrength * (.8f / i), false);
+
+                    //X Diags
+                    EditValueAtCoord(pX - i, pY + i, pZ, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX + i, pY + i, pZ, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX - i, pY - i, pZ, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX + i, pY - i, pZ, _brushStrength * (.7f / i), false);
+                                                                             
+                    //Y Diags                                                
+                    EditValueAtCoord(pX - i, pY, pZ + i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX + i, pY, pZ + i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX - i, pY, pZ - i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX + i, pY, pZ - i, _brushStrength * (.7f / i), false);
+                                                                             
+                    //Z Diags                                                
+                    EditValueAtCoord(pX, pY + i, pZ - i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX, pY + i, pZ + i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX, pY - i, pZ - i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX, pY - i, pZ + i, _brushStrength * (.7f / i), false);
+
+                    //Corners
+                    EditValueAtCoord(pX + i, pY + i, pZ + i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX + i, pY + i, pZ - i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX + i, pY - i, pZ + i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX + i, pY - i, pZ - i, _brushStrength * (.7f / i), false);
+                                                                                 
+                    EditValueAtCoord(pX - i, pY + i, pZ + i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX - i, pY + i, pZ - i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX - i, pY - i, pZ + i, _brushStrength * (.7f / i), false);
+                    EditValueAtCoord(pX - i, pY - i, pZ - i, _brushStrength * (.7f / i), false);
                 }
             }
             else 
             {
-                AddValueAtCoord(pX, pY, pZ, _brushStrength);
+                EditValueAtCoord(pX, pY, pZ, _brushStrength, true);
                 for (int i = 1; i < _brushSize; i++)
                 {
-                    AddValueAtCoord(pX + i, pY, pZ, _brushStrength * (.8f / i));
-                    AddValueAtCoord(pX, pY + i, pZ, _brushStrength * (.8f / i));
-                    AddValueAtCoord(pX, pY, pZ + i, _brushStrength * (.8f / i));
-                    AddValueAtCoord(pX - i, pY, pZ, _brushStrength * (.8f / i));
-                    AddValueAtCoord(pX, pY - i, pZ, _brushStrength * (.8f / i));
-                    AddValueAtCoord(pX, pY, pZ - i, _brushStrength * (.8f / i));
+                    //Orthogonally adjacent
+                    EditValueAtCoord(pX + i, pY, pZ, _brushStrength * (.8f / i), true);
+                    EditValueAtCoord(pX, pY + i, pZ, _brushStrength * (.8f / i), true);
+                    EditValueAtCoord(pX, pY, pZ + i, _brushStrength * (.8f / i), true);
+                    EditValueAtCoord(pX - i, pY, pZ, _brushStrength * (.8f / i), true);
+                    EditValueAtCoord(pX, pY - i, pZ, _brushStrength * (.8f / i), true);
+                    EditValueAtCoord(pX, pY, pZ - i, _brushStrength * (.8f / i), true);
+
+                    //X Diags
+                    EditValueAtCoord(pX - i, pY + i, pZ, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX + i, pY + i, pZ, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX - i, pY - i, pZ, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX + i, pY - i, pZ, _brushStrength * (.7f / i), true);
+
+                    //Y Diags                                                
+                    EditValueAtCoord(pX - i, pY, pZ + i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX + i, pY, pZ + i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX - i, pY, pZ - i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX + i, pY, pZ - i, _brushStrength * (.7f / i), true);
+
+                    //Z Diags                                                
+                    EditValueAtCoord(pX, pY + i, pZ - i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX, pY + i, pZ + i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX, pY - i, pZ - i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX, pY - i, pZ + i, _brushStrength * (.7f / i), true);
+
+                    //Corners
+                    EditValueAtCoord(pX + i, pY + i, pZ + i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX + i, pY + i, pZ - i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX + i, pY - i, pZ + i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX + i, pY - i, pZ - i, _brushStrength * (.7f / i), true);
+
+                    EditValueAtCoord(pX - i, pY + i, pZ + i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX - i, pY + i, pZ - i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX - i, pY - i, pZ + i, _brushStrength * (.7f / i), true);
+                    EditValueAtCoord(pX - i, pY - i, pZ - i, _brushStrength * (.7f / i), true);
                 }
             }
             //Clamp to 0-1
@@ -110,25 +170,15 @@ public class MarchingCubesPaintController : MarchingCubesController
         }
     }
 
-    void AddValueAtCoord(int x, int y, int z, float value)
-    {
-        //Ensure coords are in range
-        if((x < _pGrid.xLength && x >= 0) &&
-           (y < _pGrid.yLength && y >= 0) &&
-           (z < _pGrid.zLength && z >= 0))
-        {
-            _pGrid.points[x, y, z].w += value;
-        }
-    }
-
-    void MinusValueAtCoord(int x, int y, int z, float value)
+    void EditValueAtCoord(int x, int y, int z, float value, bool positive)
     {
         //Ensure coords are in range
         if ((x < _pGrid.xLength && x >= 0) &&
            (y < _pGrid.yLength && y >= 0) &&
            (z < _pGrid.zLength && z >= 0))
         {
-            _pGrid.points[x, y, z].w -= value;
+            if (positive) { _pGrid.points[x, y, z].w += value; }
+            else { _pGrid.points[x, y, z].w -= value; }
         }
     }
 
