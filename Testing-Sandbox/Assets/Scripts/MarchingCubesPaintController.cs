@@ -212,7 +212,6 @@ public class MarchingCubesPaintController : MarchingCubesController
 
     protected override void DelayedOnValidate()
     {
-        base.DelayedOnValidate();
-        if (_pGrid.IsInitialised()) GeneratePlane();
+        return;
     }
 }

@@ -51,7 +51,7 @@ public abstract class MarchingCubesController : MonoBehaviour
     protected void OnDrawGizmos()
     {
         //Visualise Bounds
-        Vector3 size = new Vector3(_gridSpacing * _gridSize, _gridSpacing * _gridSize, _gridSpacing * _gridSize);
+        Vector3 size = new Vector3(_gridSpacing * (_gridSize - 1), _gridSpacing * (_gridSize - 1), _gridSpacing * (_gridSize - 1));
         Vector3 centre = new Vector3(transform.position.x + (size.x / 2), transform.position.y + (size.y / 2), transform.position.z + (size.z / 2));
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(centre, size);
