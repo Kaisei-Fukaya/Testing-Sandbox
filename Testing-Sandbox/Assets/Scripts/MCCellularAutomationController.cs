@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class MCCellularAutomationController : MarchingCubesController
 {
-    PointGrid _pGridNew;
     Coroutine _automation;
     public float outerPointValue;
     [Min(0)]
     public int iterations;
+    [Range(0f,1f)]
+    public float timeStep = .1f;
+
+    [Header("Rules")]
+    public int[] birth;
+    public int[] survive;
+
+    int iterTest;
+
+    private void Start()
+    {
+        StartAutomation();
+    }
 
     public void GenerateRand()
     {
@@ -30,7 +42,14 @@ public class MCCellularAutomationController : MarchingCubesController
                     }
                     else
                     {
-                        _pGrid.points[i, j, k].w = Random.value;
+                        if(Random.value > .5f)
+                        {
+                            _pGrid.points[i, j, k].w = 1f;
+                        }
+                        else
+                        {
+                            _pGrid.points[i, j, k].w = 0f;
+                        }
                     }
                 }
             }
@@ -49,60 +68,70 @@ public class MCCellularAutomationController : MarchingCubesController
 
     IEnumerator Automation()
     {
+        Generate(_pGrid);
+        iterTest = 0;
+        yield return new WaitForSeconds(timeStep);
         for (int i = 0; i < iterations; i++)
         {
             AffectCells();
             Generate(_pGrid);
-            print(i);
-            yield return null;
+            iterTest++;
+            yield return new WaitForSeconds(timeStep);
         }
     }
 
     void AffectCells()
     {
-        _pGridNew = _pGrid;
+        PointGrid pGridNew = _pGrid;
         for (int i = 0; i < _pGrid.points.GetLength(0); i++)
         {
             for (int j = 0; j < _pGrid.points.GetLength(1); j++)
             {
                 for (int k = 0; k < _pGrid.points.GetLength(2); k++)
                 {
-                    //Game of life
-                    int neighbourCount = GetNeighbourCount(i, j, k);
-
-                    //If cell is alive
-                    if (_pGrid.points[i, j, k].w == 1f)
+                    if (!(i == 0 || j == 0 || k == 0 || i == _pGrid.xLength - 1 || j == _pGrid.yLength - 1 || k == _pGrid.zLength - 1))
                     {
-                        //Death (underpop)
-                        if (neighbourCount < 2)
-                        {
-                            _pGridNew.points[i, j, k].w = 0f;
-                        }
-
-                        //Live
-                        if (neighbourCount == 2 || neighbourCount == 3)
-                        {
-                            _pGridNew.points[i, j, k].w = 1f;
-                        }
-
-                        //Death (overpop)
-                        if (neighbourCount > 3)
-                        {
-                            _pGridNew.points[i, j, k].w = 0f;
-                        }
-                    }
-                    else
-                    {
-                        //Live (repop)
-                        if (neighbourCount == 3)
-                        {
-                            _pGridNew.points[i, j, k].w = 1f;
-                        }
+                        int neighbourCount = GetNeighbourCount(i, j, k);
+                        pGridNew.points[i,j,k].w = Eval(i, j, k, neighbourCount);
                     }
                 }
             }
         }
-        _pGrid = _pGridNew;
+        _pGrid = pGridNew;
+    }
+
+    int Eval(int x, int y, int z, int neighbourCount)
+    {
+        //Survival rules
+        if (_pGrid.points[x, y, z].w == 0f)
+        {
+            for (int i = 0; i < survive.Length; i++)
+            {
+                if (neighbourCount == survive[i])
+                {
+                    //print($"Iter {iterTest} Survived- neighbour count : {neighbourCount}");
+                    return 0;
+                }
+            }
+        }
+        //Birth rules
+        else if (_pGrid.points[x, y, z].w == 1f)
+        {
+            for (int i = 0; i < birth.Length; i++)
+            {
+                if (neighbourCount == birth[i])
+                {
+                    //print($"Iter {iterTest} Born- neighbour count : {neighbourCount}");
+                    return 0;
+                }
+            }
+        }
+        else
+        {
+            return 0;
+        }
+        //Default to dead
+        return 1;
     }
 
     int GetNeighbourCount(int pX, int pY, int pZ)
@@ -123,7 +152,7 @@ public class MCCellularAutomationController : MarchingCubesController
                         //Ignore cell itself
                         if (!(i == pX && j == pY && k == pZ))
                         {
-                            neighbourCount += (int)_pGrid.points[i, j, k].w;
+                            if(_pGrid.points[i,j,k].w == 0f) { neighbourCount++; }
                         }
                     }
                     else
@@ -133,7 +162,12 @@ public class MCCellularAutomationController : MarchingCubesController
                 }
             }
         }
-
         return neighbourCount;
     }
+
+    protected override void DelayedOnValidate()
+    {
+        return;
+    }
+
 }
