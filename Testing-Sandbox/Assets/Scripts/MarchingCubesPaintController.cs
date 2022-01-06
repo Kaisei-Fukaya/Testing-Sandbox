@@ -14,6 +14,8 @@ public class MarchingCubesPaintController : MarchingCubesController
     Camera _mainCam;
     MeshCollider _meshCollider;
 
+    bool userIsClicking = false, userIsHoldingInverter = false;
+
 
     public void Start()
     {
@@ -24,7 +26,26 @@ public class MarchingCubesPaintController : MarchingCubesController
     {
         if (Input.GetMouseButton(0))
         {
-            if (Input.GetButton("Jump"))
+            userIsClicking = true;
+            if (Input.GetButton("Inverter"))
+            {
+                userIsHoldingInverter = true;
+            }
+            else
+            {
+                userIsHoldingInverter = false;
+            }
+            return;
+        }
+        userIsClicking = false;
+        userIsHoldingInverter = false;
+    }
+
+    private void FixedUpdate()
+    {
+        if (userIsClicking)
+        {
+            if (userIsHoldingInverter)
             {
                 WhenClicking(false);
             }

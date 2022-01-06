@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TerrainMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: bd2295e88d964f745926680b9ee4c4f9, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: eafaf74f2ce275340a3ed4cad474df52, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -33,7 +33,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_1:
-        m_Texture: {fileID: 2800000, guid: 5c7432454140a854b8c47683c49e9809, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8bc5620fe0f535a4fa3d5ad2fad4b908, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_2:
@@ -56,6 +56,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 8bc5620fe0f535a4fa3d5ad2fad4b908, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_687f81e31ce24d3694d3d851c5f6956b:
+        m_Texture: {fileID: 2800000, guid: 46ea61e308155e34bb3c63f45378251d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_8D2E8E65:
         m_Texture: {fileID: 2800000, guid: 57f899fc09e8afe4c9dffa5bb1264432, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -66,6 +70,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - Texture2D_DB27CB7D:
         m_Texture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_fb76a78241eb44e8a73cce6ca42eef8f:
+        m_Texture: {fileID: 2800000, guid: 5c7432454140a854b8c47683c49e9809, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -125,8 +133,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_291a5e560d1c4ce48f2c48382097bb73: 1
     - Vector1_08833dc9b5604caeba09feb7a2c02dd8: 40
+    - Vector1_3fe09a8db0254ef096ffbfd17d957ce2: 0.1
     - Vector1_4C3F5EE4: 0
+    - Vector1_50e52a405bc847c2a204784ff7afdb87: 30
+    - Vector1_569fbdd6cf2c4d979aedb86009992761: 0.1
     - Vector1_5857EFB5: 20
     - Vector1_65D18AD4: 30
     - Vector1_6F228B9F: 10

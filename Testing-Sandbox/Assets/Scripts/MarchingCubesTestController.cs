@@ -7,6 +7,7 @@ public class MarchingCubesTestController : MarchingCubesController
 {
 
     public float _perlinScale = 10f;
+    public float _outerPointValue = 1f;
 
     public void GenerateGradient()
     {
@@ -43,15 +44,15 @@ public class MarchingCubesTestController : MarchingCubesController
             {
                 for (int k = 0; k < _pGrid.points.GetLength(2); k++)
                 {
+                    _pGrid.points[i, j, k].x = i * _gridSpacing;
+                    _pGrid.points[i, j, k].y = j * _gridSpacing;
+                    _pGrid.points[i, j, k].z = k * _gridSpacing;
                     if (i == 0 || j == 0 || k == 0 || i == _pGrid.xLength - 1 || j == _pGrid.yLength - 1 || k == _pGrid.zLength - 1)
                     {
-                        _pGrid.points[i, j, k].w = -1f;
+                        _pGrid.points[i, j, k].w = _outerPointValue;
                     }
                     else
                     {
-                        _pGrid.points[i, j, k].x = i * _gridSpacing;
-                        _pGrid.points[i, j, k].y = j * _gridSpacing;
-                        _pGrid.points[i, j, k].z = k * _gridSpacing;
                         _pGrid.points[i, j, k].w = Random.value;
                     }
                 }
@@ -72,15 +73,15 @@ public class MarchingCubesTestController : MarchingCubesController
             {
                 for (int k = 0; k < _pGrid.points.GetLength(2); k++)
                 {
+                    _pGrid.points[i, j, k].x = i * _gridSpacing;
+                    _pGrid.points[i, j, k].y = j * _gridSpacing;
+                    _pGrid.points[i, j, k].z = k * _gridSpacing;
                     if (i == 0 || j == 0 || k == 0 || i == _pGrid.xLength - 1 || j == _pGrid.yLength - 1 || k == _pGrid.zLength - 1)
                     {
-                        _pGrid.points[i, j, k].w = 1f;
+                        _pGrid.points[i, j, k].w = _outerPointValue;
                     }
                     else
                     {
-                        _pGrid.points[i, j, k].x = i * _gridSpacing;
-                        _pGrid.points[i, j, k].y = j * _gridSpacing;
-                        _pGrid.points[i, j, k].z = k * _gridSpacing;
                         _pGrid.points[i, j, k].w = Perlin3D.Sample((_perlinScale * i) + offset, (_perlinScale * j) + offset, (_perlinScale * k) + offset);
                     }
                 }
