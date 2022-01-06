@@ -6,12 +6,12 @@ using UnityEngine;
 public class MarchingCubesTestController : MarchingCubesController
 {
 
-    public float _perlinScale = 10f;
-    public float _outerPointValue = 1f;
+    public float perlinScale = 10f;
+    public float outerPointValue = 1f;
 
     public void GenerateGradient()
     {
-        _pGrid = new PointGrid(_gridSize, _gridSize, _gridSize);
+        _pGrid = new PointGrid(gridSize, gridSize, gridSize);
 
         float val = 1f;
         for (int i = 0; i < _pGrid.points.GetLength(0); i++)
@@ -20,9 +20,9 @@ public class MarchingCubesTestController : MarchingCubesController
             {
                 for (int k = 0; k < _pGrid.points.GetLength(2); k++)
                 {
-                    _pGrid.points[i, j, k].x = i * _gridSpacing;
-                    _pGrid.points[i, j, k].y = j * _gridSpacing;
-                    _pGrid.points[i, j, k].z = k * _gridSpacing;
+                    _pGrid.points[i, j, k].x = i * gridSpacing;
+                    _pGrid.points[i, j, k].y = j * gridSpacing;
+                    _pGrid.points[i, j, k].z = k * gridSpacing;
                     _pGrid.points[i, j, k].w = val;
                     val *= .99f;
                 }
@@ -35,7 +35,7 @@ public class MarchingCubesTestController : MarchingCubesController
 
     public void GenerateRand()
     {
-        _pGrid = new PointGrid(_gridSize, _gridSize, _gridSize);
+        _pGrid = new PointGrid(gridSize, gridSize, gridSize);
 
         //pGrid.points[0, 0, 0].w = 0f;
         for (int i = 0; i < _pGrid.points.GetLength(0); i++)
@@ -44,12 +44,12 @@ public class MarchingCubesTestController : MarchingCubesController
             {
                 for (int k = 0; k < _pGrid.points.GetLength(2); k++)
                 {
-                    _pGrid.points[i, j, k].x = i * _gridSpacing;
-                    _pGrid.points[i, j, k].y = j * _gridSpacing;
-                    _pGrid.points[i, j, k].z = k * _gridSpacing;
+                    _pGrid.points[i, j, k].x = i * gridSpacing;
+                    _pGrid.points[i, j, k].y = j * gridSpacing;
+                    _pGrid.points[i, j, k].z = k * gridSpacing;
                     if (i == 0 || j == 0 || k == 0 || i == _pGrid.xLength - 1 || j == _pGrid.yLength - 1 || k == _pGrid.zLength - 1)
                     {
-                        _pGrid.points[i, j, k].w = _outerPointValue;
+                        _pGrid.points[i, j, k].w = outerPointValue;
                     }
                     else
                     {
@@ -64,7 +64,7 @@ public class MarchingCubesTestController : MarchingCubesController
 
     public void GeneratePerlin()
     {
-        _pGrid = new PointGrid(_gridSize, _gridSize, _gridSize);
+        _pGrid = new PointGrid(gridSize, gridSize, gridSize);
         float offset = Random.value * 10;
 
         for (int i = 0; i < _pGrid.points.GetLength(0); i++)
@@ -73,16 +73,16 @@ public class MarchingCubesTestController : MarchingCubesController
             {
                 for (int k = 0; k < _pGrid.points.GetLength(2); k++)
                 {
-                    _pGrid.points[i, j, k].x = i * _gridSpacing;
-                    _pGrid.points[i, j, k].y = j * _gridSpacing;
-                    _pGrid.points[i, j, k].z = k * _gridSpacing;
+                    _pGrid.points[i, j, k].x = i * gridSpacing;
+                    _pGrid.points[i, j, k].y = j * gridSpacing;
+                    _pGrid.points[i, j, k].z = k * gridSpacing;
                     if (i == 0 || j == 0 || k == 0 || i == _pGrid.xLength - 1 || j == _pGrid.yLength - 1 || k == _pGrid.zLength - 1)
                     {
-                        _pGrid.points[i, j, k].w = _outerPointValue;
+                        _pGrid.points[i, j, k].w = outerPointValue;
                     }
                     else
                     {
-                        _pGrid.points[i, j, k].w = Perlin3D.Sample((_perlinScale * i) + offset, (_perlinScale * j) + offset, (_perlinScale * k) + offset);
+                        _pGrid.points[i, j, k].w = Perlin3D.Sample((perlinScale * i) + offset, (perlinScale * j) + offset, (perlinScale * k) + offset);
                     }
                 }
             }
