@@ -1,3 +1,18 @@
 Base path: 'G:/Unity 2018.3/2020.3.6f1/Editor/Data', plugins path 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
 
+
+
+
+
+
+
+
+
+
+
+Cmd: initializeCompiler
+
+Cmd: compileComputeKernel
+  insize=4446 file=G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox/Library/PackageCache/com.unity.barracuda@2.0.0/Barracuda/Runtime/Core/Resources/Barracuda/TextureUtils.compute kernel=TensorToTexture3DLUT_NCHW cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=5 km=<SUFFIX=3DLUT>,<APPLY_3D_LUT=1>,<CHANNELS_FIRST=1>,<UNITY_VERSION=202036> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=3836
+
