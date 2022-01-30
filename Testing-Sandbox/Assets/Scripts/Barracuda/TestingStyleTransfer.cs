@@ -45,7 +45,7 @@ public class TestingStyleTransfer : MonoBehaviour
         _worker.Execute(input);
         Tensor output = _worker.PeekOutput("output1");
         outputImage = Postprocess(output);
-        imageTarget.sprite = Sprite.Create(outputImage, new Rect(Vector3.zero, new Vector3(outputImage.width, outputImage.width)), Vector2.zero);
+        imageTarget.sprite = Sprite.Create(outputImage, new Rect(Vector3.zero, new Vector3(outputImage.width, outputImage.height)), Vector2.zero);
         //Material mat = new Material(mRenderer.material);
         //mat.mainTexture = outputImage;
         //mRenderer.material = mat;

@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Barracuda;
 using UnityEngine.UI;
+using System.IO;
 
 public class TestingResNet : MonoBehaviour
 {
     [System.NonSerialized] public NNModel activeModel;
     [System.NonSerialized] public int selectedModelIndex = 0;
     public Texture2D inputImage;
-    public Text textTarget;
+    public Text textTarget1, textTarget2, textTarget3, textTarget4, textTarget5;
+    public Image imageTarget;
     public NNModel[] models;
+    public TextAsset wordsText;
+    Dictionary<int, string> wordsLookup;
     Model _runtimeModel;
     IWorker _worker;
 
     private void Init()
     {
         _runtimeModel = ModelLoader.Load(activeModel);
+        LoadLookup();
     }
 
     public void Run()
@@ -42,8 +47,8 @@ public class TestingResNet : MonoBehaviour
         Tensor input = Preprocess();
         //Debug.Log(input);
         _worker.Execute(input);
-        Tensor output = _worker.PeekOutput("resnetv22_dense0_fwd");
-        textTarget.text = Postprocess(output);
+        Tensor output = _worker.PeekOutput(_runtimeModel.outputs[_runtimeModel.outputs.Count - 1]);         //"resnetv22_dense0_fwd"
+        Postprocess(output);
         //outputImage = Postprocess(output);
         //Material mat = new Material(mRenderer.material);
         //mat.mainTexture = outputImage;
@@ -57,6 +62,8 @@ public class TestingResNet : MonoBehaviour
     Tensor Preprocess()
     {
         Tensor newTensor = new Tensor(1, inputImage.height, inputImage.width, 3);
+        //Test
+        Texture2D tex = new Texture2D(inputImage.height, inputImage.width);
 
         float[] mean = new float[] { 0.485f, 0.456f, 0.406f };
         float[] stdd = new float[] { 0.229f, 0.224f, 0.225f };
@@ -68,44 +75,73 @@ public class TestingResNet : MonoBehaviour
                 newTensor[0, i, j, 0] = (inputImage.GetPixel(i,j).r - mean[0]) / stdd[0];
                 newTensor[0, i, j, 1] = (inputImage.GetPixel(i,j).g - mean[1]) / stdd[1];
                 newTensor[0, i, j, 2] = (inputImage.GetPixel(i,j).b - mean[2]) / stdd[2];
+
+                //Test
+                tex.SetPixel(
+                    i,
+                    j,
+                    new Color(
+                        newTensor[0, i, j, 0],
+                        newTensor[0, i, j, 1],
+                        newTensor[0, i, j, 2]
+                    ));
             }
         }
+        tex.Apply();
+        imageTarget.sprite = Sprite.Create(tex, new Rect(Vector3.zero, new Vector3(tex.width, tex.height)), Vector2.zero);
         return newTensor;
     }
 
-    int PixFloatTo255(float val)
+    struct IndexValuePair
     {
-        return (int)(val * 255);
+        public int index;
+        public float value;
+
+        public IndexValuePair(int id, float val)
+        {
+            index = id;
+            value = val;
+        }
     }
 
-    float ToPixFloat(int val)
+    int IndexValuePairComparer(IndexValuePair a, IndexValuePair b)
     {
-        return val / 255f;
+        if(a.value < b.value)
+        {
+            return -1;
+        }
+        else if(a.value > b.value)
+        {
+            return 1;
+        }
+        return 0;
     }
 
-    string Postprocess(Tensor tensor)
+    void Postprocess(Tensor tensor)
     {
         //Debug.Log(tensor);
-        string text = "";
-        int currentHighestIndex = 0;
-        float currentHighest = 0f;
+        List<IndexValuePair> indexList = new List<IndexValuePair>();
         for (int i = 0; i < tensor.length; i++)
         {
-            if(tensor[i] > currentHighest)
-            {
-                currentHighest = tensor[i];
-                currentHighestIndex = i;
-            }
+            indexList.Add(new IndexValuePair(i, tensor[i]));
         }
-        text = currentHighestIndex.ToString();
-        return text;
+        indexList.Sort(IndexValuePairComparer);
+        textTarget1.text = $"1: {wordsLookup[indexList[indexList.Count-1].index]} ({indexList[indexList.Count-1].value})";
+        textTarget2.text = $"2: {wordsLookup[indexList[indexList.Count-2].index]} ({indexList[indexList.Count-2].value})";
+        textTarget3.text = $"3: {wordsLookup[indexList[indexList.Count-3].index]} ({indexList[indexList.Count-3].value})";
+        textTarget4.text = $"4: {wordsLookup[indexList[indexList.Count-4].index]} ({indexList[indexList.Count-4].value})";
+        textTarget5.text = $"5: {wordsLookup[indexList[indexList.Count-5].index]} ({indexList[indexList.Count-5].value})";
     }
 
-    Dictionary<int, string> resNetLookup = new Dictionary<int, string>()
+    void LoadLookup()
     {
-
-    };
-
-    
+        wordsLookup = new Dictionary<int, string>();
+        string text = wordsText.text;
+        string[] splitText = text.Split(new string[] { "\n" }, System.StringSplitOptions.None);
+        for (int i = 0; i < splitText.Length; i++)
+        {
+            wordsLookup.Add(i, splitText[i]);
+        }
+    }
 }
 
