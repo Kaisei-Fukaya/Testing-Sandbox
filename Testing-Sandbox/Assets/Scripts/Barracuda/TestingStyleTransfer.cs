@@ -19,40 +19,14 @@ public class TestingStyleTransfer : MonoBehaviour
     {
         _runtimeModel = ModelLoader.Load(activeModel);
     }
-
-    public void Run()
+    int PixFloatTo255(float val)
     {
-        //if (_runtimeModel == null)
-        //{
-        //    if (model == null)
-        //    {
-        //        return;
-        //    }
-        //    Init();
-        //}
-        if(activeModel == null)
-        {
-            if(models.Length == 0 || models[selectedModelIndex] == null) { return; }
-            activeModel = models[selectedModelIndex];
-        }
+        return (int)(val * 255);
+    }
 
-        Init();
-
-        _worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, _runtimeModel);
-
-        Tensor input = Preprocess();
-        //Debug.Log(input);
-        _worker.Execute(input);
-        Tensor output = _worker.PeekOutput("output1");
-        outputImage = Postprocess(output);
-        imageTarget.sprite = Sprite.Create(outputImage, new Rect(Vector3.zero, new Vector3(outputImage.width, outputImage.height)), Vector2.zero);
-        //Material mat = new Material(mRenderer.material);
-        //mat.mainTexture = outputImage;
-        //mRenderer.material = mat;
-
-
-        input.Dispose();
-        _worker?.Dispose();
+    float ToPixFloat(int val)
+    {
+        return val / 255f;
     }
 
     Tensor Preprocess()
@@ -70,19 +44,8 @@ public class TestingStyleTransfer : MonoBehaviour
         return newTensor;
     }
 
-    int PixFloatTo255(float val)
-    {
-        return (int)(val * 255);
-    }
-
-    float ToPixFloat(int val)
-    {
-        return val / 255f;
-    }
-
     Texture2D Postprocess(Tensor tensor)
     {
-        //Debug.Log(tensor);
         Texture2D tex = new Texture2D(tensor.width, tensor.height);
         for (int i = 0; i < tex.width; i++)
         {
@@ -97,11 +60,31 @@ public class TestingStyleTransfer : MonoBehaviour
                         ToPixFloat((int)tensor[0, i, j, 2])
                         )
                     );
-                //print(ToPixFloat((int)tensor[0, i, j, 0]));
             }
         }
         tex.Apply();
         return tex;
+    }
+    public void Run()
+    {
+        if(activeModel == null)
+        {
+            if(models.Length == 0 || models[selectedModelIndex] == null) { return; }
+            activeModel = models[selectedModelIndex];
+        }
+
+        Init();
+
+        _worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, _runtimeModel);
+
+        Tensor input = Preprocess();
+        _worker.Execute(input);
+        Tensor output = _worker.PeekOutput("output1");
+        outputImage = Postprocess(output);
+        imageTarget.sprite = Sprite.Create(outputImage, new Rect(Vector3.zero, new Vector3(outputImage.width, outputImage.height)), Vector2.zero);
+
+        input.Dispose();
+        _worker?.Dispose();
     }
 
     

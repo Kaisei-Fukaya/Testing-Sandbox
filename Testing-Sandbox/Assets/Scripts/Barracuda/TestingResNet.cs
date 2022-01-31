@@ -24,74 +24,6 @@ public class TestingResNet : MonoBehaviour
         LoadLookup();
     }
 
-    public void Run()
-    {
-        //if (_runtimeModel == null)
-        //{
-        //    if (model == null)
-        //    {
-        //        return;
-        //    }
-        //    Init();
-        //}
-        if(activeModel == null)
-        {
-            if(models.Length == 0 || models[selectedModelIndex] == null) { return; }
-            activeModel = models[selectedModelIndex];
-        }
-
-        Init();
-
-        _worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, _runtimeModel);
-
-        Tensor input = Preprocess();
-        //Debug.Log(input);
-        _worker.Execute(input);
-        Tensor output = _worker.PeekOutput(_runtimeModel.outputs[_runtimeModel.outputs.Count - 1]);         //"resnetv22_dense0_fwd"
-        Postprocess(output);
-        //outputImage = Postprocess(output);
-        //Material mat = new Material(mRenderer.material);
-        //mat.mainTexture = outputImage;
-        //mRenderer.material = mat;
-
-
-        input.Dispose();
-        _worker?.Dispose();
-    }
-
-    Tensor Preprocess()
-    {
-        Tensor newTensor = new Tensor(1, inputImage.height, inputImage.width, 3);
-        //Test
-        Texture2D tex = new Texture2D(inputImage.height, inputImage.width);
-
-        float[] mean = new float[] { 0.485f, 0.456f, 0.406f };
-        float[] stdd = new float[] { 0.229f, 0.224f, 0.225f };
-
-        for (int i = 0; i < newTensor.height; i++)
-        {
-            for (int j = 0; j < newTensor.width; j++)
-            {
-                newTensor[0, i, j, 0] = (inputImage.GetPixel(i,j).r - mean[0]) / stdd[0];
-                newTensor[0, i, j, 1] = (inputImage.GetPixel(i,j).g - mean[1]) / stdd[1];
-                newTensor[0, i, j, 2] = (inputImage.GetPixel(i,j).b - mean[2]) / stdd[2];
-
-                //Test
-                tex.SetPixel(
-                    i,
-                    j,
-                    new Color(
-                        newTensor[0, i, j, 0],
-                        newTensor[0, i, j, 1],
-                        newTensor[0, i, j, 2]
-                    ));
-            }
-        }
-        tex.Apply();
-        imageTarget.sprite = Sprite.Create(tex, new Rect(Vector3.zero, new Vector3(tex.width, tex.height)), Vector2.zero);
-        return newTensor;
-    }
-
     struct IndexValuePair
     {
         public int index;
@@ -116,6 +48,49 @@ public class TestingResNet : MonoBehaviour
         }
         return 0;
     }
+    void LoadLookup()
+    {
+        wordsLookup = new Dictionary<int, string>();
+        string text = wordsText.text;
+        string[] splitText = text.Split(new string[] { "\n" }, System.StringSplitOptions.None);
+        for (int i = 0; i < splitText.Length; i++)
+        {
+            wordsLookup.Add(i, splitText[i]);
+        }
+    }
+
+    Tensor Preprocess()
+    {
+        Tensor newTensor = new Tensor(1, inputImage.height, inputImage.width, 3);
+        //Test visualisation
+        Texture2D tex = new Texture2D(inputImage.height, inputImage.width);
+
+        float[] mean = new float[] { 0.485f, 0.456f, 0.406f };
+        float[] stdd = new float[] { 0.229f, 0.224f, 0.225f };
+
+        for (int i = 0; i < newTensor.height; i++)
+        {
+            for (int j = 0; j < newTensor.width; j++)
+            {
+                newTensor[0, i, j, 0] = (inputImage.GetPixel(i,j).r - mean[0]) / stdd[0];
+                newTensor[0, i, j, 1] = (inputImage.GetPixel(i,j).g - mean[1]) / stdd[1];
+                newTensor[0, i, j, 2] = (inputImage.GetPixel(i,j).b - mean[2]) / stdd[2];
+
+                //Test visualisation
+                tex.SetPixel(
+                    i,
+                    j,
+                    new Color(
+                        newTensor[0, i, j, 0],
+                        newTensor[0, i, j, 1],
+                        newTensor[0, i, j, 2]
+                    ));
+            }
+        }
+        tex.Apply();
+        imageTarget.sprite = Sprite.Create(tex, new Rect(Vector3.zero, new Vector3(tex.width, tex.height)), Vector2.zero);
+        return newTensor;
+    }
 
     void Postprocess(Tensor tensor)
     {
@@ -133,15 +108,25 @@ public class TestingResNet : MonoBehaviour
         textTarget5.text = $"5: {wordsLookup[indexList[indexList.Count-5].index]} ({indexList[indexList.Count-5].value})";
     }
 
-    void LoadLookup()
+    public void Run()
     {
-        wordsLookup = new Dictionary<int, string>();
-        string text = wordsText.text;
-        string[] splitText = text.Split(new string[] { "\n" }, System.StringSplitOptions.None);
-        for (int i = 0; i < splitText.Length; i++)
+        if(activeModel == null)
         {
-            wordsLookup.Add(i, splitText[i]);
+            if(models.Length == 0 || models[selectedModelIndex] == null) { return; }
+            activeModel = models[selectedModelIndex];
         }
+
+        Init();
+
+        _worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, _runtimeModel);
+
+        Tensor input = Preprocess();
+        _worker.Execute(input);
+        Tensor output = _worker.PeekOutput(_runtimeModel.outputs[_runtimeModel.outputs.Count - 1]);         //"resnetv22_dense0_fwd"
+        Postprocess(output);
+
+        input.Dispose();
+        _worker?.Dispose();
     }
 }
 
