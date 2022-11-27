@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,13 +25,21 @@ namespace SSL
     public class SwordGraph
     {
         SElement[] _nodes;
-        int _firstNode;
         Dictionary<int, int[]> _edges;
 
         //Parser?
         public void Build()
         {
 
+        }
+
+        public void Init()
+        {
+            SLiminal tester = new SLiminal();
+            _nodes = new SElement[] { tester };
+            _edges = new Dictionary<int, int[]>();
+            _edges.Add(0, new int[0]);
+            tester.Build(1, new Vector3(6f, 30f, 2f), 10, new Vector3[0], new SplineParams());
         }
 
         public Mesh Generate()
@@ -41,7 +50,7 @@ namespace SSL
             Mesh newMesh = new Mesh();
             Dictionary<SElement, bool> completionLookup = new Dictionary<SElement, bool>();
             Stack<SElement> stack = new Stack<SElement>();
-            int currentNodeIndex = _firstNode;
+            int currentNodeIndex = 0;
             stack.Push(_nodes[currentNodeIndex]);
 
             //Populate completion lookup
@@ -59,14 +68,13 @@ namespace SSL
                 {
                     //Get mesh
                     Mesh subMesh = currentNode.GetMesh();
-
+                    return subMesh;
                     //Merge into one mesh and reposition m2
-                    CombineInstance[] combine = new CombineInstance[2];
-                    combine[0].mesh = newMesh;
-                    combine[1].mesh = subMesh;
+                    CombineInstance[] combine = new CombineInstance[1];
+                    combine[0].mesh = subMesh;
                     //combine[1].transform = some math magic
-
                     newMesh.CombineMeshes(combine);
+                    Debug.Log(newMesh.vertexCount);
                     completionLookup[currentNode] = true;
                 }
 
@@ -105,7 +113,80 @@ namespace SSL
 
         public void Build(int subdiv, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
         {
-            throw new System.NotImplementedException();
+            mesh = new Mesh();
+            List<Vector3> allVerts = new List<Vector3>();
+            int loopLen = (int)Math.Pow(4, subdiv);
+
+            //Create Verts
+            for (int i = 0; i < nLoops; i++)
+            {
+                Vector3[] verts = new Vector3[loopLen];
+
+                float yOffset = (size.y / nLoops) * (i + 1);
+                int quartOfLength = verts.Length / 4;
+                verts[0]                 = new Vector3(-size.x/2, yOffset, -size.z/2);
+                verts[quartOfLength]     = new Vector3( size.x/2, yOffset, -size.z/2);
+                verts[quartOfLength * 2] = new Vector3( size.x/2, yOffset,  size.z/2);
+                verts[quartOfLength * 3] = new Vector3(-size.x/2, yOffset,  size.z/2);
+
+                //Between 0-1
+                for (int j = 1; j < quartOfLength; j++)
+                {
+                    verts[j] = new Vector3((-size.x / 2) + ((size.x / quartOfLength) * j) , yOffset, -size.z / 2);
+                }
+                //Between 1-2
+                for (int j = quartOfLength + 1; j < quartOfLength * 2; j++)
+                {
+                    verts[j] = new Vector3(size.x / 2, yOffset, (-size.z / 2) + ((size.z / quartOfLength) * j));
+                }
+                //Between 2-3
+                for (int j = (quartOfLength * 2) + 1; j < quartOfLength * 3; j++)
+                {
+                    verts[j] = new Vector3((size.x / 2) - ((size.x / quartOfLength) * j), yOffset, size.z / 2);
+                }
+                //Between 3-0
+                for (int j = (quartOfLength * 3) + 1; j < verts.Length; j++)
+                {
+                    verts[j] = new Vector3(-size.x / 2, yOffset, (size.z / 2) - ((size.z / quartOfLength) * j));
+                }
+                allVerts.AddRange(verts);
+            }
+
+            //Create Tris
+            List<int> allTris = new List<int>();
+            for (int i = 1; i < nLoops; i++)
+            {
+                for (int j = 0; j < loopLen; j++)
+                {
+                    int nxt1 = (loopLen * i) + (j + 1);
+                    if (nxt1 >= loopLen * (i + 1))
+                        nxt1 = loopLen * i;
+
+                    int nxt2 = (loopLen * (i - 1)) + (j + 1);
+                    if (nxt2 >= loopLen * i)
+                        nxt2 = loopLen * (i - 1);
+
+                    //Clockwise!!!
+                    int[] tris = new int[] { (loopLen * i) + j, nxt1, nxt2,
+                                             (loopLen * i) + j, nxt2, (loopLen * (i - 1)) + j };
+
+                    /*  //Counter-clockwise
+                    int prev = (loopLen * i) + (j - 1);
+
+                    if (prev == -1)
+                        prev = loopLen - 1;
+
+                    int[] tris = new int[] { (loopLen * i) + j, prev                   , (loopLen * (i - 1)) + j,
+                                             (loopLen * i) + j, (loopLen * (i - 1)) + j, (loopLen * (i - 1)) + (j + 1) };
+                    */
+
+                    allTris.AddRange(tris);
+                }
+            }
+
+
+            mesh.vertices  = allVerts.ToArray();
+            mesh.triangles = allTris.ToArray();
         }
     }
 
