@@ -39,7 +39,17 @@ namespace SSL
             _nodes = new SElement[] { tester };
             _edges = new Dictionary<int, int[]>();
             _edges.Add(0, new int[0]);
-            tester.Build(1, new Vector3(6f, 30f, 2f), 10, new Vector3[0], new SplineParams());
+            var offsets = new Vector3[] { 
+                new Vector3(1.5f, 0f, .5f), 
+                Vector3.zero, 
+                new Vector3(-1.5f, 0f, .5f),
+                Vector3.zero,
+                new Vector3(-1.5f, 0f, -.5f),
+                Vector3.zero,
+                new Vector3(1.5f, 0f, -.5f),
+                Vector3.zero
+            };
+            tester.Build(1, new Vector3(10f, 30f, 2f), 10, offsets, new SplineParams());
         }
 
         public Mesh Generate()
@@ -115,8 +125,25 @@ namespace SSL
         {
             mesh = new Mesh();
             List<Vector3> allVerts = new List<Vector3>();
-            int loopLen = (int)Math.Pow(4, subdiv);
+            int loopLen = 4 * (int)Math.Pow(2, subdiv);
 
+            //Ensure deforms matches looplen
+            if(deforms.Length != loopLen)
+            {
+                List<Vector3> d = new List<Vector3>(deforms);
+                if (d.Count > loopLen)
+                    d.RemoveRange(loopLen, d.Count);
+                else if (d.Count < loopLen)
+                {
+                    int diff = loopLen - d.Count;
+                    for (int i = 0; i < diff; i++)
+                    {
+                        d.Add(Vector3.zero);
+                    }
+                }
+                deforms = d.ToArray();
+            }
+            Debug.Log(deforms[0]);
             //Create Verts
             for (int i = 0; i < nLoops; i++)
             {
@@ -124,30 +151,53 @@ namespace SSL
 
                 float yOffset = (size.y / nLoops) * (i + 1);
                 int quartOfLength = verts.Length / 4;
-                verts[0]                 = new Vector3(-size.x/2, yOffset, -size.z/2);
-                verts[quartOfLength]     = new Vector3( size.x/2, yOffset, -size.z/2);
-                verts[quartOfLength * 2] = new Vector3( size.x/2, yOffset,  size.z/2);
-                verts[quartOfLength * 3] = new Vector3(-size.x/2, yOffset,  size.z/2);
-
+                verts[0]                 = new Vector3(-size.x/2, yOffset, -size.z/2) + deforms[0];
+                verts[quartOfLength]     = new Vector3( size.x/2, yOffset, -size.z/2) + deforms[quartOfLength];
+                verts[quartOfLength * 2] = new Vector3( size.x/2, yOffset,  size.z/2) + deforms[quartOfLength * 2];
+                verts[quartOfLength * 3] = new Vector3(-size.x/2, yOffset,  size.z/2) + deforms[quartOfLength * 3];
+                //Debug.Log($"vertsL= {verts.Length}");
                 //Between 0-1
                 for (int j = 1; j < quartOfLength; j++)
                 {
-                    verts[j] = new Vector3((-size.x / 2) + ((size.x / quartOfLength) * j) , yOffset, -size.z / 2);
+                    Vector3 baseOffset = new Vector3(
+                        (-size.x / 2) + ((size.x / quartOfLength) * j),
+                        yOffset,
+                        -size.z / 2
+                        );
+                    verts[j] = baseOffset + deforms[j];
+                    //Debug.Log($"j1= {j}");
                 }
                 //Between 1-2
                 for (int j = quartOfLength + 1; j < quartOfLength * 2; j++)
                 {
-                    verts[j] = new Vector3(size.x / 2, yOffset, (-size.z / 2) + ((size.z / quartOfLength) * j));
+                     Vector3 baseOffset = new Vector3(
+                        size.x / 2,
+                        yOffset,
+                        (-size.z / 2) + ((size.z / quartOfLength) * (j - quartOfLength))
+                        );
+                    verts[j] = baseOffset + deforms[j];
+                    //Debug.Log($"j2= {j}");
                 }
                 //Between 2-3
                 for (int j = (quartOfLength * 2) + 1; j < quartOfLength * 3; j++)
                 {
-                    verts[j] = new Vector3((size.x / 2) - ((size.x / quartOfLength) * j), yOffset, size.z / 2);
+                    Vector3 baseOffset = new Vector3(
+                        (size.x / 2) - ((size.x / quartOfLength) * (j - (quartOfLength * 2))),
+                        yOffset,
+                        size.z / 2
+                        );
+                    verts[j] = baseOffset + deforms[j];
+                    //Debug.Log($"j3= {j}");
                 }
                 //Between 3-0
                 for (int j = (quartOfLength * 3) + 1; j < verts.Length; j++)
                 {
-                    verts[j] = new Vector3(-size.x / 2, yOffset, (size.z / 2) - ((size.z / quartOfLength) * j));
+                    verts[j] = new Vector3(
+                        -size.x / 2,
+                        yOffset,
+                        (size.z / 2) - ((size.z / quartOfLength) * (j - (quartOfLength * 3)))
+                        );
+                    //Debug.Log($"j4= {j}");
                 }
                 allVerts.AddRange(verts);
             }
