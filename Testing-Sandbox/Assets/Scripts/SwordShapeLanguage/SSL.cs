@@ -28,28 +28,13 @@ namespace SSL
         Dictionary<int, int[]> _edges;
 
         //Parser?
-        public void Build()
+        public void Build(int subdiv, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
         {
-
-        }
-
-        public void Init()
-        {
-            SLiminal tester = new SLiminal();
+            STransit tester = new STransit();
             _nodes = new SElement[] { tester };
             _edges = new Dictionary<int, int[]>();
             _edges.Add(0, new int[0]);
-            var offsets = new Vector3[] { 
-                new Vector3(1.5f, 0f, .5f), 
-                Vector3.zero, 
-                new Vector3(-1.5f, 0f, .5f),
-                Vector3.zero,
-                new Vector3(-1.5f, 0f, -.5f),
-                Vector3.zero,
-                new Vector3(1.5f, 0f, -.5f),
-                Vector3.zero
-            };
-            tester.Build(1, new Vector3(10f, 30f, 2f), 10, offsets, new SplineParams());
+            tester.Build(subdiv, size, nLoops, deforms, new SplineParams());
         }
 
         public Mesh Generate()
@@ -103,7 +88,23 @@ namespace SSL
                 if (!nextFound)
                     stack.Pop();
             }
+            newMesh.RecalculateNormals();
             return newMesh;
+        }
+    }
+
+    public struct TransitNodeParams
+    {
+        public int nLoops;
+        public Vector3 size;
+        public Vector3[] deforms;
+        public SplineParams sParams;
+        public TransitNodeParams(int loops, Vector3 size, Vector3[] deformations, SplineParams splineParams)
+        {
+            this.nLoops = loops;
+            this.size = size;
+            this.deforms = deformations;
+            this.sParams = splineParams;
         }
     }
 
@@ -116,10 +117,99 @@ namespace SSL
     {
         protected Mesh mesh;
         public Mesh GetMesh() => mesh;
+
+        protected Vector3[] Redeform(Vector3[] deforms, int targetLength)
+        {
+            Vector3[] newD = new Vector3[targetLength];
+            int factorDiff = 0;
+            int dLen = deforms.Length;
+            int counter = 0;
+            while (dLen != targetLength)
+            {
+                if (counter > 10)
+                {
+                    dLen = targetLength;
+                    throw new Exception("deforms is not an acceptable length");
+                }
+                if (dLen > targetLength)
+                {
+                    dLen /= 2;
+                    factorDiff--;
+                }
+                else if (dLen < targetLength)
+                {
+                    dLen *= 2;
+                    factorDiff++;
+                }
+                counter++;
+            }
+
+            if (factorDiff < 0)
+            {
+                //Debug.Log(factorDiff);
+                int factorDiffPositive = factorDiff * -1;
+                int interval = (int)Math.Pow(2, factorDiffPositive);
+                int index = 0;
+                for (int i = 0; i < deforms.Length; i += interval)
+                {
+                    //Debug.Log($"{index}, {i}");
+                    newD[index] = deforms[i];
+                    index++;
+                }
+                //Debug.Log(newD[newD.Length-1]);
+            }
+            else if (factorDiff > 0)
+            {
+                int interval = (int)Math.Pow(2, factorDiff);
+                int index = 0;
+                int[] keyVerts = new int[deforms.Length];
+                for (int i = 0; i < newD.Length; i++)
+                {
+                    if (i % interval == 0)
+                    {
+                        keyVerts[index] = i;
+                        newD[i] = deforms[index];
+                        index++;
+                    }
+                }
+
+                for (int i = 0; i < keyVerts.Length; i++)
+                {
+                    int nextKV = i + 1;
+                    if (nextKV == keyVerts.Length)
+                    {
+                        nextKV = 0;
+                        for (int j = 1; j < keyVerts[1]; j++)
+                        {
+                            newD[keyVerts[i] + j] = new Vector3(
+                                Mathf.Lerp(newD[keyVerts[i]].x, newD[keyVerts[nextKV]].x, 1f / interval),
+                                Mathf.Lerp(newD[keyVerts[i]].y, newD[keyVerts[nextKV]].y, 1f / interval),
+                                Mathf.Lerp(newD[keyVerts[i]].z, newD[keyVerts[nextKV]].z, 1f / interval));
+                        }
+                    }
+                    else
+                    {
+                        for (int j = keyVerts[i] + 1; j < keyVerts[nextKV]; j++)
+                        {
+                            newD[j] = new Vector3(
+                                Mathf.Lerp(newD[keyVerts[i]].x, newD[keyVerts[nextKV]].x, 1f / interval),
+                                Mathf.Lerp(newD[keyVerts[i]].y, newD[keyVerts[nextKV]].y, 1f / interval),
+                                Mathf.Lerp(newD[keyVerts[i]].z, newD[keyVerts[nextKV]].z, 1f / interval));
+                        }
+                    }
+                }
+            }
+            return newD;
+        }
     }
 
-    public class SLiminal : SElement
+    public class STransit : SElement
     {
+
+        public void Build(int subdiv, TransitNodeParams parameters)
+        {
+            Build(subdiv, parameters.size, parameters.nLoops, parameters.deforms, parameters.sParams);
+        }
 
         public void Build(int subdiv, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
         {
@@ -130,20 +220,9 @@ namespace SSL
             //Ensure deforms matches looplen
             if(deforms.Length != loopLen)
             {
-                List<Vector3> d = new List<Vector3>(deforms);
-                if (d.Count > loopLen)
-                    d.RemoveRange(loopLen, d.Count);
-                else if (d.Count < loopLen)
-                {
-                    int diff = loopLen - d.Count;
-                    for (int i = 0; i < diff; i++)
-                    {
-                        d.Add(Vector3.zero);
-                    }
-                }
-                deforms = d.ToArray();
+                deforms = Redeform(deforms, loopLen);
             }
-            Debug.Log(deforms[0]);
+            //Debug.Log(deforms[0]);
             //Create Verts
             for (int i = 0; i < nLoops; i++)
             {
@@ -192,11 +271,12 @@ namespace SSL
                 //Between 3-0
                 for (int j = (quartOfLength * 3) + 1; j < verts.Length; j++)
                 {
-                    verts[j] = new Vector3(
+                    Vector3 baseOffset = new Vector3(
                         -size.x / 2,
                         yOffset,
                         (size.z / 2) - ((size.z / quartOfLength) * (j - (quartOfLength * 3)))
                         );
+                    verts[j] = baseOffset + deforms[j];
                     //Debug.Log($"j4= {j}");
                 }
                 allVerts.AddRange(verts);
