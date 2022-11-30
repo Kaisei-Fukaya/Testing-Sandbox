@@ -26,15 +26,14 @@ namespace SSL
     {
         SElement[] _nodes;
         Dictionary<int, int[]> _edges;
+        int _subdiv;
 
         //Parser?
-        public void Build(int subdiv, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
+        public void Load(int subdivisions, SElement[] nodes, Dictionary<int, int[]> edges)
         {
-            STransit tester = new STransit();
-            _nodes = new SElement[] { tester };
-            _edges = new Dictionary<int, int[]>();
-            _edges.Add(0, new int[0]);
-            tester.Build(subdiv, size, nLoops, deforms, new SplineParams());
+            _nodes = nodes;
+            _edges = edges;
+            _subdiv = subdivisions;
         }
 
         public Mesh Generate()
@@ -63,13 +62,7 @@ namespace SSL
                 {
                     //Get mesh
                     Mesh subMesh = currentNode.GetMesh();
-                    return subMesh;
-                    //Merge into one mesh and reposition m2
-                    CombineInstance[] combine = new CombineInstance[1];
-                    combine[0].mesh = subMesh;
-                    //combine[1].transform = some math magic
-                    newMesh.CombineMeshes(combine);
-                    Debug.Log(newMesh.vertexCount);
+                    newMesh = JoinMeshes(newMesh, subMesh, _subdiv);
                     completionLookup[currentNode] = true;
                 }
 
@@ -91,8 +84,51 @@ namespace SSL
             newMesh.RecalculateNormals();
             return newMesh;
         }
+
+        Mesh JoinMeshes(Mesh meshA, Mesh meshB, int subdiv)
+        {
+            int vertCount = meshA.vertexCount;
+            //Merge into one mesh and reposition m2
+
+            //combine[0].transform = 
+            Mesh outMesh = new Mesh();
+            List<Vector3> newVerts = new List<Vector3>(meshA.vertices);
+            Vector3[] bVerts = meshB.vertices;
+            for (int i = 0; i < bVerts.Length; i++)
+            {
+                bVerts[i].y += newVerts[newVerts.Count - 1].y;
+            }
+            int[] bTriangs = meshB.triangles;
+            for (int i = 0; i < bTriangs.Length; i++)
+            {
+                bTriangs[i] += vertCount;
+            }
+            newVerts.AddRange(bVerts);
+            outMesh.vertices = newVerts.ToArray();
+
+            int loopLen = 4 * (int)Math.Pow(2, subdiv);
+            List<int> newTriangs = new List<int>(meshA.triangles);
+            newTriangs.AddRange(bTriangs);
+            for (int i = 0; i < loopLen; i++)
+            {
+                int nxt1 = (vertCount) + (i + 1);
+                if (nxt1 >= vertCount + loopLen)
+                    nxt1 = vertCount;
+
+                int nxt2 = (vertCount - loopLen) + (i + 1);
+                if (nxt2 >= vertCount)
+                    nxt2 = vertCount - loopLen;
+
+                newTriangs.AddRange(new int[6] { (vertCount) + i, nxt1, nxt2,
+                                                 (vertCount) + i, nxt2, (vertCount - loopLen) + i });
+            }
+            outMesh.triangles = newTriangs.ToArray();
+            //Debug.Log(newMesh.vertexCount);
+            return outMesh;
+        }
     }
 
+    [Serializable]
     public struct TransitNodeParams
     {
         public int nLoops;
@@ -203,9 +239,15 @@ namespace SSL
         }
     }
 
+    [Serializable]
     public class STransit : SElement
     {
+        [SerializeField] TransitNodeParams storedParameters;
 
+        public void Build(int subdivs)
+        {
+            Build(subdivs, storedParameters);
+        }
         public void Build(int subdiv, TransitNodeParams parameters)
         {
             Build(subdiv, parameters.size, parameters.nLoops, parameters.deforms, parameters.sParams);
@@ -216,6 +258,7 @@ namespace SSL
             mesh = new Mesh();
             List<Vector3> allVerts = new List<Vector3>();
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
+            nLoops += 2;
 
             //Ensure deforms matches looplen
             if(deforms.Length != loopLen)
@@ -228,7 +271,7 @@ namespace SSL
             {
                 Vector3[] verts = new Vector3[loopLen];
 
-                float yOffset = (size.y / nLoops) * (i + 1);
+                float yOffset = (size.y / (nLoops-1)) * i;
                 int quartOfLength = verts.Length / 4;
                 verts[0]                 = new Vector3(-size.x/2, yOffset, -size.z/2) + deforms[0];
                 verts[quartOfLength]     = new Vector3( size.x/2, yOffset, -size.z/2) + deforms[quartOfLength];

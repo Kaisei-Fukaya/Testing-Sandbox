@@ -8,10 +8,9 @@ public class SwordCreator : MonoBehaviour
 {
     [Range(0, 5)]
     [SerializeField] int _subdiv;
-    [Range(2, 20)]
-    [SerializeField] int _loops;
-    [SerializeField] Vector3 _size = Vector3.one;
     [SerializeField] List<Vector3> _deforms;
+    [SerializeField] STransit[] _nodes;
+    [SerializeField] List<NestedList> _edges;
 
     SwordGraph sg;
     MeshFilter mf;
@@ -27,13 +26,37 @@ public class SwordCreator : MonoBehaviour
             sg = new SwordGraph();
         if (mf == null)
             mf = GetComponent<MeshFilter>();
-        sg.Build(_subdiv, _size, _loops, _deforms.ToArray(), new SplineParams());
+        BuildNodes();
+        Dictionary<int, int[]> edgesConverted = new Dictionary<int, int[]>();
+        for (int i = 0; i < _edges.Count; i++)
+        {
+            edgesConverted.Add(i, _edges[i].val.ToArray());
+        }
+        sg.Load(_subdiv, _nodes, edgesConverted);
         Mesh m = sg.Generate();
         mf.mesh = m;
+    }
+
+    void BuildNodes()
+    {
+        for (int i = 0; i < _nodes.Length; i++)
+        {
+            if (_nodes[i] is STransit)
+            {
+                var n = (STransit)_nodes[i];
+                n.Build(_subdiv);
+            }
+        }
     }
 
     void OnValidate()
     {
         Gen();
+    }
+
+    [System.Serializable]
+    public class NestedList
+    {
+        public List<int> val;
     }
 }
