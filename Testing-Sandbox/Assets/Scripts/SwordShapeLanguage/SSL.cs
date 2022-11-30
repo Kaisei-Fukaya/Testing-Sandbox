@@ -27,13 +27,15 @@ namespace SSL
         SElement[] _nodes;
         Dictionary<int, int[]> _edges;
         int _subdiv;
+        float _elementSpacing;
 
         //Parser?
-        public void Load(int subdivisions, SElement[] nodes, Dictionary<int, int[]> edges)
+        public void Load(int subdivisions, float elementSpacing, SElement[] nodes, Dictionary<int, int[]> edges)
         {
             _nodes = nodes;
             _edges = edges;
             _subdiv = subdivisions;
+            _elementSpacing = elementSpacing;
         }
 
         public Mesh Generate()
@@ -62,7 +64,7 @@ namespace SSL
                 {
                     //Get mesh
                     Mesh subMesh = currentNode.GetMesh();
-                    newMesh = JoinMeshes(newMesh, subMesh, _subdiv);
+                    newMesh = JoinMeshes(newMesh, subMesh, _elementSpacing, _subdiv);
                     completionLookup[currentNode] = true;
                 }
 
@@ -85,18 +87,23 @@ namespace SSL
             return newMesh;
         }
 
-        Mesh JoinMeshes(Mesh meshA, Mesh meshB, int subdiv)
+        Mesh JoinMeshes(Mesh meshA, Mesh meshB, float elementSpacing, int subdiv)
         {
             int vertCount = meshA.vertexCount;
-            //Merge into one mesh and reposition m2
 
-            //combine[0].transform = 
+            if(vertCount == 0)
+            {
+                return meshB;
+            }
+
+            //Merge into one mesh and reposition mb
+
             Mesh outMesh = new Mesh();
             List<Vector3> newVerts = new List<Vector3>(meshA.vertices);
             Vector3[] bVerts = meshB.vertices;
             for (int i = 0; i < bVerts.Length; i++)
             {
-                bVerts[i].y += newVerts[newVerts.Count - 1].y;
+                bVerts[i].y += (newVerts[newVerts.Count - 1].y + elementSpacing);
             }
             int[] bTriangs = meshB.triangles;
             for (int i = 0; i < bTriangs.Length; i++)
@@ -180,6 +187,7 @@ namespace SSL
                 counter++;
             }
 
+            //Reduce
             if (factorDiff < 0)
             {
                 //Debug.Log(factorDiff);
@@ -188,12 +196,11 @@ namespace SSL
                 int index = 0;
                 for (int i = 0; i < deforms.Length; i += interval)
                 {
-                    //Debug.Log($"{index}, {i}");
                     newD[index] = deforms[i];
                     index++;
                 }
-                //Debug.Log(newD[newD.Length-1]);
             }
+            //Interpolate
             else if (factorDiff > 0)
             {
                 int interval = (int)Math.Pow(2, factorDiff);
@@ -218,9 +225,9 @@ namespace SSL
                         for (int j = 1; j < keyVerts[1]; j++)
                         {
                             newD[keyVerts[i] + j] = new Vector3(
-                                Mathf.Lerp(newD[keyVerts[i]].x, newD[keyVerts[nextKV]].x, 1f / interval),
-                                Mathf.Lerp(newD[keyVerts[i]].y, newD[keyVerts[nextKV]].y, 1f / interval),
-                                Mathf.Lerp(newD[keyVerts[i]].z, newD[keyVerts[nextKV]].z, 1f / interval));
+                                Mathf.Lerp(newD[keyVerts[i]].x, newD[keyVerts[nextKV]].x, (1f / interval) * (j)),
+                                Mathf.Lerp(newD[keyVerts[i]].y, newD[keyVerts[nextKV]].y, (1f / interval) * (j)),
+                                Mathf.Lerp(newD[keyVerts[i]].z, newD[keyVerts[nextKV]].z, (1f / interval) * (j)));
                         }
                     }
                     else
@@ -228,9 +235,9 @@ namespace SSL
                         for (int j = keyVerts[i] + 1; j < keyVerts[nextKV]; j++)
                         {
                             newD[j] = new Vector3(
-                                Mathf.Lerp(newD[keyVerts[i]].x, newD[keyVerts[nextKV]].x, 1f / interval),
-                                Mathf.Lerp(newD[keyVerts[i]].y, newD[keyVerts[nextKV]].y, 1f / interval),
-                                Mathf.Lerp(newD[keyVerts[i]].z, newD[keyVerts[nextKV]].z, 1f / interval));
+                                Mathf.Lerp(newD[keyVerts[i]].x, newD[keyVerts[nextKV]].x, (1f / interval) * (j - keyVerts[i] + 1)),
+                                Mathf.Lerp(newD[keyVerts[i]].y, newD[keyVerts[nextKV]].y, (1f / interval) * (j - keyVerts[i] + 1)),
+                                Mathf.Lerp(newD[keyVerts[i]].z, newD[keyVerts[nextKV]].z, (1f / interval) * (j - keyVerts[i] + 1)));
                         }
                     }
                 }

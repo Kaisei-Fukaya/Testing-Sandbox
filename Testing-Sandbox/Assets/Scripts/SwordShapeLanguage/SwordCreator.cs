@@ -9,6 +9,7 @@ public class SwordCreator : MonoBehaviour
     [Range(0, 5)]
     [SerializeField] int _subdiv;
     [SerializeField] List<Vector3> _deforms;
+    [SerializeField] float _spacing;
     [SerializeField] STransit[] _nodes;
     [SerializeField] List<NestedList> _edges;
 
@@ -32,7 +33,7 @@ public class SwordCreator : MonoBehaviour
         {
             edgesConverted.Add(i, _edges[i].val.ToArray());
         }
-        sg.Load(_subdiv, _nodes, edgesConverted);
+        sg.Load(_subdiv, _spacing, _nodes, edgesConverted);
         Mesh m = sg.Generate();
         mf.mesh = m;
     }
