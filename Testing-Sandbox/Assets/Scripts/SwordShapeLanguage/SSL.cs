@@ -40,7 +40,7 @@ namespace SSL
 
         public Mesh Generate()
         {
-            if (!(_nodes.Length > 0))
+            if (!(_nodes.Length > 0) || _edges.Count < _nodes.Length)
                 return new Mesh();
 
             Mesh newMesh = new Mesh();
@@ -138,13 +138,17 @@ namespace SSL
     [Serializable]
     public struct TransitNodeParams
     {
+        [Min(0)]
         public int nLoops;
+        [Min(0f)]
+        public float rounding;
         public Vector3 size;
         public Vector3[] deforms;
         public SplineParams sParams;
-        public TransitNodeParams(int loops, Vector3 size, Vector3[] deformations, SplineParams splineParams)
+        public TransitNodeParams(int loops, float rounding, Vector3 size, Vector3[] deformations, SplineParams splineParams)
         {
             this.nLoops = loops;
+            this.rounding = rounding;
             this.size = size;
             this.deforms = deformations;
             this.sParams = splineParams;
@@ -161,7 +165,7 @@ namespace SSL
         protected Mesh mesh;
         public Mesh GetMesh() => mesh;
 
-        protected Vector3[] Redeform(Vector3[] deforms, int targetLength)
+        protected Vector3[] Redeform(Vector3[] deforms, int targetLength, out int[][] roundingRanges)
         {
             Vector3[] newD = new Vector3[targetLength];
             int factorDiff = 0;
@@ -186,11 +190,10 @@ namespace SSL
                 }
                 counter++;
             }
-
             //Reduce
+            roundingRanges = new int[0][];
             if (factorDiff < 0)
             {
-                //Debug.Log(factorDiff);
                 int factorDiffPositive = factorDiff * -1;
                 int interval = (int)Math.Pow(2, factorDiffPositive);
                 int index = 0;
@@ -203,9 +206,10 @@ namespace SSL
             //Interpolate
             else if (factorDiff > 0)
             {
-                int interval = (int)Math.Pow(2, factorDiff);
                 int index = 0;
+                int interval = (int)Math.Pow(2, factorDiff);
                 int[] keyVerts = new int[deforms.Length];
+                roundingRanges = new int[deforms.Length][];
                 for (int i = 0; i < newD.Length; i++)
                 {
                     if (i % interval == 0)
@@ -219,25 +223,31 @@ namespace SSL
                 for (int i = 0; i < keyVerts.Length; i++)
                 {
                     int nextKV = i + 1;
+                    int roundingCounter = 0;
+                    roundingRanges[i] = new int[interval - 1];
                     if (nextKV == keyVerts.Length)
                     {
                         nextKV = 0;
                         for (int j = 1; j < keyVerts[1]; j++)
                         {
+                            roundingRanges[i][roundingCounter] = keyVerts[i] + j;
                             newD[keyVerts[i] + j] = new Vector3(
                                 Mathf.Lerp(newD[keyVerts[i]].x, newD[keyVerts[nextKV]].x, (1f / interval) * (j)),
                                 Mathf.Lerp(newD[keyVerts[i]].y, newD[keyVerts[nextKV]].y, (1f / interval) * (j)),
                                 Mathf.Lerp(newD[keyVerts[i]].z, newD[keyVerts[nextKV]].z, (1f / interval) * (j)));
+                            roundingCounter++;
                         }
                     }
                     else
                     {
                         for (int j = keyVerts[i] + 1; j < keyVerts[nextKV]; j++)
                         {
+                            roundingRanges[i][roundingCounter] = j;
                             newD[j] = new Vector3(
                                 Mathf.Lerp(newD[keyVerts[i]].x, newD[keyVerts[nextKV]].x, (1f / interval) * (j - keyVerts[i])),
                                 Mathf.Lerp(newD[keyVerts[i]].y, newD[keyVerts[nextKV]].y, (1f / interval) * (j - keyVerts[i])),
                                 Mathf.Lerp(newD[keyVerts[i]].z, newD[keyVerts[nextKV]].z, (1f / interval) * (j - keyVerts[i])));
+                            roundingCounter++;
                         }
                     }
                 }
@@ -257,12 +267,13 @@ namespace SSL
         }
         public void Build(int subdiv, TransitNodeParams parameters)
         {
-            Build(subdiv, parameters.size, parameters.nLoops, parameters.deforms, parameters.sParams);
+            Build(subdiv, parameters.rounding, parameters.size, parameters.nLoops, parameters.deforms, parameters.sParams);
         }
 
-        public void Build(int subdiv, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
+        public void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
         {
             mesh = new Mesh();
+            int[][] roundingRanges = new int[0][];
             List<Vector3> allVerts = new List<Vector3>();
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
             nLoops += 2;
@@ -270,7 +281,7 @@ namespace SSL
             //Ensure deforms matches looplen
             if(deforms.Length != loopLen)
             {
-                deforms = Redeform(deforms, loopLen);
+                deforms = Redeform(deforms, loopLen, out roundingRanges);
             }
             //Debug.Log(deforms[0]);
             //Create Verts
@@ -367,6 +378,51 @@ namespace SSL
 
             mesh.vertices  = allVerts.ToArray();
             mesh.triangles = allTris.ToArray();
+            mesh.RecalculateNormals();
+
+            //Apply rounding
+            for (int i = 0; i < nLoops; i++)
+            {
+                for (int j = 0; j < roundingRanges.Length; j++)
+                {
+                    for (int k = 0; k < roundingRanges[j].Length; k++)
+                    {
+                        float roundingAmount = 0f;
+                        if (k > roundingRanges[j].Length / 2)
+                        {
+                            roundingAmount = 1f - Mathf.InverseLerp(roundingRanges[j].Length / 2, roundingRanges[j].Length, k);
+                        }
+                        else
+                        {
+                            roundingAmount = Mathf.InverseLerp(0, roundingRanges[j].Length / 2, k);
+                        }
+
+                        allVerts[roundingRanges[j][k] + (i * loopLen)] += 
+                            mesh.normals[roundingRanges[j][k] + 
+                            (i * loopLen)].normalized * 
+                            Mathf.Lerp(
+                                0, 
+                                rounding, 
+                                roundingAmount + (rounding * .3f)
+                            );
+                    }
+                }
+            }
+
+            //Flatshade
+            //Vector3[] flatShadedVerts = new Vector3[allTris.Count];
+            //int[] flatShadedTris = new int[allTris.Count];
+            //for (int i = 0; i < allTris.Count; i++)
+            //{
+            //    flatShadedVerts[i] = allVerts[allTris[i]];
+            //    flatShadedTris[i] = i;
+            //}
+
+            mesh.vertices = allVerts.ToArray();
+            //mesh.vertices = flatShadedVerts;
+            //mesh.triangles = flatShadedTris;
+            mesh.RecalculateNormals();
+            mesh.RecalculateTangents();
         }
     }
 
