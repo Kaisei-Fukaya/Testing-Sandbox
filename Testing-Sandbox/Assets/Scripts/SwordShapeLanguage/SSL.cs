@@ -136,7 +136,7 @@ namespace SSL
     }
 
     [Serializable]
-    public struct TransitNodeParams
+    public struct NodeParams
     {
         [Min(0)]
         public int nLoops;
@@ -145,7 +145,7 @@ namespace SSL
         public Vector3 size;
         public Vector3[] deforms;
         public SplineParams sParams;
-        public TransitNodeParams(int loops, float rounding, Vector3 size, Vector3[] deformations, SplineParams splineParams)
+        public NodeParams(int loops, float rounding, Vector3 size, Vector3[] deformations, SplineParams splineParams)
         {
             this.nLoops = loops;
             this.rounding = rounding;
@@ -162,9 +162,18 @@ namespace SSL
 
     public abstract class SElement
     {
+        [SerializeField] NodeParams storedParameters;
         protected Mesh mesh;
         public Mesh GetMesh() => mesh;
-
+        public virtual void Build(int subdivs)
+        {
+            Build(subdivs, storedParameters);
+        }
+        public void Build(int subdiv, NodeParams parameters)
+        {
+            Build(subdiv, parameters.rounding, parameters.size, parameters.nLoops, parameters.deforms, parameters.sParams);
+        }
+        public abstract void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams);
         protected Vector3[] Redeform(Vector3[] deforms, int targetLength, out int[][] roundingRanges)
         {
             Vector3[] newD = new Vector3[targetLength];
@@ -259,18 +268,7 @@ namespace SSL
     [Serializable]
     public class STransit : SElement
     {
-        [SerializeField] TransitNodeParams storedParameters;
-
-        public void Build(int subdivs)
-        {
-            Build(subdivs, storedParameters);
-        }
-        public void Build(int subdiv, TransitNodeParams parameters)
-        {
-            Build(subdiv, parameters.rounding, parameters.size, parameters.nLoops, parameters.deforms, parameters.sParams);
-        }
-
-        public void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
+        public override void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
         {
             mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
@@ -429,18 +427,18 @@ namespace SSL
     public class SUnion : SElement
     {
 
-        public void Build(int subdiv, Vector3 size, int nLoops)
+        public override void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 
     public class STerminal : SElement
     {
 
-        public void Build(int subdiv, Vector3 size, int nLoops)
+        public override void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

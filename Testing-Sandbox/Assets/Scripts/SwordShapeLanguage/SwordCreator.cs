@@ -45,11 +45,7 @@ public class SwordCreator : MonoBehaviour
     {
         for (int i = 0; i < _nodes.Length; i++)
         {
-            if (_nodes[i] is STransit)
-            {
-                var n = (STransit)_nodes[i];
-                n.Build(_subdiv);
-            }
+                _nodes[i].Build(_subdiv);
         }
     }
 
