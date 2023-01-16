@@ -267,7 +267,7 @@ namespace SSL
             }
             else
             {
-                roundingAmount = Mathf.InverseLerp(0, roundingRanges[roundingRangeI].Length / 2, roundingRangeJ);
+                roundingAmount = Mathf.InverseLerp(-1, roundingRanges[roundingRangeI].Length / 2, roundingRangeJ);
             }
             return roundingAmount;
         }
@@ -480,22 +480,6 @@ namespace SSL
                 {
                     allTris.AddRange(BuildTriangles(loopLen, i, j));
                 }
-
-                //End-cap triangles
-                if(i == nLoops - 1)
-                {
-                    int[] endCap = new int[loopLen*3];
-                    for (int j = 0; j < endCap.Length/3; j++)
-                    {
-                        endCap[j * 3] = (i * loopLen) + j;
-                        endCap[(j * 3) + 1] = (i + 1) * loopLen;
-                        if(j == loopLen -1)
-                            endCap[(j * 3) + 2] = i * loopLen;
-                        else
-                            endCap[(j * 3) + 2] = (i * loopLen) + j + 1;
-                    }
-                    allTris.AddRange(endCap);
-                }
             }
 
 
@@ -523,7 +507,23 @@ namespace SSL
                 }
             }
 
+
+            //End-cap triangles
+            int refPoint = nLoops - 1;
+            int[] endCap = new int[loopLen * 3];
+            for (int j = 0; j < endCap.Length / 3; j++)
+            {
+                endCap[j * 3] = (refPoint * loopLen) + j;
+                endCap[(j * 3) + 1] = (refPoint + 1) * loopLen;
+                if (j == loopLen - 1)
+                    endCap[(j * 3) + 2] = refPoint * loopLen;
+                else
+                    endCap[(j * 3) + 2] = (refPoint * loopLen) + j + 1;
+            }
+            allTris.AddRange(endCap);
+
             mesh.vertices = allVerts.ToArray();
+            mesh.triangles = allTris.ToArray();
             mesh.RecalculateNormals();
             mesh.RecalculateTangents();
         }
