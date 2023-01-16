@@ -174,6 +174,102 @@ namespace SSL
             Build(subdiv, parameters.rounding, parameters.size, parameters.nLoops, parameters.deforms, parameters.sParams);
         }
         public abstract void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams);
+        protected Vector3[] BuildLoop(int loopLen, int nLoops, int index, Vector3 size, Vector3[] deforms)
+        {
+            Vector3[] verts = new Vector3[loopLen];
+
+            float yOffset = (size.y / (nLoops - 1)) * index;
+            int quartOfLength = verts.Length / 4;
+            verts[0] = new Vector3(-size.x / 2, yOffset, -size.z / 2) + deforms[0];
+            verts[quartOfLength] = new Vector3(size.x / 2, yOffset, -size.z / 2) + deforms[quartOfLength];
+            verts[quartOfLength * 2] = new Vector3(size.x / 2, yOffset, size.z / 2) + deforms[quartOfLength * 2];
+            verts[quartOfLength * 3] = new Vector3(-size.x / 2, yOffset, size.z / 2) + deforms[quartOfLength * 3];
+            //Debug.Log($"vertsL= {verts.Length}");
+            //Between 0-1
+            for (int j = 1; j < quartOfLength; j++)
+            {
+                Vector3 baseOffset = new Vector3(
+                    (-size.x / 2) + ((size.x / quartOfLength) * j),
+                    yOffset,
+                    -size.z / 2
+                    );
+                verts[j] = baseOffset + deforms[j];
+                //Debug.Log($"j1= {j}");
+            }
+            //Between 1-2
+            for (int j = quartOfLength + 1; j < quartOfLength * 2; j++)
+            {
+                Vector3 baseOffset = new Vector3(
+                   size.x / 2,
+                   yOffset,
+                   (-size.z / 2) + ((size.z / quartOfLength) * (j - quartOfLength))
+                   );
+                verts[j] = baseOffset + deforms[j];
+                //Debug.Log($"j2= {j}");
+            }
+            //Between 2-3
+            for (int j = (quartOfLength * 2) + 1; j < quartOfLength * 3; j++)
+            {
+                Vector3 baseOffset = new Vector3(
+                    (size.x / 2) - ((size.x / quartOfLength) * (j - (quartOfLength * 2))),
+                    yOffset,
+                    size.z / 2
+                    );
+                verts[j] = baseOffset + deforms[j];
+                //Debug.Log($"j3= {j}");
+            }
+            //Between 3-0
+            for (int j = (quartOfLength * 3) + 1; j < verts.Length; j++)
+            {
+                Vector3 baseOffset = new Vector3(
+                    -size.x / 2,
+                    yOffset,
+                    (size.z / 2) - ((size.z / quartOfLength) * (j - (quartOfLength * 3)))
+                    );
+                verts[j] = baseOffset + deforms[j];
+                //Debug.Log($"j4= {j}");
+            }
+            return verts;
+        }
+        protected int[] BuildTriangles(int loopLen, int loopIndex, int vertIndex)
+        {
+            int nxt1 = (loopLen * loopIndex) + (vertIndex + 1);
+            if (nxt1 >= loopLen * (loopIndex + 1))
+                nxt1 = loopLen * loopIndex;
+
+            int nxt2 = (loopLen * (loopIndex - 1)) + (vertIndex + 1);
+            if (nxt2 >= loopLen * loopIndex)
+                nxt2 = loopLen * (loopIndex - 1);
+
+            //Clockwise!!!
+            int[] tris = new int[] { (loopLen * loopIndex) + vertIndex, nxt1, nxt2,
+                                             (loopLen * loopIndex) + vertIndex, nxt2, (loopLen * (loopIndex - 1)) + vertIndex };
+
+            /*  //Counter-clockwise
+            int prev = (loopLen * i) + (j - 1);
+
+            if (prev == -1)
+                prev = loopLen - 1;
+
+            int[] tris = new int[] { (loopLen * i) + j, prev                   , (loopLen * (i - 1)) + j,
+                                     (loopLen * i) + j, (loopLen * (i - 1)) + j, (loopLen * (i - 1)) + (j + 1) };
+            */
+
+            return tris;
+        }
+        protected float GetRoundingAmount(int[][] roundingRanges, int roundingRangeI, int roundingRangeJ)
+        {
+            float roundingAmount = 0f;
+            if (roundingRangeJ > roundingRanges[roundingRangeI].Length / 2)
+            {
+                roundingAmount = 1f - Mathf.InverseLerp(roundingRanges[roundingRangeI].Length / 2, roundingRanges[roundingRangeI].Length, roundingRangeJ);
+            }
+            else
+            {
+                roundingAmount = Mathf.InverseLerp(0, roundingRanges[roundingRangeI].Length / 2, roundingRangeJ);
+            }
+            return roundingAmount;
+        }
         protected Vector3[] Redeform(Vector3[] deforms, int targetLength, out int[][] roundingRanges)
         {
             Vector3[] newD = new Vector3[targetLength];
@@ -268,6 +364,7 @@ namespace SSL
     [Serializable]
     public class STransit : SElement
     {
+
         public override void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
         {
             mesh = new Mesh();
@@ -281,64 +378,11 @@ namespace SSL
             {
                 deforms = Redeform(deforms, loopLen, out roundingRanges);
             }
-            //Debug.Log(deforms[0]);
+
             //Create Verts
             for (int i = 0; i < nLoops; i++)
             {
-                Vector3[] verts = new Vector3[loopLen];
-
-                float yOffset = (size.y / (nLoops-1)) * i;
-                int quartOfLength = verts.Length / 4;
-                verts[0]                 = new Vector3(-size.x/2, yOffset, -size.z/2) + deforms[0];
-                verts[quartOfLength]     = new Vector3( size.x/2, yOffset, -size.z/2) + deforms[quartOfLength];
-                verts[quartOfLength * 2] = new Vector3( size.x/2, yOffset,  size.z/2) + deforms[quartOfLength * 2];
-                verts[quartOfLength * 3] = new Vector3(-size.x/2, yOffset,  size.z/2) + deforms[quartOfLength * 3];
-                //Debug.Log($"vertsL= {verts.Length}");
-                //Between 0-1
-                for (int j = 1; j < quartOfLength; j++)
-                {
-                    Vector3 baseOffset = new Vector3(
-                        (-size.x / 2) + ((size.x / quartOfLength) * j),
-                        yOffset,
-                        -size.z / 2
-                        );
-                    verts[j] = baseOffset + deforms[j];
-                    //Debug.Log($"j1= {j}");
-                }
-                //Between 1-2
-                for (int j = quartOfLength + 1; j < quartOfLength * 2; j++)
-                {
-                     Vector3 baseOffset = new Vector3(
-                        size.x / 2,
-                        yOffset,
-                        (-size.z / 2) + ((size.z / quartOfLength) * (j - quartOfLength))
-                        );
-                    verts[j] = baseOffset + deforms[j];
-                    //Debug.Log($"j2= {j}");
-                }
-                //Between 2-3
-                for (int j = (quartOfLength * 2) + 1; j < quartOfLength * 3; j++)
-                {
-                    Vector3 baseOffset = new Vector3(
-                        (size.x / 2) - ((size.x / quartOfLength) * (j - (quartOfLength * 2))),
-                        yOffset,
-                        size.z / 2
-                        );
-                    verts[j] = baseOffset + deforms[j];
-                    //Debug.Log($"j3= {j}");
-                }
-                //Between 3-0
-                for (int j = (quartOfLength * 3) + 1; j < verts.Length; j++)
-                {
-                    Vector3 baseOffset = new Vector3(
-                        -size.x / 2,
-                        yOffset,
-                        (size.z / 2) - ((size.z / quartOfLength) * (j - (quartOfLength * 3)))
-                        );
-                    verts[j] = baseOffset + deforms[j];
-                    //Debug.Log($"j4= {j}");
-                }
-                allVerts.AddRange(verts);
+                allVerts.AddRange(BuildLoop(loopLen, nLoops, i, size, deforms));
             }
 
             //Create Tris
@@ -347,29 +391,7 @@ namespace SSL
             {
                 for (int j = 0; j < loopLen; j++)
                 {
-                    int nxt1 = (loopLen * i) + (j + 1);
-                    if (nxt1 >= loopLen * (i + 1))
-                        nxt1 = loopLen * i;
-
-                    int nxt2 = (loopLen * (i - 1)) + (j + 1);
-                    if (nxt2 >= loopLen * i)
-                        nxt2 = loopLen * (i - 1);
-
-                    //Clockwise!!!
-                    int[] tris = new int[] { (loopLen * i) + j, nxt1, nxt2,
-                                             (loopLen * i) + j, nxt2, (loopLen * (i - 1)) + j };
-
-                    /*  //Counter-clockwise
-                    int prev = (loopLen * i) + (j - 1);
-
-                    if (prev == -1)
-                        prev = loopLen - 1;
-
-                    int[] tris = new int[] { (loopLen * i) + j, prev                   , (loopLen * (i - 1)) + j,
-                                             (loopLen * i) + j, (loopLen * (i - 1)) + j, (loopLen * (i - 1)) + (j + 1) };
-                    */
-
-                    allTris.AddRange(tris);
+                    allTris.AddRange(BuildTriangles(loopLen, i, j));
                 }
             }
 
@@ -385,40 +407,20 @@ namespace SSL
                 {
                     for (int k = 0; k < roundingRanges[j].Length; k++)
                     {
-                        float roundingAmount = 0f;
-                        if (k > roundingRanges[j].Length / 2)
-                        {
-                            roundingAmount = 1f - Mathf.InverseLerp(roundingRanges[j].Length / 2, roundingRanges[j].Length, k);
-                        }
-                        else
-                        {
-                            roundingAmount = Mathf.InverseLerp(0, roundingRanges[j].Length / 2, k);
-                        }
-
-                        allVerts[roundingRanges[j][k] + (i * loopLen)] += 
-                            mesh.normals[roundingRanges[j][k] + 
-                            (i * loopLen)].normalized * 
-                            Mathf.Lerp(
-                                0, 
-                                rounding, 
-                                roundingAmount + (rounding * .3f)
-                            );
+                        float roundingAmount = GetRoundingAmount(roundingRanges, j, k);
+                        allVerts[roundingRanges[j][k] + (i * loopLen)] +=
+                        mesh.normals[roundingRanges[j][k] +
+                        (i * loopLen)].normalized *
+                        Mathf.Lerp(
+                            0,
+                            rounding,
+                            roundingAmount + (rounding * .3f)
+                        );
                     }
                 }
             }
 
-            //Flatshade
-            //Vector3[] flatShadedVerts = new Vector3[allTris.Count];
-            //int[] flatShadedTris = new int[allTris.Count];
-            //for (int i = 0; i < allTris.Count; i++)
-            //{
-            //    flatShadedVerts[i] = allVerts[allTris[i]];
-            //    flatShadedTris[i] = i;
-            //}
-
             mesh.vertices = allVerts.ToArray();
-            //mesh.vertices = flatShadedVerts;
-            //mesh.triangles = flatShadedTris;
             mesh.RecalculateNormals();
             mesh.RecalculateTangents();
         }
