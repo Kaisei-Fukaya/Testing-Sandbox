@@ -160,6 +160,7 @@ namespace SSL
 
     }
 
+    [Serializable]
     public abstract class SElement
     {
         [SerializeField] NodeParams storedParameters;
@@ -364,7 +365,6 @@ namespace SSL
     [Serializable]
     public class STransit : SElement
     {
-
         public override void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
         {
             mesh = new Mesh();
@@ -426,6 +426,7 @@ namespace SSL
         }
     }
 
+    [Serializable]
     public class SUnion : SElement
     {
 
@@ -435,12 +436,96 @@ namespace SSL
         }
     }
 
+    [Serializable]
     public class STerminal : SElement
     {
-
         public override void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
         {
-            throw new NotImplementedException();
+            mesh = new Mesh();
+            int[][] roundingRanges = new int[0][];
+            List<Vector3> allVerts = new List<Vector3>();
+            int loopLen = 4 * (int)Math.Pow(2, subdiv);
+            nLoops += 2;
+
+            //Ensure deforms matches looplen
+            if (deforms.Length != loopLen)
+            {
+                deforms = Redeform(deforms, loopLen, out roundingRanges);
+            }
+
+            //Create Verts
+            for (int i = 0; i < nLoops; i++)
+            {
+                Vector3[] newLoop = BuildLoop(loopLen, nLoops, i, size, deforms);
+                allVerts.AddRange(newLoop);
+
+                if(i == nLoops - 1)
+                {
+                    //Add end-cap vert
+                    Vector3 endCapVert = new Vector3();
+                    for (int j = 0; j < newLoop.Length; j++)
+                    {
+                        endCapVert += newLoop[j];
+                    }
+                    endCapVert /= newLoop.Length;
+                    allVerts.Add(endCapVert);
+                }
+            }
+
+            //Create Tris
+            List<int> allTris = new List<int>();
+            for (int i = 1; i < nLoops; i++)
+            {
+                for (int j = 0; j < loopLen; j++)
+                {
+                    allTris.AddRange(BuildTriangles(loopLen, i, j));
+                }
+
+                //End-cap triangles
+                if(i == nLoops - 1)
+                {
+                    int[] endCap = new int[loopLen*3];
+                    for (int j = 0; j < endCap.Length/3; j++)
+                    {
+                        endCap[j * 3] = (i * loopLen) + j;
+                        endCap[(j * 3) + 1] = (i + 1) * loopLen;
+                        if(j == loopLen -1)
+                            endCap[(j * 3) + 2] = i * loopLen;
+                        else
+                            endCap[(j * 3) + 2] = (i * loopLen) + j + 1;
+                    }
+                    allTris.AddRange(endCap);
+                }
+            }
+
+
+            mesh.vertices = allVerts.ToArray();
+            mesh.triangles = allTris.ToArray();
+            mesh.RecalculateNormals();
+
+            //Apply rounding
+            for (int i = 0; i < nLoops; i++)
+            {
+                for (int j = 0; j < roundingRanges.Length; j++)
+                {
+                    for (int k = 0; k < roundingRanges[j].Length; k++)
+                    {
+                        float roundingAmount = GetRoundingAmount(roundingRanges, j, k);
+                        allVerts[roundingRanges[j][k] + (i * loopLen)] +=
+                        mesh.normals[roundingRanges[j][k] +
+                        (i * loopLen)].normalized *
+                        Mathf.Lerp(
+                            0,
+                            rounding,
+                            roundingAmount + (rounding * .3f)
+                        );
+                    }
+                }
+            }
+
+            mesh.vertices = allVerts.ToArray();
+            mesh.RecalculateNormals();
+            mesh.RecalculateTangents();
         }
     }
 }

@@ -11,6 +11,7 @@ public class SwordCreator : MonoBehaviour
     [SerializeField] List<Vector3> _deforms;
     [SerializeField] float _spacing;
     [SerializeField] STransit[] _nodes;
+    [SerializeField] STerminal _testTerminalNode;
     [SerializeField] List<NestedList> _edges;
 
     SwordGraph sg;
@@ -36,7 +37,14 @@ public class SwordCreator : MonoBehaviour
             edgesConverted.Add(i, _edges[i].val.ToArray());
         }
 
-        sg.Load(_subdiv, _spacing, _nodes, edgesConverted);
+        SElement[] newSet = new SElement[_nodes.Length + 1];
+        for (int i = 0; i < _nodes.Length; i++)
+        {
+            newSet[i] = _nodes[i];
+        }
+        newSet[newSet.Length-1] = _testTerminalNode;
+
+        sg.Load(_subdiv, _spacing, newSet, edgesConverted);
         Mesh m = sg.Generate();
         mf.mesh = m;
     }
@@ -45,8 +53,9 @@ public class SwordCreator : MonoBehaviour
     {
         for (int i = 0; i < _nodes.Length; i++)
         {
-                _nodes[i].Build(_subdiv);
+            _nodes[i].Build(_subdiv);
         }
+        _testTerminalNode.Build(_subdiv);
     }
 
     void OnValidate()
