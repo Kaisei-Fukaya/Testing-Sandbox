@@ -456,7 +456,13 @@ namespace SSL
             //Create Verts
             for (int i = 0; i < nLoops; i++)
             {
-                Vector3[] newLoop = BuildLoop(loopLen, nLoops, i, size, deforms);
+                //Taper
+                Vector3 sizeAdjustedForTaper = size;
+                float taperScalar = 1f - Mathf.InverseLerp(0, nLoops-1, i);
+                sizeAdjustedForTaper.x *= taperScalar;
+                sizeAdjustedForTaper.z *= taperScalar;
+
+                Vector3[] newLoop = BuildLoop(loopLen, nLoops, i, sizeAdjustedForTaper, deforms);
                 allVerts.AddRange(newLoop);
 
                 if(i == nLoops - 1)
