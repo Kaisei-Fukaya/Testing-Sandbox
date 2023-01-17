@@ -143,21 +143,26 @@ namespace SSL
         [Min(0f)]
         public float rounding;
         public Vector3 size;
+        [Range(0f,1f)]
+        public float relativeTaper;
         public Vector3[] deforms;
-        public SplineParams sParams;
-        public NodeParams(int loops, float rounding, Vector3 size, Vector3[] deformations, SplineParams splineParams)
+        public BezierParams curveParams;
+        public NodeParams(int loops, float rounding, Vector3 size, float relTaper, Vector3[] deformations, BezierParams splineParams)
         {
             this.nLoops = loops;
             this.rounding = rounding;
             this.size = size;
+            this.relativeTaper = relTaper;
             this.deforms = deformations;
-            this.sParams = splineParams;
+            this.curveParams = splineParams;
         }
     }
 
-    public struct SplineParams
+    [Serializable]
+    public struct BezierParams
     {
-
+        public Vector2 controlPoint;
+        public Vector2 tipOffset;
     }
 
     [Serializable]
@@ -172,27 +177,47 @@ namespace SSL
         }
         public void Build(int subdiv, NodeParams parameters)
         {
-            Build(subdiv, parameters.rounding, parameters.size, parameters.nLoops, parameters.deforms, parameters.sParams);
+            Build(subdiv, parameters.rounding, parameters.size, parameters.relativeTaper, parameters.nLoops, parameters.deforms, parameters.curveParams);
         }
-        public abstract void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams);
+        public abstract void Build(int subdiv, float rounding, Vector3 size, float relativeTaper, int nLoops, Vector3[] deforms, BezierParams sParams);
         protected Vector3[] BuildLoop(int loopLen, int nLoops, int index, Vector3 size, Vector3[] deforms)
         {
             Vector3[] verts = new Vector3[loopLen];
 
+            //Determine loop curve offset (excl first and last loop)
+            Vector3 curveOffset;
+            if (index == 0)
+                curveOffset = Vector3.zero;
+            else if (index == nLoops)
+                curveOffset = new Vector3(0f, size.y, 0f);
+            else
+                curveOffset = SampleQuadraticBezier(Mathf.InverseLerp(0, nLoops, index));
+
             float yOffset = (size.y / (nLoops - 1)) * index;
             int quartOfLength = verts.Length / 4;
-            verts[0] = new Vector3(-size.x / 2, yOffset, -size.z / 2) + deforms[0];
-            verts[quartOfLength] = new Vector3(size.x / 2, yOffset, -size.z / 2) + deforms[quartOfLength];
-            verts[quartOfLength * 2] = new Vector3(size.x / 2, yOffset, size.z / 2) + deforms[quartOfLength * 2];
-            verts[quartOfLength * 3] = new Vector3(-size.x / 2, yOffset, size.z / 2) + deforms[quartOfLength * 3];
+
+            verts[0] =                 new Vector3(curveOffset.x + (-size.x / 2),
+                                                   curveOffset.y,
+                                                   curveOffset.z + (-size.z / 2)) + deforms[0];
+            verts[quartOfLength] =     new Vector3(curveOffset.x + (size.x / 2),
+                                                   curveOffset.y,
+                                                   curveOffset.z + (-size.z / 2)) + deforms[quartOfLength];
+            verts[quartOfLength * 2] = new Vector3(curveOffset.x + (size.x / 2),
+                                                   curveOffset.y,
+                                                   curveOffset.z + (size.z / 2)) + deforms[quartOfLength * 2];
+            verts[quartOfLength * 3] = new Vector3(curveOffset.x + (-size.x / 2),
+                                                   curveOffset.y,
+                                                   curveOffset.z + (size.z / 2)) + deforms[quartOfLength * 3];
+
+
             //Debug.Log($"vertsL= {verts.Length}");
             //Between 0-1
             for (int j = 1; j < quartOfLength; j++)
             {
                 Vector3 baseOffset = new Vector3(
-                    (-size.x / 2) + ((size.x / quartOfLength) * j),
-                    yOffset,
-                    -size.z / 2
+                    curveOffset.x + (-size.x / 2) + ((size.x / quartOfLength) * j),
+                    curveOffset.y,
+                    curveOffset.z + (-size.z / 2)
                     );
                 verts[j] = baseOffset + deforms[j];
                 //Debug.Log($"j1= {j}");
@@ -201,9 +226,9 @@ namespace SSL
             for (int j = quartOfLength + 1; j < quartOfLength * 2; j++)
             {
                 Vector3 baseOffset = new Vector3(
-                   size.x / 2,
-                   yOffset,
-                   (-size.z / 2) + ((size.z / quartOfLength) * (j - quartOfLength))
+                   curveOffset.x + size.x / 2,
+                   curveOffset.y,
+                   curveOffset.z + (-size.z / 2) + ((size.z / quartOfLength) * (j - quartOfLength))
                    );
                 verts[j] = baseOffset + deforms[j];
                 //Debug.Log($"j2= {j}");
@@ -212,9 +237,9 @@ namespace SSL
             for (int j = (quartOfLength * 2) + 1; j < quartOfLength * 3; j++)
             {
                 Vector3 baseOffset = new Vector3(
-                    (size.x / 2) - ((size.x / quartOfLength) * (j - (quartOfLength * 2))),
-                    yOffset,
-                    size.z / 2
+                    curveOffset.x + (size.x / 2) - ((size.x / quartOfLength) * (j - (quartOfLength * 2))),
+                    curveOffset.y,
+                    curveOffset.z + (size.z / 2)
                     );
                 verts[j] = baseOffset + deforms[j];
                 //Debug.Log($"j3= {j}");
@@ -223,9 +248,9 @@ namespace SSL
             for (int j = (quartOfLength * 3) + 1; j < verts.Length; j++)
             {
                 Vector3 baseOffset = new Vector3(
-                    -size.x / 2,
-                    yOffset,
-                    (size.z / 2) - ((size.z / quartOfLength) * (j - (quartOfLength * 3)))
+                    curveOffset.x + -size.x / 2,
+                    curveOffset.y,
+                    curveOffset.z + (size.z / 2) - ((size.z / quartOfLength) * (j - (quartOfLength * 3)))
                     );
                 verts[j] = baseOffset + deforms[j];
                 //Debug.Log($"j4= {j}");
@@ -360,12 +385,32 @@ namespace SSL
             }
             return newD;
         }
+        protected Vector3 SampleQuadraticBezier(float t)
+        {
+            Vector3 origin = Vector3.zero;
+            Vector3 control = new Vector3(storedParameters.curveParams.controlPoint.x, storedParameters.size.y/2, storedParameters.curveParams.controlPoint.y);
+            Vector3 end = new Vector3(storedParameters.curveParams.tipOffset.x, 
+                                      storedParameters.size.y, 
+                                      storedParameters.curveParams.tipOffset.y);
+            Vector3 p0 = Vector3.Lerp(origin, control, t);
+            Vector3 p1 = Vector3.Lerp(control, end, t);
+            return Vector3.Lerp(p0, p1, t);
+        }
+
+        protected Vector3 AdjustSizeForTaper(Vector3 size, int nLoops, int loopIndex, float relativeTaper)
+        {
+            Vector3 adjustedSize = size;
+            float taperValue = 1f - Mathf.Clamp((Mathf.InverseLerp(0, nLoops - 1, loopIndex) - relativeTaper), 0f, 1f);
+            adjustedSize.x *= taperValue;
+            adjustedSize.z *= taperValue;
+            return adjustedSize;
+        }
     }
 
     [Serializable]
     public class STransit : SElement
     {
-        public override void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
         {
             mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
@@ -382,7 +427,10 @@ namespace SSL
             //Create Verts
             for (int i = 0; i < nLoops; i++)
             {
-                allVerts.AddRange(BuildLoop(loopLen, nLoops, i, size, deforms));
+                //Taper
+                Vector3 sizeAdjustedForTaper = AdjustSizeForTaper(size, nLoops, i, relativeTaper);
+
+                allVerts.AddRange(BuildLoop(loopLen, nLoops, i, sizeAdjustedForTaper, deforms));
             }
 
             //Create Tris
@@ -430,7 +478,7 @@ namespace SSL
     public class SUnion : SElement
     {
 
-        public override void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
         {
             throw new NotImplementedException();
         }
@@ -439,7 +487,7 @@ namespace SSL
     [Serializable]
     public class STerminal : SElement
     {
-        public override void Build(int subdiv, float rounding, Vector3 size, int nLoops, Vector3[] deforms, SplineParams sParams)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
         {
             mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
@@ -457,10 +505,7 @@ namespace SSL
             for (int i = 0; i < nLoops; i++)
             {
                 //Taper
-                Vector3 sizeAdjustedForTaper = size;
-                float taperScalar = 1f - Mathf.InverseLerp(0, nLoops-1, i);
-                sizeAdjustedForTaper.x *= taperScalar;
-                sizeAdjustedForTaper.z *= taperScalar;
+                Vector3 sizeAdjustedForTaper = AdjustSizeForTaper(size, nLoops, i, relativeTaper);                
 
                 Vector3[] newLoop = BuildLoop(loopLen, nLoops, i, sizeAdjustedForTaper, deforms);
                 allVerts.AddRange(newLoop);
