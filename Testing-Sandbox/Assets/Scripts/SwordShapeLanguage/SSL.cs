@@ -64,7 +64,7 @@ namespace SSL
                 {
                     //Get mesh
                     Mesh subMesh = currentNode.GetMesh();
-                    newMesh = JoinMeshes(newMesh, subMesh, _elementSpacing, _subdiv);
+                    newMesh = JoinMeshes(newMesh, subMesh, _elementSpacing, _subdiv, currentNode.GetSubmeshIndex());
                     completionLookup[currentNode] = true;
                 }
 
@@ -87,11 +87,11 @@ namespace SSL
             return newMesh;
         }
 
-        Mesh JoinMeshes(Mesh meshA, Mesh meshB, float elementSpacing, int subdiv)
+        Mesh JoinMeshes(Mesh meshA, Mesh meshB, float elementSpacing, int subdiv, int submeshIndex)
         {
             int vertCount = meshA.vertexCount;
 
-            if(vertCount == 0)
+            if (vertCount == 0)
             {
                 return meshB;
             }
@@ -130,6 +130,10 @@ namespace SSL
                                                  (vertCount) + i, nxt2, (vertCount - loopLen) + i });
             }
             outMesh.triangles = newTriangs.ToArray();
+            //var subMeshDesc = new UnityEngine.Rendering.SubMeshDescriptor(){firstVertex = meshA.vertexCount,
+            //                                                                vertexCount = newVerts.Count - meshA.vertexCount - 1};
+            //outMesh.SetSubMesh(submeshIndex, subMeshDesc);
+
             //Debug.Log(newMesh.vertexCount);
             return outMesh;
         }
@@ -147,7 +151,8 @@ namespace SSL
         public float relativeTaper;
         public Vector3[] deforms;
         public BezierParams curveParams;
-        public NodeParams(int loops, float rounding, Vector3 size, float relTaper, Vector3[] deformations, BezierParams splineParams)
+        public int subMeshIndex;
+        public NodeParams(int loops, float rounding, Vector3 size, float relTaper, Vector3[] deformations, BezierParams splineParams, int subMeshIndex)
         {
             this.nLoops = loops;
             this.rounding = rounding;
@@ -155,6 +160,7 @@ namespace SSL
             this.relativeTaper = relTaper;
             this.deforms = deformations;
             this.curveParams = splineParams;
+            this.subMeshIndex = subMeshIndex;
         }
     }
 
@@ -171,6 +177,7 @@ namespace SSL
         [SerializeField] NodeParams storedParameters;
         protected Mesh mesh;
         public Mesh GetMesh() => mesh;
+        public int GetSubmeshIndex() => storedParameters.subMeshIndex;
         public virtual void Build(int subdivs)
         {
             Build(subdivs, storedParameters);
@@ -180,7 +187,7 @@ namespace SSL
             Build(subdiv, parameters.rounding, parameters.size, parameters.relativeTaper, parameters.nLoops, parameters.deforms, parameters.curveParams);
         }
         public abstract void Build(int subdiv, float rounding, Vector3 size, float relativeTaper, int nLoops, Vector3[] deforms, BezierParams sParams);
-        protected Vector3[] BuildLoop(int loopLen, int nLoops, int index, Vector3 size, Vector3[] deforms)
+        protected Vector3[] BuildLoop(int loopLen, int nLoops, int index, Vector3 size, Vector3[] deforms, float taperScale)
         {
             Vector3[] verts = new Vector3[loopLen];
 
@@ -198,16 +205,16 @@ namespace SSL
 
             verts[0] =                 new Vector3(curveOffset.x + (-size.x / 2),
                                                    curveOffset.y,
-                                                   curveOffset.z + (-size.z / 2)) + deforms[0];
+                                                   curveOffset.z + (-size.z / 2)) + (deforms[0] * taperScale);
             verts[quartOfLength] =     new Vector3(curveOffset.x + (size.x / 2),
                                                    curveOffset.y,
-                                                   curveOffset.z + (-size.z / 2)) + deforms[quartOfLength];
+                                                   curveOffset.z + (-size.z / 2)) + (deforms[quartOfLength] * taperScale);
             verts[quartOfLength * 2] = new Vector3(curveOffset.x + (size.x / 2),
                                                    curveOffset.y,
-                                                   curveOffset.z + (size.z / 2)) + deforms[quartOfLength * 2];
+                                                   curveOffset.z + (size.z / 2)) + (deforms[quartOfLength * 2] * taperScale);
             verts[quartOfLength * 3] = new Vector3(curveOffset.x + (-size.x / 2),
                                                    curveOffset.y,
-                                                   curveOffset.z + (size.z / 2)) + deforms[quartOfLength * 3];
+                                                   curveOffset.z + (size.z / 2)) + (deforms[quartOfLength * 3] * taperScale);
 
 
             //Debug.Log($"vertsL= {verts.Length}");
@@ -219,9 +226,9 @@ namespace SSL
                     curveOffset.y,
                     curveOffset.z + (-size.z / 2)
                     );
-                verts[j] = baseOffset + deforms[j];
-                //Debug.Log($"j1= {j}");
-            }
+                verts[j] = baseOffset + (deforms[j] * taperScale);
+            //Debug.Log($"j1= {j}");
+        }
             //Between 1-2
             for (int j = quartOfLength + 1; j < quartOfLength * 2; j++)
             {
@@ -230,9 +237,9 @@ namespace SSL
                    curveOffset.y,
                    curveOffset.z + (-size.z / 2) + ((size.z / quartOfLength) * (j - quartOfLength))
                    );
-                verts[j] = baseOffset + deforms[j];
-                //Debug.Log($"j2= {j}");
-            }
+                verts[j] = baseOffset + (deforms[j] * taperScale);
+            //Debug.Log($"j2= {j}");
+        }
             //Between 2-3
             for (int j = (quartOfLength * 2) + 1; j < quartOfLength * 3; j++)
             {
@@ -241,9 +248,9 @@ namespace SSL
                     curveOffset.y,
                     curveOffset.z + (size.z / 2)
                     );
-                verts[j] = baseOffset + deforms[j];
-                //Debug.Log($"j3= {j}");
-            }
+                verts[j] = baseOffset + (deforms[j] * taperScale);
+            //Debug.Log($"j3= {j}");
+        }
             //Between 3-0
             for (int j = (quartOfLength * 3) + 1; j < verts.Length; j++)
             {
@@ -252,9 +259,9 @@ namespace SSL
                     curveOffset.y,
                     curveOffset.z + (size.z / 2) - ((size.z / quartOfLength) * (j - (quartOfLength * 3)))
                     );
-                verts[j] = baseOffset + deforms[j];
-                //Debug.Log($"j4= {j}");
-            }
+                verts[j] = baseOffset + (deforms[j] * taperScale);
+            //Debug.Log($"j4= {j}");
+        }
             return verts;
         }
         protected int[] BuildTriangles(int loopLen, int loopIndex, int vertIndex)
@@ -397,13 +404,10 @@ namespace SSL
             return Vector3.Lerp(p0, p1, t);
         }
 
-        protected Vector3 AdjustSizeForTaper(Vector3 size, int nLoops, int loopIndex, float relativeTaper)
+        protected float GetTaperScale(Vector3 size, int nLoops, int loopIndex, float relativeTaper)
         {
             Vector3 adjustedSize = size;
-            float taperValue = 1f - Mathf.Clamp((Mathf.InverseLerp(0, nLoops - 1, loopIndex) - relativeTaper), 0f, 1f);
-            adjustedSize.x *= taperValue;
-            adjustedSize.z *= taperValue;
-            return adjustedSize;
+            return 1f - Mathf.Clamp((Mathf.InverseLerp(0, nLoops - 1, loopIndex) - relativeTaper), 0f, 1f);
         }
     }
 
@@ -428,9 +432,12 @@ namespace SSL
             for (int i = 0; i < nLoops; i++)
             {
                 //Taper
-                Vector3 sizeAdjustedForTaper = AdjustSizeForTaper(size, nLoops, i, relativeTaper);
+                float taperScale = GetTaperScale(size, nLoops, i, relativeTaper);
+                Vector3 sizeAdjustedForTaper = size;
+                sizeAdjustedForTaper.x *= taperScale;
+                sizeAdjustedForTaper.z *= taperScale;
 
-                allVerts.AddRange(BuildLoop(loopLen, nLoops, i, sizeAdjustedForTaper, deforms));
+                allVerts.AddRange(BuildLoop(loopLen, nLoops, i, sizeAdjustedForTaper, deforms, taperScale));
             }
 
             //Create Tris
@@ -505,9 +512,12 @@ namespace SSL
             for (int i = 0; i < nLoops; i++)
             {
                 //Taper
-                Vector3 sizeAdjustedForTaper = AdjustSizeForTaper(size, nLoops, i, relativeTaper);                
+                float taperScale = GetTaperScale(size, nLoops, i, relativeTaper);
+                Vector3 sizeAdjustedForTaper = size;
+                sizeAdjustedForTaper.x *= taperScale;
+                sizeAdjustedForTaper.z *= taperScale;
 
-                Vector3[] newLoop = BuildLoop(loopLen, nLoops, i, sizeAdjustedForTaper, deforms);
+                Vector3[] newLoop = BuildLoop(loopLen, nLoops, i, sizeAdjustedForTaper, deforms, taperScale);
                 allVerts.AddRange(newLoop);
 
                 if(i == nLoops - 1)
