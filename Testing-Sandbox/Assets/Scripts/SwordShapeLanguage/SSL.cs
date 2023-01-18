@@ -195,10 +195,13 @@ namespace SSL
             Vector3 curveOffset;
             if (index == 0)
                 curveOffset = Vector3.zero;
-            else if (index == nLoops)
-                curveOffset = new Vector3(0f, size.y, 0f);
+            else if (index == nLoops - 1)
+            {
+                Vector2 tipOffset = TipOffset;
+                curveOffset = new Vector3(tipOffset.x, size.y, tipOffset.y);
+            }
             else
-                curveOffset = SampleQuadraticBezier(Mathf.InverseLerp(0, nLoops, index));
+                curveOffset = SampleQuadraticBezier(Mathf.InverseLerp(0, nLoops-1, index));
 
             float yOffset = (size.y / (nLoops - 1)) * index;
             int quartOfLength = verts.Length / 4;
@@ -403,6 +406,7 @@ namespace SSL
             Vector3 p1 = Vector3.Lerp(control, end, t);
             return Vector3.Lerp(p0, p1, t);
         }
+        protected Vector2 TipOffset => storedParameters.curveParams.tipOffset;
 
         protected float GetTaperScale(Vector3 size, int nLoops, int loopIndex, float relativeTaper)
         {
