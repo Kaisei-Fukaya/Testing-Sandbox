@@ -113,11 +113,13 @@ namespace SSL
 
             List<Vector3> newVerts = new List<Vector3>(meshA.vertices);
             Vector3[] bVerts = meshB.vertices;
+            Matrix4x4 tMatrix = connectionData.transformationMatrix;
             for (int i = 0; i < bVerts.Length; i++)
             {
-                bVerts[i].x += connectionData.position.x;
-                bVerts[i].y += connectionData.position.y + elementSpacing;
-                bVerts[i].z += connectionData.position.z;
+                //bVerts[i].x += connectionData.position.x;
+                //bVerts[i].y += connectionData.position.y + elementSpacing;
+                //bVerts[i].z += connectionData.position.z;
+                bVerts[i] = tMatrix.MultiplyPoint3x4(bVerts[i]);
             }
             int[] bTriangs = meshB.triangles;
             for (int i = 0; i < bTriangs.Length; i++)
@@ -205,17 +207,26 @@ namespace SSL
             //y = 2-1 + 3-4
             Vector3 x = bounds[3] - bounds[0] + bounds[2] - bounds[1];
             Vector3 y = bounds[1] - bounds[0] + bounds[2] - bounds[3];
-            Vector3 loopNormal = Vector3.Cross(x, y);
+            Vector3 z = Vector3.Cross(x, y);
+            Quaternion loopDirection = Quaternion.LookRotation(z, y);
+            loopDirection = Quaternion.identity;
 
-            ConnectionData newConnectionData = new ConnectionData(loopAverage, loopNormal);
+            ConnectionData newConnectionData = new ConnectionData(loopAverage, loopDirection);
             return newConnectionData;
         }
 
         struct ConnectionData
         {
             public Vector3 position;
-            public Vector3 direction;
-            public ConnectionData(Vector3 position, Vector3 direction)
+            public Quaternion direction;
+            public Matrix4x4 transformationMatrix 
+            { 
+                get
+                {
+                    return Matrix4x4.TRS(position, direction, Vector3.one);
+                }
+            }
+            public ConnectionData(Vector3 position, Quaternion direction)
             {
                 this.position = position;
                 this.direction = direction;
