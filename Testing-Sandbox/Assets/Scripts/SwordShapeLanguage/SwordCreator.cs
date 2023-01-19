@@ -8,7 +8,6 @@ public class SwordCreator : MonoBehaviour
 {
     [Range(0, 5)]
     [SerializeField] int _subdiv;
-    [SerializeField] List<Vector3> _deforms;
     [SerializeField] float _spacing;
     [SerializeField] STransit[] _nodes;
     [SerializeField] STerminal _testTerminalNode;

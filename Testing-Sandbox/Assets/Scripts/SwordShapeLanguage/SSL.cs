@@ -99,11 +99,25 @@ namespace SSL
             //Merge into one mesh and reposition mb
 
             Mesh outMesh = new Mesh();
+
+            int loopLen = 4 * (int)Math.Pow(2, subdiv);
+
+            Vector3[] lastLoopOfMeshB = new Vector3[loopLen];
+            for (int i = 0; i < loopLen; i++)
+            {
+                lastLoopOfMeshB[i] = meshA.vertices[meshA.vertices.Length - (loopLen - i)];
+            }
+
+            ConnectionData connectionData = GetConnectionData(lastLoopOfMeshB);
+
+
             List<Vector3> newVerts = new List<Vector3>(meshA.vertices);
             Vector3[] bVerts = meshB.vertices;
             for (int i = 0; i < bVerts.Length; i++)
             {
-                bVerts[i].y += (newVerts[newVerts.Count - 1].y + elementSpacing);
+                bVerts[i].x += connectionData.position.x;
+                bVerts[i].y += connectionData.position.y + elementSpacing;
+                bVerts[i].z += connectionData.position.z;
             }
             int[] bTriangs = meshB.triangles;
             for (int i = 0; i < bTriangs.Length; i++)
@@ -113,7 +127,6 @@ namespace SSL
             newVerts.AddRange(bVerts);
             outMesh.vertices = newVerts.ToArray();
 
-            int loopLen = 4 * (int)Math.Pow(2, subdiv);
             List<int> newTriangs = new List<int>(meshA.triangles);
             newTriangs.AddRange(bTriangs);
             for (int i = 0; i < loopLen; i++)
@@ -136,6 +149,77 @@ namespace SSL
 
             //Debug.Log(newMesh.vertexCount);
             return outMesh;
+        }
+
+        ConnectionData GetConnectionData(Vector3[] loop)
+        {
+            Vector3 loopAverage = new Vector3();
+            Vector2 loopMinMaxX = new Vector2();
+            //Vector2 loopMinMaxY = new Vector2();
+            Vector2 loopMinMaxZ = new Vector2();
+            float[] yPositionOfBounds = new float[4];
+            for (int i = 0; i < loop.Length; i++)
+            {
+                //Sum for average
+                loopAverage += loop[i];
+
+                //Find x min/max, y min/max and z min/max
+                if (loop[i].x < loopMinMaxX.x)
+                {
+                    loopMinMaxX.x = loop[i].x;
+                    yPositionOfBounds[0] = loop[i].y;
+                }
+                else if (loop[i].x > loopMinMaxX.y)
+                {
+                    loopMinMaxX.y = loop[i].x;
+                    yPositionOfBounds[1] = loop[i].y;
+                }
+
+                //if (loop[i].y < loopMinMaxY.x)
+                //    loopMinMaxY.x = loop[i].y;
+                //else if (loop[i].y > loopMinMaxY.y)
+                //    loopMinMaxY.y = loop[i].y;
+
+                if (loop[i].z < loopMinMaxZ.x)
+                {
+                    loopMinMaxZ.x = loop[i].z;
+                    yPositionOfBounds[2] = loop[i].y;
+                }
+                else if (loop[i].z > loopMinMaxZ.y)
+                {
+                    loopMinMaxZ.y = loop[i].z;
+                    yPositionOfBounds[3] = loop[i].y;
+                }
+            }
+            loopAverage /= loop.Length;
+
+            Vector3[] bounds = new Vector3[]
+            {
+                new Vector3(loopMinMaxX.x, (yPositionOfBounds[0] + yPositionOfBounds[2]) / 2, loopMinMaxZ.x),
+                new Vector3(loopMinMaxX.x, (yPositionOfBounds[0] + yPositionOfBounds[3]) / 2, loopMinMaxZ.y),
+                new Vector3(loopMinMaxX.y, (yPositionOfBounds[1] + yPositionOfBounds[3]) / 2, loopMinMaxZ.y),
+                new Vector3(loopMinMaxX.y, (yPositionOfBounds[1] + yPositionOfBounds[2]) / 2, loopMinMaxZ.x),
+            };
+
+            //x = 4-1 + 3-2
+            //y = 2-1 + 3-4
+            Vector3 x = bounds[3] - bounds[0] + bounds[2] - bounds[1];
+            Vector3 y = bounds[1] - bounds[0] + bounds[2] - bounds[3];
+            Vector3 loopNormal = Vector3.Cross(x, y);
+
+            ConnectionData newConnectionData = new ConnectionData(loopAverage, loopNormal);
+            return newConnectionData;
+        }
+
+        struct ConnectionData
+        {
+            public Vector3 position;
+            public Vector3 direction;
+            public ConnectionData(Vector3 position, Vector3 direction)
+            {
+                this.position = position;
+                this.direction = direction;
+            }
         }
     }
 
