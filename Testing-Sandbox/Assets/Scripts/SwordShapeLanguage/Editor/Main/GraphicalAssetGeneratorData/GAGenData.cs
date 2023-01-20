@@ -23,5 +23,42 @@ namespace SSL.Data
             }
             EditorUtility.SetDirty(this);
         }
+
+        public NodesAndEdges GetNodesAndEdges(int subdiv)
+        {
+            NodesAndEdges nodesAndEdges = new NodesAndEdges();
+            List<SElement> newNodes = new List<SElement>();
+            List<SwordCreator.NestedList> newEdges = new List<SwordCreator.NestedList>();
+            Dictionary<string, int> indexLookup = new Dictionary<string, int>();
+
+            //Nodes
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                SequentialNodeParams newParams = Nodes[i].Settings.parameters;
+                var newNode = new STransit();
+                newNode.Build(subdiv, newParams);
+                newNodes.Add(newNode);
+                indexLookup.Add(Nodes[i].ID, i);
+            }
+
+            //Edges
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                SwordCreator.NestedList newEdgeSet = new SwordCreator.NestedList();
+                newEdgeSet.val = new List<int>();
+                for (int j = 0; j < Nodes[i].Connections.Count; j++)
+                {
+                    newEdgeSet.val.Add(indexLookup[Nodes[i].Connections[j].iD]);
+                }
+                newEdges.Add(newEdgeSet);
+            }
+            return nodesAndEdges;
+        }
+
+        public struct NodesAndEdges
+        {
+            public SElement[] nodes;
+            public List<SwordCreator.NestedList> edges;
+        }
     }
 }

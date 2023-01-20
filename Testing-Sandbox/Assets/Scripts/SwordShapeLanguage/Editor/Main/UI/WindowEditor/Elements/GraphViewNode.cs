@@ -146,8 +146,8 @@ namespace SSL.Graph
                 if (element is GraphicalAssetPort)
                 {
                     GraphicalAssetPort port = element as GraphicalAssetPort;
-                    GraphView.DeleteElements(port.Connections(true));
-                    GraphView.DeleteElements(port.Connections(false));
+                    GraphView.DeleteElements(port.Connections());
+                    GraphView.DeleteElements(port.Connections());
                     port.DisconnectAll();
                 }
             }
@@ -187,14 +187,14 @@ namespace SSL.Graph
             List<Data.ConnectionData> outgoingConnections = new List<Data.ConnectionData>();
             foreach (GraphicalAssetPort port in _outgoingPorts)
             {
-                Edge connectedEdge = port.GetConnectedEdge(isTrainMode);
+                Edge connectedEdge = port.GetConnectedEdge();
                 if(connectedEdge == null)
                 {
                     outgoingConnections.Add(new Data.ConnectionData("EMPTY", 0, 0, ID, port.PortType));
                     continue;
                 }
                 GraphViewNode otherNode = connectedEdge.input.node as GraphViewNode;
-                int indexOfOtherPort = otherNode.GetPorts(true).IndexOf(otherNode.GetPorts(true).Where(x => x.GetPort(isTrainMode) == connectedEdge.input).FirstOrDefault());
+                int indexOfOtherPort = otherNode.GetPorts(true).IndexOf(otherNode.GetPorts(true).Where(x => x.GetPort() == connectedEdge.input).FirstOrDefault());
                 outgoingConnections.Add(new Data.ConnectionData(otherNode.ID, indexOfOtherPort, _outgoingPorts.IndexOf(port), ID, port.PortType));
             }
             return outgoingConnections;
@@ -208,14 +208,14 @@ namespace SSL.Graph
             List<Data.ConnectionData> ingoingConnections = new List<Data.ConnectionData>();
             foreach (GraphicalAssetPort port in _ingoingPorts)
             {
-                Edge connectedEdge = port.GetConnectedEdge(isTrainMode);
+                Edge connectedEdge = port.GetConnectedEdge();
                 if (connectedEdge == null)
                 {
                     ingoingConnections.Add(new Data.ConnectionData("EMPTY", 0, 0, ID, port.PortType));
                     continue;
                 }
                 GraphViewNode otherNode = connectedEdge.output.node as GraphViewNode;
-                int indexOfOtherPort = otherNode.GetPorts(false).IndexOf(otherNode.GetPorts(false).Where(x => x.GetPort(isTrainMode) == connectedEdge.output).FirstOrDefault());
+                int indexOfOtherPort = otherNode.GetPorts(false).IndexOf(otherNode.GetPorts(false).Where(x => x.GetPort() == connectedEdge.output).FirstOrDefault());
                 ingoingConnections.Add(new Data.ConnectionData(otherNode.ID, indexOfOtherPort, _ingoingPorts.IndexOf(port), ID, port.PortType));
             }
             return ingoingConnections;

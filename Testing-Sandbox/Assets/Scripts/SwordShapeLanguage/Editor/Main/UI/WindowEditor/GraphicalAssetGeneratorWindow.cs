@@ -22,9 +22,6 @@ namespace SSL.Graph
 
         GAGenData _saveData;
 
-        public delegate void OnModeChangedEvent(bool val);
-        public event OnModeChangedEvent onModeChange;
-
         [MenuItem("Window/Graphical Asset Generator")]
         public static void ShowWindow()
         {
@@ -201,7 +198,7 @@ namespace SSL.Graph
             {
                 GraphViewNode newNode = _graphView.CreateNode(nodeData.NodeType, nodeData.Position);
                 newNode.ID = nodeData.ID;
-                newNode.LoadSettings(nodeData.AdditionalSettings);
+                newNode.LoadSettings(nodeData.Settings);
                 newNode.Draw();
                 iDToNode.Add(newNode.ID, new NodeAndData(newNode, nodeData));
                 allNodeIDs.Add(newNode.ID);
@@ -217,35 +214,25 @@ namespace SSL.Graph
                 GraphViewNode node = nodeAndData.node;
                 GAGenNodeData nodeData = nodeAndData.data;
                 List<GraphicalAssetPort> ports = node.GetPorts(true);
-                if (nodeData.GenConnections == null || nodeData.TrainConnections == null)
+                if (nodeData.Connections == null)
                     continue;
                 //Gen connections
-                if (ports.Count != nodeData.GenConnections.Count)
+                if (ports.Count != nodeData.Connections.Count)
                 {
                     //Debug.Log("dddd");
                     continue;
                 }
-                for (int i = 0; i < nodeData.GenConnections.Count; i++)
+                for (int i = 0; i < nodeData.Connections.Count; i++)
                 {
-                    if (nodeData.GenConnections[i].iD == "EMPTY")
+                    if (nodeData.Connections[i].iD == "EMPTY")
                         continue;
 
-                    GraphViewNode otherNode = iDToNode[nodeData.GenConnections[i].iD].node;
+                    GraphViewNode otherNode = iDToNode[nodeData.Connections[i].iD].node;
                     List<GraphicalAssetPort> otherPorts = otherNode.GetPorts(false);
-                    Edge edge = otherPorts[nodeData.GenConnections[i].indexInOther].ConnectTo(ports[i].GetPort(false), false);
+                    Edge edge = otherPorts[nodeData.Connections[i].indexInOther].ConnectTo(ports[i].GetPort());
                     if (edge == null)
                         continue;
                     _graphView.AddElement(edge);
-                }
-                //TrainConnections
-                for (int i = 0; i < nodeData.TrainConnections.Count; i++)
-                {
-                    if (nodeData.TrainConnections[i].iD == "EMPTY")
-                        continue;
-
-                    GraphViewNode otherNode = iDToNode[nodeData.TrainConnections[i].iD].node;
-                    List<GraphicalAssetPort> otherPorts = otherNode.GetPorts(false);
-                    _graphView.AddElement(otherPorts[nodeData.TrainConnections[i].indexInOther].ConnectTo(ports[i].GetPort(true), true));
                 }
             }
 

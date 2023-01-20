@@ -92,8 +92,6 @@ namespace SSL.Graph
 
                 GAPortData startPortData = (GAPortData)startPort.userData;
                 GAPortData portData = (GAPortData)port.userData;
-                if (startPortData.PortModeType != portData.PortModeType)
-                    return;
 
                 if (startPortData.PortType == portData.PortType)
                     compatiblePorts.Add(port);

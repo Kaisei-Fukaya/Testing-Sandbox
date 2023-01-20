@@ -20,11 +20,10 @@ namespace SSL.Data.Utils
             return new GAGenNodeData()
             {
                 ID = node.ID,
-                TrainConnections = node.GetIngoingConnectionIDs(true),
-                GenConnections = node.GetIngoingConnectionIDs(false),
+                Connections = node.GetIngoingConnectionIDs(false),
                 Position = node.GetPosition().position,
                 NodeType = node.NodeType,
-                AdditionalSettings = node.GetSettings()
+                Settings = node.GetSettings()
             };
         }
 

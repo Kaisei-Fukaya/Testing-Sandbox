@@ -1183,3 +1183,186 @@ Received Import Request.
 Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/UIStyles/GraphicalAssetDefaultNodeStyle.uss using Guid(fc12c6e3eb84a634ab063f7e9ddb3279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a819375c878828f00deb8e7328b00ce0') in 0.002172 seconds
   Import took 0.005684 seconds .
 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001991 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.52 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.664 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2611 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 134.4 MB.
+System memory in use after: 134.6 MB.
+
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3364.
+Total: 2.372600 ms (FindLiveObjects: 0.243200 ms CreateObjectMapping: 0.070700 ms MarkObjects: 1.997200 ms  DeleteObjects: 0.060600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001944 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.656 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2611 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 134.5 MB.
+System memory in use after: 134.7 MB.
+
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3367.
+Total: 2.873100 ms (FindLiveObjects: 0.445100 ms CreateObjectMapping: 0.079700 ms MarkObjects: 2.274800 ms  DeleteObjects: 0.072100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002039 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.51 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.654 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2611 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 134.5 MB.
+System memory in use after: 134.7 MB.
+
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3370.
+Total: 2.297900 ms (FindLiveObjects: 0.257300 ms CreateObjectMapping: 0.062000 ms MarkObjects: 1.920400 ms  DeleteObjects: 0.056400 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001946 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.648 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.71 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2611 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 134.5 MB.
+System memory in use after: 134.7 MB.
+
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3373.
+Total: 2.420500 ms (FindLiveObjects: 0.247600 ms CreateObjectMapping: 0.073900 ms MarkObjects: 2.035800 ms  DeleteObjects: 0.062400 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 5435.213094 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/New GA Gen Data.asset
+  artifactKey: Guid(5ed78dffe4511c7498bd6056a016e06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/New GA Gen Data.asset using Guid(5ed78dffe4511c7498bd6056a016e06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7d50675650ea7d57c56ee6e3410963d3') in 0.016023 seconds
+  Import took 0.020404 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.541929 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/New GA Gen Data.asset
+  artifactKey: Guid(5ed78dffe4511c7498bd6056a016e06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/New GA Gen Data.asset using Guid(5ed78dffe4511c7498bd6056a016e06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8b2c8397ba60227378438f1fcf14d33') in 0.002331 seconds
+  Import took 0.006506 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 55.977148 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/SwordCreator.cs
+  artifactKey: Guid(bad3505e503f22644aab4640f99c2b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/SwordCreator.cs using Guid(bad3505e503f22644aab4640f99c2b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '900f10668938a36d22565501e9dd277a') in 0.005367 seconds
+  Import took 0.009932 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000241 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/SwordCreator.cs
+  artifactKey: Guid(bad3505e503f22644aab4640f99c2b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/SwordCreator.cs using Guid(bad3505e503f22644aab4640f99c2b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '900f10668938a36d22565501e9dd277a') in 0.001469 seconds
+  Import took 0.004034 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2436.672823 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/GraphicalAssetGeneratorData
+  artifactKey: Guid(f5432982000c29d458334fd8f4c29f21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/GraphicalAssetGeneratorData using Guid(f5432982000c29d458334fd8f4c29f21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '074049d08362205f2b4f6f7b8e0ead7c') in 0.005244 seconds
+  Import took 0.009632 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002133 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.673 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2611 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 134.6 MB.
+System memory in use after: 134.8 MB.
+
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3376.
+Total: 2.369900 ms (FindLiveObjects: 0.257500 ms CreateObjectMapping: 0.071300 ms MarkObjects: 1.981600 ms  DeleteObjects: 0.058700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 295.322191 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/SwordCreator.cs
+  artifactKey: Guid(bad3505e503f22644aab4640f99c2b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/SwordCreator.cs using Guid(bad3505e503f22644aab4640f99c2b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d1fc5ae1e5f995308f90c81237d4bbf') in 0.005195 seconds
+  Import took 0.009177 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.134066 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/SwordCreator1.cs
+  artifactKey: Guid(8a5285d894804254e891f33ce1c40b0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/SwordCreator1.cs using Guid(8a5285d894804254e891f33ce1c40b0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5797e00e49c943ca513d4b6fc4998f86') in 0.005783 seconds
+  Import took 0.010427 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.518435 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/GraphReader.cs
+  artifactKey: Guid(8a5285d894804254e891f33ce1c40b0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/GraphReader.cs using Guid(8a5285d894804254e891f33ce1c40b0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a5ae5eaaa7b2047577d9df897175dcc4') in 0.005465 seconds
+  Import took 0.010203 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 44.299227 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/GraphReader.cs
+  artifactKey: Guid(8a5285d894804254e891f33ce1c40b0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/GraphReader.cs using Guid(8a5285d894804254e891f33ce1c40b0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2450c3e4eb1c3393f121404bfb4d47b8') in 0.001868 seconds
+  Import took 0.006530 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

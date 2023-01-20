@@ -30,12 +30,21 @@ namespace SSL.Graph.Elements
         public override NodeSetting GetSettings()
         {
             NodeSetting setting = base.GetSettings();
+            setting.parameters.nLoops = _nLoopsField.value;
+            setting.parameters.size = _sizeField.value;
+            setting.parameters.relativeTaper = _relativeTaperField.value;
+            setting.parameters.rounding = _roundingField.value;
+            setting.parameters.subMeshIndex = _subMeshIndexField.value;
             return setting;
         }
 
         public override void LoadSettings(NodeSetting setting)
         {
-
+            _nLoopsField.SetValueWithoutNotify(setting.parameters.nLoops);
+            _sizeField.SetValueWithoutNotify(setting.parameters.size);
+            _relativeTaperField.SetValueWithoutNotify(setting.parameters.relativeTaper);
+            _roundingField.SetValueWithoutNotify(setting.parameters.rounding);
+            _subMeshIndexField.SetValueWithoutNotify(setting.parameters.subMeshIndex);
         }
 
         public override void Draw()

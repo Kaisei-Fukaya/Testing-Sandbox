@@ -22,12 +22,5 @@ namespace SSL.Graph {
             }
         }
         public GAPortType PortType { get; set; }
-        public GAPortModeType PortModeType { get; set; }
-    }
-
-    public enum GAPortModeType
-    {
-        Generate,
-        Train
     }
 }
