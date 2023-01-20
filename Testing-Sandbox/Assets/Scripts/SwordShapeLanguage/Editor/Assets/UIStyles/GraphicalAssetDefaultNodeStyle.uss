@@ -1,0 +1,93 @@
+#title
+{
+	background-color: var(--gag-colors-dark-1);
+	align-content: center;
+}
+
+#main
+{
+
+}
+
+#extension
+{
+	padding: 5px;
+}
+
+#input
+{
+
+}
+
+#output
+{
+
+}
+
+.text-field{
+	width: 100%;
+	height: 100%;
+}
+
+Label
+{
+	-unity-text-align: middle-center;
+}
+
+GraphicalAssetPort
+{
+	display: flex;
+	flex-direction: row;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+GraphicalAssetPort > .port-Label
+{
+	flex-direction: column;
+}
+
+.port-container
+{
+	flex-direction: row;
+}
+
+GraphicalAssetPort > VisualElement > Port
+{
+
+}
+
+.train-port, .gen-port
+{
+	height: 100%;
+}
+
+GraphicalAssetPort > VisualElement > Port > Label
+{
+	display: none;
+}
+
+.slider-group{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.slider-group > Label{
+	-unity-text-align: middle-center;
+}
+
+.slider-group > Slider{
+	width: 200px;
+}
+
+.label-field-block{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	-unity-text-align: middle-right;
+}
+
+.label-field-block > Vector3Field{
+	width: 200px;
+}

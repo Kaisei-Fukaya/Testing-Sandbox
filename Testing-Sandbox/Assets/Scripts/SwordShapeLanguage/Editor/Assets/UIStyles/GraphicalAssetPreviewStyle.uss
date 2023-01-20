@@ -1,0 +1,33 @@
+GAPreview
+{
+	width: 100px;
+	height: 100px;
+	background-color: var(--gag-colors-grid-dark-grey-1);
+	border-radius: 10px;
+	position: absolute;
+}
+
+IMGUIContainer
+{
+	border-radius: 10px;
+}
+
+#topContainer
+{
+	height: 20%;
+	width: 98%;
+	align-content: center;
+}
+
+#mainContainer
+{
+	height: 80%;
+	width: 98%;
+	border-radius: 10px;
+}
+
+#titleElement
+{
+	padding: 5px;
+	-unity-text-align: middle-center;
+}

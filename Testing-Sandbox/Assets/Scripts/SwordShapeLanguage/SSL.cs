@@ -235,7 +235,7 @@ namespace SSL
     }
 
     [Serializable]
-    public struct NodeParams
+    public struct SequentialNodeParams
     {
         [Min(0)]
         public int nLoops;
@@ -247,7 +247,7 @@ namespace SSL
         public Vector3[] deforms;
         public BezierParams curveParams;
         public int subMeshIndex;
-        public NodeParams(int loops, float rounding, Vector3 size, float relTaper, Vector3[] deformations, BezierParams splineParams, int subMeshIndex)
+        public SequentialNodeParams(int loops, float rounding, Vector3 size, float relTaper, Vector3[] deformations, BezierParams splineParams, int subMeshIndex)
         {
             this.nLoops = loops;
             this.rounding = rounding;
@@ -269,7 +269,7 @@ namespace SSL
     [Serializable]
     public abstract class SElement
     {
-        [SerializeField] NodeParams storedParameters;
+        [SerializeField] SequentialNodeParams storedParameters;
         protected Mesh mesh;
         public Mesh GetMesh() => mesh;
         public int GetSubmeshIndex() => storedParameters.subMeshIndex;
@@ -277,7 +277,7 @@ namespace SSL
         {
             Build(subdivs, storedParameters);
         }
-        public void Build(int subdiv, NodeParams parameters)
+        public void Build(int subdiv, SequentialNodeParams parameters)
         {
             Build(subdiv, parameters.rounding, parameters.size, parameters.relativeTaper, parameters.nLoops, parameters.deforms, parameters.curveParams);
         }
