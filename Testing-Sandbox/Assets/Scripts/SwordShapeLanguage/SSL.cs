@@ -249,7 +249,9 @@ namespace SSL
         public Vector3[] deforms;
         public BezierParams curveParams;
         public int subMeshIndex;
-        public SequentialNodeParams(int loops, float rounding, Vector3 size, float relForwardTaper, float relBackwardTaper, Vector3[] deformations, BezierParams splineParams, int subMeshIndex)
+        [HideInInspector]
+        public SequentialNodeType sequentialNodeType;
+        public SequentialNodeParams(int loops, float rounding, Vector3 size, float relForwardTaper, float relBackwardTaper, Vector3[] deformations, BezierParams splineParams, int subMeshIndex, SequentialNodeType sequentialNodeType)
         {
             this.nLoops = loops;
             this.rounding = rounding;
@@ -259,13 +261,14 @@ namespace SSL
             this.deforms = deformations;
             this.curveParams = splineParams;
             this.subMeshIndex = subMeshIndex;
+            this.sequentialNodeType = sequentialNodeType;
         }
 
         public static SequentialNodeParams defaultParams
         {
             get
             {
-                return new SequentialNodeParams(0, 0f, new Vector3(1f,1f,1f), 1f, 1f, new Vector3[8], new BezierParams(), 0);
+                return new SequentialNodeParams(0, 0f, new Vector3(1f,1f,1f), 1f, 1f, new Vector3[8], new BezierParams(), 0, SequentialNodeType.Middle);
             }
         }
     }
@@ -275,6 +278,14 @@ namespace SSL
     {
         public Vector2 controlPoint;
         public Vector2 tipOffset;
+    }
+
+    [Serializable]
+    public enum SequentialNodeType
+    {
+        Start,
+        Middle,
+        End
     }
 
     [Serializable]
@@ -291,9 +302,9 @@ namespace SSL
         public void Build(int subdiv, SequentialNodeParams parameters)
         {
             storedParameters = parameters;
-            Build(subdiv, parameters.rounding, parameters.size, parameters.relativeForwardTaper, parameters.relativeBackwardTaper, parameters.nLoops, parameters.deforms, parameters.curveParams);
+            Build(subdiv, parameters.rounding, parameters.size, parameters.relativeForwardTaper, parameters.relativeBackwardTaper, parameters.nLoops, parameters.deforms, parameters.curveParams, parameters.sequentialNodeType);
         }
-        public abstract void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams);
+        public abstract void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, SequentialNodeType sequentialNodeType);
         protected Vector3[] BuildLoop(int loopLen, int nLoops, int index, Vector3 size, Vector3[] deforms, float taperScale)
         {
             Vector3[] verts = new Vector3[loopLen];
@@ -527,9 +538,9 @@ namespace SSL
     }
 
     [Serializable]
-    public class STransit : SElement
+    public class SSequential : SElement
     {
-        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, SequentialNodeType sequentialNodeType)
         {
             mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
@@ -538,7 +549,7 @@ namespace SSL
             nLoops += 2;
 
             //Ensure deforms matches looplen
-            if(deforms.Length != loopLen)
+            if (deforms.Length != loopLen)
             {
                 deforms = Redeform(deforms, loopLen, out roundingRanges);
             }
@@ -552,7 +563,20 @@ namespace SSL
                 sizeAdjustedForTaper.x *= taperScale;
                 sizeAdjustedForTaper.z *= taperScale;
 
-                allVerts.AddRange(BuildLoop(loopLen, nLoops, i, sizeAdjustedForTaper, deforms, taperScale));
+                Vector3[] newLoop = BuildLoop(loopLen, nLoops, i, sizeAdjustedForTaper, deforms, taperScale);
+                allVerts.AddRange(newLoop);
+
+                //Add end-cap vert
+                if (sequentialNodeType == SequentialNodeType.End && i == nLoops - 1)
+                {
+                    Vector3 endCapVert = new Vector3();
+                    for (int j = 0; j < newLoop.Length; j++)
+                    {
+                        endCapVert += newLoop[j];
+                    }
+                    endCapVert /= newLoop.Length;
+                    allVerts.Add(endCapVert);
+                }
             }
 
             //Create Tris
@@ -566,7 +590,7 @@ namespace SSL
             }
 
 
-            mesh.vertices  = allVerts.ToArray();
+            mesh.vertices = allVerts.ToArray();
             mesh.triangles = allTris.ToArray();
             mesh.RecalculateNormals();
 
@@ -590,7 +614,61 @@ namespace SSL
                 }
             }
 
+            if (sequentialNodeType == SequentialNodeType.Start)
+            {
+                //Start-cap vert
+                Vector3 startCapVert = new Vector3();
+                for (int j = 0; j < loopLen; j++)
+                {
+                    startCapVert += allVerts[j];
+                }
+                startCapVert /= loopLen;
+                allVerts.Insert(0, startCapVert);
+
+                //Shift tris up to account for start cap vert
+                for (int i = 0; i < allTris.Count; i++)
+                {
+                    allTris[i]++;
+                }
+
+                //Start-cap triangles
+                int[] startCap = new int[loopLen * 3];
+                for (int i = 0; i < startCap.Length / 3; i++)
+                {
+                    if (i == loopLen - 1)
+                    {
+                        startCap[i * 3] = 0;
+                        startCap[(i * 3) + 1] = i + 1;
+                        startCap[(i * 3) + 2] = 1;
+                    }
+                    else
+                    {
+                        startCap[i * 3] = 0;
+                        startCap[(i * 3) + 1] = i + 1;
+                        startCap[(i * 3) + 2] = i + 2;
+                    }
+                }
+                allTris.AddRange(startCap);
+            }
+            //End-cap triangles
+            else if (sequentialNodeType == SequentialNodeType.End)
+            {
+                int refPoint = nLoops - 1;
+                int[] endCap = new int[loopLen * 3];
+                for (int i = 0; i < endCap.Length / 3; i++)
+                {
+                    endCap[i * 3] = (refPoint * loopLen) + i;
+                    endCap[(i * 3) + 1] = (refPoint + 1) * loopLen;
+                    if (i == loopLen - 1)
+                        endCap[(i * 3) + 2] = refPoint * loopLen;
+                    else
+                        endCap[(i * 3) + 2] = (refPoint * loopLen) + i + 1;
+                }
+                allTris.AddRange(endCap);
+            }
+
             mesh.vertices = allVerts.ToArray();
+            mesh.triangles = allTris.ToArray();
             mesh.RecalculateNormals();
             mesh.RecalculateTangents();
         }
@@ -600,7 +678,7 @@ namespace SSL
     public class SUnion : SElement
     {
 
-        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, SequentialNodeType sequentialNodeType)
         {
             throw new NotImplementedException();
         }
@@ -609,7 +687,7 @@ namespace SSL
     [Serializable]
     public class STerminal : SElement
     {
-        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, SequentialNodeType sequentialNodeType)
         {
             mesh = new Mesh();
             int[][] roundingRanges = new int[0][];

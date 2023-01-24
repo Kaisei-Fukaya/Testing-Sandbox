@@ -25,10 +25,12 @@ namespace SSL.Data
             for (int i = 0; i < Nodes.Count; i++)
             {
                 SequentialNodeParams newParams = Nodes[i].Settings.parameters;
-                //TEMP
-                newParams.deforms = new Vector3[8];
+                if (Nodes[i].InGoingConnections[0].iD == "EMPTY")
+                    newParams.sequentialNodeType = SequentialNodeType.Start;
+                else if (Nodes[i].OutGoingConnections[0].iD == "EMPTY")
+                    newParams.sequentialNodeType = SequentialNodeType.End;
 
-                var newNode = new STransit();
+                var newNode = new SSequential();
                 newNode.Build(subdiv, newParams);
                 newNodes.Add(newNode);
                 indexLookup.Add(Nodes[i].ID, i);
@@ -41,11 +43,11 @@ namespace SSL.Data
             {
                 SwordCreator.NestedList newEdgeSet = new SwordCreator.NestedList();
                 newEdgeSet.val = new List<int>();
-                for (int j = 0; j < Nodes[i].Connections.Count; j++)
+                for (int j = 0; j < Nodes[i].OutGoingConnections.Count; j++)
                 {
-                    if (Nodes[i].Connections[j].iD == "EMPTY")
+                    if (Nodes[i].OutGoingConnections[j].iD == "EMPTY")
                         continue;
-                    newEdgeSet.val.Add(indexLookup[Nodes[i].Connections[j].iD]);
+                    newEdgeSet.val.Add(indexLookup[Nodes[i].OutGoingConnections[j].iD]);
                     //Debug.Log($"node {i}, connections {j}, connects to node index: {newEdgeSet.val[0]}");
                 }
                 newEdges.Add(newEdgeSet);
@@ -98,11 +100,11 @@ namespace SSL.Data
 
                 tempMarkLookup[n] = true;
 
-                for (int i = 0; i < n.Connections.Count; i++)
+                for (int i = 0; i < n.OutGoingConnections.Count; i++)
                 {
-                    if (n.Connections[i].iD == "EMPTY")
+                    if (n.OutGoingConnections[i].iD == "EMPTY")
                         continue;
-                    Visit(NodeDataFromID(Nodes, n.Connections[i].iD));
+                    Visit(NodeDataFromID(Nodes, n.OutGoingConnections[i].iD));
                 }
 
                 tempMarkLookup[n] = false;

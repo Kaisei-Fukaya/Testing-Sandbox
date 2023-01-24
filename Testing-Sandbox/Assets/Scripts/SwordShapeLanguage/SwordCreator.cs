@@ -9,7 +9,7 @@ public class SwordCreator : MonoBehaviour
     [Range(0, 5)]
     [SerializeField] int _subdiv;
     [SerializeField] float _spacing;
-    [SerializeField] STransit[] _nodes;
+    [SerializeField] SSequential[] _nodes;
     [SerializeField] STerminal _testTerminalNode;
     [SerializeField] List<NestedList> _edges;
 

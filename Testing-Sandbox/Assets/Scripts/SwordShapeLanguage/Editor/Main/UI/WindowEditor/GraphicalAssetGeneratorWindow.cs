@@ -228,22 +228,22 @@ namespace SSL.Graph
                 GraphViewNode node = nodeAndData.node;
                 GAGenNodeData nodeData = nodeAndData.data;
                 List<GraphicalAssetPort> ports = node.GetPorts(true);
-                if (nodeData.Connections == null)
+                if (nodeData.InGoingConnections == null)
                     continue;
                 //Gen connections
-                if (ports.Count != nodeData.Connections.Count)
+                if (ports.Count != nodeData.InGoingConnections.Count)
                 {
                     //Debug.Log("dddd");
                     continue;
                 }
-                for (int i = 0; i < nodeData.Connections.Count; i++)
+                for (int i = 0; i < nodeData.InGoingConnections.Count; i++)
                 {
-                    if (nodeData.Connections[i].iD == "EMPTY")
+                    if (nodeData.InGoingConnections[i].iD == "EMPTY")
                         continue;
 
-                    GraphViewNode otherNode = iDToNode[nodeData.Connections[i].iD].node;
+                    GraphViewNode otherNode = iDToNode[nodeData.InGoingConnections[i].iD].node;
                     List<GraphicalAssetPort> otherPorts = otherNode.GetPorts(false);
-                    Edge edge = otherPorts[nodeData.Connections[i].indexInOther].ConnectTo(ports[i].GetPort());
+                    Edge edge = otherPorts[nodeData.InGoingConnections[i].indexInOther].ConnectTo(ports[i].GetPort());
                     if (edge == null)
                         continue;
                     _graphView.AddElement(edge);
