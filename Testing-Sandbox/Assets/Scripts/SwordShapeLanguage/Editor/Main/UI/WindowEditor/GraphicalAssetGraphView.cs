@@ -53,6 +53,7 @@ namespace SSL.Graph
             GraphViewNode node = (GraphViewNode)Activator.CreateInstance(nodeType);
             node.GraphView = this;
             node.Initialise(position);
+            node.LoadSettings(new Data.NodeSetting());
             node.Draw();
             _nodes.Add(node);
             return node;

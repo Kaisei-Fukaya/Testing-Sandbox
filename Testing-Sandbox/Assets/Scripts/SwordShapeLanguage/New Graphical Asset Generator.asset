@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28e09a53e1b7a824e9d1ca4943e41d04, type: 3}
+  m_Name: New Graphical Asset Generator
+  m_EditorClassIdentifier: 
+  <Nodes>k__BackingField:
+  - <ID>k__BackingField: 43197169-16b2-49c3-9f1f-b8eaea6c9255
+    <NodeType>k__BackingField: 0
+    <Connections>k__BackingField:
+    - iD: bec48071-6451-453d-a8e4-54f44a06886e
+      indexInOwner: 0
+      indexInOther: 0
+      owner: 43197169-16b2-49c3-9f1f-b8eaea6c9255
+      type: 0
+      ownerDisplayName: 
+    <Settings>k__BackingField:
+      i_portTypes: 00000000
+      o_portTypes: 00000000
+      parameters:
+        nLoops: 4
+        rounding: 0
+        size: {x: 10, y: 10, z: 10}
+        relativeForwardTaper: 1
+        relativeBackwardTaper: 1
+        deforms: []
+        curveParams:
+          controlPoint: {x: 0, y: 0}
+          tipOffset: {x: 0, y: 0}
+        subMeshIndex: 0
+    <Position>k__BackingField: {x: 737, y: 100}
+  - <ID>k__BackingField: 87e6355f-a181-41ad-8aaa-a09ecec2c8e2
+    <NodeType>k__BackingField: 0
+    <Connections>k__BackingField:
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: 87e6355f-a181-41ad-8aaa-a09ecec2c8e2
+      type: 0
+      ownerDisplayName: 
+    <Settings>k__BackingField:
+      i_portTypes: 00000000
+      o_portTypes: 00000000
+      parameters:
+        nLoops: 8
+        rounding: 0.2
+        size: {x: 9, y: 33.7, z: 9}
+        relativeForwardTaper: 1
+        relativeBackwardTaper: 1
+        deforms: []
+        curveParams:
+          controlPoint: {x: 0, y: 0}
+          tipOffset: {x: 0, y: 0}
+        subMeshIndex: 1
+    <Position>k__BackingField: {x: -4, y: 100}
+  - <ID>k__BackingField: bec48071-6451-453d-a8e4-54f44a06886e
+    <NodeType>k__BackingField: 0
+    <Connections>k__BackingField:
+    - iD: 87e6355f-a181-41ad-8aaa-a09ecec2c8e2
+      indexInOwner: 0
+      indexInOther: 0
+      owner: bec48071-6451-453d-a8e4-54f44a06886e
+      type: 0
+      ownerDisplayName: 
+    <Settings>k__BackingField:
+      i_portTypes: 00000000
+      o_portTypes: 00000000
+      parameters:
+        nLoops: 2
+        rounding: 0
+        size: {x: 4, y: 4, z: 4}
+        relativeForwardTaper: 1
+        relativeBackwardTaper: 1
+        deforms: []
+        curveParams:
+          controlPoint: {x: 0, y: 0}
+          tipOffset: {x: 0, y: 0}
+        subMeshIndex: 0
+    <Position>k__BackingField: {x: 409, y: 100}

@@ -243,19 +243,30 @@ namespace SSL
         public float rounding;
         public Vector3 size;
         [Range(0f,1f)]
-        public float relativeTaper;
+        public float relativeForwardTaper;
+        [Range(0f,1f)]
+        public float relativeBackwardTaper;
         public Vector3[] deforms;
         public BezierParams curveParams;
         public int subMeshIndex;
-        public SequentialNodeParams(int loops, float rounding, Vector3 size, float relTaper, Vector3[] deformations, BezierParams splineParams, int subMeshIndex)
+        public SequentialNodeParams(int loops, float rounding, Vector3 size, float relForwardTaper, float relBackwardTaper, Vector3[] deformations, BezierParams splineParams, int subMeshIndex)
         {
             this.nLoops = loops;
             this.rounding = rounding;
             this.size = size;
-            this.relativeTaper = relTaper;
+            this.relativeForwardTaper = relForwardTaper;
+            this.relativeBackwardTaper = relBackwardTaper;
             this.deforms = deformations;
             this.curveParams = splineParams;
             this.subMeshIndex = subMeshIndex;
+        }
+
+        public static SequentialNodeParams defaultParams
+        {
+            get
+            {
+                return new SequentialNodeParams(0, 0f, new Vector3(1f,1f,1f), 1f, 1f, new Vector3[8], new BezierParams(), 0);
+            }
         }
     }
 
@@ -279,9 +290,10 @@ namespace SSL
         }
         public void Build(int subdiv, SequentialNodeParams parameters)
         {
-            Build(subdiv, parameters.rounding, parameters.size, parameters.relativeTaper, parameters.nLoops, parameters.deforms, parameters.curveParams);
+            storedParameters = parameters;
+            Build(subdiv, parameters.rounding, parameters.size, parameters.relativeForwardTaper, parameters.relativeBackwardTaper, parameters.nLoops, parameters.deforms, parameters.curveParams);
         }
-        public abstract void Build(int subdiv, float rounding, Vector3 size, float relativeTaper, int nLoops, Vector3[] deforms, BezierParams sParams);
+        public abstract void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams);
         protected Vector3[] BuildLoop(int loopLen, int nLoops, int index, Vector3 size, Vector3[] deforms, float taperScale)
         {
             Vector3[] verts = new Vector3[loopLen];
@@ -503,17 +515,21 @@ namespace SSL
         }
         protected Vector2 TipOffset => storedParameters.curveParams.tipOffset;
 
-        protected float GetTaperScale(Vector3 size, int nLoops, int loopIndex, float relativeTaper)
+        protected float GetTaperScale(Vector3 size, int nLoops, int loopIndex, float relativeForwardTaper, float relativeBackwardTaper)
         {
-            Vector3 adjustedSize = size;
-            return 1f - Mathf.Clamp((Mathf.InverseLerp(0, nLoops - 1, loopIndex) - relativeTaper), 0f, 1f);
+            if (loopIndex > nLoops / 2)
+                return Mathf.Clamp((Mathf.InverseLerp(nLoops - 1, nLoops / 2, loopIndex) + relativeForwardTaper), 0f, 1f);
+            else if (loopIndex < nLoops / 2)
+                return Mathf.Clamp((Mathf.InverseLerp(0, nLoops / 2, loopIndex) + relativeBackwardTaper), 0f, 1f);
+            else
+                return 1f;
         }
     }
 
     [Serializable]
     public class STransit : SElement
     {
-        public override void Build(int subdiv, float rounding, Vector3 size, float relativeTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
         {
             mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
@@ -531,7 +547,7 @@ namespace SSL
             for (int i = 0; i < nLoops; i++)
             {
                 //Taper
-                float taperScale = GetTaperScale(size, nLoops, i, relativeTaper);
+                float taperScale = GetTaperScale(size, nLoops, i, relativeForwardTaper, relativeBackwardTaper);
                 Vector3 sizeAdjustedForTaper = size;
                 sizeAdjustedForTaper.x *= taperScale;
                 sizeAdjustedForTaper.z *= taperScale;
@@ -584,7 +600,7 @@ namespace SSL
     public class SUnion : SElement
     {
 
-        public override void Build(int subdiv, float rounding, Vector3 size, float relativeTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
         {
             throw new NotImplementedException();
         }
@@ -593,7 +609,7 @@ namespace SSL
     [Serializable]
     public class STerminal : SElement
     {
-        public override void Build(int subdiv, float rounding, Vector3 size, float relativeTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams)
         {
             mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
@@ -611,7 +627,7 @@ namespace SSL
             for (int i = 0; i < nLoops; i++)
             {
                 //Taper
-                float taperScale = GetTaperScale(size, nLoops, i, relativeTaper);
+                float taperScale = GetTaperScale(size, nLoops, i, relativeForwardTaper, relativeBackwardTaper);
                 Vector3 sizeAdjustedForTaper = size;
                 sizeAdjustedForTaper.x *= taperScale;
                 sizeAdjustedForTaper.z *= taperScale;

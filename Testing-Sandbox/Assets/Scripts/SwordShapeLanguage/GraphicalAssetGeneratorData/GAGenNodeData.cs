@@ -44,6 +44,20 @@ namespace SSL.Data
         //Output settings
         public List<GAPortType> o_portTypes = new List<GAPortType>();
 
-        public SequentialNodeParams parameters;
+        public SequentialNodeParams parameters = SequentialNodeParams.defaultParams;
+    }
+}
+
+namespace SSL.Graph
+{
+    public enum NodeType
+    {
+        Sequential,
+        Branch
+    }
+
+    public enum GAPortType
+    {
+        Mesh
     }
 }

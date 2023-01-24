@@ -91,3 +91,7 @@ GraphicalAssetPort > VisualElement > Port > Label
 .label-field-block > Vector3Field{
 	width: 200px;
 }
+
+.label-field-block > Slider{
+	width: 200px;
+}

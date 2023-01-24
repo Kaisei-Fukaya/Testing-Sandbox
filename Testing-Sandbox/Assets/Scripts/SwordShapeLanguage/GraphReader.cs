@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SSL;
+using SSL.Data;
 
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class GraphReader : MonoBehaviour
@@ -9,7 +10,7 @@ public class GraphReader : MonoBehaviour
     [Range(0, 5)]
     [SerializeField] int _subdiv;
 
-    [SerializeField] SSL.Data.GAGenData data;
+    [SerializeField] GAGenData data;
 
     SwordGraph sg;
     MeshFilter mf;
@@ -25,35 +26,25 @@ public class GraphReader : MonoBehaviour
             sg = new SwordGraph();
         if (mf == null)
             mf = GetComponent<MeshFilter>();
+        if (data == null)
+            return;
+        GAGenData.NodesAndEdges nodesAndEdges = data.GetNodesAndEdges(_subdiv);
 
-        BuildNodes();
+        //BuildNodes();
 
-        Dictionary<int, int[]> edgesConverted = new Dictionary<int, int[]>();
-        for (int i = 0; i < _edges.Count; i++)
-        {
-            edgesConverted.Add(i, _edges[i].val.ToArray());
-        }
-
-        SElement[] newSet = new SElement[_nodes.Length + 1];
-        for (int i = 0; i < _nodes.Length; i++)
-        {
-            newSet[i] = _nodes[i];
-        }
-        newSet[newSet.Length-1] = _testTerminalNode;
-
-        sg.Load(_subdiv, _spacing, newSet, edgesConverted);
+        sg.Load(_subdiv, 1f, nodesAndEdges.nodes, nodesAndEdges.edges);
         Mesh m = sg.Generate();
         mf.mesh = m;
     }
 
-    void BuildNodes()
-    {
-        for (int i = 0; i < _nodes.Length; i++)
-        {
-            _nodes[i].Build(_subdiv);
-        }
-        _testTerminalNode.Build(_subdiv);
-    }
+    //void BuildNodes(SElement[] nodes)
+    //{
+    //    for (int i = 0; i < nodes.Length; i++)
+    //    {
+    //        nodes[i].Build(_subdiv);
+    //    }
+    //    _testTerminalNode.Build(_subdiv);
+    //}
 
     void OnValidate()
     {

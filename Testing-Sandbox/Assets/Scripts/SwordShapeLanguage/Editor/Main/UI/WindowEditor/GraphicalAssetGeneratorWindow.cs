@@ -149,7 +149,7 @@ namespace SSL.Graph
             }
 
             //Otherwise overwrite the data
-            _saveData.Save(_graphView);
+            SaveData(_graphView, _saveData);
             //AssetDatabase.SaveAsset(_saveData);
             AssetDatabase.SaveAssets();
             EditorUtility.FocusProjectWindow();
@@ -157,7 +157,10 @@ namespace SSL.Graph
             void RefreshSelection()
             {
                 if (Selection.activeObject == null)
+                {
                     Selection.activeObject = _saveData;
+                    EditorApplication.QueuePlayerLoopUpdate();
+                }
                 else
                 {
                     Selection.activeObject = null;
@@ -168,13 +171,24 @@ namespace SSL.Graph
             EditorApplication.delayCall += RefreshSelection;
         }
 
+        void SaveData(GraphicalAssetGraphView graphView, GAGenData saveData)
+        {
+            List<GraphViewNode> nodes = graphView.Nodes;
+            saveData.Nodes = new List<GAGenNodeData>();
+            foreach (GraphViewNode node in nodes)
+            {
+                saveData.Nodes.Add(GAGenDataUtils.GraphNodeToNodeData(node));
+            }
+            EditorUtility.SetDirty(saveData);
+        }
+
         void SaveAs()
         {
             string savePath = EditorUtility.SaveFilePanelInProject("Save As", "New Graphical Asset Generator", "asset", "");
             if (savePath == string.Empty)
                 return;
             _saveData = CreateInstance<GAGenData>();
-            _saveData.Save(_graphView);
+            SaveData(_graphView, _saveData);
             AssetDatabase.CreateAsset(_saveData, savePath);
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = _saveData;

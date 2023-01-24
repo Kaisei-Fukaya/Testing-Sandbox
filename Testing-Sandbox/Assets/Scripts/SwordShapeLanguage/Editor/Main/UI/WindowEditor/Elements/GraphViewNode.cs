@@ -222,17 +222,3 @@ namespace SSL.Graph
         }
     }
 }
-
-namespace SSL.Graph
-{
-    public enum NodeType
-    {
-        Sequential,
-        Branch
-    }
-
-    public enum GAPortType
-    {
-        Mesh
-    }
-}

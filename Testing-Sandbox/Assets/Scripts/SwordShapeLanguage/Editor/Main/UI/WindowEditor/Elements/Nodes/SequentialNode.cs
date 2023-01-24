@@ -14,7 +14,8 @@ namespace SSL.Graph.Elements
         protected GraphicalAssetPort _inputPort, _outputPort;
         protected GAPortType _inputPortType, _outputPortType;
         protected IntegerField _nLoopsField, _subMeshIndexField;
-        protected FloatField _roundingField, _relativeTaperField;
+        protected FloatField _roundingField;
+        protected Slider _relativeForwardTaperField, _relativeBackwardTaperField;
         protected Vector3Field _sizeField;
 
         public override void Initialise(Vector2 position)
@@ -23,7 +24,8 @@ namespace SSL.Graph.Elements
             _nLoopsField = new IntegerField();
             _subMeshIndexField = new IntegerField();
             _roundingField = new FloatField();
-            _relativeTaperField = new FloatField();
+            _relativeForwardTaperField = new Slider(0f, 1f);
+            _relativeBackwardTaperField = new Slider(0f, 1f);
             _sizeField = new Vector3Field();
         }
 
@@ -32,7 +34,8 @@ namespace SSL.Graph.Elements
             NodeSetting setting = base.GetSettings();
             setting.parameters.nLoops = _nLoopsField.value;
             setting.parameters.size = _sizeField.value;
-            setting.parameters.relativeTaper = _relativeTaperField.value;
+            setting.parameters.relativeForwardTaper = _relativeForwardTaperField.value;
+            setting.parameters.relativeBackwardTaper = _relativeBackwardTaperField.value;
             setting.parameters.rounding = _roundingField.value;
             setting.parameters.subMeshIndex = _subMeshIndexField.value;
             return setting;
@@ -42,7 +45,8 @@ namespace SSL.Graph.Elements
         {
             _nLoopsField.SetValueWithoutNotify(setting.parameters.nLoops);
             _sizeField.SetValueWithoutNotify(setting.parameters.size);
-            _relativeTaperField.SetValueWithoutNotify(setting.parameters.relativeTaper);
+            _relativeForwardTaperField.SetValueWithoutNotify(setting.parameters.relativeForwardTaper);
+            _relativeBackwardTaperField.SetValueWithoutNotify(setting.parameters.relativeBackwardTaper);
             _roundingField.SetValueWithoutNotify(setting.parameters.rounding);
             _subMeshIndexField.SetValueWithoutNotify(setting.parameters.subMeshIndex);
         }
@@ -84,10 +88,15 @@ namespace SSL.Graph.Elements
             roundingBlock.Add(new Label("Rounding:"));
             roundingBlock.Add(_roundingField);
 
-            VisualElement taperBlock = new VisualElement();
-            taperBlock.AddToClassList("label-field-block");
-            taperBlock.Add(new Label("Taper:"));
-            taperBlock.Add(_relativeTaperField);
+            VisualElement forwardTaperBlock = new VisualElement();
+            forwardTaperBlock.AddToClassList("label-field-block");
+            forwardTaperBlock.Add(new Label("Taper:"));
+            forwardTaperBlock.Add(_relativeForwardTaperField);
+
+            VisualElement backwardTaperBlock = new VisualElement();
+            backwardTaperBlock.AddToClassList("label-field-block");
+            backwardTaperBlock.Add(new Label("Taper:"));
+            backwardTaperBlock.Add(_relativeBackwardTaperField);
 
             VisualElement sMeshIndexBlock = new VisualElement();
             sMeshIndexBlock.AddToClassList("label-field-block");
@@ -99,7 +108,8 @@ namespace SSL.Graph.Elements
             optionsBlock.Add(nLoopsBlock);
             optionsBlock.Add(sizeBlock);
             optionsBlock.Add(roundingBlock);
-            optionsBlock.Add(taperBlock);
+            optionsBlock.Add(forwardTaperBlock);
+            optionsBlock.Add(backwardTaperBlock);
             optionsBlock.Add(sMeshIndexBlock);
             return optionsBlock;
         }
