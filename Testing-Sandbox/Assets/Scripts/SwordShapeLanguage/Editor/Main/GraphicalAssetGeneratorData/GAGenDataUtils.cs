@@ -5,6 +5,7 @@ using System;
 using SSL.Graph;
 using System.Linq;
 using System.IO;
+using UnityEditor;
 
 namespace SSL.Data.Utils
 {
@@ -85,6 +86,20 @@ namespace SSL.Data.Utils
             }
 
             return cleanName;
+        }
+
+        public static void RepaintInspector(System.Type t)
+        {
+            Editor[] ed = (Editor[])Resources.FindObjectsOfTypeAll<Editor>();
+            for (int i = 0; i < ed.Length; i++)
+            {
+                if (ed[i].GetType() == t)
+                {
+                    Debug.Log("Repaint");
+                    ed[i].Repaint();
+                    return;
+                }
+            }
         }
     }
 }

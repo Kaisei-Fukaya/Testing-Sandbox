@@ -156,16 +156,18 @@ namespace SSL.Graph
                 
             void RefreshSelection()
             {
-                if (Selection.activeObject == null)
-                {
-                    Selection.activeObject = _saveData;
-                    EditorApplication.QueuePlayerLoopUpdate();
-                }
-                else
-                {
-                    Selection.activeObject = null;
-                    EditorApplication.delayCall += RefreshSelection;
-                }
+                _saveData.UpdateRequiredFlag = true;
+                //if (Selection.activeObject == null)
+                //{
+                //    Selection.activeObject = _saveData;
+                //    _saveData.UpdateRequiredFlag = true;
+                //    GAGenDataUtils.RepaintInspector(typeof(GraphReaderEditor));
+                //}
+                //else
+                //{
+                //    Selection.activeObject = null;
+                //    EditorApplication.delayCall += RefreshSelection;
+                //}
             }
 
             EditorApplication.delayCall += RefreshSelection;
@@ -296,4 +298,5 @@ namespace SSL.Graph
             rootVisualElement.styleSheets.Add(windowStyleSheet);
         }
     }
+
 }

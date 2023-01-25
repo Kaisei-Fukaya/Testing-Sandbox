@@ -10,7 +10,7 @@ public class GraphReader : MonoBehaviour
     [Range(0, 5)]
     [SerializeField] int _subdiv;
 
-    [SerializeField] GAGenData data;
+    [SerializeField] public GAGenData data;
 
     SwordGraph sg;
     MeshFilter mf;
@@ -46,7 +46,13 @@ public class GraphReader : MonoBehaviour
     //    _testTerminalNode.Build(_subdiv);
     //}
 
+
     void OnValidate()
+    {
+        UpdateMesh();
+    }
+
+    public void UpdateMesh()
     {
         UnityEditor.EditorApplication.delayCall -= Gen;
         UnityEditor.EditorApplication.delayCall += Gen;

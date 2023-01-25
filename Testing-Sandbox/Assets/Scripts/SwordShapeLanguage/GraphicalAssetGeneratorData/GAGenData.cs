@@ -11,6 +11,7 @@ namespace SSL.Data
     public class GAGenData : ScriptableObject
     {
         [field: SerializeField] public List<GAGenNodeData> Nodes { get; set; } = new List<GAGenNodeData>();
+        [field: SerializeField] public bool UpdateRequiredFlag { get; set; } = false;
 
         public NodesAndEdges GetNodesAndEdges(int subdiv)
         {
@@ -58,7 +59,7 @@ namespace SSL.Data
             for (int i = 0; i < newEdges.Count; i++)
             {
                 edgesConverted.Add(i, newEdges[i].val.ToArray());
-                Debug.Log(edgesConverted[i].Length);
+                //Debug.Log(edgesConverted[i].Length);
             }
 
 
