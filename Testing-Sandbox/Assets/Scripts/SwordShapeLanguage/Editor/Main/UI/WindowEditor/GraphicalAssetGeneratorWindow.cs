@@ -153,24 +153,25 @@ namespace SSL.Graph
             //AssetDatabase.SaveAsset(_saveData);
             AssetDatabase.SaveAssets();
             EditorUtility.FocusProjectWindow();
-                
-            void RefreshSelection()
-            {
-                _saveData.UpdateRequiredFlag = true;
-                //if (Selection.activeObject == null)
-                //{
-                //    Selection.activeObject = _saveData;
-                //    _saveData.UpdateRequiredFlag = true;
-                //    GAGenDataUtils.RepaintInspector(typeof(GraphReaderEditor));
-                //}
-                //else
-                //{
-                //    Selection.activeObject = null;
-                //    EditorApplication.delayCall += RefreshSelection;
-                //}
-            }
 
-            EditorApplication.delayCall += RefreshSelection;
+            _saveData.UpdateRequiredFlag = true;
+
+            //void RefreshSelection()
+            //{
+            //    //if (Selection.activeObject == null)
+            //    //{
+            //    //    Selection.activeObject = _saveData;
+            //    //    _saveData.UpdateRequiredFlag = true;
+            //    //    GAGenDataUtils.RepaintInspector(typeof(GraphReaderEditor));
+            //    //}
+            //    //else
+            //    //{
+            //    //    Selection.activeObject = null;
+            //    //    EditorApplication.delayCall += RefreshSelection;
+            //    //}
+            //}
+
+            //EditorApplication.delayCall += RefreshSelection;
         }
 
         void SaveData(GraphicalAssetGraphView graphView, GAGenData saveData)

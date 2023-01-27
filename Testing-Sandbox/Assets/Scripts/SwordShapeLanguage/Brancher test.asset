@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28e09a53e1b7a824e9d1ca4943e41d04, type: 3}
+  m_Name: Brancher test
+  m_EditorClassIdentifier: 
+  <Nodes>k__BackingField:
+  - <ID>k__BackingField: d669c7c5-989f-41ce-bc65-3df48cd707ef
+    <NodeType>k__BackingField: 1
+    <OutGoingConnections>k__BackingField:
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: d669c7c5-989f-41ce-bc65-3df48cd707ef
+      type: 0
+      ownerDisplayName: 
+    <InGoingConnections>k__BackingField:
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: d669c7c5-989f-41ce-bc65-3df48cd707ef
+      type: 0
+      ownerDisplayName: 
+    <Settings>k__BackingField:
+      i_portTypes: 00000000
+      o_portTypes: 00000000
+      parameters:
+        nLoops: 0
+        rounding: 0
+        size: {x: 1, y: 1, z: 1}
+        relativeForwardTaper: 1
+        relativeBackwardTaper: 1
+        deforms:
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        curveParams:
+          controlPoint: {x: 0, y: 0}
+          tipOffset: {x: 0, y: 0}
+        subMeshIndex: 0
+        sequentialNodeType: 1
+    <Position>k__BackingField: {x: 441, y: 266}
+  <UpdateRequiredFlag>k__BackingField: 0

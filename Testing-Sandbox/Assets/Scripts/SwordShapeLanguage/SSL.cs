@@ -538,7 +538,7 @@ namespace SSL
     }
 
     [Serializable]
-    public class SSequential : SElement
+    public class SSegment : SElement
     {
         public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, SequentialNodeType sequentialNodeType)
         {
@@ -675,12 +675,140 @@ namespace SSL
     }
 
     [Serializable]
-    public class SUnion : SElement
+    public class SBranch : SElement
     {
 
         public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, SequentialNodeType sequentialNodeType)
         {
-            throw new NotImplementedException();
+            mesh = new Mesh();
+            int[][] roundingRanges = new int[0][];
+            List<Vector3> allVerts = new List<Vector3>();
+            int loopLen = 4 * (int)Math.Pow(2, subdiv);
+            nLoops = (loopLen / 4) + 1;
+
+            //Ensure deforms matches looplen
+            if (deforms.Length != loopLen)
+            {
+                deforms = Redeform(deforms, loopLen, out roundingRanges);
+            }
+
+            //Create Verts
+            for (int i = 0; i < nLoops; i++)
+            {
+                //Taper
+                //float taperScale = GetTaperScale(size, nLoops, i, relativeForwardTaper, relativeBackwardTaper);
+                //Vector3 sizeAdjustedForTaper = size;
+                //sizeAdjustedForTaper.x *= taperScale;
+                //sizeAdjustedForTaper.z *= taperScale;
+
+                Vector3[] newLoop = BuildLoop(loopLen, nLoops, i, size, deforms, 1f);
+                allVerts.AddRange(newLoop);
+
+                //Add end-cap vert
+                if (sequentialNodeType == SequentialNodeType.End && i == nLoops - 1)
+                {
+                    Vector3 endCapVert = new Vector3();
+                    for (int j = 0; j < newLoop.Length; j++)
+                    {
+                        endCapVert += newLoop[j];
+                    }
+                    endCapVert /= newLoop.Length;
+                    allVerts.Add(endCapVert);
+                }
+            }
+
+            //Create Tris
+            List<int> allTris = new List<int>();
+            for (int i = 1; i < nLoops; i++)
+            {
+                for (int j = 0; j < loopLen; j++)
+                {
+                    allTris.AddRange(BuildTriangles(loopLen, i, j));
+                }
+            }
+
+
+            mesh.vertices = allVerts.ToArray();
+            mesh.triangles = allTris.ToArray();
+            mesh.RecalculateNormals();
+
+            //Apply rounding
+            for (int i = 0; i < nLoops; i++)
+            {
+                for (int j = 0; j < roundingRanges.Length; j++)
+                {
+                    for (int k = 0; k < roundingRanges[j].Length; k++)
+                    {
+                        float roundingAmount = GetRoundingAmount(roundingRanges, j, k);
+                        allVerts[roundingRanges[j][k] + (i * loopLen)] +=
+                        mesh.normals[roundingRanges[j][k] +
+                        (i * loopLen)].normalized *
+                        Mathf.Lerp(
+                            0,
+                            rounding,
+                            roundingAmount + (rounding * .3f)
+                        );
+                    }
+                }
+            }
+
+            if (sequentialNodeType == SequentialNodeType.Start)
+            {
+                //Start-cap vert
+                Vector3 startCapVert = new Vector3();
+                for (int j = 0; j < loopLen; j++)
+                {
+                    startCapVert += allVerts[j];
+                }
+                startCapVert /= loopLen;
+                allVerts.Insert(0, startCapVert);
+
+                //Shift tris up to account for start cap vert
+                for (int i = 0; i < allTris.Count; i++)
+                {
+                    allTris[i]++;
+                }
+
+                //Start-cap triangles
+                int[] startCap = new int[loopLen * 3];
+                for (int i = 0; i < startCap.Length / 3; i++)
+                {
+                    if (i == loopLen - 1)
+                    {
+                        startCap[i * 3] = 0;
+                        startCap[(i * 3) + 1] = i + 1;
+                        startCap[(i * 3) + 2] = 1;
+                    }
+                    else
+                    {
+                        startCap[i * 3] = 0;
+                        startCap[(i * 3) + 1] = i + 1;
+                        startCap[(i * 3) + 2] = i + 2;
+                    }
+                }
+                allTris.AddRange(startCap);
+            }
+            //End-cap triangles
+            else if (sequentialNodeType == SequentialNodeType.End)
+            {
+                int refPoint = nLoops - 1;
+                int[] endCap = new int[loopLen * 3];
+                for (int i = 0; i < endCap.Length / 3; i++)
+                {
+                    endCap[i * 3] = (refPoint * loopLen) + i;
+                    endCap[(i * 3) + 1] = (refPoint + 1) * loopLen;
+                    if (i == loopLen - 1)
+                        endCap[(i * 3) + 2] = refPoint * loopLen;
+                    else
+                        endCap[(i * 3) + 2] = (refPoint * loopLen) + i + 1;
+                }
+                allTris.AddRange(endCap);
+            }
+
+            mesh.vertices = allVerts.ToArray();
+            mesh.triangles = allTris.ToArray();
+            mesh.RecalculateNormals();
+            mesh.RecalculateTangents();
         }
     }
 

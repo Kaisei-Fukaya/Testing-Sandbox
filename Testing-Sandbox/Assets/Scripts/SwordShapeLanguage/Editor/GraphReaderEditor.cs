@@ -27,6 +27,8 @@ public class GraphReaderEditor : Editor
             window.Load(graphReader.data);
         }
 
+        TriggerScript();
+
     }
 
     public void TriggerScript()
@@ -37,16 +39,6 @@ public class GraphReaderEditor : Editor
             graphReader.UpdateMesh();
             graphReader.data.UpdateRequiredFlag = false;
         }
-    }
-
-    public void OnEnable()
-    {
-        EditorApplication.update += TriggerScript;
-    }
-
-    public void OnDisable()
-    {
-        EditorApplication.update -= TriggerScript;
     }
 
 }

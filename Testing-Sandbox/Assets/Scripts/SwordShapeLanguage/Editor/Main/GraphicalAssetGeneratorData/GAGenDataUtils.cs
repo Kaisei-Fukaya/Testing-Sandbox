@@ -13,8 +13,8 @@ namespace SSL.Data.Utils
     {
         public static Dictionary<NodeType, string> DisplayNameLookup = new Dictionary<NodeType, string>
         {
-            { NodeType.Sequential,          "Sequential" },
-            { NodeType.Branch,              "Branch" }
+            { NodeType.Segment,  "Segment" },
+            { NodeType.Branch,   "Branch" }
         };
         public static GAGenNodeData GraphNodeToNodeData(GraphViewNode node)
         {

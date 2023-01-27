@@ -53,7 +53,7 @@ namespace SSL.Graph
 {
     public enum NodeType
     {
-        Sequential,
+        Segment,
         Branch
     }
 

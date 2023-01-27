@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 
 namespace SSL.Graph.Elements
 {
-    public class SequentialNode : GraphViewNode
+    public class BranchNode : GraphViewNode
     {
         protected GraphicalAssetPort _inputPort, _outputPort;
         protected GAPortType _inputPortType, _outputPortType;
@@ -20,6 +20,7 @@ namespace SSL.Graph.Elements
 
         public override void Initialise(Vector2 position)
         {
+            NodeType = NodeType.Branch;
             base.Initialise(position);
             _nLoopsField = new IntegerField();
             _subMeshIndexField = new IntegerField();

@@ -32,7 +32,19 @@ namespace SSL.Data
                 else if (Nodes[i].OutGoingConnections[0].iD == "EMPTY")
                     newParams.sequentialNodeType = SequentialNodeType.End;
 
-                var newNode = new SSequential();
+                SElement newNode;
+                switch (Nodes[i].NodeType)
+                {
+                    case Graph.NodeType.Segment:
+                        newNode = new SSegment();
+                        break;
+                    case Graph.NodeType.Branch:
+                        newNode = new SBranch();
+                        break;
+                    default:
+                        newNode = new SSegment();
+                        break;
+                }
                 newNode.Build(subdiv, newParams);
                 newNodes.Add(newNode);
                 indexLookup.Add(Nodes[i].ID, i);
