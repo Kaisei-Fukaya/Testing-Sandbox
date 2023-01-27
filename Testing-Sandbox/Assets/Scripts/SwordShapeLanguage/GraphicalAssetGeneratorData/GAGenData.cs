@@ -60,7 +60,10 @@ namespace SSL.Data
                 for (int j = 0; j < Nodes[i].OutGoingConnections.Count; j++)
                 {
                     if (Nodes[i].OutGoingConnections[j].iD == "EMPTY")
+                    {
+                        newEdgeSet.val.Add(-1);
                         continue;
+                    }
                     newEdgeSet.val.Add(indexLookup[Nodes[i].OutGoingConnections[j].iD]);
                     //Debug.Log($"node {i}, connections {j}, connects to node index: {newEdgeSet.val[0]}");
                 }

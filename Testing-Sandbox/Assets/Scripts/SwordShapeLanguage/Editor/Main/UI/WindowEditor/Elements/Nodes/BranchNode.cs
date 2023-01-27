@@ -11,7 +11,7 @@ namespace SSL.Graph.Elements
 {
     public class BranchNode : GraphViewNode
     {
-        protected GraphicalAssetPort _inputPort, _outputPort;
+        protected GraphicalAssetPort _inputPortBottom, _outputPortTop, _outputPortLeft, _outputPortForward, _outputPortRight, _outputPortBackward;
         protected GAPortType _inputPortType, _outputPortType;
         protected IntegerField _nLoopsField, _subMeshIndexField;
         protected FloatField _roundingField;
@@ -58,12 +58,24 @@ namespace SSL.Graph.Elements
             _ingoingPorts = new List<GraphicalAssetPort>();
             _outgoingPorts = new List<GraphicalAssetPort>();
 
-            _inputPort = new GraphicalAssetPort(this, _inputPortType, Orientation.Horizontal, Direction.Input, Port.Capacity.Single);
-            _outputPort = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
-            _ingoingPorts.Add(_inputPort);
-            _outgoingPorts.Add(_outputPort);
-            inputContainer.Add(_inputPort);
-            outputContainer.Add(_outputPort);
+            _inputPortBottom = new GraphicalAssetPort(this, _inputPortType, Orientation.Horizontal, Direction.Input, Port.Capacity.Single);
+            _outputPortTop = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
+            _outputPortLeft = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
+            _outputPortForward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
+            _outputPortRight = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
+            _outputPortBackward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
+            _ingoingPorts.Add(_inputPortBottom);
+            _outgoingPorts.Add(_outputPortTop);
+            _outgoingPorts.Add(_outputPortLeft);
+            _outgoingPorts.Add(_outputPortForward);
+            _outgoingPorts.Add(_outputPortRight);
+            _outgoingPorts.Add(_outputPortBackward);
+            inputContainer.Add(_inputPortBottom);
+            outputContainer.Add(_outputPortTop);
+            outputContainer.Add(_outputPortLeft);
+            outputContainer.Add(_outputPortForward);
+            outputContainer.Add(_outputPortRight);
+            outputContainer.Add(_outputPortBackward);
 
             extensionContainer.Add(CreateOptions());
 

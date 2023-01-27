@@ -47,6 +47,8 @@ namespace SSL
             Dictionary<SElement, bool> completionLookup = new Dictionary<SElement, bool>();
             Stack<SElement> stack = new Stack<SElement>();
             int currentNodeIndex = 0;
+            int currentFace = 0;
+            SElement.FacePlanarNormals facePlanarNormals = new SElement.FacePlanarNormals();
             stack.Push(_nodes[currentNodeIndex]);
 
             //Populate completion lookup
@@ -64,16 +66,21 @@ namespace SSL
                 {
                     //Get mesh
                     Mesh subMesh = currentNode.GetMesh();
-                    newMesh = JoinMeshes(newMesh, subMesh, _elementSpacing, _subdiv, currentNode.GetSubmeshIndex());
+                    newMesh = JoinMeshes(newMesh, subMesh, _elementSpacing, _subdiv, currentNode.GetSubmeshIndex(), currentFace, facePlanarNormals);
                     completionLookup[currentNode] = true;
                 }
+                
+                facePlanarNormals = currentNode.GetFacePlanarNormals();
 
                 bool nextFound = false;
                 for (int i = 0; i < currentNodeConnections.Length; i++)
                 {
+                    if (currentNodeConnections[i] == -1)
+                        continue;
                     if (!completionLookup[_nodes[currentNodeConnections[i]]])
                     {
                         currentNodeIndex = currentNodeConnections[i];
+                        currentFace = i;
                         stack.Push(_nodes[currentNodeIndex]);
                         nextFound = true;
                         break;
@@ -87,7 +94,7 @@ namespace SSL
             return newMesh;
         }
 
-        Mesh JoinMeshes(Mesh meshA, Mesh meshB, float elementSpacing, int subdiv, int submeshIndex)
+        Mesh JoinMeshes(Mesh meshA, Mesh meshB, float elementSpacing, int subdiv, int submeshIndex, int currentFace, SElement.FacePlanarNormals facePlanarNormals)
         {
             int vertCount = meshA.vertexCount;
 
@@ -108,8 +115,8 @@ namespace SSL
                 lastLoopOfMeshB[i] = meshA.vertices[meshA.vertices.Length - (loopLen - i)];
             }
 
-            ConnectionData connectionData = GetConnectionData(lastLoopOfMeshB);
-
+            ConnectionData connectionData = GetConnectionData(currentFace, facePlanarNormals);
+            Debug.Log($"dir: {connectionData.direction}, origin: {connectionData.position}");
 
             List<Vector3> newVerts = new List<Vector3>(meshA.vertices);
             Vector3[] bVerts = meshB.vertices;
@@ -153,65 +160,85 @@ namespace SSL
             return outMesh;
         }
 
-        ConnectionData GetConnectionData(Vector3[] loop)
+        ConnectionData GetConnectionData(int face, SElement.FacePlanarNormals facePlanarNormals)
         {
-            Vector3 loopAverage = new Vector3();
-            Vector2 loopMinMaxX = new Vector2();
-            //Vector2 loopMinMaxY = new Vector2();
-            Vector2 loopMinMaxZ = new Vector2();
-            float[] yPositionOfBounds = new float[4];
-            for (int i = 0; i < loop.Length; i++)
+            //Vector3 loopAverage = new Vector3();
+            //Vector2 loopMinMaxX = new Vector2();
+            ////Vector2 loopMinMaxY = new Vector2();
+            //Vector2 loopMinMaxZ = new Vector2();
+            //float[] yPositionOfBounds = new float[4];
+            //for (int i = 0; i < loop.Length; i++)
+            //{
+            //    //Sum for average
+            //    loopAverage += loop[i];
+
+            //    //Find x min/max, y min/max and z min/max
+            //    if (loop[i].x < loopMinMaxX.x)
+            //    {
+            //        loopMinMaxX.x = loop[i].x;
+            //        yPositionOfBounds[0] = loop[i].y;
+            //    }
+            //    else if (loop[i].x > loopMinMaxX.y)
+            //    {
+            //        loopMinMaxX.y = loop[i].x;
+            //        yPositionOfBounds[1] = loop[i].y;
+            //    }
+
+            //    //if (loop[i].y < loopMinMaxY.x)
+            //    //    loopMinMaxY.x = loop[i].y;
+            //    //else if (loop[i].y > loopMinMaxY.y)
+            //    //    loopMinMaxY.y = loop[i].y;
+
+            //    if (loop[i].z < loopMinMaxZ.x)
+            //    {
+            //        loopMinMaxZ.x = loop[i].z;
+            //        yPositionOfBounds[2] = loop[i].y;
+            //    }
+            //    else if (loop[i].z > loopMinMaxZ.y)
+            //    {
+            //        loopMinMaxZ.y = loop[i].z;
+            //        yPositionOfBounds[3] = loop[i].y;
+            //    }
+            //}
+            //loopAverage /= loop.Length;
+
+            //Vector3[] bounds = new Vector3[]
+            //{
+            //    new Vector3(loopMinMaxX.x, (yPositionOfBounds[0] + yPositionOfBounds[2]) / 2, loopMinMaxZ.x),
+            //    new Vector3(loopMinMaxX.x, (yPositionOfBounds[0] + yPositionOfBounds[3]) / 2, loopMinMaxZ.y),
+            //    new Vector3(loopMinMaxX.y, (yPositionOfBounds[1] + yPositionOfBounds[3]) / 2, loopMinMaxZ.y),
+            //    new Vector3(loopMinMaxX.y, (yPositionOfBounds[1] + yPositionOfBounds[2]) / 2, loopMinMaxZ.x),
+            //};
+
+            ////x = 4-1 + 3-2
+            ////y = 2-1 + 3-4
+            //Vector3 x = bounds[3] - bounds[0] + bounds[2] - bounds[1];
+            //Vector3 y = bounds[1] - bounds[0] + bounds[2] - bounds[3];
+            //Vector3 z = Vector3.Cross(x, y);
+            //Quaternion loopDirection = Quaternion.LookRotation(z, y);
+            //loopDirection = Quaternion.identity;
+
+            ConnectionData newConnectionData = new ConnectionData();
+
+            switch (face)
             {
-                //Sum for average
-                loopAverage += loop[i];
-
-                //Find x min/max, y min/max and z min/max
-                if (loop[i].x < loopMinMaxX.x)
-                {
-                    loopMinMaxX.x = loop[i].x;
-                    yPositionOfBounds[0] = loop[i].y;
-                }
-                else if (loop[i].x > loopMinMaxX.y)
-                {
-                    loopMinMaxX.y = loop[i].x;
-                    yPositionOfBounds[1] = loop[i].y;
-                }
-
-                //if (loop[i].y < loopMinMaxY.x)
-                //    loopMinMaxY.x = loop[i].y;
-                //else if (loop[i].y > loopMinMaxY.y)
-                //    loopMinMaxY.y = loop[i].y;
-
-                if (loop[i].z < loopMinMaxZ.x)
-                {
-                    loopMinMaxZ.x = loop[i].z;
-                    yPositionOfBounds[2] = loop[i].y;
-                }
-                else if (loop[i].z > loopMinMaxZ.y)
-                {
-                    loopMinMaxZ.y = loop[i].z;
-                    yPositionOfBounds[3] = loop[i].y;
-                }
+                case 0:
+                    newConnectionData = new ConnectionData(facePlanarNormals.t_centre, Quaternion.LookRotation(facePlanarNormals.t));
+                    break;
+                case 1:
+                    newConnectionData = new ConnectionData(facePlanarNormals.l_centre, Quaternion.LookRotation(facePlanarNormals.l));
+                    break;
+                case 2:
+                    newConnectionData = new ConnectionData(facePlanarNormals.f_centre, Quaternion.LookRotation(facePlanarNormals.f));
+                    break;
+                case 3:
+                    newConnectionData = new ConnectionData(facePlanarNormals.r_centre, Quaternion.LookRotation(facePlanarNormals.r));
+                    break;
+                case 4:
+                    newConnectionData = new ConnectionData(facePlanarNormals.ba_centre, Quaternion.LookRotation(facePlanarNormals.ba));
+                    break;
             }
-            loopAverage /= loop.Length;
 
-            Vector3[] bounds = new Vector3[]
-            {
-                new Vector3(loopMinMaxX.x, (yPositionOfBounds[0] + yPositionOfBounds[2]) / 2, loopMinMaxZ.x),
-                new Vector3(loopMinMaxX.x, (yPositionOfBounds[0] + yPositionOfBounds[3]) / 2, loopMinMaxZ.y),
-                new Vector3(loopMinMaxX.y, (yPositionOfBounds[1] + yPositionOfBounds[3]) / 2, loopMinMaxZ.y),
-                new Vector3(loopMinMaxX.y, (yPositionOfBounds[1] + yPositionOfBounds[2]) / 2, loopMinMaxZ.x),
-            };
-
-            //x = 4-1 + 3-2
-            //y = 2-1 + 3-4
-            Vector3 x = bounds[3] - bounds[0] + bounds[2] - bounds[1];
-            Vector3 y = bounds[1] - bounds[0] + bounds[2] - bounds[3];
-            Vector3 z = Vector3.Cross(x, y);
-            Quaternion loopDirection = Quaternion.LookRotation(z, y);
-            loopDirection = Quaternion.identity;
-
-            ConnectionData newConnectionData = new ConnectionData(loopAverage, loopDirection);
             return newConnectionData;
         }
 
@@ -294,6 +321,8 @@ namespace SSL
         [SerializeField] SequentialNodeParams storedParameters;
         protected Mesh mesh;
         public Mesh GetMesh() => mesh;
+        protected FacePlanarNormals facePlanarNormals;
+        public FacePlanarNormals GetFacePlanarNormals() => facePlanarNormals;
         public int GetSubmeshIndex() => storedParameters.subMeshIndex;
         public virtual void Build(int subdivs)
         {
@@ -524,6 +553,67 @@ namespace SSL
             Vector3 p1 = Vector3.Lerp(control, end, t);
             return Vector3.Lerp(p0, p1, t);
         }
+        protected FacePlanarNormals GenerateFacePlanarNormals(int nLoops, Vector3[] verts, int loopLen)
+        {
+            int quartOfLength = loopLen / 4;
+            var a  = verts[0];
+            var b  = verts[quartOfLength];
+            var c  = verts[quartOfLength * 2];
+            var d  = verts[quartOfLength * 3];
+            var a1 = verts[(nLoops - 1) * loopLen];
+            var b1 = verts[((nLoops - 1) * loopLen) + quartOfLength];
+            var c1 = verts[((nLoops - 1) * loopLen) + (quartOfLength * 2)];
+            var d1 = verts[((nLoops - 1) * loopLen) + (quartOfLength * 3)];
+            facePlanarNormals = new FacePlanarNormals(
+                bottom: Vector3.Cross(d-a+c-b, b-a+c-d).normalized,
+                top:    Vector3.Cross(a1-d1+b1-c1, a1-b1+d1-c1).normalized,
+                left:   Vector3.Cross(a-d+a1-d1, a-a1+d-d1).normalized,
+                front:  Vector3.Cross(d-c+d1-c1, d-d1+c-c1).normalized,
+                right:  Vector3.Cross(c-b+c1-b1, c-c1+b-b1).normalized,
+                back:   Vector3.Cross(b-a+b1-a1, b-b1+a-a1).normalized,
+                bottom_centre: (a+b+c+d)/4,
+                top_centre:    (a1+b1+c1+d1)/4,
+                left_centre:   (a+a1+d+d1)/4,
+                front_centre:  (c+c1+d+d1)/4,
+                right_centre:  (b+b1+c+c1)/4,
+                back_centre:   (a+a1+b+b1)/4
+                );
+            Debug.Log((a1-b1+d1-c1).normalized);
+            Debug.Log($"t_c: {(a1 + b1 + c1 + d1) / 4}");
+            return facePlanarNormals;
+        }
+        public struct FacePlanarNormals
+        {
+            public Vector3 bo;
+            public Vector3 t;
+            public Vector3 l;
+            public Vector3 f;
+            public Vector3 r;
+            public Vector3 ba;
+            public Vector3 bo_centre;
+            public Vector3 t_centre;
+            public Vector3 l_centre;
+            public Vector3 f_centre;
+            public Vector3 r_centre;
+            public Vector3 ba_centre;
+            public FacePlanarNormals(Vector3 bottom, Vector3 top, Vector3 left, Vector3 front, Vector3 right, Vector3 back,
+                                     Vector3 bottom_centre, Vector3 top_centre, Vector3 left_centre, Vector3 front_centre, Vector3 right_centre, Vector3 back_centre)
+            {
+                bo = bottom;
+                t = top;
+                l = left;
+                f = front;
+                r = right;
+                ba = back;
+                bo_centre = bottom_centre;
+                t_centre = top_centre;
+                l_centre = left_centre;
+                f_centre = front_centre;
+                r_centre = right_centre;
+                ba_centre = back_centre;
+            }
+
+        }
         protected Vector2 TipOffset => storedParameters.curveParams.tipOffset;
 
         protected float GetTaperScale(Vector3 size, int nLoops, int loopIndex, float relativeForwardTaper, float relativeBackwardTaper)
@@ -613,6 +703,8 @@ namespace SSL
                     }
                 }
             }
+
+            GenerateFacePlanarNormals(nLoops, allVerts.ToArray(), loopLen);
 
             if (sequentialNodeType == SequentialNodeType.Start)
             {
@@ -751,6 +843,8 @@ namespace SSL
                     }
                 }
             }
+
+            GenerateFacePlanarNormals(nLoops, allVerts.ToArray(), loopLen);
 
             if (sequentialNodeType == SequentialNodeType.Start)
             {
