@@ -70,12 +70,17 @@ namespace SSL
                     SElement[] currentStackState = stack.ToArray();
                     int[] currentEdgeStackState = edgeStack.ToArray();
                     Matrix4x4 transformationMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
-                    for (int i = currentStackState.Length - 2; i >= 0; i--)
+                    Vector3[] connectingLoop = new Vector3[0];
+                    for (int i = currentEdgeStackState.Length - 1; i >= 0; i--)
                     {
-                        transformationMatrix *= currentStackState[i].GetConnectionData(currentEdgeStackState[i]).transformationMatrix;
+                        transformationMatrix *= currentStackState[i+1].GetConnectionData(currentEdgeStackState[i]).transformationMatrix;
+                        if (i == 0)
+                        {
+                            connectingLoop = currentStackState[i].GetConnectionData(currentEdgeStackState[i]).edgeLoop;
+                        }
                     }
 
-                    newMesh = JoinMeshes(newMesh, subMesh, _elementSpacing, _subdiv, currentNode.GetSubmeshIndex(), currentFace, transformationMatrix);
+                    newMesh = JoinMeshes(newMesh, subMesh, _subdiv, currentNode.GetSubmeshIndex(), transformationMatrix, connectingLoop);
                     completionLookup[currentNode] = true;
                 }
                 
@@ -106,7 +111,7 @@ namespace SSL
             return newMesh;
         }
 
-        Mesh JoinMeshes(Mesh meshA, Mesh meshB, float elementSpacing, int subdiv, int submeshIndex, int currentFace, Matrix4x4 transformationMatrix)
+        Mesh JoinMeshes(Mesh meshA, Mesh meshB, int subdiv, int submeshIndex, Matrix4x4 transformationMatrix, Vector3[] connectingLoop)
         {
             int vertCount = meshA.vertexCount;
 
@@ -131,9 +136,6 @@ namespace SSL
             Vector3[] bVerts = meshB.vertices;
             for (int i = 0; i < bVerts.Length; i++)
             {
-                //bVerts[i].x += connectionData.position.x;
-                //bVerts[i].y += connectionData.position.y + elementSpacing;
-                //bVerts[i].z += connectionData.position.z;
                 bVerts[i] = transformationMatrix.MultiplyPoint3x4(bVerts[i]);
             }
             int[] bTriangs = meshB.triangles;
@@ -142,6 +144,8 @@ namespace SSL
                 bTriangs[i] += vertCount;
             }
             newVerts.AddRange(bVerts);
+            if(connectingLoop != null)
+                newVerts.AddRange(connectingLoop);
             outMesh.vertices = newVerts.ToArray();
 
             List<int> newTriangs = new List<int>(meshA.triangles);
@@ -238,19 +242,19 @@ namespace SSL
             switch (face)
             {
                 case 0:
-                    newConnectionData = new ConnectionData(facePlanarNormals.t_centre, Quaternion.LookRotation(Vector3.forward, facePlanarNormals.t));
+                    newConnectionData = new ConnectionData(facePlanarNormals.t_centre, Quaternion.LookRotation(Vector3.forward, facePlanarNormals.t), facePlanarNormals.t_loop);
                     break;
                 case 1:
-                    newConnectionData = new ConnectionData(facePlanarNormals.l_centre, Quaternion.LookRotation(Vector3.forward, facePlanarNormals.l));
+                    newConnectionData = new ConnectionData(facePlanarNormals.l_centre, Quaternion.LookRotation(Vector3.forward, facePlanarNormals.l), facePlanarNormals.l_loop);
                     break;
                 case 2:
-                    newConnectionData = new ConnectionData(facePlanarNormals.f_centre, Quaternion.LookRotation(Vector3.right, facePlanarNormals.f));
+                    newConnectionData = new ConnectionData(facePlanarNormals.f_centre, Quaternion.LookRotation(Vector3.right, facePlanarNormals.f), facePlanarNormals.f_loop);
                     break;
                 case 3:
-                    newConnectionData = new ConnectionData(facePlanarNormals.r_centre, Quaternion.LookRotation(Vector3.back, facePlanarNormals.r));
+                    newConnectionData = new ConnectionData(facePlanarNormals.r_centre, Quaternion.LookRotation(Vector3.back, facePlanarNormals.r), facePlanarNormals.r_loop);
                     break;
                 case 4:
-                    newConnectionData = new ConnectionData(facePlanarNormals.ba_centre, Quaternion.LookRotation(Vector3.left, facePlanarNormals.ba));
+                    newConnectionData = new ConnectionData(facePlanarNormals.ba_centre, Quaternion.LookRotation(Vector3.left, facePlanarNormals.ba), facePlanarNormals.ba_loop);
                     break;
             }
 
@@ -267,10 +271,13 @@ namespace SSL
                     return Matrix4x4.TRS(position, direction, Vector3.one);
                 }
             }
-            public ConnectionData(Vector3 position, Quaternion direction)
+
+            public Vector3[] edgeLoop;
+            public ConnectionData(Vector3 position, Quaternion direction, Vector3[] edgeLoop)
             {
                 this.position = position;
                 this.direction = direction;
+                this.edgeLoop = edgeLoop;
             }
         }
         public virtual void Build(int subdivs)
@@ -513,12 +520,135 @@ namespace SSL
             var b1 = verts[((nLoops - 1) * loopLen) + quartOfLength];
             var c1 = verts[((nLoops - 1) * loopLen) + (quartOfLength * 2)];
             var d1 = verts[((nLoops - 1) * loopLen) + (quartOfLength * 3)];
-        //        bottom: Vector3.Cross(b - d, a - d).normalized,
-        //        top: Vector3.Cross(c1 - d1, b1 - d1).normalized,
-        //        left: Vector3.Cross(d - a1, a - a1).normalized,
-        //        front: Vector3.Cross(c - d1, d - d1).normalized,
-        //        right: Vector3.Cross(b - c1, c - c1).normalized,
-        //        back: Vector3.Cross(a - b1, b - b1).normalized,
+
+
+            //Cube edges
+            List<Vector3> e01 = new List<Vector3>();
+            List<Vector3> e02 = new List<Vector3>();
+            List<Vector3> e03 = new List<Vector3>();
+            List<Vector3> e04 = new List<Vector3>();
+            List<Vector3> e05 = new List<Vector3>();
+            List<Vector3> e06 = new List<Vector3>();
+            List<Vector3> e07 = new List<Vector3>();
+            List<Vector3> e08 = new List<Vector3>();
+            List<Vector3> e09 = new List<Vector3>();
+            List<Vector3> e10 = new List<Vector3>();
+            List<Vector3> e11 = new List<Vector3>();
+            List<Vector3> e12 = new List<Vector3>();
+
+            List<Vector3> bottom_loop = new List<Vector3>();
+            List<Vector3> top_loop = new List<Vector3>();
+            List<Vector3> left_loop = new List<Vector3>();
+            List<Vector3> front_loop = new List<Vector3>();
+            List<Vector3> right_loop = new List<Vector3>();
+            List<Vector3> back_loop = new List<Vector3>();
+
+            List<Vector3> e01_Rev = new List<Vector3>(e01);
+            List<Vector3> e02_Rev = new List<Vector3>(e02);
+            List<Vector3> e03_Rev = new List<Vector3>(e03);
+            List<Vector3> e04_Rev = new List<Vector3>(e04);
+            List<Vector3> e05_Rev = new List<Vector3>(e05);
+            List<Vector3> e06_Rev = new List<Vector3>(e06);
+            List<Vector3> e07_Rev = new List<Vector3>(e07);
+            List<Vector3> e08_Rev = new List<Vector3>(e08);
+            List<Vector3> e09_Rev = new List<Vector3>(e09);
+            List<Vector3> e10_Rev = new List<Vector3>(e10);
+            List<Vector3> e11_Rev = new List<Vector3>(e11);
+            List<Vector3> e12_Rev = new List<Vector3>(e12);
+
+            e01_Rev.Reverse();
+            e02_Rev.Reverse();
+            e03_Rev.Reverse();
+            e04_Rev.Reverse();
+            e05_Rev.Reverse();
+            e06_Rev.Reverse();
+            e07_Rev.Reverse();
+            e08_Rev.Reverse();
+            e09_Rev.Reverse();
+            e10_Rev.Reverse();
+            e11_Rev.Reverse();
+            e12_Rev.Reverse();
+
+            for (int i = 0; i < verts.Length; i++)
+            {
+                if(i >= 0 && i < quartOfLength)
+                {
+                    e01.Add(verts[i]);
+                }
+
+                if (i >= quartOfLength && i < quartOfLength * 2)
+                {
+                    e02.Add(verts[i]);
+                }
+
+                if (i >= quartOfLength * 2 && i < quartOfLength * 3)
+                {
+                    e03.Add(verts[i]);
+                }
+
+                if (i >= quartOfLength * 3 && i < loopLen)
+                {
+                    e04.Add(verts[i]);
+                }
+
+                if (i >= (nLoops - 1) * loopLen && i < ((nLoops - 1) * loopLen) + quartOfLength)
+                {
+                    e05.Add(verts[i]);
+                }
+
+                if (i >= ((nLoops - 1) * loopLen) + quartOfLength && i < ((nLoops - 1) * loopLen) + quartOfLength * 2)
+                {
+                    e06.Add(verts[i]);
+                }
+
+                if (i >= ((nLoops - 1) * loopLen) + quartOfLength * 2 && i < ((nLoops - 1) * loopLen) + quartOfLength * 3)
+                {
+                    e07.Add(verts[i]);
+                }
+
+                if (i >= ((nLoops - 1) * loopLen) + quartOfLength * 3 && i < (nLoops * loopLen))
+                {
+                    e08.Add(verts[i]);
+                }
+
+                int loopIndex = i % loopLen;
+                if (loopIndex == 0)
+                    e09.Add(verts[i]);
+                else if (loopIndex == quartOfLength)
+                    e10.Add(verts[i]);
+                else if (loopIndex == quartOfLength * 2)
+                    e11.Add(verts[i]);
+                else if (loopIndex == quartOfLength * 3)
+                    e12.Add(verts[i]);
+
+            }
+
+            bottom_loop.AddRange(e01);
+            bottom_loop.AddRange(e02);
+            bottom_loop.AddRange(e03);
+            bottom_loop.AddRange(e04);
+            top_loop.AddRange(e05);
+            top_loop.AddRange(e06);
+            top_loop.AddRange(e07);
+            top_loop.AddRange(e08);
+            left_loop.AddRange(e09_Rev);
+            left_loop.AddRange(e04_Rev);
+            left_loop.AddRange(e12);
+            left_loop.AddRange(e08);
+            front_loop.AddRange(e12_Rev);
+            front_loop.AddRange(e03_Rev);
+            front_loop.AddRange(e11);
+            front_loop.AddRange(e07);
+            right_loop.AddRange(e11_Rev);
+            right_loop.AddRange(e02_Rev);
+            right_loop.AddRange(e10);
+            right_loop.AddRange(e06);
+            back_loop.AddRange(e10_Rev);
+            back_loop.AddRange(e01_Rev);
+            back_loop.AddRange(e09);
+            back_loop.AddRange(e05);
+
+
             facePlanarNormals = new FacePlanarNormals(
                 bottom: Vector3.Cross(d-a+c-b, b-a+c-d).normalized,
                 top:    Vector3.Cross(a1-d1+b1-c1, a1-b1+d1-c1).normalized,
@@ -531,26 +661,44 @@ namespace SSL
                 left_centre:   (a+a1+d+d1)/4,
                 front_centre:  (c+c1+d+d1)/4,
                 right_centre:  (b+b1+c+c1)/4,
-                back_centre:   (a+a1+b+b1)/4
+                back_centre:   (a+a1+b+b1)/4,
+                bottom_loop: bottom_loop.ToArray(),
+                top_loop: top_loop.ToArray(),
+                left_loop: left_loop.ToArray(),
+                front_loop: front_loop.ToArray(),
+                right_loop: right_loop.ToArray(),
+                back_loop: back_loop.ToArray()
                 );
             return facePlanarNormals;
         }
         public struct FacePlanarNormals
         {
+            //Directions
             public Vector3 bo;
             public Vector3 t;
             public Vector3 l;
             public Vector3 f;
             public Vector3 r;
             public Vector3 ba;
+
+            //Centres
             public Vector3 bo_centre;
             public Vector3 t_centre;
             public Vector3 l_centre;
             public Vector3 f_centre;
             public Vector3 r_centre;
             public Vector3 ba_centre;
+
+            //Loops
+            public Vector3[] bo_loop;
+            public Vector3[] t_loop;
+            public Vector3[] l_loop;
+            public Vector3[] f_loop;
+            public Vector3[] r_loop;
+            public Vector3[] ba_loop;
             public FacePlanarNormals(Vector3 bottom, Vector3 top, Vector3 left, Vector3 front, Vector3 right, Vector3 back,
-                                     Vector3 bottom_centre, Vector3 top_centre, Vector3 left_centre, Vector3 front_centre, Vector3 right_centre, Vector3 back_centre)
+                                     Vector3 bottom_centre, Vector3 top_centre, Vector3 left_centre, Vector3 front_centre, Vector3 right_centre, Vector3 back_centre,
+                                     Vector3[] bottom_loop, Vector3[] top_loop, Vector3[] left_loop, Vector3[] front_loop, Vector3[] right_loop, Vector3[] back_loop)
             {
                 bo = bottom;
                 t = top;
@@ -558,12 +706,20 @@ namespace SSL
                 f = front;
                 r = right;
                 ba = back;
+
                 bo_centre = bottom_centre;
                 t_centre = top_centre;
                 l_centre = left_centre;
                 f_centre = front_centre;
                 r_centre = right_centre;
                 ba_centre = back_centre;
+
+                bo_loop = bottom_loop;
+                t_loop = top_loop;
+                l_loop = left_loop;
+                f_loop = front_loop;
+                r_loop = right_loop;
+                ba_loop = back_loop;
             }
 
         }
