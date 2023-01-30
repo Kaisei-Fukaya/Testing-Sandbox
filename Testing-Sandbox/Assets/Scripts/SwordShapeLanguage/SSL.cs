@@ -219,23 +219,25 @@ namespace SSL
             //loopDirection = Quaternion.identity;
 
             ConnectionData newConnectionData = new ConnectionData();
-
+            Debug.Log($"top norm:{facePlanarNormals.t}");
+            Debug.Log($"forward norm:{facePlanarNormals.f}");
+            Debug.Log($"right norm:{facePlanarNormals.r}");
             switch (face)
             {
                 case 0:
-                    newConnectionData = new ConnectionData(facePlanarNormals.t_centre, Quaternion.LookRotation(facePlanarNormals.t));
+                    newConnectionData = new ConnectionData(facePlanarNormals.t_centre, Quaternion.LookRotation(Vector3.left, facePlanarNormals.t));
                     break;
                 case 1:
-                    newConnectionData = new ConnectionData(facePlanarNormals.l_centre, Quaternion.LookRotation(facePlanarNormals.l));
+                    newConnectionData = new ConnectionData(facePlanarNormals.l_centre, Quaternion.LookRotation(Vector3.forward, facePlanarNormals.l));
                     break;
                 case 2:
-                    newConnectionData = new ConnectionData(facePlanarNormals.f_centre, Quaternion.LookRotation(facePlanarNormals.f));
+                    newConnectionData = new ConnectionData(facePlanarNormals.f_centre, Quaternion.LookRotation(Vector3.right, facePlanarNormals.f));
                     break;
                 case 3:
-                    newConnectionData = new ConnectionData(facePlanarNormals.r_centre, Quaternion.LookRotation(facePlanarNormals.r));
+                    newConnectionData = new ConnectionData(facePlanarNormals.r_centre, Quaternion.LookRotation(Vector3.back, facePlanarNormals.r));
                     break;
                 case 4:
-                    newConnectionData = new ConnectionData(facePlanarNormals.ba_centre, Quaternion.LookRotation(facePlanarNormals.ba));
+                    newConnectionData = new ConnectionData(facePlanarNormals.ba_centre, Quaternion.LookRotation(Vector3.left, facePlanarNormals.ba));
                     break;
             }
 
@@ -564,6 +566,12 @@ namespace SSL
             var b1 = verts[((nLoops - 1) * loopLen) + quartOfLength];
             var c1 = verts[((nLoops - 1) * loopLen) + (quartOfLength * 2)];
             var d1 = verts[((nLoops - 1) * loopLen) + (quartOfLength * 3)];
+        //        bottom: Vector3.Cross(b - d, a - d).normalized,
+        //        top: Vector3.Cross(c1 - d1, b1 - d1).normalized,
+        //        left: Vector3.Cross(d - a1, a - a1).normalized,
+        //        front: Vector3.Cross(c - d1, d - d1).normalized,
+        //        right: Vector3.Cross(b - c1, c - c1).normalized,
+        //        back: Vector3.Cross(a - b1, b - b1).normalized,
             facePlanarNormals = new FacePlanarNormals(
                 bottom: Vector3.Cross(d-a+c-b, b-a+c-d).normalized,
                 top:    Vector3.Cross(a1-d1+b1-c1, a1-b1+d1-c1).normalized,
@@ -578,7 +586,7 @@ namespace SSL
                 right_centre:  (b+b1+c+c1)/4,
                 back_centre:   (a+a1+b+b1)/4
                 );
-            Debug.Log((a1-b1+d1-c1).normalized);
+            Debug.Log($"cross rhs: {(a1 - b1 + d1 - c1).normalized}");
             Debug.Log($"t_c: {(a1 + b1 + c1 + d1) / 4}");
             return facePlanarNormals;
         }
