@@ -46,9 +46,9 @@ namespace SSL
             Mesh newMesh = new Mesh();
             Dictionary<SElement, bool> completionLookup = new Dictionary<SElement, bool>();
             Stack<SElement> stack = new Stack<SElement>();
+            Stack<int> edgeStack = new Stack<int>();
             int currentNodeIndex = 0;
             int currentFace = 0;
-            SElement.FacePlanarNormals facePlanarNormals = new SElement.FacePlanarNormals();
             stack.Push(_nodes[currentNodeIndex]);
 
             //Populate completion lookup
@@ -66,12 +66,19 @@ namespace SSL
                 {
                     //Get mesh
                     Mesh subMesh = currentNode.GetMesh();
-                    newMesh = JoinMeshes(newMesh, subMesh, _elementSpacing, _subdiv, currentNode.GetSubmeshIndex(), currentFace, facePlanarNormals);
+
+                    SElement[] currentStackState = stack.ToArray();
+                    int[] currentEdgeStackState = edgeStack.ToArray();
+                    Matrix4x4 transformationMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
+                    for (int i = currentStackState.Length - 2; i >= 0; i--)
+                    {
+                        transformationMatrix *= currentStackState[i].GetConnectionData(currentEdgeStackState[i]).transformationMatrix;
+                    }
+
+                    newMesh = JoinMeshes(newMesh, subMesh, _elementSpacing, _subdiv, currentNode.GetSubmeshIndex(), currentFace, transformationMatrix);
                     completionLookup[currentNode] = true;
                 }
                 
-                facePlanarNormals = currentNode.GetFacePlanarNormals();
-
                 bool nextFound = false;
                 for (int i = 0; i < currentNodeConnections.Length; i++)
                 {
@@ -81,20 +88,25 @@ namespace SSL
                     {
                         currentNodeIndex = currentNodeConnections[i];
                         currentFace = i;
+                        edgeStack.Push(i);
                         stack.Push(_nodes[currentNodeIndex]);
                         nextFound = true;
                         break;
                     }
                 }
 
-                if (!nextFound)
+                if (!nextFound) 
+                {
                     stack.Pop();
+                    if(edgeStack.Count > 0)
+                        edgeStack.Pop();
+                }
             }
             newMesh.RecalculateNormals();
             return newMesh;
         }
 
-        Mesh JoinMeshes(Mesh meshA, Mesh meshB, float elementSpacing, int subdiv, int submeshIndex, int currentFace, SElement.FacePlanarNormals facePlanarNormals)
+        Mesh JoinMeshes(Mesh meshA, Mesh meshB, float elementSpacing, int subdiv, int submeshIndex, int currentFace, Matrix4x4 transformationMatrix)
         {
             int vertCount = meshA.vertexCount;
 
@@ -115,18 +127,14 @@ namespace SSL
                 lastLoopOfMeshB[i] = meshA.vertices[meshA.vertices.Length - (loopLen - i)];
             }
 
-            ConnectionData connectionData = GetConnectionData(currentFace, facePlanarNormals);
-            Debug.Log($"dir: {connectionData.direction}, origin: {connectionData.position}");
-
             List<Vector3> newVerts = new List<Vector3>(meshA.vertices);
             Vector3[] bVerts = meshB.vertices;
-            Matrix4x4 tMatrix = connectionData.transformationMatrix;
             for (int i = 0; i < bVerts.Length; i++)
             {
                 //bVerts[i].x += connectionData.position.x;
                 //bVerts[i].y += connectionData.position.y + elementSpacing;
                 //bVerts[i].z += connectionData.position.z;
-                bVerts[i] = tMatrix.MultiplyPoint3x4(bVerts[i]);
+                bVerts[i] = transformationMatrix.MultiplyPoint3x4(bVerts[i]);
             }
             int[] bTriangs = meshB.triangles;
             for (int i = 0; i < bTriangs.Length; i++)
@@ -160,107 +168,6 @@ namespace SSL
             return outMesh;
         }
 
-        ConnectionData GetConnectionData(int face, SElement.FacePlanarNormals facePlanarNormals)
-        {
-            //Vector3 loopAverage = new Vector3();
-            //Vector2 loopMinMaxX = new Vector2();
-            ////Vector2 loopMinMaxY = new Vector2();
-            //Vector2 loopMinMaxZ = new Vector2();
-            //float[] yPositionOfBounds = new float[4];
-            //for (int i = 0; i < loop.Length; i++)
-            //{
-            //    //Sum for average
-            //    loopAverage += loop[i];
-
-            //    //Find x min/max, y min/max and z min/max
-            //    if (loop[i].x < loopMinMaxX.x)
-            //    {
-            //        loopMinMaxX.x = loop[i].x;
-            //        yPositionOfBounds[0] = loop[i].y;
-            //    }
-            //    else if (loop[i].x > loopMinMaxX.y)
-            //    {
-            //        loopMinMaxX.y = loop[i].x;
-            //        yPositionOfBounds[1] = loop[i].y;
-            //    }
-
-            //    //if (loop[i].y < loopMinMaxY.x)
-            //    //    loopMinMaxY.x = loop[i].y;
-            //    //else if (loop[i].y > loopMinMaxY.y)
-            //    //    loopMinMaxY.y = loop[i].y;
-
-            //    if (loop[i].z < loopMinMaxZ.x)
-            //    {
-            //        loopMinMaxZ.x = loop[i].z;
-            //        yPositionOfBounds[2] = loop[i].y;
-            //    }
-            //    else if (loop[i].z > loopMinMaxZ.y)
-            //    {
-            //        loopMinMaxZ.y = loop[i].z;
-            //        yPositionOfBounds[3] = loop[i].y;
-            //    }
-            //}
-            //loopAverage /= loop.Length;
-
-            //Vector3[] bounds = new Vector3[]
-            //{
-            //    new Vector3(loopMinMaxX.x, (yPositionOfBounds[0] + yPositionOfBounds[2]) / 2, loopMinMaxZ.x),
-            //    new Vector3(loopMinMaxX.x, (yPositionOfBounds[0] + yPositionOfBounds[3]) / 2, loopMinMaxZ.y),
-            //    new Vector3(loopMinMaxX.y, (yPositionOfBounds[1] + yPositionOfBounds[3]) / 2, loopMinMaxZ.y),
-            //    new Vector3(loopMinMaxX.y, (yPositionOfBounds[1] + yPositionOfBounds[2]) / 2, loopMinMaxZ.x),
-            //};
-
-            ////x = 4-1 + 3-2
-            ////y = 2-1 + 3-4
-            //Vector3 x = bounds[3] - bounds[0] + bounds[2] - bounds[1];
-            //Vector3 y = bounds[1] - bounds[0] + bounds[2] - bounds[3];
-            //Vector3 z = Vector3.Cross(x, y);
-            //Quaternion loopDirection = Quaternion.LookRotation(z, y);
-            //loopDirection = Quaternion.identity;
-
-            ConnectionData newConnectionData = new ConnectionData();
-            Debug.Log($"top norm:{facePlanarNormals.t}");
-            Debug.Log($"forward norm:{facePlanarNormals.f}");
-            Debug.Log($"right norm:{facePlanarNormals.r}");
-            switch (face)
-            {
-                case 0:
-                    newConnectionData = new ConnectionData(facePlanarNormals.t_centre, Quaternion.LookRotation(Vector3.left, facePlanarNormals.t));
-                    break;
-                case 1:
-                    newConnectionData = new ConnectionData(facePlanarNormals.l_centre, Quaternion.LookRotation(Vector3.forward, facePlanarNormals.l));
-                    break;
-                case 2:
-                    newConnectionData = new ConnectionData(facePlanarNormals.f_centre, Quaternion.LookRotation(Vector3.right, facePlanarNormals.f));
-                    break;
-                case 3:
-                    newConnectionData = new ConnectionData(facePlanarNormals.r_centre, Quaternion.LookRotation(Vector3.back, facePlanarNormals.r));
-                    break;
-                case 4:
-                    newConnectionData = new ConnectionData(facePlanarNormals.ba_centre, Quaternion.LookRotation(Vector3.left, facePlanarNormals.ba));
-                    break;
-            }
-
-            return newConnectionData;
-        }
-
-        struct ConnectionData
-        {
-            public Vector3 position;
-            public Quaternion direction;
-            public Matrix4x4 transformationMatrix 
-            { 
-                get
-                {
-                    return Matrix4x4.TRS(position, direction, Vector3.one);
-                }
-            }
-            public ConnectionData(Vector3 position, Quaternion direction)
-            {
-                this.position = position;
-                this.direction = direction;
-            }
-        }
     }
 
     [Serializable]
@@ -324,8 +231,48 @@ namespace SSL
         protected Mesh mesh;
         public Mesh GetMesh() => mesh;
         protected FacePlanarNormals facePlanarNormals;
-        public FacePlanarNormals GetFacePlanarNormals() => facePlanarNormals;
         public int GetSubmeshIndex() => storedParameters.subMeshIndex;
+        public ConnectionData GetConnectionData(int face)
+        {
+            ConnectionData newConnectionData = new ConnectionData();
+            switch (face)
+            {
+                case 0:
+                    newConnectionData = new ConnectionData(facePlanarNormals.t_centre, Quaternion.LookRotation(Vector3.forward, facePlanarNormals.t));
+                    break;
+                case 1:
+                    newConnectionData = new ConnectionData(facePlanarNormals.l_centre, Quaternion.LookRotation(Vector3.forward, facePlanarNormals.l));
+                    break;
+                case 2:
+                    newConnectionData = new ConnectionData(facePlanarNormals.f_centre, Quaternion.LookRotation(Vector3.right, facePlanarNormals.f));
+                    break;
+                case 3:
+                    newConnectionData = new ConnectionData(facePlanarNormals.r_centre, Quaternion.LookRotation(Vector3.back, facePlanarNormals.r));
+                    break;
+                case 4:
+                    newConnectionData = new ConnectionData(facePlanarNormals.ba_centre, Quaternion.LookRotation(Vector3.left, facePlanarNormals.ba));
+                    break;
+            }
+
+            return newConnectionData;
+        }
+        public struct ConnectionData
+        {
+            public Vector3 position;
+            public Quaternion direction;
+            public Matrix4x4 transformationMatrix
+            {
+                get
+                {
+                    return Matrix4x4.TRS(position, direction, Vector3.one);
+                }
+            }
+            public ConnectionData(Vector3 position, Quaternion direction)
+            {
+                this.position = position;
+                this.direction = direction;
+            }
+        }
         public virtual void Build(int subdivs)
         {
             Build(subdivs, storedParameters);
@@ -586,8 +533,6 @@ namespace SSL
                 right_centre:  (b+b1+c+c1)/4,
                 back_centre:   (a+a1+b+b1)/4
                 );
-            Debug.Log($"cross rhs: {(a1 - b1 + d1 - c1).normalized}");
-            Debug.Log($"t_c: {(a1 + b1 + c1 + d1) / 4}");
             return facePlanarNormals;
         }
         public struct FacePlanarNormals

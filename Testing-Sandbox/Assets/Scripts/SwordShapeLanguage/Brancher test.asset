@@ -59,7 +59,7 @@ MonoBehaviour:
       parameters:
         nLoops: 0
         rounding: 0
-        size: {x: 1, y: 1.17, z: 1}
+        size: {x: 1, y: 1, z: 1}
         relativeForwardTaper: 1
         relativeBackwardTaper: 1
         deforms:
@@ -92,8 +92,8 @@ MonoBehaviour:
       owner: 17e2f1a7-83cd-4542-ba33-679c11c80d9b
       type: 0
       ownerDisplayName: 
-    - iD: EMPTY
-      indexInOwner: 0
+    - iD: de111da4-a273-4176-8553-077d74d7f866
+      indexInOwner: 2
       indexInOther: 0
       owner: 17e2f1a7-83cd-4542-ba33-679c11c80d9b
       type: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
       parameters:
         nLoops: 0
         rounding: 0
-        size: {x: 1, y: 4.99, z: 1}
+        size: {x: 1, y: 1, z: 1}
         relativeForwardTaper: 0.63
         relativeBackwardTaper: 1
         deforms:
@@ -141,4 +141,132 @@ MonoBehaviour:
         subMeshIndex: 0
         sequentialNodeType: 1
     <Position>k__BackingField: {x: 700, y: 119}
+  - <ID>k__BackingField: de111da4-a273-4176-8553-077d74d7f866
+    <NodeType>k__BackingField: 1
+    <OutGoingConnections>k__BackingField:
+    - iD: cbe0945d-037d-4642-b5ba-89edd02c8ee1
+      indexInOwner: 0
+      indexInOther: 0
+      owner: de111da4-a273-4176-8553-077d74d7f866
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: de111da4-a273-4176-8553-077d74d7f866
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: de111da4-a273-4176-8553-077d74d7f866
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: de111da4-a273-4176-8553-077d74d7f866
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: de111da4-a273-4176-8553-077d74d7f866
+      type: 0
+      ownerDisplayName: 
+    <InGoingConnections>k__BackingField:
+    - iD: 17e2f1a7-83cd-4542-ba33-679c11c80d9b
+      indexInOwner: 0
+      indexInOther: 2
+      owner: de111da4-a273-4176-8553-077d74d7f866
+      type: 0
+      ownerDisplayName: 
+    <Settings>k__BackingField:
+      i_portTypes: 00000000
+      o_portTypes: 0000000000000000000000000000000000000000
+      parameters:
+        nLoops: 0
+        rounding: 0
+        size: {x: 1, y: 2, z: 1}
+        relativeForwardTaper: 1
+        relativeBackwardTaper: 1
+        deforms:
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        curveParams:
+          controlPoint: {x: 0, y: 0}
+          tipOffset: {x: 0, y: 0}
+        subMeshIndex: 0
+        sequentialNodeType: 1
+    <Position>k__BackingField: {x: 1064, y: 233}
+  - <ID>k__BackingField: cbe0945d-037d-4642-b5ba-89edd02c8ee1
+    <NodeType>k__BackingField: 1
+    <OutGoingConnections>k__BackingField:
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: cbe0945d-037d-4642-b5ba-89edd02c8ee1
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: cbe0945d-037d-4642-b5ba-89edd02c8ee1
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: cbe0945d-037d-4642-b5ba-89edd02c8ee1
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: cbe0945d-037d-4642-b5ba-89edd02c8ee1
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: cbe0945d-037d-4642-b5ba-89edd02c8ee1
+      type: 0
+      ownerDisplayName: 
+    <InGoingConnections>k__BackingField:
+    - iD: de111da4-a273-4176-8553-077d74d7f866
+      indexInOwner: 0
+      indexInOther: 0
+      owner: cbe0945d-037d-4642-b5ba-89edd02c8ee1
+      type: 0
+      ownerDisplayName: 
+    <Settings>k__BackingField:
+      i_portTypes: 00000000
+      o_portTypes: 0000000000000000000000000000000000000000
+      parameters:
+        nLoops: 0
+        rounding: 0
+        size: {x: 1, y: 1, z: 1}
+        relativeForwardTaper: 1
+        relativeBackwardTaper: 1
+        deforms:
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        curveParams:
+          controlPoint: {x: 0, y: 0}
+          tipOffset: {x: 0, y: 0}
+        subMeshIndex: 0
+        sequentialNodeType: 1
+    <Position>k__BackingField: {x: 1503, y: 242}
   <UpdateRequiredFlag>k__BackingField: 0
