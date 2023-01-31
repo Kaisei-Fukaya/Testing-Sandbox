@@ -17,6 +17,8 @@ namespace SSL.Graph.Elements
         protected FloatField _roundingField;
         protected Slider _relativeForwardTaperField, _relativeBackwardTaperField;
         protected Vector3Field _sizeField;
+        protected Foldout _deformFoldout;
+        protected Vector3Field[] _deformFields;
 
         public override void Initialise(Vector2 position)
         {
@@ -28,6 +30,8 @@ namespace SSL.Graph.Elements
             _relativeForwardTaperField = new Slider(0f, 1f);
             _relativeBackwardTaperField = new Slider(0f, 1f);
             _sizeField = new Vector3Field();
+            _deformFoldout = new Foldout();
+            _deformFields = new Vector3Field[0];
         }
 
         public override NodeSetting GetSettings()
@@ -39,6 +43,10 @@ namespace SSL.Graph.Elements
             setting.parameters.relativeBackwardTaper = _relativeBackwardTaperField.value;
             setting.parameters.rounding = _roundingField.value;
             setting.parameters.subMeshIndex = _subMeshIndexField.value;
+            for (int i = 0; i < setting.parameters.deforms.Length; i++)
+            {
+                setting.parameters.deforms[i] = _deformFields[i].value;
+            }
             return setting;
         }
 
@@ -50,6 +58,13 @@ namespace SSL.Graph.Elements
             _relativeBackwardTaperField.SetValueWithoutNotify(setting.parameters.relativeBackwardTaper);
             _roundingField.SetValueWithoutNotify(setting.parameters.rounding);
             _subMeshIndexField.SetValueWithoutNotify(setting.parameters.subMeshIndex);
+            _deformFields = new Vector3Field[setting.parameters.deforms.Length];
+            for (int i = 0; i < _deformFields.Length; i++)
+            {
+                _deformFields[i] = new Vector3Field();
+                _deformFields[i].SetValueWithoutNotify(setting.parameters.deforms[i]);
+                _deformFoldout.Add(_deformFields[i]);
+            }
         }
 
         public override void Draw()
@@ -104,14 +119,14 @@ namespace SSL.Graph.Elements
             sMeshIndexBlock.Add(new Label("Submesh Index:"));
             sMeshIndexBlock.Add(_subMeshIndexField);
 
-
-
             optionsBlock.Add(nLoopsBlock);
             optionsBlock.Add(sizeBlock);
             optionsBlock.Add(roundingBlock);
             optionsBlock.Add(forwardTaperBlock);
             optionsBlock.Add(backwardTaperBlock);
             optionsBlock.Add(sMeshIndexBlock);
+            optionsBlock.Add(_deformFoldout);
+            _deformFoldout.value = false;
             return optionsBlock;
         }
 

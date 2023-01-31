@@ -55,7 +55,7 @@ namespace SSL
             {
                 completionLookup.Add(_nodes[i], false);
                 int smIndex = _nodes[i].GetSubmeshIndex();
-                if (smIndex > submeshCount)
+                if (smIndex >= submeshCount)
                     submeshCount = smIndex + 1;
             }
 
