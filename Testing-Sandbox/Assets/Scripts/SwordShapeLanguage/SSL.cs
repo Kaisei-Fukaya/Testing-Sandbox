@@ -73,11 +73,11 @@ namespace SSL
                     Vector3[] connectingLoop = new Vector3[0];
                     for (int i = currentEdgeStackState.Length - 1; i >= 0; i--)
                     {
-                        transformationMatrix *= currentStackState[i+1].GetConnectionData(currentEdgeStackState[i]).transformationMatrix;
                         if (i == 0)
                         {
-                            connectingLoop = currentStackState[i].GetConnectionData(currentEdgeStackState[i]).edgeLoop;
+                            connectingLoop = currentStackState[i+1].GetConnectionData(currentEdgeStackState[i]).GetEdgeLoop(transformationMatrix);
                         }
+                        transformationMatrix *= currentStackState[i+1].GetConnectionData(currentEdgeStackState[i]).transformationMatrix;
                     }
 
                     newMesh = JoinMeshes(newMesh, subMesh, _subdiv, currentNode.GetSubmeshIndex(), transformationMatrix, connectingLoop);
@@ -115,6 +115,8 @@ namespace SSL
         {
             int vertCount = meshA.vertexCount;
 
+            Debug.Log($"connecting loop: {connectingLoop.Length} ");
+
             if (vertCount == 0)
             {
                 return meshB;
@@ -126,13 +128,12 @@ namespace SSL
 
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
 
-            Vector3[] lastLoopOfMeshB = new Vector3[loopLen];
-            for (int i = 0; i < loopLen; i++)
-            {
-                lastLoopOfMeshB[i] = meshA.vertices[meshA.vertices.Length - (loopLen - i)];
-            }
 
             List<Vector3> newVerts = new List<Vector3>(meshA.vertices);
+            if (connectingLoop != null)
+                newVerts.AddRange(connectingLoop);
+            int vertCountPostConLoop = newVerts.Count;
+
             Vector3[] bVerts = meshB.vertices;
             for (int i = 0; i < bVerts.Length; i++)
             {
@@ -141,27 +142,26 @@ namespace SSL
             int[] bTriangs = meshB.triangles;
             for (int i = 0; i < bTriangs.Length; i++)
             {
-                bTriangs[i] += vertCount;
+                bTriangs[i] += vertCountPostConLoop;
             }
             newVerts.AddRange(bVerts);
-            if(connectingLoop != null)
-                newVerts.AddRange(connectingLoop);
             outMesh.vertices = newVerts.ToArray();
+
 
             List<int> newTriangs = new List<int>(meshA.triangles);
             newTriangs.AddRange(bTriangs);
             for (int i = 0; i < loopLen; i++)
             {
-                int nxt1 = (vertCount) + (i + 1);
-                if (nxt1 >= vertCount + loopLen)
-                    nxt1 = vertCount;
+                int nxt1 = (vertCountPostConLoop) + (i + 1);
+                if (nxt1 >= vertCountPostConLoop + loopLen)
+                    nxt1 = vertCountPostConLoop;
 
-                int nxt2 = (vertCount - loopLen) + (i + 1);
-                if (nxt2 >= vertCount)
-                    nxt2 = vertCount - loopLen;
+                int nxt2 = (vertCountPostConLoop - loopLen) + (i + 1);
+                if (nxt2 >= vertCountPostConLoop)
+                    nxt2 = vertCountPostConLoop - loopLen;
 
-                newTriangs.AddRange(new int[6] { (vertCount) + i, nxt1, nxt2,
-                                                 (vertCount) + i, nxt2, (vertCount - loopLen) + i });
+                newTriangs.AddRange(new int[6] { (vertCountPostConLoop) + i, nxt1, nxt2,
+                                                 (vertCountPostConLoop) + i, nxt2, (vertCountPostConLoop - loopLen) + i });
             }
             outMesh.triangles = newTriangs.ToArray();
             //var subMeshDesc = new UnityEngine.Rendering.SubMeshDescriptor(){firstVertex = meshA.vertexCount,
@@ -273,6 +273,17 @@ namespace SSL
             }
 
             public Vector3[] edgeLoop;
+            public Vector3[] GetEdgeLoop(Matrix4x4 transformationMatrix)
+            {
+                if (edgeLoop == null)
+                    return new Vector3[0];
+                Vector3[] transformedLoop = new Vector3[edgeLoop.Length];
+                for (int i = 0; i < transformedLoop.Length; i++)
+                {
+                    transformedLoop[i] = transformationMatrix.MultiplyPoint3x4(edgeLoop[i]);
+                }
+                return transformedLoop;
+            }
             public ConnectionData(Vector3 position, Quaternion direction, Vector3[] edgeLoop)
             {
                 this.position = position;
@@ -543,6 +554,68 @@ namespace SSL
             List<Vector3> right_loop = new List<Vector3>();
             List<Vector3> back_loop = new List<Vector3>();
 
+            int lengthOffset = 0;
+            if (storedParameters.sequentialNodeType == SequentialNodeType.End)
+                lengthOffset = 1;
+
+            for (int i = 0; i < verts.Length - lengthOffset; i++)
+            {
+                if(i >= 0 && i <= quartOfLength)
+                {
+                    e01.Add(verts[i]);
+                }
+
+                if (i >= quartOfLength && i <= quartOfLength * 2)
+                {
+                    e02.Add(verts[i]);
+                }
+
+                if (i >= quartOfLength * 2 && i <= quartOfLength * 3)
+                {
+                    e03.Add(verts[i]);
+                }
+
+                if (i >= quartOfLength * 3 && i < loopLen)
+                {
+                    e04.Add(verts[i]);
+                }
+
+                if (i >= (nLoops - 1) * loopLen && i <= ((nLoops - 1) * loopLen) + quartOfLength)
+                {
+                    e05.Add(verts[i]);
+                }
+
+                if (i >= ((nLoops - 1) * loopLen) + quartOfLength && i <= ((nLoops - 1) * loopLen) + (quartOfLength * 2))
+                {
+                    e06.Add(verts[i]);
+                }
+
+                if (i >= ((nLoops - 1) * loopLen) + (quartOfLength * 2) && i <= ((nLoops - 1) * loopLen) + (quartOfLength * 3))
+                {
+                    e07.Add(verts[i]);
+                }
+
+                if (i >= ((nLoops - 1) * loopLen) + (quartOfLength * 3) && i <= ((nLoops - 1) * loopLen) + (quartOfLength * 4))
+                {
+                    e08.Add(verts[i]);
+                }
+
+                int loopIndex = i % loopLen;
+                if (loopIndex == 0)
+                    e09.Add(verts[i]);
+                else if (loopIndex == quartOfLength)
+                    e10.Add(verts[i]);
+                else if (loopIndex == quartOfLength * 2)
+                    e11.Add(verts[i]);
+                else if (loopIndex == quartOfLength * 3)
+                    e12.Add(verts[i]);
+
+            }
+
+            //Add verts that get missed by the loop
+            e04.Add(verts[0]);
+            e08.Add(verts[(nLoops - 1) * loopLen]);
+
             List<Vector3> e01_Rev = new List<Vector3>(e01);
             List<Vector3> e02_Rev = new List<Vector3>(e02);
             List<Vector3> e03_Rev = new List<Vector3>(e03);
@@ -569,59 +642,18 @@ namespace SSL
             e11_Rev.Reverse();
             e12_Rev.Reverse();
 
-            for (int i = 0; i < verts.Length; i++)
-            {
-                if(i >= 0 && i < quartOfLength)
-                {
-                    e01.Add(verts[i]);
-                }
-
-                if (i >= quartOfLength && i < quartOfLength * 2)
-                {
-                    e02.Add(verts[i]);
-                }
-
-                if (i >= quartOfLength * 2 && i < quartOfLength * 3)
-                {
-                    e03.Add(verts[i]);
-                }
-
-                if (i >= quartOfLength * 3 && i < loopLen)
-                {
-                    e04.Add(verts[i]);
-                }
-
-                if (i >= (nLoops - 1) * loopLen && i < ((nLoops - 1) * loopLen) + quartOfLength)
-                {
-                    e05.Add(verts[i]);
-                }
-
-                if (i >= ((nLoops - 1) * loopLen) + quartOfLength && i < ((nLoops - 1) * loopLen) + quartOfLength * 2)
-                {
-                    e06.Add(verts[i]);
-                }
-
-                if (i >= ((nLoops - 1) * loopLen) + quartOfLength * 2 && i < ((nLoops - 1) * loopLen) + quartOfLength * 3)
-                {
-                    e07.Add(verts[i]);
-                }
-
-                if (i >= ((nLoops - 1) * loopLen) + quartOfLength * 3 && i < (nLoops * loopLen))
-                {
-                    e08.Add(verts[i]);
-                }
-
-                int loopIndex = i % loopLen;
-                if (loopIndex == 0)
-                    e09.Add(verts[i]);
-                else if (loopIndex == quartOfLength)
-                    e10.Add(verts[i]);
-                else if (loopIndex == quartOfLength * 2)
-                    e11.Add(verts[i]);
-                else if (loopIndex == quartOfLength * 3)
-                    e12.Add(verts[i]);
-
-            }
+            //Debug.Log($"e01: {e01.Count}");
+            //Debug.Log($"e02: {e02.Count}");
+            //Debug.Log($"e03: {e03.Count}");
+            //Debug.Log($"e04: {e04.Count}");
+            //Debug.Log($"e05: {e05.Count}");
+            //Debug.Log($"e06: {e06.Count}");
+            //Debug.Log($"e07: {e07.Count}");
+            //Debug.Log($"e08: {e08.Count}");
+            //Debug.Log($"e09: {e09.Count}");
+            //Debug.Log($"e10: {e10.Count}");
+            //Debug.Log($"e11: {e11.Count}");
+            //Debug.Log($"e12: {e12.Count}");
 
             bottom_loop.AddRange(e01);
             bottom_loop.AddRange(e02);
@@ -647,6 +679,12 @@ namespace SSL
             back_loop.AddRange(e01_Rev);
             back_loop.AddRange(e09);
             back_loop.AddRange(e05);
+
+            //Debug.Log($"left_loop count: {left_loop.Count}");
+            //for (int i = 0; i < left_loop.Count; i++)
+            //{
+            //    Debug.Log($"{i}:{left_loop[i]}");
+            //}
 
 
             facePlanarNormals = new FacePlanarNormals(
