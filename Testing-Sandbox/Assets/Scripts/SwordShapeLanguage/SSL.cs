@@ -47,21 +47,29 @@ namespace SSL
             Dictionary<SElement, bool> completionLookup = new Dictionary<SElement, bool>();
             Stack<SElement> stack = new Stack<SElement>();
             Stack<int> edgeStack = new Stack<int>();
-            int currentNodeIndex = 0;
-            int currentFace = 0;
-            stack.Push(_nodes[currentNodeIndex]);
+            stack.Push(_nodes[0]);
 
-            //Populate completion lookup
+            //Populate completion lookup and determine submesh count
+            int submeshCount = 1;
             for (int i = 0; i < _nodes.Length; i++)
             {
                 completionLookup.Add(_nodes[i], false);
+                int smIndex = _nodes[i].GetSubmeshIndex();
+                if (smIndex > submeshCount)
+                    submeshCount = smIndex + 1;
+            }
+
+            List<int>[] subMeshTriangleSets = new List<int>[submeshCount];
+            for (int i = 0; i < subMeshTriangleSets.Length; i++)
+            {
+                subMeshTriangleSets[i] = new List<int>();
             }
 
             //Iterate over all edges and merge all meshes
             while (stack.Count > 0) 
             {
-                int[] currentNodeConnections = _edges[currentNodeIndex];
-                SElement currentNode = _nodes[currentNodeIndex];
+                SElement currentNode = stack.Peek();
+                int[] currentNodeConnections = _edges[Array.IndexOf(_nodes, currentNode)];
                 if (completionLookup[currentNode] == false)
                 {
                     //Get mesh
@@ -80,7 +88,7 @@ namespace SSL
                         transformationMatrix *= currentStackState[i+1].GetConnectionData(currentEdgeStackState[i]).transformationMatrix;
                     }
 
-                    newMesh = JoinMeshes(newMesh, subMesh, _subdiv, currentNode.GetSubmeshIndex(), transformationMatrix, connectingLoop);
+                    newMesh = JoinMeshes(newMesh, subMesh, _subdiv, subMeshTriangleSets[currentNode.GetSubmeshIndex()], transformationMatrix, connectingLoop);
                     completionLookup[currentNode] = true;
                 }
                 
@@ -91,10 +99,8 @@ namespace SSL
                         continue;
                     if (!completionLookup[_nodes[currentNodeConnections[i]]])
                     {
-                        currentNodeIndex = currentNodeConnections[i];
-                        currentFace = i;
                         edgeStack.Push(i);
-                        stack.Push(_nodes[currentNodeIndex]);
+                        stack.Push(_nodes[currentNodeConnections[i]]);
                         nextFound = true;
                         break;
                     }
@@ -107,27 +113,33 @@ namespace SSL
                         edgeStack.Pop();
                 }
             }
+            newMesh.subMeshCount = submeshCount;
+            Debug.Log($"new mesh subs: {newMesh.subMeshCount}");
+            for (int i = 0; i < subMeshTriangleSets.Length; i++)
+            {
+                newMesh.SetTriangles(subMeshTriangleSets[i], i);
+                Debug.Log("Setting triangles");
+            }
+            newMesh.RecalculateBounds();
             newMesh.RecalculateNormals();
             return newMesh;
         }
 
-        Mesh JoinMeshes(Mesh meshA, Mesh meshB, int subdiv, int submeshIndex, Matrix4x4 transformationMatrix, Vector3[] connectingLoop)
+        Mesh JoinMeshes(Mesh meshA, Mesh meshB, int subdiv, List<int> submesh, Matrix4x4 transformationMatrix, Vector3[] connectingLoop)
         {
             int vertCount = meshA.vertexCount;
 
-            Debug.Log($"connecting loop: {connectingLoop.Length} ");
+            //Debug.Log($"connecting loop: {connectingLoop.Length} ");
 
             if (vertCount == 0)
             {
+                submesh.AddRange(meshB.triangles);
                 return meshB;
             }
 
             //Merge into one mesh and reposition mb
 
-            Mesh outMesh = new Mesh();
-
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
-
 
             List<Vector3> newVerts = new List<Vector3>(meshA.vertices);
             if (connectingLoop != null)
@@ -145,11 +157,10 @@ namespace SSL
                 bTriangs[i] += vertCountPostConLoop;
             }
             newVerts.AddRange(bVerts);
-            outMesh.vertices = newVerts.ToArray();
+            meshA.vertices = newVerts.ToArray();
 
 
-            List<int> newTriangs = new List<int>(meshA.triangles);
-            newTriangs.AddRange(bTriangs);
+            List<int> newTriangs = new List<int>(bTriangs);
             for (int i = 0; i < loopLen; i++)
             {
                 int nxt1 = (vertCountPostConLoop) + (i + 1);
@@ -163,13 +174,15 @@ namespace SSL
                 newTriangs.AddRange(new int[6] { (vertCountPostConLoop) + i, nxt1, nxt2,
                                                  (vertCountPostConLoop) + i, nxt2, (vertCountPostConLoop - loopLen) + i });
             }
-            outMesh.triangles = newTriangs.ToArray();
+            //newTriangs.InsertRange(0, meshA.triangles);
+            //meshA.triangles = newTriangs.ToArray();
+            submesh.AddRange(newTriangs);
             //var subMeshDesc = new UnityEngine.Rendering.SubMeshDescriptor(){firstVertex = meshA.vertexCount,
             //                                                                vertexCount = newVerts.Count - meshA.vertexCount - 1};
             //outMesh.SetSubMesh(submeshIndex, subMeshDesc);
 
             //Debug.Log(newMesh.vertexCount);
-            return outMesh;
+            return meshA;
         }
 
     }
@@ -560,17 +573,17 @@ namespace SSL
 
             for (int i = 0; i < verts.Length - lengthOffset; i++)
             {
-                if(i >= 0 && i <= quartOfLength)
+                if(i >= 0 && i < quartOfLength)
                 {
                     e01.Add(verts[i]);
                 }
 
-                if (i >= quartOfLength && i <= quartOfLength * 2)
+                if (i >= quartOfLength && i < quartOfLength * 2)
                 {
                     e02.Add(verts[i]);
                 }
 
-                if (i >= quartOfLength * 2 && i <= quartOfLength * 3)
+                if (i >= quartOfLength * 2 && i < quartOfLength * 3)
                 {
                     e03.Add(verts[i]);
                 }
@@ -580,22 +593,22 @@ namespace SSL
                     e04.Add(verts[i]);
                 }
 
-                if (i >= (nLoops - 1) * loopLen && i <= ((nLoops - 1) * loopLen) + quartOfLength)
+                if (i >= (nLoops - 1) * loopLen && i < ((nLoops - 1) * loopLen) + quartOfLength)
                 {
                     e05.Add(verts[i]);
                 }
 
-                if (i >= ((nLoops - 1) * loopLen) + quartOfLength && i <= ((nLoops - 1) * loopLen) + (quartOfLength * 2))
+                if (i >= ((nLoops - 1) * loopLen) + quartOfLength && i < ((nLoops - 1) * loopLen) + (quartOfLength * 2))
                 {
                     e06.Add(verts[i]);
                 }
 
-                if (i >= ((nLoops - 1) * loopLen) + (quartOfLength * 2) && i <= ((nLoops - 1) * loopLen) + (quartOfLength * 3))
+                if (i >= ((nLoops - 1) * loopLen) + (quartOfLength * 2) && i < ((nLoops - 1) * loopLen) + (quartOfLength * 3))
                 {
                     e07.Add(verts[i]);
                 }
 
-                if (i >= ((nLoops - 1) * loopLen) + (quartOfLength * 3) && i <= ((nLoops - 1) * loopLen) + (quartOfLength * 4))
+                if (i >= ((nLoops - 1) * loopLen) + (quartOfLength * 3) && i < ((nLoops - 1) * loopLen) + (quartOfLength * 4))
                 {
                     e08.Add(verts[i]);
                 }
@@ -612,9 +625,9 @@ namespace SSL
 
             }
 
-            //Add verts that get missed by the loop
-            e04.Add(verts[0]);
-            e08.Add(verts[(nLoops - 1) * loopLen]);
+            ////Add verts that get missed by the loop
+            //e04.Add(verts[0]);
+            //e08.Add(verts[(nLoops - 1) * loopLen]);
 
             List<Vector3> e01_Rev = new List<Vector3>(e01);
             List<Vector3> e02_Rev = new List<Vector3>(e02);
@@ -681,9 +694,9 @@ namespace SSL
             back_loop.AddRange(e05);
 
             //Debug.Log($"left_loop count: {left_loop.Count}");
-            //for (int i = 0; i < left_loop.Count; i++)
+            //for (int i = 0; i < top_loop.Count; i++)
             //{
-            //    Debug.Log($"{i}:{left_loop[i]}");
+            //    Debug.Log($"{i}:{top_loop[i]}");
             //}
 
 
