@@ -28,14 +28,16 @@ namespace SSL
         Dictionary<int, int[]> _edges;
         int _subdiv;
         float _elementSpacing;
+        bool _useFlatshade;
 
         //Parser?
-        public void Load(int subdivisions, float elementSpacing, SElement[] nodes, Dictionary<int, int[]> edges)
+        public void Load(int subdivisions, float elementSpacing, SElement[] nodes, Dictionary<int, int[]> edges, bool useFlatshading)
         {
             _nodes = nodes;
             _edges = edges;
             _subdiv = subdivisions;
             _elementSpacing = elementSpacing;
+            _useFlatshade = useFlatshading;
         }
 
         public Mesh Generate()
@@ -115,15 +117,46 @@ namespace SSL
             }
             newMesh.subMeshCount = submeshCount;
             //Debug.Log($"new mesh subs: {newMesh.subMeshCount}");
+            List<Vector3> newVerts = new List<Vector3>(newMesh.vertices);
             for (int i = 0; i < subMeshTriangleSets.Length; i++)
             {
+                (newVerts, subMeshTriangleSets[i]) = Optimise(newVerts, subMeshTriangleSets[i]);
+                newMesh.vertices = newVerts.ToArray();
                 newMesh.SetTriangles(subMeshTriangleSets[i], i);
-                //Debug.Log("Setting triangles");
+                //Debug.Log("Setting striangles");
             }
             newMesh.RecalculateBounds();
             newMesh.RecalculateNormals();
             return newMesh;
         }
+
+        (List<Vector3> verts, List<int> tris) Optimise(List<Vector3> verts, List<int> tris)
+        {
+            //Some optimisation
+            if(_useFlatshade)
+                FlatShade(verts, tris);
+
+            return (verts, tris);
+        }
+
+        (List<Vector3> verts, List<int> tris) FlatShade(List<Vector3> verts, List<int> tris)
+        {
+            List<int> seen = new List<int>();
+            int originalCount = tris.Count;
+
+            for (int i = 0; i < originalCount; i++)
+            {
+                if (seen.Contains(tris[i]))
+                {
+                    verts.Add(verts[tris[i]]);
+                    tris[i] = verts.Count - 1;
+                }
+                seen.Add(tris[i]);
+            }
+            return (verts, tris);
+        }
+
+
 
         Mesh JoinMeshes(Mesh meshA, Mesh meshB, int subdiv, List<int> submesh, Matrix4x4 transformationMatrix, Vector3[] connectingLoop)
         {

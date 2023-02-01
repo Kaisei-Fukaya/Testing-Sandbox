@@ -44,12 +44,12 @@ namespace SSL.Graph.Elements
             _ingoingPorts = new List<GraphicalAssetPort>();
             _outgoingPorts = new List<GraphicalAssetPort>();
 
-            _inputPortBottom = new GraphicalAssetPort(this, _inputPortType, Orientation.Horizontal, Direction.Input, Port.Capacity.Single);
-            _outputPortTop = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
-            _outputPortLeft = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
-            _outputPortForward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
-            _outputPortRight = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
-            _outputPortBackward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
+            _inputPortBottom = new GraphicalAssetPort(this, _inputPortType, Orientation.Horizontal, Direction.Input, Port.Capacity.Single, "Bottom");
+            _outputPortTop = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Top");
+            _outputPortLeft = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Left");
+            _outputPortForward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Forward");
+            _outputPortRight = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Right");
+            _outputPortBackward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Back");
             _ingoingPorts.Add(_inputPortBottom);
             _outgoingPorts.Add(_outputPortTop);
             _outgoingPorts.Add(_outputPortLeft);

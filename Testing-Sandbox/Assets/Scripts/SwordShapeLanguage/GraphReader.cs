@@ -9,6 +9,7 @@ public class GraphReader : MonoBehaviour
 {
     [Range(0, 5)]
     [SerializeField] int _subdiv;
+    [SerializeField] bool _useFlatshading = true;
 
     [SerializeField] public GAGenData data;
 
@@ -32,7 +33,7 @@ public class GraphReader : MonoBehaviour
 
         //BuildNodes();
 
-        sg.Load(_subdiv, 1f, nodesAndEdges.nodes, nodesAndEdges.edges);
+        sg.Load(_subdiv, 1f, nodesAndEdges.nodes, nodesAndEdges.edges, _useFlatshading);
         Mesh m = sg.Generate();
         mf.mesh = m;
     }

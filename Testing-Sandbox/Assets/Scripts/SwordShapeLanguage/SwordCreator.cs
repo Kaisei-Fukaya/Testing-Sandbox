@@ -44,7 +44,7 @@ public class SwordCreator : MonoBehaviour
         }
         newSet[newSet.Length-1] = _testTerminalNode;
 
-        sg.Load(_subdiv, _spacing, newSet, edgesConverted);
+        sg.Load(_subdiv, _spacing, newSet, edgesConverted, true);
         Mesh m = sg.Generate();
         mf.mesh = m;
     }
