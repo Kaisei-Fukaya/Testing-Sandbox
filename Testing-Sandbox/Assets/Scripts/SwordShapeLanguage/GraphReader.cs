@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SSL;
 using SSL.Data;
+using UnityEditor;
 
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class GraphReader : MonoBehaviour
@@ -57,6 +58,17 @@ public class GraphReader : MonoBehaviour
     {
         UnityEditor.EditorApplication.delayCall -= Gen;
         UnityEditor.EditorApplication.delayCall += Gen;
+    }
+
+    public void SaveMesh()
+    {
+        string path = EditorUtility.SaveFilePanel("Save Mesh", "Assets/", name, "asset");
+        if (string.IsNullOrEmpty(path)) { return; }
+
+        path = FileUtil.GetProjectRelativePath(path);
+
+        AssetDatabase.CreateAsset(mf.sharedMesh, path);
+        AssetDatabase.SaveAssets();
     }
 
     [System.Serializable]

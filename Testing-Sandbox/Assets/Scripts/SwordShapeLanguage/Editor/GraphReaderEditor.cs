@@ -27,6 +27,11 @@ public class GraphReaderEditor : Editor
             window.Load(graphReader.data);
         }
 
+        if(GUILayout.Button("Save Asset"))
+        {
+            graphReader.SaveMesh();
+        }
+
         TriggerScript();
 
     }
