@@ -17,8 +17,10 @@ namespace SSL.Graph.Elements
         protected FloatField _roundingField;
         protected Slider _relativeForwardTaperField, _relativeBackwardTaperField;
         protected Vector3Field _sizeField;
-        protected Foldout _deformFoldout;
+        protected Foldout _deformFoldout, _curveFoldout;
         protected Vector3Field[] _deformFields;
+        protected Vector2Field _tipOffsetField;
+        protected Vector2Field _curveControlField;
 
         public override void Initialise(Vector2 position)
         {
@@ -31,7 +33,13 @@ namespace SSL.Graph.Elements
             _relativeBackwardTaperField = new Slider(0f, 1f);
             _sizeField = new Vector3Field();
             _deformFoldout = new Foldout();
+            _deformFoldout.text = "Deforms";
             _deformFields = new Vector3Field[0];
+            _curveFoldout = new Foldout();
+            _curveFoldout.text = "Curve";
+            _curveFoldout.AddToClassList("curve-foldout");
+            _tipOffsetField = new Vector2Field("Tip offset");
+            _curveControlField = new Vector2Field("Curve");
         }
 
         public override NodeSetting GetSettings()
@@ -43,6 +51,8 @@ namespace SSL.Graph.Elements
             setting.parameters.relativeBackwardTaper = _relativeBackwardTaperField.value;
             setting.parameters.rounding = _roundingField.value;
             setting.parameters.subMeshIndex = _subMeshIndexField.value;
+            setting.parameters.curveParams.tipOffset = _tipOffsetField.value;
+            setting.parameters.curveParams.controlPoint = _curveControlField.value;
             for (int i = 0; i < setting.parameters.deforms.Length; i++)
             {
                 setting.parameters.deforms[i] = _deformFields[i].value;
@@ -59,6 +69,10 @@ namespace SSL.Graph.Elements
             _roundingField.SetValueWithoutNotify(setting.parameters.rounding);
             _subMeshIndexField.SetValueWithoutNotify(setting.parameters.subMeshIndex);
             _deformFields = new Vector3Field[setting.parameters.deforms.Length];
+            _tipOffsetField.SetValueWithoutNotify(setting.parameters.curveParams.tipOffset);
+            _curveControlField.SetValueWithoutNotify(setting.parameters.curveParams.controlPoint);
+            _curveFoldout.Add(_tipOffsetField);
+            _curveFoldout.Add(_curveControlField);
             for (int i = 0; i < _deformFields.Length; i++)
             {
                 _deformFields[i] = new Vector3Field();
@@ -125,6 +139,7 @@ namespace SSL.Graph.Elements
             optionsBlock.Add(forwardTaperBlock);
             optionsBlock.Add(backwardTaperBlock);
             optionsBlock.Add(sMeshIndexBlock);
+            optionsBlock.Add(_curveFoldout);
             optionsBlock.Add(_deformFoldout);
             _deformFoldout.value = false;
             return optionsBlock;

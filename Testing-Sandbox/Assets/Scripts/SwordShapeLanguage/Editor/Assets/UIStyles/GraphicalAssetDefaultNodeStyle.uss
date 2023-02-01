@@ -95,3 +95,7 @@ GraphicalAssetPort > VisualElement > Port > Label
 .label-field-block > Slider{
 	width: 200px;
 }
+
+.curve-foldout > VisualElement{
+	margin-left: 5px;
+}

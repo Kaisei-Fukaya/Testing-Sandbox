@@ -114,11 +114,11 @@ namespace SSL
                 }
             }
             newMesh.subMeshCount = submeshCount;
-            Debug.Log($"new mesh subs: {newMesh.subMeshCount}");
+            //Debug.Log($"new mesh subs: {newMesh.subMeshCount}");
             for (int i = 0; i < subMeshTriangleSets.Length; i++)
             {
                 newMesh.SetTriangles(subMeshTriangleSets[i], i);
-                Debug.Log("Setting triangles");
+                //Debug.Log("Setting triangles");
             }
             newMesh.RecalculateBounds();
             newMesh.RecalculateNormals();
