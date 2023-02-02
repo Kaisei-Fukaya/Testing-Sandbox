@@ -969,6 +969,7 @@ namespace SSL
             int[][] roundingRanges = new int[0][];
             List<Vector3> allVerts = new List<Vector3>();
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
+            int quartLen = loopLen / 4;
             nLoops = (loopLen / 4) + 1;
 
             //Ensure deforms matches looplen
@@ -978,6 +979,8 @@ namespace SSL
             }
 
             //Create Verts
+            int endCapSideVertLen = (loopLen / 4) - 1;
+            int endCapVertLen = endCapSideVertLen * endCapSideVertLen;
             for (int i = 0; i < nLoops; i++)
             {
                 //Taper
@@ -990,15 +993,42 @@ namespace SSL
                 allVerts.AddRange(newLoop);
 
                 //Add end-cap vert
-                if (sequentialNodeType == SequentialNodeType.End && i == nLoops - 1)
+                if (i == nLoops - 1)
                 {
-                    Vector3 endCapVert = new Vector3();
-                    for (int j = 0; j < newLoop.Length; j++)
+                    int capLoopLen = loopLen;
+                    while(capLoopLen > 8)
                     {
-                        endCapVert += newLoop[j];
+                        capLoopLen -= 8;
+                        Vector3 currentCapLoopSize = size * (capLoopLen/loopLen);
+                        currentCapLoopSize.y = size.y;
+                        Vector3[] currentCapLoop = BuildLoop(capLoopLen, nLoops, i, currentCapLoopSize, deforms, 1f);
+                        allVerts.AddRange(currentCapLoop);
+                        Debug.Log($"caplooplen: {capLoopLen}");
                     }
-                    endCapVert /= newLoop.Length;
-                    allVerts.Add(endCapVert);
+                    if(loopLen >= 8)
+                    {
+                        Vector3 capLoopTip = new Vector3(0f, size.y, 0f);
+                        allVerts.Add(capLoopTip);
+                    }
+
+                    //Vector3[] endCapVerts = new Vector3[endCapVertLen];
+                    //int xCount = 1;
+                    //int zCount = 1;
+                    //for (int j = 0; j < endCapVertLen; j++)
+                    //{
+                    //    if(xCount >= endCapSideVertLen - 1)
+                    //    {
+                    //        xCount = 0;
+                    //        zCount++;
+                    //    }
+                    //    Vector3 xPoint = allVerts[xCount];
+                    //    Vector3 zPoint = allVerts[allVerts.Count - zCount];
+                    //    float yPoint = (xPoint.y + zPoint.y) / 2;
+                    //    endCapVerts[j] = new Vector3(xPoint.x, yPoint, zPoint.z);
+                    //    xCount++;
+                    //}
+
+                    //allVerts.AddRange(endCapVerts);
                 }
             }
 
@@ -1039,59 +1069,73 @@ namespace SSL
 
             GenerateFacePlanarNormals(nLoops, allVerts.ToArray(), loopLen);
 
-            if (sequentialNodeType == SequentialNodeType.Start)
-            {
-                //Start-cap vert
-                Vector3 startCapVert = new Vector3();
-                for (int j = 0; j < loopLen; j++)
-                {
-                    startCapVert += allVerts[j];
-                }
-                startCapVert /= loopLen;
-                allVerts.Insert(0, startCapVert);
-
-                //Shift tris up to account for start cap vert
-                for (int i = 0; i < allTris.Count; i++)
-                {
-                    allTris[i]++;
-                }
-
-                //Start-cap triangles
-                int[] startCap = new int[loopLen * 3];
-                for (int i = 0; i < startCap.Length / 3; i++)
-                {
-                    if (i == loopLen - 1)
-                    {
-                        startCap[i * 3] = 0;
-                        startCap[(i * 3) + 1] = i + 1;
-                        startCap[(i * 3) + 2] = 1;
-                    }
-                    else
-                    {
-                        startCap[i * 3] = 0;
-                        startCap[(i * 3) + 1] = i + 1;
-                        startCap[(i * 3) + 2] = i + 2;
-                    }
-                }
-                allTris.AddRange(startCap);
-            }
             //End-cap triangles
-            else if (sequentialNodeType == SequentialNodeType.End)
-            {
-                int refPoint = nLoops - 1;
-                int[] endCap = new int[loopLen * 3];
-                for (int i = 0; i < endCap.Length / 3; i++)
-                {
-                    endCap[i * 3] = (refPoint * loopLen) + i;
-                    endCap[(i * 3) + 1] = (refPoint + 1) * loopLen;
-                    if (i == loopLen - 1)
-                        endCap[(i * 3) + 2] = refPoint * loopLen;
-                    else
-                        endCap[(i * 3) + 2] = (refPoint * loopLen) + i + 1;
-                }
-                allTris.AddRange(endCap);
-            }
+            Debug.Log($"allverts: {allVerts.Count}, looplen x nLoops: {loopLen * nLoops}");
+            //if (allVerts.Count > (loopLen * nLoops) + 1)
+            //{
+            //    int refPoint = ((nLoops - 1) * loopLen)-1;
+            //    int quartLenSq = quartLen * quartLen;
+            //    int currentFaceLen = quartLen;
+            //    int faceCount = 1;
+            //    int curFaceCounter = 0;
 
+            //    for (int i = 0; i < quartLenSq; i++)
+            //    {
+            //        int cur = refPoint + i;
+
+            //        int nxt1 = cur + (i + 1);
+
+            //        int nxt2 = nxt1 - loopLen - 1;
+
+            //        int nxt3 = cur - loopLen - 1;
+
+            //        curFaceCounter++;
+
+            //        if (curFaceCounter == currentFaceLen)
+            //        {
+            //            int offset = 2 + (2 * (quartLen - currentFaceLen));
+            //            nxt1 = cur - loopLen - 1 - offset;
+            //            nxt2 = cur - loopLen - 2 - offset;
+            //            nxt3 = cur - loopLen - 3 - offset;
+            //            faceCount++;
+            //            curFaceCounter = 0;
+            //            if(nxt1 == 89)
+            //                Debug.Log("hello");
+            //        }
+
+            //        if (faceCount == 2)
+            //        {
+            //            faceCount = 0;
+            //            currentFaceLen -= 1;
+            //        }
+
+            //        Debug.Log($"{cur}, {nxt1}, {nxt2}, {cur}, {nxt2}, {nxt3}");
+
+            //        allTris.AddRange(new int[6] { cur, nxt1, nxt2,
+            //                                  cur, nxt2, nxt3 });
+            //    }
+            //}
+            if (allVerts.Count < 16)
+            {
+                allTris.AddRange(new int[6] { 
+                    allVerts.Count - 1, allVerts.Count - 2, allVerts.Count - 3,
+                    allVerts.Count - 1, allVerts.Count - 3, allVerts.Count - 4
+                });
+            }
+            else
+            {
+                //Last four polys
+                allTris.AddRange(new int[24] {
+                allVerts.Count - 1, allVerts.Count - 2, allVerts.Count - 3,
+                allVerts.Count - 1, allVerts.Count - 3, allVerts.Count - 4,
+                allVerts.Count - 1, allVerts.Count - 4, allVerts.Count - 5,
+                allVerts.Count - 1, allVerts.Count - 5, allVerts.Count - 6,
+                allVerts.Count - 1, allVerts.Count - 6, allVerts.Count - 7,
+                allVerts.Count - 1, allVerts.Count - 7, allVerts.Count - 8,
+                allVerts.Count - 1, allVerts.Count - 8, allVerts.Count - 9,
+                allVerts.Count - 1, allVerts.Count - 9, allVerts.Count - 2
+                });
+            }
             mesh.vertices = allVerts.ToArray();
             mesh.triangles = allTris.ToArray();
             mesh.RecalculateNormals();
