@@ -22,8 +22,8 @@ MonoBehaviour:
       owner: 265dd74b-fa96-42fc-84f7-50799358b650
       type: 0
       ownerDisplayName: 
-    - iD: EMPTY
-      indexInOwner: 0
+    - iD: 36a6cb39-8e73-4f83-8515-8180033620fb
+      indexInOwner: 1
       indexInOther: 0
       owner: 265dd74b-fa96-42fc-84f7-50799358b650
       type: 0
@@ -77,4 +77,132 @@ MonoBehaviour:
         subMeshIndex: 0
         sequentialNodeType: 1
     <Position>k__BackingField: {x: 220, y: 165}
+  - <ID>k__BackingField: 36a6cb39-8e73-4f83-8515-8180033620fb
+    <NodeType>k__BackingField: 1
+    <OutGoingConnections>k__BackingField:
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: 36a6cb39-8e73-4f83-8515-8180033620fb
+      type: 0
+      ownerDisplayName: 
+    - iD: f22bf5f0-58ea-4fb2-9efd-4c4911cebd1f
+      indexInOwner: 1
+      indexInOther: 0
+      owner: 36a6cb39-8e73-4f83-8515-8180033620fb
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: 36a6cb39-8e73-4f83-8515-8180033620fb
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: 36a6cb39-8e73-4f83-8515-8180033620fb
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: 36a6cb39-8e73-4f83-8515-8180033620fb
+      type: 0
+      ownerDisplayName: 
+    <InGoingConnections>k__BackingField:
+    - iD: 265dd74b-fa96-42fc-84f7-50799358b650
+      indexInOwner: 0
+      indexInOther: 1
+      owner: 36a6cb39-8e73-4f83-8515-8180033620fb
+      type: 0
+      ownerDisplayName: 
+    <Settings>k__BackingField:
+      i_portTypes: 00000000
+      o_portTypes: 0000000000000000000000000000000000000000
+      parameters:
+        nLoops: 0
+        rounding: 0
+        size: {x: 1, y: 1, z: 1}
+        relativeForwardTaper: 1
+        relativeBackwardTaper: 1
+        deforms:
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        curveParams:
+          controlPoint: {x: 0, y: 0}
+          tipOffset: {x: 0, y: 0}
+        subMeshIndex: 0
+        sequentialNodeType: 1
+    <Position>k__BackingField: {x: 630, y: 271}
+  - <ID>k__BackingField: f22bf5f0-58ea-4fb2-9efd-4c4911cebd1f
+    <NodeType>k__BackingField: 1
+    <OutGoingConnections>k__BackingField:
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: f22bf5f0-58ea-4fb2-9efd-4c4911cebd1f
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: f22bf5f0-58ea-4fb2-9efd-4c4911cebd1f
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: f22bf5f0-58ea-4fb2-9efd-4c4911cebd1f
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: f22bf5f0-58ea-4fb2-9efd-4c4911cebd1f
+      type: 0
+      ownerDisplayName: 
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: f22bf5f0-58ea-4fb2-9efd-4c4911cebd1f
+      type: 0
+      ownerDisplayName: 
+    <InGoingConnections>k__BackingField:
+    - iD: 36a6cb39-8e73-4f83-8515-8180033620fb
+      indexInOwner: 0
+      indexInOther: 1
+      owner: f22bf5f0-58ea-4fb2-9efd-4c4911cebd1f
+      type: 0
+      ownerDisplayName: 
+    <Settings>k__BackingField:
+      i_portTypes: 00000000
+      o_portTypes: 0000000000000000000000000000000000000000
+      parameters:
+        nLoops: 0
+        rounding: 0
+        size: {x: 1, y: 1, z: 1}
+        relativeForwardTaper: 1
+        relativeBackwardTaper: 1
+        deforms:
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        curveParams:
+          controlPoint: {x: 0, y: 0}
+          tipOffset: {x: 0, y: 0}
+        subMeshIndex: 0
+        sequentialNodeType: 1
+    <Position>k__BackingField: {x: 996, y: 295}
   <UpdateRequiredFlag>k__BackingField: 0

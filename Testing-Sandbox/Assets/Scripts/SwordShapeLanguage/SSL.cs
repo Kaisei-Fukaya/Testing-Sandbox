@@ -999,11 +999,10 @@ namespace SSL
                     while(capLoopLen > 8)
                     {
                         capLoopLen -= 8;
-                        Vector3 currentCapLoopSize = size * (capLoopLen/loopLen);
+                        Vector3 currentCapLoopSize = size * ((float)capLoopLen/(float)loopLen);
                         currentCapLoopSize.y = size.y;
                         Vector3[] currentCapLoop = BuildLoop(capLoopLen, nLoops, i, currentCapLoopSize, deforms, 1f);
                         allVerts.AddRange(currentCapLoop);
-                        Debug.Log($"caplooplen: {capLoopLen}");
                     }
                     if(loopLen >= 8)
                     {
@@ -1031,6 +1030,8 @@ namespace SSL
                     //allVerts.AddRange(endCapVerts);
                 }
             }
+
+            Debug.Log($"NUMBER OF VERTS: {allVerts.Count}");
 
             //Create Tris
             List<int> allTris = new List<int>();
@@ -1070,51 +1071,49 @@ namespace SSL
             GenerateFacePlanarNormals(nLoops, allVerts.ToArray(), loopLen);
 
             //End-cap triangles
-            Debug.Log($"allverts: {allVerts.Count}, looplen x nLoops: {loopLen * nLoops}");
-            //if (allVerts.Count > (loopLen * nLoops) + 1)
-            //{
-            //    int refPoint = ((nLoops - 1) * loopLen)-1;
-            //    int quartLenSq = quartLen * quartLen;
-            //    int currentFaceLen = quartLen;
-            //    int faceCount = 1;
-            //    int curFaceCounter = 0;
+            if (allVerts.Count > (loopLen * nLoops) + 1)
+            {
+                int refPoint = (nLoops * loopLen) - 1;
+                int quartLenSq = (quartLen - 1) * (quartLen - 1);
+                int currentFaceLen = quartLen;
+                int faceCount = 1;
+                int curFaceCounter = 0;
+                int offset = 0;
 
-            //    for (int i = 0; i < quartLenSq; i++)
-            //    {
-            //        int cur = refPoint + i;
+                for (int i = 0; i < quartLenSq; i++)
+                {
+                    int cur = refPoint + i;
 
-            //        int nxt1 = cur + (i + 1);
+                    int nxt1 = cur + 1;
 
-            //        int nxt2 = nxt1 - loopLen - 1;
+                    int nxt2 = nxt1 - (loopLen - 1 - offset);
 
-            //        int nxt3 = cur - loopLen - 1;
+                    int nxt3 = cur - (loopLen - 1 - offset);
 
-            //        curFaceCounter++;
+                    curFaceCounter++;
 
-            //        if (curFaceCounter == currentFaceLen)
-            //        {
-            //            int offset = 2 + (2 * (quartLen - currentFaceLen));
-            //            nxt1 = cur - loopLen - 1 - offset;
-            //            nxt2 = cur - loopLen - 2 - offset;
-            //            nxt3 = cur - loopLen - 3 - offset;
-            //            faceCount++;
-            //            curFaceCounter = 0;
-            //            if(nxt1 == 89)
-            //                Debug.Log("hello");
-            //        }
+                    if (curFaceCounter == currentFaceLen)
+                    {
+                        offset += 2;
+                        nxt1 = cur - (loopLen - 1 - (offset));
+                        nxt2 = nxt1 - 1;
+                        nxt3 = nxt1 - 2;
+                        faceCount++;
+                        curFaceCounter = 0;
+                        if(i != quartLenSq - 1)
+                            i--;
+                    }
 
-            //        if (faceCount == 2)
-            //        {
-            //            faceCount = 0;
-            //            currentFaceLen -= 1;
-            //        }
+                    if (faceCount == 2)
+                    {
+                        faceCount = 0;
+                        currentFaceLen -= 1;
+                    }
 
-            //        Debug.Log($"{cur}, {nxt1}, {nxt2}, {cur}, {nxt2}, {nxt3}");
-
-            //        allTris.AddRange(new int[6] { cur, nxt1, nxt2,
-            //                                  cur, nxt2, nxt3 });
-            //    }
-            //}
+                    allTris.AddRange(new int[6] { cur, nxt1, nxt2,
+                                              cur, nxt2, nxt3 });
+                }
+            }
             if (allVerts.Count < 16)
             {
                 allTris.AddRange(new int[6] { 
