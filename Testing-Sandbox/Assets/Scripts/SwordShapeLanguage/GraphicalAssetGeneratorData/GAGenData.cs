@@ -26,11 +26,34 @@ namespace SSL.Data
             //Nodes
             for (int i = 0; i < Nodes.Count; i++)
             {
-                SequentialNodeParams newParams = Nodes[i].Settings.parameters;
+                NodeParams newParams = Nodes[i].Settings.parameters;
                 if (Nodes[i].InGoingConnections[0].iD == "EMPTY")
-                    newParams.sequentialNodeType = SequentialNodeType.Start;
+                {
+                    newParams.visibleFaces.bottom = true;
+                }
                 else if (Nodes[i].OutGoingConnections[0].iD == "EMPTY")
-                    newParams.sequentialNodeType = SequentialNodeType.End;
+                {
+                    newParams.visibleFaces.top = true;
+                }
+                if(Nodes[i].OutGoingConnections.Count == 5)
+                {
+                    if(Nodes[i].OutGoingConnections[1].iD == "EMPTY")
+                    {
+                        newParams.visibleFaces.left = true;
+                    }
+                    if (Nodes[i].OutGoingConnections[2].iD == "EMPTY")
+                    {
+                        newParams.visibleFaces.front = true;
+                    }
+                    if (Nodes[i].OutGoingConnections[3].iD == "EMPTY")
+                    {
+                        newParams.visibleFaces.right = true;
+                    }
+                    if (Nodes[i].OutGoingConnections[4].iD == "EMPTY")
+                    {
+                        newParams.visibleFaces.back = true;
+                    }
+                }
 
                 SElement newNode;
                 switch (Nodes[i].NodeType)

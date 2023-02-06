@@ -45,7 +45,7 @@ namespace SSL.Data
         //Output settings
         public List<GAPortType> o_portTypes = new List<GAPortType>();
 
-        public SequentialNodeParams parameters = SequentialNodeParams.defaultParams;
+        public NodeParams parameters = NodeParams.defaultParams;
     }
 }
 

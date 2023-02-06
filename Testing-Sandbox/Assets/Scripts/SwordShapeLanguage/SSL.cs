@@ -136,7 +136,7 @@ namespace SSL
             //Some optimisation
             if(_useFlatshade)
                 FlatShade(verts, uv, tris);
-
+            //RemoveRedundantVerts(verts, uv, tris);
             return (verts, uv, tris);
         }
 
@@ -155,6 +155,52 @@ namespace SSL
                 }
                 seen.Add(tris[i]);
             }
+            return (verts, uv, tris);
+        }
+
+        (List<Vector3> verts, List<Vector2> uv, List<int> tris) RemoveRedundantVerts(List<Vector3> verts, List<Vector2> uv, List<int> tris)
+        {
+            List<int> unseen = new List<int>(verts.Count);
+            //Build unseen list
+            for (int i = 0; i < unseen.Count; i++)
+            {
+                unseen[i] = i;
+            }
+
+            //Remove seen
+            for (int i = 0; i < tris.Count; i++)
+            {
+                if (unseen.Contains(tris[i]))
+                    unseen.Remove(tris[i]);
+            }
+
+            //Put in ascending order
+            unseen.Sort();
+
+            //Remove redundant verts
+            for (int i = verts.Count - 1; i >= 0; i--)
+            {
+                if (unseen.Contains(i))
+                {
+                    verts.RemoveAt(i);
+                    uv.RemoveAt(i);
+                }
+            }
+
+            //Offset triangles
+            for (int i = 0; i < tris.Count; i++)
+            {
+                int offset = 0;
+                for (int j = 0; j < unseen.Count; j++)
+                {
+                    if (tris[i] > unseen[j])
+                        offset++;
+                    else
+                        break;
+                }
+                tris[i] -= offset;
+            }
+
             return (verts, uv, tris);
         }
 
@@ -236,7 +282,7 @@ namespace SSL
     }
 
     [Serializable]
-    public struct SequentialNodeParams
+    public struct NodeParams
     {
         [Min(0)]
         public int nLoops;
@@ -251,8 +297,18 @@ namespace SSL
         public BezierParams curveParams;
         public int subMeshIndex;
         [HideInInspector]
-        public SequentialNodeType sequentialNodeType;
-        public SequentialNodeParams(int loops, float rounding, Vector3 size, float relForwardTaper, float relBackwardTaper, Vector3[] deformations, BezierParams splineParams, int subMeshIndex, SequentialNodeType sequentialNodeType)
+        public VisibleFaces visibleFaces;
+
+        public NodeParams(
+            int loops, 
+            float rounding, 
+            Vector3 size, 
+            float relForwardTaper, 
+            float relBackwardTaper, 
+            Vector3[] deformations, 
+            BezierParams splineParams, 
+            int subMeshIndex, 
+            VisibleFaces visibleFaces)
         {
             this.nLoops = loops;
             this.rounding = rounding;
@@ -262,14 +318,14 @@ namespace SSL
             this.deforms = deformations;
             this.curveParams = splineParams;
             this.subMeshIndex = subMeshIndex;
-            this.sequentialNodeType = sequentialNodeType;
+            this.visibleFaces = visibleFaces;
         }
 
-        public static SequentialNodeParams defaultParams
+        public static NodeParams defaultParams
         {
             get
             {
-                return new SequentialNodeParams(0, 0f, new Vector3(1f,1f,1f), 1f, 1f, new Vector3[8], new BezierParams(), 0, SequentialNodeType.Middle);
+                return new NodeParams(0, 0f, new Vector3(1f,1f,1f), 1f, 1f, new Vector3[8], new BezierParams(), 0, new VisibleFaces());
             }
         }
     }
@@ -282,17 +338,20 @@ namespace SSL
     }
 
     [Serializable]
-    public enum SequentialNodeType
+    public struct VisibleFaces
     {
-        Start,
-        Middle,
-        End
+        public bool bottom;
+        public bool top;
+        public bool left;
+        public bool front;
+        public bool right;
+        public bool back;
     }
 
     [Serializable]
     public abstract class SElement
     {
-        [SerializeField] SequentialNodeParams storedParameters;
+        [SerializeField] NodeParams storedParameters;
         protected Mesh mesh;
         public Mesh GetMesh() => mesh;
         protected FacePlanarNormals facePlanarNormals;
@@ -303,19 +362,34 @@ namespace SSL
             switch (face)
             {
                 case 0:
-                    newConnectionData = new ConnectionData(facePlanarNormals.t_centre, Quaternion.LookRotation(Vector3.forward, facePlanarNormals.t), facePlanarNormals.t_loop);
+                    newConnectionData = new ConnectionData(
+                        facePlanarNormals.t_centre, 
+                        Quaternion.LookRotation(Vector3.forward, facePlanarNormals.t), 
+                        facePlanarNormals.t_loop);
                     break;
                 case 1:
-                    newConnectionData = new ConnectionData(facePlanarNormals.l_centre, Quaternion.LookRotation(Vector3.forward, facePlanarNormals.l), facePlanarNormals.l_loop);
+                    newConnectionData = new ConnectionData(
+                        facePlanarNormals.l_centre, 
+                        Quaternion.LookRotation(Vector3.forward, facePlanarNormals.l), 
+                        facePlanarNormals.l_loop);
                     break;
                 case 2:
-                    newConnectionData = new ConnectionData(facePlanarNormals.f_centre, Quaternion.LookRotation(Vector3.right, facePlanarNormals.f), facePlanarNormals.f_loop);
+                    newConnectionData = new ConnectionData(
+                        facePlanarNormals.f_centre, 
+                        Quaternion.LookRotation(Vector3.right, facePlanarNormals.f), 
+                        facePlanarNormals.f_loop);
                     break;
                 case 3:
-                    newConnectionData = new ConnectionData(facePlanarNormals.r_centre, Quaternion.LookRotation(Vector3.back, facePlanarNormals.r), facePlanarNormals.r_loop);
+                    newConnectionData = new ConnectionData(
+                        facePlanarNormals.r_centre, 
+                        Quaternion.LookRotation(Vector3.back, facePlanarNormals.r), 
+                        facePlanarNormals.r_loop);
                     break;
                 case 4:
-                    newConnectionData = new ConnectionData(facePlanarNormals.ba_centre, Quaternion.LookRotation(Vector3.left, facePlanarNormals.ba), facePlanarNormals.ba_loop);
+                    newConnectionData = new ConnectionData(
+                        facePlanarNormals.ba_centre, 
+                        Quaternion.LookRotation(Vector3.left, facePlanarNormals.ba), 
+                        facePlanarNormals.ba_loop);
                     break;
             }
 
@@ -356,12 +430,12 @@ namespace SSL
         {
             Build(subdivs, storedParameters);
         }
-        public void Build(int subdiv, SequentialNodeParams parameters)
+        public void Build(int subdiv, NodeParams parameters)
         {
             storedParameters = parameters;
-            Build(subdiv, parameters.rounding, parameters.size, parameters.relativeForwardTaper, parameters.relativeBackwardTaper, parameters.nLoops, parameters.deforms, parameters.curveParams, parameters.sequentialNodeType);
+            Build(subdiv, parameters.rounding, parameters.size, parameters.relativeForwardTaper, parameters.relativeBackwardTaper, parameters.nLoops, parameters.deforms, parameters.curveParams, parameters.visibleFaces);
         }
-        public abstract void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, SequentialNodeType sequentialNodeType);
+        public abstract void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, VisibleFaces visibleFaces);
         protected Vector3[] BuildLoop(int loopLen, int nLoops, int index, Vector3 size, Vector3[] deforms, float taperScale)
         {
             Vector3[] verts = new Vector3[loopLen];
@@ -455,16 +529,6 @@ namespace SSL
             //Clockwise!!!
             int[] tris = new int[] { (loopLen * loopIndex) + vertIndex, nxt1, nxt2,
                                              (loopLen * loopIndex) + vertIndex, nxt2, (loopLen * (loopIndex - 1)) + vertIndex };
-
-            /*  //Counter-clockwise
-            int prev = (loopLen * i) + (j - 1);
-
-            if (prev == -1)
-                prev = loopLen - 1;
-
-            int[] tris = new int[] { (loopLen * i) + j, prev                   , (loopLen * (i - 1)) + j,
-                                     (loopLen * i) + j, (loopLen * (i - 1)) + j, (loopLen * (i - 1)) + (j + 1) };
-            */
 
             return tris;
         }
@@ -616,7 +680,7 @@ namespace SSL
             List<Vector3> back_loop = new List<Vector3>();
 
             int lengthOffset = 0;
-            if (storedParameters.sequentialNodeType == SequentialNodeType.End)
+            if (storedParameters.visibleFaces.bottom == true)
                 lengthOffset = 1;
 
             for (int i = 0; i < verts.Length - lengthOffset; i++)
@@ -670,7 +734,6 @@ namespace SSL
                     e11.Add(verts[i]);
                 else if (loopIndex == quartOfLength * 3)
                     e12.Add(verts[i]);
-
             }
 
             ////Add verts that get missed by the loop
@@ -724,8 +787,8 @@ namespace SSL
             top_loop.AddRange(e06);
             top_loop.AddRange(e07);
             top_loop.AddRange(e08);
-            left_loop.AddRange(e09_Rev);
             left_loop.AddRange(e04_Rev);
+            left_loop.AddRange(e09_Rev);
             left_loop.AddRange(e12);
             left_loop.AddRange(e08);
             front_loop.AddRange(e12_Rev);
@@ -838,7 +901,7 @@ namespace SSL
     [Serializable]
     public class SSegment : SElement
     {
-        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, SequentialNodeType sequentialNodeType)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, VisibleFaces visibleFaces)
         {
             mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
@@ -874,7 +937,7 @@ namespace SSL
                 }
 
                 //Add end-cap vert
-                if (sequentialNodeType == SequentialNodeType.End && i == nLoops - 1)
+                if (visibleFaces.top && i == nLoops - 1)
                 {
                     Vector3 endCapVert = new Vector3();
                     for (int j = 0; j < newLoop.Length; j++)
@@ -924,7 +987,7 @@ namespace SSL
 
             GenerateFacePlanarNormals(nLoops, allVerts.ToArray(), loopLen);
 
-            if (sequentialNodeType == SequentialNodeType.Start)
+            if (visibleFaces.bottom)
             {
                 //Start-cap vert
                 Vector3 startCapVert = new Vector3();
@@ -962,7 +1025,7 @@ namespace SSL
                 allTris.AddRange(startCap);
             }
             //End-cap triangles
-            else if (sequentialNodeType == SequentialNodeType.End)
+            else if (visibleFaces.top)
             {
                 int refPoint = nLoops - 1;
                 int[] endCap = new int[loopLen * 3];
@@ -990,7 +1053,7 @@ namespace SSL
     public class SBranch : SElement
     {
 
-        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, SequentialNodeType sequentialNodeType)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, VisibleFaces visibleFaces)
         {
             mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
@@ -998,6 +1061,7 @@ namespace SSL
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
             int quartLen = loopLen / 4;
             nLoops = (loopLen / 4) + 1;
+            visibleFaces = new VisibleFaces();
 
             List<Vector2> uvs = new List<Vector2>();
             float uFraction = 1f / loopLen;
@@ -1061,6 +1125,14 @@ namespace SSL
             {
                 for (int j = 0; j < loopLen; j++)
                 {
+                    if (j >= 0 && j < quartLen && !visibleFaces.back)
+                        continue;
+                    if (j >= quartLen && j < quartLen * 2 && !visibleFaces.right)
+                        continue;
+                    if (j >= quartLen * 2 && j < quartLen * 3 && !visibleFaces.front)
+                        continue;
+                    if (j >= quartLen * 3 && j < quartLen * 4 && !visibleFaces.left)
+                        continue;
                     allTris.AddRange(BuildTriangles(loopLen, i, j));
                 }
             }
@@ -1093,69 +1165,72 @@ namespace SSL
             GenerateFacePlanarNormals(nLoops, allVerts.ToArray(), loopLen);
 
             //End-cap triangles
-            if (allVerts.Count > (loopLen * nLoops) + 1)
+            if (visibleFaces.top)
             {
-                int refPoint = (nLoops * loopLen) - 1;
-                int quartLenSq = (quartLen - 1) * (quartLen - 1);
-                int currentFaceLen = quartLen;
-                int faceCount = 1;
-                int curFaceCounter = 0;
-                int offset = 0;
-
-                for (int i = 0; i < quartLenSq; i++)
+                if (allVerts.Count > (loopLen * nLoops) + 1)
                 {
-                    int cur = refPoint + i;
+                    int refPoint = (nLoops * loopLen) - 1;
+                    int quartLenSq = (quartLen - 1) * (quartLen - 1);
+                    int currentFaceLen = quartLen;
+                    int faceCount = 1;
+                    int curFaceCounter = 0;
+                    int offset = 0;
 
-                    int nxt1 = cur + 1;
-
-                    int nxt2 = nxt1 - (loopLen - 1 - offset);
-
-                    int nxt3 = cur - (loopLen - 1 - offset);
-
-                    curFaceCounter++;
-
-                    if (curFaceCounter == currentFaceLen)
+                    for (int i = 0; i < quartLenSq; i++)
                     {
-                        offset += 2;
-                        nxt1 = cur - (loopLen - 1 - (offset));
-                        nxt2 = nxt1 - 1;
-                        nxt3 = nxt1 - 2;
-                        faceCount++;
-                        curFaceCounter = 0;
-                        if(i != quartLenSq - 1)
-                            i--;
-                    }
+                        int cur = refPoint + i;
 
-                    if (faceCount == 2)
-                    {
-                        faceCount = 0;
-                        currentFaceLen -= 1;
-                    }
+                        int nxt1 = cur + 1;
 
-                    allTris.AddRange(new int[6] { cur, nxt1, nxt2,
+                        int nxt2 = nxt1 - (loopLen - 1 - offset);
+
+                        int nxt3 = cur - (loopLen - 1 - offset);
+
+                        curFaceCounter++;
+
+                        if (curFaceCounter == currentFaceLen)
+                        {
+                            offset += 2;
+                            nxt1 = cur - (loopLen - 1 - (offset));
+                            nxt2 = nxt1 - 1;
+                            nxt3 = nxt1 - 2;
+                            faceCount++;
+                            curFaceCounter = 0;
+                            if (i != quartLenSq - 1)
+                                i--;
+                        }
+
+                        if (faceCount == 2)
+                        {
+                            faceCount = 0;
+                            currentFaceLen -= 1;
+                        }
+
+                        allTris.AddRange(new int[6] { cur, nxt1, nxt2,
                                               cur, nxt2, nxt3 });
+                    }
                 }
-            }
-            if (allVerts.Count < 16)
-            {
-                allTris.AddRange(new int[6] { 
-                    allVerts.Count - 1, allVerts.Count - 2, allVerts.Count - 3,
-                    allVerts.Count - 1, allVerts.Count - 3, allVerts.Count - 4
-                });
-            }
-            else
-            {
-                //Last four polys
-                allTris.AddRange(new int[24] {
-                allVerts.Count - 1, allVerts.Count - 2, allVerts.Count - 3,
-                allVerts.Count - 1, allVerts.Count - 3, allVerts.Count - 4,
-                allVerts.Count - 1, allVerts.Count - 4, allVerts.Count - 5,
-                allVerts.Count - 1, allVerts.Count - 5, allVerts.Count - 6,
-                allVerts.Count - 1, allVerts.Count - 6, allVerts.Count - 7,
-                allVerts.Count - 1, allVerts.Count - 7, allVerts.Count - 8,
-                allVerts.Count - 1, allVerts.Count - 8, allVerts.Count - 9,
-                allVerts.Count - 1, allVerts.Count - 9, allVerts.Count - 2
-                });
+                if (allVerts.Count < 16)
+                {
+                    allTris.AddRange(new int[6] {
+                        allVerts.Count - 1, allVerts.Count - 2, allVerts.Count - 3,
+                        allVerts.Count - 1, allVerts.Count - 3, allVerts.Count - 4
+                    });
+                }
+                else
+                {
+                    //Last four polys
+                    allTris.AddRange(new int[24] {
+                        allVerts.Count - 1, allVerts.Count - 2, allVerts.Count - 3,
+                        allVerts.Count - 1, allVerts.Count - 3, allVerts.Count - 4,
+                        allVerts.Count - 1, allVerts.Count - 4, allVerts.Count - 5,
+                        allVerts.Count - 1, allVerts.Count - 5, allVerts.Count - 6,
+                        allVerts.Count - 1, allVerts.Count - 6, allVerts.Count - 7,
+                        allVerts.Count - 1, allVerts.Count - 7, allVerts.Count - 8,
+                        allVerts.Count - 1, allVerts.Count - 8, allVerts.Count - 9,
+                        allVerts.Count - 1, allVerts.Count - 9, allVerts.Count - 2
+                    });
+                }
             }
             mesh.vertices = allVerts.ToArray();
             mesh.triangles = allTris.ToArray();
@@ -1168,7 +1243,7 @@ namespace SSL
     [Serializable]
     public class STerminal : SElement
     {
-        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, SequentialNodeType sequentialNodeType)
+        public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, VisibleFaces visibleFaces)
         {
             mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
