@@ -118,9 +118,10 @@ namespace SSL
             newMesh.subMeshCount = submeshCount;
             //Debug.Log($"new mesh subs: {newMesh.subMeshCount}");
             List<Vector3> newVerts = new List<Vector3>(newMesh.vertices);
+            List<Vector2> newUVs = new List<Vector2>(newMesh.uv);
             for (int i = 0; i < subMeshTriangleSets.Length; i++)
             {
-                (newVerts, subMeshTriangleSets[i]) = Optimise(newVerts, subMeshTriangleSets[i]);
+                (newVerts, newUVs, subMeshTriangleSets[i]) = Optimise(newVerts, newUVs, subMeshTriangleSets[i]);
                 newMesh.vertices = newVerts.ToArray();
                 newMesh.SetTriangles(subMeshTriangleSets[i], i);
                 //Debug.Log("Setting striangles");
@@ -130,16 +131,16 @@ namespace SSL
             return newMesh;
         }
 
-        (List<Vector3> verts, List<int> tris) Optimise(List<Vector3> verts, List<int> tris)
+        (List<Vector3> verts, List<Vector2> uv, List<int> tris) Optimise(List<Vector3> verts, List<Vector2> uv, List<int> tris)
         {
             //Some optimisation
             if(_useFlatshade)
-                FlatShade(verts, tris);
+                FlatShade(verts, uv, tris);
 
-            return (verts, tris);
+            return (verts, uv, tris);
         }
 
-        (List<Vector3> verts, List<int> tris) FlatShade(List<Vector3> verts, List<int> tris)
+        (List<Vector3> verts, List<Vector2> uv, List<int> tris) FlatShade(List<Vector3> verts, List<Vector2> uv, List<int> tris)
         {
             List<int> seen = new List<int>();
             int originalCount = tris.Count;
@@ -149,11 +150,12 @@ namespace SSL
                 if (seen.Contains(tris[i]))
                 {
                     verts.Add(verts[tris[i]]);
+                    uv.Add(uv[tris[i]]);
                     tris[i] = verts.Count - 1;
                 }
                 seen.Add(tris[i]);
             }
-            return (verts, tris);
+            return (verts, uv, tris);
         }
 
 
@@ -174,9 +176,20 @@ namespace SSL
 
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
 
+            //UVS
+            List<Vector2> uvsA = new List<Vector2>();
+            List<Vector2> uvsB = new List<Vector2>();
+            meshA.GetUVs(0, uvsA);
+            meshB.GetUVs(0, uvsB);
+            uvsA.AddRange(uvsB);
+
+            //VERTS
             List<Vector3> newVerts = new List<Vector3>(meshA.vertices);
             if (connectingLoop != null)
+            {
                 newVerts.AddRange(connectingLoop);
+                uvsA.AddRange(new Vector2[connectingLoop.Length]);
+            }
             int vertCountPostConLoop = newVerts.Count;
 
             Vector3[] bVerts = meshB.vertices;
@@ -184,6 +197,8 @@ namespace SSL
             {
                 bVerts[i] = transformationMatrix.MultiplyPoint3x4(bVerts[i]);
             }
+
+            //TRIS
             int[] bTriangs = meshB.triangles;
             for (int i = 0; i < bTriangs.Length; i++)
             {
@@ -191,7 +206,6 @@ namespace SSL
             }
             newVerts.AddRange(bVerts);
             meshA.vertices = newVerts.ToArray();
-
 
             List<int> newTriangs = new List<int>(bTriangs);
             for (int i = 0; i < loopLen; i++)
@@ -215,6 +229,7 @@ namespace SSL
             //outMesh.SetSubMesh(submeshIndex, subMeshDesc);
 
             //Debug.Log(newMesh.vertexCount);
+            meshA.SetUVs(0, uvsA);
             return meshA;
         }
 
@@ -831,6 +846,10 @@ namespace SSL
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
             nLoops += 2;
 
+            List<Vector2> uvs = new List<Vector2>();
+            float uFraction = 1f / loopLen;
+            float vFraction = 1f / nLoops;
+
             //Ensure deforms matches looplen
             if (deforms.Length != loopLen)
             {
@@ -849,6 +868,11 @@ namespace SSL
                 Vector3[] newLoop = BuildLoop(loopLen, nLoops, i, sizeAdjustedForTaper, deforms, taperScale);
                 allVerts.AddRange(newLoop);
 
+                for (int j = 0; j < newLoop.Length; j++)
+                {
+                    uvs.Add(new Vector2(uFraction * j, vFraction * i));
+                }
+
                 //Add end-cap vert
                 if (sequentialNodeType == SequentialNodeType.End && i == nLoops - 1)
                 {
@@ -859,6 +883,7 @@ namespace SSL
                     }
                     endCapVert /= newLoop.Length;
                     allVerts.Add(endCapVert);
+                    uvs.Add(new Vector2(.5f, .5f));
                 }
             }
 
@@ -909,6 +934,7 @@ namespace SSL
                 }
                 startCapVert /= loopLen;
                 allVerts.Insert(0, startCapVert);
+                uvs.Add(new Vector2(.5f, .5f));
 
                 //Shift tris up to account for start cap vert
                 for (int i = 0; i < allTris.Count; i++)
@@ -954,6 +980,7 @@ namespace SSL
 
             mesh.vertices = allVerts.ToArray();
             mesh.triangles = allTris.ToArray();
+            mesh.SetUVs(0, uvs.ToArray());
             mesh.RecalculateNormals();
             mesh.RecalculateTangents();
         }
@@ -971,6 +998,10 @@ namespace SSL
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
             int quartLen = loopLen / 4;
             nLoops = (loopLen / 4) + 1;
+
+            List<Vector2> uvs = new List<Vector2>();
+            float uFraction = 1f / loopLen;
+            float vFraction = 1f / nLoops;
 
             //Ensure deforms matches looplen
             if (deforms.Length != loopLen)
@@ -992,6 +1023,11 @@ namespace SSL
                 Vector3[] newLoop = BuildLoop(loopLen, nLoops, i, size, deforms, 1f);
                 allVerts.AddRange(newLoop);
 
+                for (int j = 0; j < newLoop.Length; j++)
+                {
+                    uvs.Add(new Vector2(uFraction * j, vFraction * i));
+                }
+
                 //Add end-cap vert
                 if (i == nLoops - 1)
                 {
@@ -1002,32 +1038,18 @@ namespace SSL
                         Vector3 currentCapLoopSize = size * ((float)capLoopLen/(float)loopLen);
                         currentCapLoopSize.y = size.y;
                         Vector3[] currentCapLoop = BuildLoop(capLoopLen, nLoops, i, currentCapLoopSize, deforms, 1f);
+                        for (int j = 0; j < currentCapLoop.Length; j++)
+                        {
+                            uvs.Add(new Vector2(uFraction * j, vFraction * i));
+                        }
                         allVerts.AddRange(currentCapLoop);
                     }
                     if(loopLen >= 8)
                     {
                         Vector3 capLoopTip = new Vector3(0f, size.y, 0f);
                         allVerts.Add(capLoopTip);
+                        uvs.Add(new Vector2(.5f, .5f));
                     }
-
-                    //Vector3[] endCapVerts = new Vector3[endCapVertLen];
-                    //int xCount = 1;
-                    //int zCount = 1;
-                    //for (int j = 0; j < endCapVertLen; j++)
-                    //{
-                    //    if(xCount >= endCapSideVertLen - 1)
-                    //    {
-                    //        xCount = 0;
-                    //        zCount++;
-                    //    }
-                    //    Vector3 xPoint = allVerts[xCount];
-                    //    Vector3 zPoint = allVerts[allVerts.Count - zCount];
-                    //    float yPoint = (xPoint.y + zPoint.y) / 2;
-                    //    endCapVerts[j] = new Vector3(xPoint.x, yPoint, zPoint.z);
-                    //    xCount++;
-                    //}
-
-                    //allVerts.AddRange(endCapVerts);
                 }
             }
 
@@ -1137,6 +1159,7 @@ namespace SSL
             }
             mesh.vertices = allVerts.ToArray();
             mesh.triangles = allTris.ToArray();
+            mesh.SetUVs(0, uvs.ToArray());
             mesh.RecalculateNormals();
             mesh.RecalculateTangents();
         }
