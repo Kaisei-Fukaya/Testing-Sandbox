@@ -31,7 +31,7 @@ namespace SSL.Data
                 {
                     newParams.visibleFaces.bottom = true;
                 }
-                else if (Nodes[i].OutGoingConnections[0].iD == "EMPTY")
+                if (Nodes[i].OutGoingConnections[0].iD == "EMPTY")
                 {
                     newParams.visibleFaces.top = true;
                 }

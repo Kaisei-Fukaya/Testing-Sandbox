@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SSL
@@ -242,6 +243,7 @@ namespace SSL
             for (int i = 0; i < bVerts.Length; i++)
             {
                 bVerts[i] = transformationMatrix.MultiplyPoint3x4(bVerts[i]);
+                //bVerts[i].x -= 1f;
             }
 
             //TRIS
@@ -645,7 +647,7 @@ namespace SSL
             Vector3 p1 = Vector3.Lerp(control, end, t);
             return Vector3.Lerp(p0, p1, t);
         }
-        protected FacePlanarNormals GenerateFacePlanarNormals(int nLoops, Vector3[] verts, int loopLen)
+        protected FacePlanarNormals GenerateFacePlanarNormals(int nLoops, Vector3[] verts, int loopLen, int capLoopLen)
         {
             int quartOfLength = loopLen / 4;
             var a  = verts[0];
@@ -679,61 +681,68 @@ namespace SSL
             List<Vector3> right_loop = new List<Vector3>();
             List<Vector3> back_loop = new List<Vector3>();
 
-            int lengthOffset = 0;
-            if (storedParameters.visibleFaces.bottom == true)
-                lengthOffset = 1;
+            int startOffset = 0;
+            //if (storedParameters.visibleFaces.bottom)
+            //    startOffset = 1;
 
-            for (int i = 0; i < verts.Length - lengthOffset; i++)
+            int endOffset = 0;
+            if (storedParameters.visibleFaces.top)
+                endOffset = capLoopLen;
+
+
+            //Debug.Log($"for length : {verts.Length - endOffset}, end offset : {endOffset}");
+
+            for (int i = 0; i < verts.Length - endOffset; i++)
             {
                 if(i >= 0 && i < quartOfLength)
                 {
-                    e01.Add(verts[i]);
+                    e01.Add(verts[i + startOffset]);
                 }
 
                 if (i >= quartOfLength && i < quartOfLength * 2)
                 {
-                    e02.Add(verts[i]);
+                    e02.Add(verts[i + startOffset]);
                 }
 
                 if (i >= quartOfLength * 2 && i < quartOfLength * 3)
                 {
-                    e03.Add(verts[i]);
+                    e03.Add(verts[i + startOffset]);
                 }
 
                 if (i >= quartOfLength * 3 && i < loopLen)
                 {
-                    e04.Add(verts[i]);
+                    e04.Add(verts[i + startOffset]);
                 }
 
                 if (i >= (nLoops - 1) * loopLen && i < ((nLoops - 1) * loopLen) + quartOfLength)
                 {
-                    e05.Add(verts[i]);
+                    e05.Add(verts[i + startOffset]);
                 }
 
                 if (i >= ((nLoops - 1) * loopLen) + quartOfLength && i < ((nLoops - 1) * loopLen) + (quartOfLength * 2))
                 {
-                    e06.Add(verts[i]);
+                    e06.Add(verts[i + startOffset]);
                 }
 
                 if (i >= ((nLoops - 1) * loopLen) + (quartOfLength * 2) && i < ((nLoops - 1) * loopLen) + (quartOfLength * 3))
                 {
-                    e07.Add(verts[i]);
+                    e07.Add(verts[i + startOffset]);
                 }
 
-                if (i >= ((nLoops - 1) * loopLen) + (quartOfLength * 3) && i < ((nLoops - 1) * loopLen) + (quartOfLength * 4))
+                if (i >= ((nLoops - 1) * loopLen) + (quartOfLength * 3) && i <= ((nLoops - 1) * loopLen) + (quartOfLength * 4))
                 {
-                    e08.Add(verts[i]);
+                    e08.Add(verts[i + startOffset]);
                 }
 
                 int loopIndex = i % loopLen;
                 if (loopIndex == 0)
-                    e09.Add(verts[i]);
+                    e09.Add(verts[i + startOffset]);
                 else if (loopIndex == quartOfLength)
-                    e10.Add(verts[i]);
+                    e10.Add(verts[i + startOffset]);
                 else if (loopIndex == quartOfLength * 2)
-                    e11.Add(verts[i]);
+                    e11.Add(verts[i + startOffset]);
                 else if (loopIndex == quartOfLength * 3)
-                    e12.Add(verts[i]);
+                    e12.Add(verts[i + startOffset]);
             }
 
             ////Add verts that get missed by the loop
@@ -783,26 +792,31 @@ namespace SSL
             bottom_loop.AddRange(e02);
             bottom_loop.AddRange(e03);
             bottom_loop.AddRange(e04);
+
             top_loop.AddRange(e05);
             top_loop.AddRange(e06);
             top_loop.AddRange(e07);
             top_loop.AddRange(e08);
-            left_loop.AddRange(e04_Rev);
-            left_loop.AddRange(e09_Rev);
-            left_loop.AddRange(e12);
-            left_loop.AddRange(e08);
-            front_loop.AddRange(e12_Rev);
-            front_loop.AddRange(e03_Rev);
-            front_loop.AddRange(e11);
-            front_loop.AddRange(e07);
-            right_loop.AddRange(e11_Rev);
-            right_loop.AddRange(e02_Rev);
-            right_loop.AddRange(e10);
-            right_loop.AddRange(e06);
-            back_loop.AddRange(e10_Rev);
-            back_loop.AddRange(e01_Rev);
-            back_loop.AddRange(e09);
-            back_loop.AddRange(e05);
+
+            left_loop.AddRange(e09);
+            left_loop.AddRange(e08_Rev);
+            left_loop.AddRange(e12_Rev);
+            left_loop.AddRange(e04);
+
+            front_loop.AddRange(e12);
+            front_loop.AddRange(e07_Rev);
+            front_loop.AddRange(e11_Rev);
+            front_loop.AddRange(e03);
+
+            right_loop.AddRange(e11);
+            right_loop.AddRange(e06_Rev);
+            right_loop.AddRange(e10_Rev);
+            right_loop.AddRange(e02);
+
+            back_loop.AddRange(e10);
+            back_loop.AddRange(e05_Rev);
+            back_loop.AddRange(e09_Rev);
+            back_loop.AddRange(e01);
 
             //Debug.Log($"left_loop count: {left_loop.Count}");
             //for (int i = 0; i < top_loop.Count; i++)
@@ -824,12 +838,12 @@ namespace SSL
                 front_centre:  (c+c1+d+d1)/4,
                 right_centre:  (b+b1+c+c1)/4,
                 back_centre:   (a+a1+b+b1)/4,
-                bottom_loop: bottom_loop.ToArray(),
-                top_loop: top_loop.ToArray(),
-                left_loop: left_loop.ToArray(),
-                front_loop: front_loop.ToArray(),
-                right_loop: right_loop.ToArray(),
-                back_loop: back_loop.ToArray()
+                bottom_loop: bottom_loop.Distinct().ToArray(),
+                top_loop: top_loop.Distinct().ToArray(),
+                left_loop: left_loop.Distinct().ToArray(),
+                front_loop: front_loop.Distinct().ToArray(),
+                right_loop: right_loop.Distinct().ToArray(),
+                back_loop: back_loop.Distinct().ToArray()
                 );
             return facePlanarNormals;
         }
@@ -984,8 +998,8 @@ namespace SSL
                     }
                 }
             }
-
-            GenerateFacePlanarNormals(nLoops, allVerts.ToArray(), loopLen);
+            int capLoopLen = visibleFaces.top ? 1 : 0;
+            GenerateFacePlanarNormals(nLoops, allVerts.ToArray(), loopLen, capLoopLen);
 
             if (visibleFaces.bottom)
             {
@@ -1061,7 +1075,6 @@ namespace SSL
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
             int quartLen = loopLen / 4;
             nLoops = (loopLen / 4) + 1;
-            visibleFaces = new VisibleFaces();
 
             List<Vector2> uvs = new List<Vector2>();
             float uFraction = 1f / loopLen;
@@ -1074,8 +1087,8 @@ namespace SSL
             }
 
             //Create Verts
-            int endCapSideVertLen = (loopLen / 4) - 1;
-            int endCapVertLen = endCapSideVertLen * endCapSideVertLen;
+            int lengthOfCap = 0;
+
             for (int i = 0; i < nLoops; i++)
             {
                 //Taper
@@ -1093,7 +1106,7 @@ namespace SSL
                 }
 
                 //Add end-cap vert
-                if (i == nLoops - 1)
+                if (i == nLoops - 1 && visibleFaces.top)
                 {
                     int capLoopLen = loopLen;
                     while(capLoopLen > 8)
@@ -1106,11 +1119,13 @@ namespace SSL
                         {
                             uvs.Add(new Vector2(uFraction * j, vFraction * i));
                         }
+                        lengthOfCap += capLoopLen;
                         allVerts.AddRange(currentCapLoop);
                     }
                     if(loopLen >= 8)
                     {
                         Vector3 capLoopTip = new Vector3(0f, size.y, 0f);
+                        lengthOfCap++;
                         allVerts.Add(capLoopTip);
                         uvs.Add(new Vector2(.5f, .5f));
                     }
@@ -1162,7 +1177,7 @@ namespace SSL
                 }
             }
 
-            GenerateFacePlanarNormals(nLoops, allVerts.ToArray(), loopLen);
+            GenerateFacePlanarNormals(nLoops, allVerts.ToArray(), loopLen, lengthOfCap);
 
             //End-cap triangles
             if (visibleFaces.top)
