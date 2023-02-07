@@ -35,8 +35,8 @@ MonoBehaviour:
       parameters:
         nLoops: 6
         rounding: 0
-        size: {x: 1, y: 1, z: 1}
-        relativeForwardTaper: 0.52
+        size: {x: 1.2, y: 1.2, z: 1.2}
+        relativeForwardTaper: 0.58
         relativeBackwardTaper: 0.15
         deforms:
         - {x: 0, y: 0, z: 0}
@@ -51,7 +51,13 @@ MonoBehaviour:
           controlPoint: {x: 0, y: 0}
           tipOffset: {x: 0, y: 0}
         subMeshIndex: 0
-        sequentialNodeType: 1
+        visibleFaces:
+          bottom: 0
+          top: 0
+          left: 0
+          front: 0
+          right: 0
+          back: 0
     <Position>k__BackingField: {x: 360, y: 232}
   - <ID>k__BackingField: b23ba9f2-9bf8-49e2-8329-477b8092ada9
     <NodeType>k__BackingField: 0
@@ -75,7 +81,7 @@ MonoBehaviour:
       parameters:
         nLoops: 12
         rounding: 0.01
-        size: {x: 0.5, y: 3, z: 0.5}
+        size: {x: 0.6, y: 3, z: 0.4}
         relativeForwardTaper: 1
         relativeBackwardTaper: 1
         deforms:
@@ -91,7 +97,13 @@ MonoBehaviour:
           controlPoint: {x: 0, y: 0}
           tipOffset: {x: 0, y: 0}
         subMeshIndex: 1
-        sequentialNodeType: 1
+        visibleFaces:
+          bottom: 0
+          top: 0
+          left: 0
+          front: 0
+          right: 0
+          back: 0
     <Position>k__BackingField: {x: 736, y: 264}
   - <ID>k__BackingField: 0acd62b4-de2e-4c29-b33e-64be6746c3a1
     <NodeType>k__BackingField: 1
@@ -155,12 +167,18 @@ MonoBehaviour:
           controlPoint: {x: 0, y: 0}
           tipOffset: {x: 0, y: 0}
         subMeshIndex: 0
-        sequentialNodeType: 1
+        visibleFaces:
+          bottom: 0
+          top: 0
+          left: 0
+          front: 0
+          right: 0
+          back: 0
     <Position>k__BackingField: {x: 1126, y: 324}
   - <ID>k__BackingField: 2a406bce-2249-41ae-ba81-61cb5bf60e75
     <NodeType>k__BackingField: 0
     <OutGoingConnections>k__BackingField:
-    - iD: EMPTY
+    - iD: 269d7aee-1379-41cc-9e94-e300d7988e75
       indexInOwner: 0
       indexInOther: 0
       owner: 2a406bce-2249-41ae-ba81-61cb5bf60e75
@@ -195,12 +213,64 @@ MonoBehaviour:
           controlPoint: {x: 0, y: 0}
           tipOffset: {x: 1, y: 0}
         subMeshIndex: 0
-        sequentialNodeType: 1
+        visibleFaces:
+          bottom: 0
+          top: 0
+          left: 0
+          front: 0
+          right: 0
+          back: 0
     <Position>k__BackingField: {x: 1118, y: 689}
-  - <ID>k__BackingField: 9ebc9c07-8e66-4f11-a567-e2176f5c7687
+  - <ID>k__BackingField: 269d7aee-1379-41cc-9e94-e300d7988e75
     <NodeType>k__BackingField: 0
     <OutGoingConnections>k__BackingField:
     - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: 269d7aee-1379-41cc-9e94-e300d7988e75
+      type: 0
+      ownerDisplayName: 
+    <InGoingConnections>k__BackingField:
+    - iD: 2a406bce-2249-41ae-ba81-61cb5bf60e75
+      indexInOwner: 0
+      indexInOther: 0
+      owner: 269d7aee-1379-41cc-9e94-e300d7988e75
+      type: 0
+      ownerDisplayName: 
+    <Settings>k__BackingField:
+      i_portTypes: 00000000
+      o_portTypes: 00000000
+      parameters:
+        nLoops: 1
+        rounding: 0
+        size: {x: 0.5, y: 0.5, z: 0.5}
+        relativeForwardTaper: 0.52
+        relativeBackwardTaper: 0.33
+        deforms:
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        curveParams:
+          controlPoint: {x: 0, y: 0}
+          tipOffset: {x: 0, y: 0}
+        subMeshIndex: 1
+        visibleFaces:
+          bottom: 0
+          top: 0
+          left: 0
+          front: 0
+          right: 0
+          back: 0
+    <Position>k__BackingField: {x: 1466, y: 755}
+  - <ID>k__BackingField: 9ebc9c07-8e66-4f11-a567-e2176f5c7687
+    <NodeType>k__BackingField: 0
+    <OutGoingConnections>k__BackingField:
+    - iD: d4b763d7-325f-481e-bff9-e556030abcad
       indexInOwner: 0
       indexInOther: 0
       owner: 9ebc9c07-8e66-4f11-a567-e2176f5c7687
@@ -235,8 +305,60 @@ MonoBehaviour:
           controlPoint: {x: 0, y: 0}
           tipOffset: {x: 1, y: 0}
         subMeshIndex: 0
-        sequentialNodeType: 1
+        visibleFaces:
+          bottom: 0
+          top: 0
+          left: 0
+          front: 0
+          right: 0
+          back: 0
     <Position>k__BackingField: {x: 1118, y: -222}
+  - <ID>k__BackingField: d4b763d7-325f-481e-bff9-e556030abcad
+    <NodeType>k__BackingField: 0
+    <OutGoingConnections>k__BackingField:
+    - iD: EMPTY
+      indexInOwner: 0
+      indexInOther: 0
+      owner: d4b763d7-325f-481e-bff9-e556030abcad
+      type: 0
+      ownerDisplayName: 
+    <InGoingConnections>k__BackingField:
+    - iD: 9ebc9c07-8e66-4f11-a567-e2176f5c7687
+      indexInOwner: 0
+      indexInOther: 0
+      owner: d4b763d7-325f-481e-bff9-e556030abcad
+      type: 0
+      ownerDisplayName: 
+    <Settings>k__BackingField:
+      i_portTypes: 00000000
+      o_portTypes: 00000000
+      parameters:
+        nLoops: 1
+        rounding: 0
+        size: {x: 0.5, y: 0.5, z: 0.5}
+        relativeForwardTaper: 0.51
+        relativeBackwardTaper: 0.28
+        deforms:
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        - {x: 0, y: 0, z: 0}
+        curveParams:
+          controlPoint: {x: 0, y: 0}
+          tipOffset: {x: 0, y: 0}
+        subMeshIndex: 1
+        visibleFaces:
+          bottom: 0
+          top: 0
+          left: 0
+          front: 0
+          right: 0
+          back: 0
+    <Position>k__BackingField: {x: 1452, y: -365}
   - <ID>k__BackingField: ad3d04f3-81b1-4ed5-979d-c68aff36548b
     <NodeType>k__BackingField: 0
     <OutGoingConnections>k__BackingField:
@@ -275,7 +397,13 @@ MonoBehaviour:
           controlPoint: {x: 0, y: 0}
           tipOffset: {x: 0, y: 0}
         subMeshIndex: 2
-        sequentialNodeType: 1
+        visibleFaces:
+          bottom: 0
+          top: 0
+          left: 0
+          front: 0
+          right: 0
+          back: 0
     <Position>k__BackingField: {x: 1511, y: 324}
   - <ID>k__BackingField: 849f10d3-375f-45f2-9ba1-3bb75d03be30
     <NodeType>k__BackingField: 0
@@ -315,6 +443,12 @@ MonoBehaviour:
           controlPoint: {x: 0, y: 0}
           tipOffset: {x: 0, y: 0}
         subMeshIndex: 2
-        sequentialNodeType: 1
+        visibleFaces:
+          bottom: 0
+          top: 0
+          left: 0
+          front: 0
+          right: 0
+          back: 0
     <Position>k__BackingField: {x: 1864, y: 324}
   <UpdateRequiredFlag>k__BackingField: 0

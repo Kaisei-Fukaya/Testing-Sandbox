@@ -82,16 +82,20 @@ namespace SSL
                     int[] currentEdgeStackState = edgeStack.ToArray();
                     Matrix4x4 transformationMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
                     Vector3[] connectingLoop = new Vector3[0];
+
+                    List<int> prevSubmeshTriSet = null;
+
                     for (int i = currentEdgeStackState.Length - 1; i >= 0; i--)
                     {
                         if (i == 0)
                         {
                             connectingLoop = currentStackState[i+1].GetConnectionData(currentEdgeStackState[i]).GetEdgeLoop(transformationMatrix);
+                            prevSubmeshTriSet = subMeshTriangleSets[currentStackState[i+1].GetSubmeshIndex()];
                         }
                         transformationMatrix *= currentStackState[i+1].GetConnectionData(currentEdgeStackState[i]).transformationMatrix;
                     }
 
-                    newMesh = JoinMeshes(newMesh, subMesh, _subdiv, subMeshTriangleSets[currentNode.GetSubmeshIndex()], transformationMatrix, connectingLoop);
+                    newMesh = JoinMeshes(newMesh, subMesh, _subdiv, prevSubmeshTriSet, subMeshTriangleSets[currentNode.GetSubmeshIndex()], transformationMatrix, connectingLoop);
                     completionLookup[currentNode] = true;
                 }
                 
@@ -129,6 +133,7 @@ namespace SSL
             }
             newMesh.RecalculateBounds();
             newMesh.RecalculateNormals();
+            //newMesh.RecalculateTangents();
             return newMesh;
         }
 
@@ -137,7 +142,9 @@ namespace SSL
             //Some optimisation
             if(_useFlatshade)
                 FlatShade(verts, uv, tris);
-            //RemoveRedundantVerts(verts, uv, tris);
+            int oldVerts = verts.Count;
+            RemoveRedundantVerts(verts, uv, tris);
+            Debug.Log($"Verts culled: {oldVerts - verts.Count}");
             return (verts, uv, tris);
         }
 
@@ -207,7 +214,7 @@ namespace SSL
 
 
 
-        Mesh JoinMeshes(Mesh meshA, Mesh meshB, int subdiv, List<int> submesh, Matrix4x4 transformationMatrix, Vector3[] connectingLoop)
+        Mesh JoinMeshes(Mesh meshA, Mesh meshB, int subdiv, List<int> submeshA, List<int> submeshB, Matrix4x4 transformationMatrix, Vector3[] connectingLoop)
         {
             int vertCount = meshA.vertexCount;
 
@@ -215,7 +222,7 @@ namespace SSL
 
             if (vertCount == 0)
             {
-                submesh.AddRange(meshB.triangles);
+                submeshB.AddRange(meshB.triangles);
                 return meshB;
             }
 
@@ -255,7 +262,7 @@ namespace SSL
             newVerts.AddRange(bVerts);
             meshA.vertices = newVerts.ToArray();
 
-            List<int> newTriangs = new List<int>(bTriangs);
+            List<int> newTriangs = new List<int>();
             for (int i = 0; i < loopLen; i++)
             {
                 int nxt1 = (vertCountPostConLoop) + (i + 1);
@@ -271,7 +278,9 @@ namespace SSL
             }
             //newTriangs.InsertRange(0, meshA.triangles);
             //meshA.triangles = newTriangs.ToArray();
-            submesh.AddRange(newTriangs);
+            if(submeshA != null)
+                submeshA.AddRange(newTriangs);
+            submeshB.AddRange(bTriangs);
             //var subMeshDesc = new UnityEngine.Rendering.SubMeshDescriptor(){firstVertex = meshA.vertexCount,
             //                                                                vertexCount = newVerts.Count - meshA.vertexCount - 1};
             //outMesh.SetSubMesh(submeshIndex, subMeshDesc);
@@ -444,19 +453,27 @@ namespace SSL
 
             //Determine loop curve offset (excl first and last loop)
             Vector3 curveOffset;
+            Vector3 curveDir;
             if (index == 0)
+            {
                 curveOffset = Vector3.zero;
+                curveDir = Vector3.zero;
+            }
             else if (index == nLoops - 1)
             {
                 Vector2 tipOffset = TipOffset;
                 curveOffset = new Vector3(tipOffset.x, size.y, tipOffset.y);
+                curveDir = Vector3.zero;
             }
-            else
-                curveOffset = SampleQuadraticBezier(Mathf.InverseLerp(0, nLoops-1, index));
+            else 
+            {
+                (curveOffset, curveDir) = SampleQuadraticBezier(Mathf.InverseLerp(0, nLoops - 1, index));
+            }
 
             float yOffset = (size.y / (nLoops - 1)) * index;
             int quartOfLength = verts.Length / 4;
-
+            Matrix4x4 curveRotationMatrix = Matrix4x4.Rotate(Quaternion.LookRotation(Vector3.up, curveDir));
+      
             verts[0] =                 new Vector3(curveOffset.x + (-size.x / 2),
                                                    curveOffset.y,
                                                    curveOffset.z + (-size.z / 2)) + (deforms[0] * taperScale);
@@ -636,7 +653,7 @@ namespace SSL
             }
             return newD;
         }
-        protected Vector3 SampleQuadraticBezier(float t)
+        protected (Vector3, Vector3) SampleQuadraticBezier(float t)
         {
             Vector3 origin = Vector3.zero;
             Vector3 control = new Vector3(storedParameters.curveParams.controlPoint.x, storedParameters.size.y/2, storedParameters.curveParams.controlPoint.y);
@@ -645,7 +662,7 @@ namespace SSL
                                       storedParameters.curveParams.tipOffset.y);
             Vector3 p0 = Vector3.Lerp(origin, control, t);
             Vector3 p1 = Vector3.Lerp(control, end, t);
-            return Vector3.Lerp(p0, p1, t);
+            return (Vector3.Lerp(p0, p1, t), p1 - p0.normalized);
         }
         protected FacePlanarNormals GenerateFacePlanarNormals(int nLoops, Vector3[] verts, int loopLen, int capLoopLen)
         {
