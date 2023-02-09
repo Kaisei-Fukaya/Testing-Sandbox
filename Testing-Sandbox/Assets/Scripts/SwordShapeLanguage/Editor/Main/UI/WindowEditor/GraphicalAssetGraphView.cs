@@ -47,16 +47,57 @@ namespace SSL.Graph
             nodeCreationRequest = context => SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), _searchWindow);
         }
 
-        public GraphViewNode CreateNode(NodeType type, Vector2 position)
+        public GraphViewNode CreateNode(NodeType type, Vector2 position, Data.NodeSetting nodeSetting = null)
         {
             Type nodeType = Type.GetType($"SSL.Graph.Elements.{type}Node");
             GraphViewNode node = (GraphViewNode)Activator.CreateInstance(nodeType);
             node.GraphView = this;
             node.Initialise(position);
-            node.LoadSettings(new Data.NodeSetting());
+
+            if (nodeSetting == null)
+                nodeSetting = new Data.NodeSetting();
+
+            node.LoadSettings(nodeSetting);
             node.Draw();
             _nodes.Add(node);
+
+            node.onSettingEdit += OnNodeChange;
+
             return node;
+        }
+
+        public string CutCopyNode(IEnumerable<GraphElement> elements)
+        {
+            string output = "";
+            foreach (var item in elements)
+            {
+                GraphViewNode node = (GraphViewNode)item;
+                output += "," + node.ID;
+            }
+            output.TrimStart(new char[1] { ',' });
+            return output;
+        }
+
+        public void PasteNode(string operationName, string data)
+        {
+            var copiedNodeIDs = data.Split(new char[1] { ',' });
+            if(copiedNodeIDs.Length > 0)
+            {
+                for (int i = 0; i < copiedNodeIDs.Length; i++)
+                {
+                    GraphViewNode nodeFromID = GAGenDataUtils.IDToGraphViewNode(copiedNodeIDs[i], Nodes);
+                    if(nodeFromID != null)
+                        AddElement(CopyNode(nodeFromID));
+                }
+            }
+        }
+
+        public GraphViewNode CopyNode(GraphViewNode originalNode)
+        {
+            NodeType type = originalNode.NodeType;
+            Vector2 centre = editorWindow.position.center;
+            Vector2 position = GetLocalMousePosition(centre, true);
+            return CreateNode(type, position, originalNode.GetSettings());
         }
 
         void AddManipulators()
@@ -65,8 +106,14 @@ namespace SSL.Graph
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
+            serializeGraphElements += CutCopyNode;
+            unserializeAndPaste += PasteNode;
+            canPasteSerializedData += x => true;
+        }
 
-            //this.AddManipulator(CreateNodeContextualManipulator("Add Node (MarchingCubes)", GANodeType.VoxelToMesh));
+        public void OnNodeChange()
+        {
+
         }
 
         private IManipulator CreateNodeContextualManipulator(string actionTitle, NodeType type)
@@ -164,9 +211,22 @@ namespace SSL.Graph
                     RemoveElement(element);
                     Nodes.Remove(element);
                 }
+                EditorApplication.delayCall += OnEdgesChange;
+            }
+
+            if(gvc.edgesToCreate != null)
+            {
+                EditorApplication.delayCall += OnEdgesChange;
             }
 
             return gvc;
+        }
+
+        public void OnEdgesChange()
+        {
+            List<Edge> orderedEdges = new List<Edge>();
+            edges.ForEach(e => orderedEdges.Add(e));
+
         }
 
         void AddStyles()

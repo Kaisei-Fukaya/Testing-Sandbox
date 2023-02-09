@@ -19,6 +19,7 @@ namespace SSL.Graph
         public string NodeDescription { get; set; }
         public string Text { get; set; }
         public NodeType NodeType { get; set; }
+        public WorldOrientation WorldOrientation { get; set; }
 
 
         public GraphicalAssetGraphView GraphView { get; set; }

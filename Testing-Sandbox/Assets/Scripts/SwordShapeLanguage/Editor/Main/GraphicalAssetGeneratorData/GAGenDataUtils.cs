@@ -88,6 +88,16 @@ namespace SSL.Data.Utils
             return cleanName;
         }
 
+        public static GraphViewNode IDToGraphViewNode(string iD, IEnumerable<GraphViewNode> nodes)
+        {
+            foreach (var item in nodes)
+            {
+                if (item.ID == iD)
+                    return item;
+            }
+            return null;
+        }
+
         public static void RepaintInspector(System.Type t)
         {
             Editor[] ed = (Editor[])Resources.FindObjectsOfTypeAll<Editor>();

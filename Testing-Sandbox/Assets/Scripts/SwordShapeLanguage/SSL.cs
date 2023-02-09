@@ -124,9 +124,10 @@ namespace SSL
             //Debug.Log($"new mesh subs: {newMesh.subMeshCount}");
             List<Vector3> newVerts = new List<Vector3>(newMesh.vertices);
             List<Vector2> newUVs = new List<Vector2>(newMesh.uv);
+            newMesh.RecalculateBounds();
             for (int i = 0; i < subMeshTriangleSets.Length; i++)
             {
-                (newVerts, newUVs, subMeshTriangleSets[i]) = Optimise(newVerts, newUVs, subMeshTriangleSets[i]);
+                (newVerts, newUVs, subMeshTriangleSets[i]) = Optimise(newVerts, newUVs, subMeshTriangleSets[i], newMesh.bounds);
                 newMesh.vertices = newVerts.ToArray();
                 newMesh.SetTriangles(subMeshTriangleSets[i], i);
                 //Debug.Log("Setting striangles");
@@ -137,18 +138,18 @@ namespace SSL
             return newMesh;
         }
 
-        (List<Vector3> verts, List<Vector2> uv, List<int> tris) Optimise(List<Vector3> verts, List<Vector2> uv, List<int> tris)
+        (List<Vector3> verts, List<Vector2> uv, List<int> tris) Optimise(List<Vector3> verts, List<Vector2> uv, List<int> tris, Bounds bounds)
         {
             //Some optimisation
             if(_useFlatshade)
-                FlatShade(verts, uv, tris);
+                FlatShade(verts, uv, tris, bounds);
             int oldVerts = verts.Count;
             RemoveRedundantVerts(verts, uv, tris);
             Debug.Log($"Verts culled: {oldVerts - verts.Count}");
             return (verts, uv, tris);
         }
 
-        (List<Vector3> verts, List<Vector2> uv, List<int> tris) FlatShade(List<Vector3> verts, List<Vector2> uv, List<int> tris)
+        (List<Vector3> verts, List<Vector2> uv, List<int> tris) FlatShade(List<Vector3> verts, List<Vector2> uv, List<int> tris, Bounds bounds)
         {
             List<int> seen = new List<int>();
             int originalCount = tris.Count;
@@ -163,6 +164,13 @@ namespace SSL
                 }
                 seen.Add(tris[i]);
             }
+            for (int i = 0; i < uv.Count; i++)
+            //{
+            //    uv[i] = new Vector2(
+            //        Mathf.InverseLerp(bounds.min.x, bounds.max.x, verts[i].x),
+            //        Mathf.InverseLerp(bounds.min.y, bounds.max.y, verts[i].y));
+            //}
+            Debug.Log($"verts {verts.Count}, uvs {uv.Count}");
             return (verts, uv, tris);
         }
 
@@ -964,7 +972,7 @@ namespace SSL
 
                 for (int j = 0; j < newLoop.Length; j++)
                 {
-                    uvs.Add(new Vector2(uFraction * j, vFraction * i));
+                        uvs.Add(new Vector2(uFraction * j, vFraction * i));
                 }
 
                 //Add end-cap vert

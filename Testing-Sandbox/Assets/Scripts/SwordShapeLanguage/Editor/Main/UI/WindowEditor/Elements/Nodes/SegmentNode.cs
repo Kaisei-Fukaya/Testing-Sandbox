@@ -26,20 +26,31 @@ namespace SSL.Graph.Elements
         {
             NodeType = NodeType.Segment;
             base.Initialise(position);
+
+            //Initialise fields
             _nLoopsField = new IntegerField();
             _subMeshIndexField = new IntegerField();
             _roundingField = new FloatField();
             _relativeForwardTaperField = new Slider(0f, 1f);
             _relativeBackwardTaperField = new Slider(0f, 1f);
             _sizeField = new Vector3Field();
-            _deformFoldout = new Foldout();
-            _deformFoldout.text = "Deforms";
+            _deformFoldout = new Foldout() { text = "Deforms" };
             _deformFields = new Vector3Field[0];
-            _curveFoldout = new Foldout();
-            _curveFoldout.text = "Curve";
+            _curveFoldout = new Foldout() { text = "Curve" };
             _curveFoldout.AddToClassList("curve-foldout");
             _tipOffsetField = new Vector2Field("Tip offset");
             _curveControlField = new Vector2Field("Curve");
+
+            //Add callbacks
+            _nLoopsField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _subMeshIndexField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _roundingField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _relativeForwardTaperField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _relativeBackwardTaperField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _sizeField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _tipOffsetField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _curveControlField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+
         }
 
         public override NodeSetting GetSettings()
