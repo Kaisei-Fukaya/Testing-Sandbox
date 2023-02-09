@@ -211,21 +211,55 @@ namespace SSL.Graph
                     RemoveElement(element);
                     Nodes.Remove(element);
                 }
-                EditorApplication.delayCall += OnEdgesChange;
+                OnEdgesChange(removedEdges: gvc.elementsToRemove.OfType<Edge>().ToList());
             }
 
             if(gvc.edgesToCreate != null)
             {
-                EditorApplication.delayCall += OnEdgesChange;
+                OnEdgesChange(addedEdges: new List<Edge>(gvc.edgesToCreate));
             }
 
             return gvc;
         }
 
-        public void OnEdgesChange()
+        public void OnEdgesChange(List<Edge> addedEdges = null, List<Edge> removedEdges = null)
         {
-            List<Edge> orderedEdges = new List<Edge>();
-            edges.ForEach(e => orderedEdges.Add(e));
+            if (addedEdges != null)
+            {
+                foreach (var edge in addedEdges)
+                {
+                    var outputNode = (GraphViewNode)edge.output.node;
+                    var inputNode = (GraphViewNode)edge.input.node;
+                    WorldOrientation orientation = inputNode.WorldOrientation;
+                    AssignChildOrientation(outputNode, orientation);
+                }
+            }
+
+            if (removedEdges != null)
+            {
+                foreach (var edge in removedEdges)
+                {
+                    var outputNode = (GraphViewNode)edge.output.node;
+                    if (outputNode == null)
+                        continue;
+                    outputNode.WorldOrientation = 0;
+                    AssignChildOrientation(outputNode, 0);
+                }
+            }
+
+            void AssignChildOrientation(GraphViewNode currentNode, WorldOrientation orientation)
+            {
+                Debug.Log("a");
+                currentNode.WorldOrientation = orientation;
+                orientation += 1; //Modify orientation
+                var outGoingConnections = currentNode.GetOutgoingConnectionIDs();
+                for (int i = 0; i < outGoingConnections.Count; i++)
+                {
+                    var child = GAGenDataUtils.IDToGraphViewNode(outGoingConnections[i].iD, Nodes);
+                    if(child != null)
+                        AssignChildOrientation(child, orientation);
+                }
+            }
 
         }
 

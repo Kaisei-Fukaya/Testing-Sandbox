@@ -21,8 +21,8 @@ namespace SSL.Data.Utils
             return new GAGenNodeData()
             {
                 ID = node.ID,
-                OutGoingConnections = node.GetOutgoingConnectionIDs(false),
-                InGoingConnections = node.GetIngoingConnectionIDs(false),
+                OutGoingConnections = node.GetOutgoingConnectionIDs(),
+                InGoingConnections = node.GetIngoingConnectionIDs(),
                 Position = node.GetPosition().position,
                 NodeType = node.NodeType,
                 Settings = node.GetSettings()

@@ -222,8 +222,6 @@ namespace SSL.Graph
                 _graphView.AddElement(newNode);
             }
 
-
-
             //Make sure this is done last so that all ports are drawn
             foreach (string id in allNodeIDs)
             {

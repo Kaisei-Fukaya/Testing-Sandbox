@@ -19,7 +19,15 @@ namespace SSL.Graph
         public string NodeDescription { get; set; }
         public string Text { get; set; }
         public NodeType NodeType { get; set; }
-        public WorldOrientation WorldOrientation { get; set; }
+
+        protected WorldOrientation _worldOrientation;
+        public WorldOrientation WorldOrientation { 
+            get { return _worldOrientation; } 
+            set 
+            { 
+                _worldOrientation = value;
+            } 
+        }
 
 
         public GraphicalAssetGraphView GraphView { get; set; }
@@ -180,7 +188,7 @@ namespace SSL.Graph
             return GAPorts;
         }
 
-        public List<SSL.Data.ConnectionData> GetOutgoingConnectionIDs(bool isTrainMode)
+        public List<SSL.Data.ConnectionData> GetOutgoingConnectionIDs()
         {
             if (_outgoingPorts == null)
                 return null;
@@ -201,7 +209,7 @@ namespace SSL.Graph
             return outgoingConnections;
         }
 
-        public virtual List<SSL.Data.ConnectionData> GetIngoingConnectionIDs(bool isTrainMode)
+        public virtual List<SSL.Data.ConnectionData> GetIngoingConnectionIDs()
         {
             if (_ingoingPorts == null)
                 return null;
