@@ -105,6 +105,7 @@ namespace SSL.Graph.Elements
         {
             base.Draw();
 
+            _inputPort.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 5).ToString();
             _outputPort.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 0).ToString();
 
             inputContainer.Add(_inputPort);

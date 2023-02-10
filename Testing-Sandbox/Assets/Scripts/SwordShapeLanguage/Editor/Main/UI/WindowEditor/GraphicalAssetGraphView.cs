@@ -23,17 +23,20 @@ namespace SSL.Graph
                 return _nodes;
             } 
         }
+        GAPreview _previewWindow;
+        bool _nodeUpdateFlag;
         public GraphicalAssetGraphView(GraphicalAssetGeneratorWindow editorWindow)
         {
             this.editorWindow = editorWindow;
             graphViewChanged += OnGraphViewChanged;
             AddGridBackground();
             //AddToolWindow();
-            //AddPreviewWindow();
+            AddPreviewWindow();
             AddSearchWindow();
             AddStyles();
             AddManipulators();
             AddDefaultNodes();
+            EditorApplication.update += EditorStateUpdate;
         }
 
         private void AddSearchWindow()
@@ -62,7 +65,7 @@ namespace SSL.Graph
             _nodes.Add(node);
 
             node.onSettingEdit += OnNodeChange;
-
+            NodeUpdateFlag();
             return node;
         }
 
@@ -113,7 +116,7 @@ namespace SSL.Graph
 
         public void OnNodeChange()
         {
-
+            _previewWindow.UpdateMesh(GAGenDataUtils.NodesToData(Nodes));
         }
 
         private IManipulator CreateNodeContextualManipulator(string actionTitle, NodeType type)
@@ -194,10 +197,10 @@ namespace SSL.Graph
 
         private void AddPreviewWindow()
         {
-            GAPreview previewWindow = new GAPreview();
-            previewWindow.Initialise(this);
-            previewWindow.name = "previewWindow";
-            Insert(1, previewWindow);
+            _previewWindow = new GAPreview();
+            _previewWindow.Initialise(this, GAGenDataUtils.NodesToData(Nodes));
+            _previewWindow.name = "previewWindow";
+            Insert(1, _previewWindow);
         }
 
         public GraphViewChange OnGraphViewChanged(GraphViewChange gvc)
@@ -218,6 +221,8 @@ namespace SSL.Graph
             {
                 OnEdgesChange(addedEdges: new List<Edge>(gvc.edgesToCreate));
             }
+
+            EditorApplication.delayCall += OnNodeChange;
 
             return gvc;
         }
@@ -272,6 +277,19 @@ namespace SSL.Graph
 
         }
 
+        public void NodeUpdateFlag()
+        {
+            _nodeUpdateFlag = true;
+        }
+
+        public void EditorStateUpdate()
+        {
+            if (_nodeUpdateFlag)
+            {
+                _nodeUpdateFlag = false;
+                OnNodeChange();
+            }
+        }
         public static WorldOrientation EvaluateOrientation(WorldOrientation previousWorldOrientation, int faceIndex)
         {
             switch (previousWorldOrientation)

@@ -19,6 +19,7 @@ namespace SSL.Graph
         GraphicalAssetGraphView _graphView;
         VisualElement _mainView;
         public bool inTrainingMode;
+        bool _updateFlag = false;
 
         GAGenData _saveData;
 
@@ -131,13 +132,13 @@ namespace SSL.Graph
             rootVisualElement.Add(toolbar);
         }
 
-        //private void AddPreviewWindow()
-        //{
-        //    GAPreview previewWindow = new GAPreview();
-        //    previewWindow.Initialise();
-        //    previewWindow.name = "previewWindow";
-        //    _mainView.Add(previewWindow);
-        //}
+        private void AddPreviewWindow()
+        {
+            GAPreview previewWindow = new GAPreview();
+            previewWindow.Initialise(_graphView, _saveData);
+            previewWindow.name = "previewWindow";
+            _mainView.Add(previewWindow);
+        }
 
         void Save()
         {
@@ -252,6 +253,7 @@ namespace SSL.Graph
             }
 
             EditorApplication.delayCall += _graphView.CentreGraphOnNodes;
+            _graphView.NodeUpdateFlag();
             titleContent = new GUIContent($"{_saveData.name} (Graphical Asset Generator)");
         }
 

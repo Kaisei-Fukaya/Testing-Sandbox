@@ -59,6 +59,7 @@ namespace SSL.Graph.Elements
         {
             base.Draw();
 
+            _inputPortBottom.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 5).ToString();
             _outputPortTop.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 0).ToString();
             _outputPortLeft.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 1).ToString();
             _outputPortForward.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 2).ToString();
@@ -95,6 +96,7 @@ namespace SSL.Graph.Elements
 
             optionsBlock.Add(sizeBlock);
             optionsBlock.Add(sMeshIndexBlock);
+            optionsBlock.Add(new Label($"WORLD ORIENTATION: {WorldOrientation}"));
             return optionsBlock;
         }
 

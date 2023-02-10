@@ -98,6 +98,17 @@ namespace SSL.Data.Utils
             return null;
         }
 
+        public static GAGenData NodesToData(List<GraphViewNode> nodes)
+        {
+            var output = ScriptableObject.CreateInstance<GAGenData>();
+            output.Nodes = new List<GAGenNodeData>();
+            foreach (GraphViewNode node in nodes)
+            {
+                output.Nodes.Add(GAGenDataUtils.GraphNodeToNodeData(node));
+            }
+            return output;
+        }
+
         public static void RepaintInspector(System.Type t)
         {
             Editor[] ed = (Editor[])Resources.FindObjectsOfTypeAll<Editor>();

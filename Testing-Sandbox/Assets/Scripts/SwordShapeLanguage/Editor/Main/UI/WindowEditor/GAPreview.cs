@@ -6,20 +6,18 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEditor;
 using SSL.Data.Utils;
+using SSL.Data;
 
 namespace SSL.Graph
 {
     public class GAPreview : GraphElement
     {
-        Mesh _mesh;
         Editor _previewEditor;
+        SwordGraph _swordGraph;
 
-        public void Initialise(GraphView graphView)
+        public void Initialise(GraphView graphView, GAGenData data)
         {
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetPreviewStyle.uss", typeof(StyleSheet)));
-            _mesh = Resources.GetBuiltinResource(typeof(Mesh), $"Cube.fbx") as Mesh;
-            _previewEditor = Editor.CreateEditor(_mesh);
-
 
             VisualElement topContainer = new VisualElement()
             {
@@ -75,6 +73,18 @@ namespace SSL.Graph
 
             
             focusable = true;
+
+            _swordGraph = new SwordGraph();
+            UpdateMesh(data);
+        }
+
+        public void UpdateMesh(GAGenData data)
+        {
+            GAGenData.NodesAndEdges nodesAndEdges = data.GetNodesAndEdges(2);
+            _swordGraph.Load(2, 1f, nodesAndEdges.nodes, nodesAndEdges.edges, false);
+            if(_previewEditor != null)
+                Object.DestroyImmediate(_previewEditor);
+            _previewEditor = Editor.CreateEditor(_swordGraph.Generate());
         }
     }
 }
