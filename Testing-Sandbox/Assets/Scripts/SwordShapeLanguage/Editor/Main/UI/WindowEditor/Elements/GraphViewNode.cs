@@ -26,6 +26,7 @@ namespace SSL.Graph
             set 
             { 
                 _worldOrientation = value;
+                Draw();
             } 
         }
 

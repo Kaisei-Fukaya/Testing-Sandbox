@@ -22,6 +22,23 @@ namespace SSL.Graph.Elements
             base.Initialise(position);
             _subMeshIndexField = new IntegerField();
             _sizeField = new Vector3Field();
+            
+            //IO
+            _ingoingPorts = new List<GraphicalAssetPort>();
+            _outgoingPorts = new List<GraphicalAssetPort>();
+
+            _inputPortBottom = new GraphicalAssetPort(this, _inputPortType, Orientation.Horizontal, Direction.Input, Port.Capacity.Single, "Bottom");
+            _outputPortTop = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Top");
+            _outputPortLeft = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Left");
+            _outputPortForward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Forward");
+            _outputPortRight = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Right");
+            _outputPortBackward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Back");
+            _ingoingPorts.Add(_inputPortBottom);
+            _outgoingPorts.Add(_outputPortTop);
+            _outgoingPorts.Add(_outputPortLeft);
+            _outgoingPorts.Add(_outputPortForward);
+            _outgoingPorts.Add(_outputPortRight);
+            _outgoingPorts.Add(_outputPortBackward);
         }
 
         public override NodeSetting GetSettings()
@@ -41,21 +58,7 @@ namespace SSL.Graph.Elements
         public override void Draw()
         {
             base.Draw();
-            _ingoingPorts = new List<GraphicalAssetPort>();
-            _outgoingPorts = new List<GraphicalAssetPort>();
 
-            _inputPortBottom = new GraphicalAssetPort(this, _inputPortType, Orientation.Horizontal, Direction.Input, Port.Capacity.Single, "Bottom");
-            _outputPortTop = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Top");
-            _outputPortLeft = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Left");
-            _outputPortForward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Forward");
-            _outputPortRight = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Right");
-            _outputPortBackward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Back");
-            _ingoingPorts.Add(_inputPortBottom);
-            _outgoingPorts.Add(_outputPortTop);
-            _outgoingPorts.Add(_outputPortLeft);
-            _outgoingPorts.Add(_outputPortForward);
-            _outgoingPorts.Add(_outputPortRight);
-            _outgoingPorts.Add(_outputPortBackward);
             inputContainer.Add(_inputPortBottom);
             outputContainer.Add(_outputPortTop);
             outputContainer.Add(_outputPortLeft);

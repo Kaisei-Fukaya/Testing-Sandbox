@@ -51,6 +51,15 @@ namespace SSL.Graph.Elements
             _tipOffsetField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
             _curveControlField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
 
+            //IO
+            _ingoingPorts = new List<GraphicalAssetPort>();
+            _outgoingPorts = new List<GraphicalAssetPort>();
+
+            _inputPort = new GraphicalAssetPort(this, _inputPortType, Orientation.Horizontal, Direction.Input, Port.Capacity.Single);
+            _outputPort = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
+            _ingoingPorts.Add(_inputPort);
+            _outgoingPorts.Add(_outputPort);
+
         }
 
         public override NodeSetting GetSettings()
@@ -95,13 +104,7 @@ namespace SSL.Graph.Elements
         public override void Draw()
         {
             base.Draw();
-            _ingoingPorts = new List<GraphicalAssetPort>();
-            _outgoingPorts = new List<GraphicalAssetPort>();
 
-            _inputPort = new GraphicalAssetPort(this, _inputPortType, Orientation.Horizontal, Direction.Input, Port.Capacity.Single);
-            _outputPort = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
-            _ingoingPorts.Add(_inputPort);
-            _outgoingPorts.Add(_outputPort);
             inputContainer.Add(_inputPort);
             outputContainer.Add(_outputPort);
 
