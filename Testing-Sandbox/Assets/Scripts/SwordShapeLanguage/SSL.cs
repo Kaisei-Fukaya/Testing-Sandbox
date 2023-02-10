@@ -389,25 +389,25 @@ namespace SSL
                 case 1:
                     newConnectionData = new ConnectionData(
                         facePlanarNormals.l_centre, 
-                        Quaternion.LookRotation(Vector3.forward, facePlanarNormals.l), 
+                        Quaternion.LookRotation(Vector3.down, facePlanarNormals.l), 
                         facePlanarNormals.l_loop);
                     break;
                 case 2:
                     newConnectionData = new ConnectionData(
                         facePlanarNormals.f_centre, 
-                        Quaternion.LookRotation(Vector3.right, facePlanarNormals.f), 
+                        Quaternion.LookRotation(Vector3.down, facePlanarNormals.f), 
                         facePlanarNormals.f_loop);
                     break;
                 case 3:
                     newConnectionData = new ConnectionData(
                         facePlanarNormals.r_centre, 
-                        Quaternion.LookRotation(Vector3.back, facePlanarNormals.r), 
+                        Quaternion.LookRotation(Vector3.down, facePlanarNormals.r), 
                         facePlanarNormals.r_loop);
                     break;
                 case 4:
                     newConnectionData = new ConnectionData(
                         facePlanarNormals.ba_centre, 
-                        Quaternion.LookRotation(Vector3.left, facePlanarNormals.ba), 
+                        Quaternion.LookRotation(Vector3.down, facePlanarNormals.ba), 
                         facePlanarNormals.ba_loop);
                     break;
             }
@@ -823,25 +823,25 @@ namespace SSL
             top_loop.AddRange(e07);
             top_loop.AddRange(e08);
 
-            left_loop.AddRange(e09);
             left_loop.AddRange(e08_Rev);
             left_loop.AddRange(e12_Rev);
             left_loop.AddRange(e04);
+            left_loop.AddRange(e09);
 
-            front_loop.AddRange(e12);
             front_loop.AddRange(e07_Rev);
             front_loop.AddRange(e11_Rev);
             front_loop.AddRange(e03);
+            front_loop.AddRange(e12);
 
-            right_loop.AddRange(e11);
             right_loop.AddRange(e06_Rev);
             right_loop.AddRange(e10_Rev);
             right_loop.AddRange(e02);
+            right_loop.AddRange(e11);
 
-            back_loop.AddRange(e10);
             back_loop.AddRange(e05_Rev);
             back_loop.AddRange(e09_Rev);
             back_loop.AddRange(e01);
+            back_loop.AddRange(e10);
 
             //Debug.Log($"left_loop count: {left_loop.Count}");
             //for (int i = 0; i < top_loop.Count; i++)
