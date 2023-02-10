@@ -228,9 +228,9 @@ namespace SSL.Graph
             {
                 foreach (var edge in addedEdges)
                 {
-                    var outputNode = (GraphViewNode)edge.output.node;
-                    var inputNode = (GraphViewNode)edge.input.node;
-                    WorldOrientation orientation = inputNode.WorldOrientation;
+                    var outputNode = (GraphViewNode)edge.input.node;
+                    var inputNode = (GraphViewNode)edge.output.node;
+                    WorldOrientation orientation = inputNode.WorldOrientation + 1;
                     AssignChildOrientation(outputNode, orientation);
                 }
             }
@@ -239,25 +239,26 @@ namespace SSL.Graph
             {
                 foreach (var edge in removedEdges)
                 {
-                    var outputNode = (GraphViewNode)edge.output.node;
+                    var outputNode = (GraphViewNode)edge.input.node;
                     if (outputNode == null)
                         continue;
-                    outputNode.WorldOrientation = 0;
                     AssignChildOrientation(outputNode, 0);
                 }
             }
 
             void AssignChildOrientation(GraphViewNode currentNode, WorldOrientation orientation)
             {
-                Debug.Log("a");
                 currentNode.WorldOrientation = orientation;
                 orientation += 1; //Modify orientation
                 var outGoingConnections = currentNode.GetOutgoingConnectionIDs();
                 for (int i = 0; i < outGoingConnections.Count; i++)
                 {
                     var child = GAGenDataUtils.IDToGraphViewNode(outGoingConnections[i].iD, Nodes);
-                    if(child != null)
+                    Debug.Log($"child: {outGoingConnections[i].iD}");
+                    if (child != null)
+                    {
                         AssignChildOrientation(child, orientation);
+                    }
                 }
             }
 
