@@ -20,7 +20,9 @@ namespace SSL.Graph
         Port _genPort;
         Color _genPortColor, _genPortDisabledColor;
         string _customPortName;
-        public string PortName { 
+        Label _portLabel;
+        public string PortName 
+        { 
             get
             {
                 if (_customPortName == string.Empty)
@@ -28,6 +30,11 @@ namespace SSL.Graph
                     return PortType.ToString();
                 }
                 return $"{_customPortName} ({PortType})";
+            }
+            set
+            {
+                _customPortName = value;
+                _portLabel.text = value;
             }
         }
         public GraphicalAssetPort(GraphViewNode parent, GAPortType portType, Orientation orientation, Direction direction, Port.Capacity capacity, string customPortName = "")
@@ -69,11 +76,11 @@ namespace SSL.Graph
             _genPort.style.paddingLeft = 0;
             _genPort.style.paddingRight = 0;
 
-            Label portLabel = new Label()
+            _portLabel = new Label()
             {
                 text = trainPortData.Name
             };
-            portLabel.AddToClassList("port-label");
+            _portLabel.AddToClassList("port-label");
 
             _genPort.portName = genPortData.Name;
 
@@ -84,7 +91,7 @@ namespace SSL.Graph
             if (_direction == Direction.Input)
                 contentContainer.Add(portContainer);
 
-            contentContainer.Add(portLabel);
+            contentContainer.Add(_portLabel);
 
             if (_direction == Direction.Output)
                 contentContainer.Add(portContainer);

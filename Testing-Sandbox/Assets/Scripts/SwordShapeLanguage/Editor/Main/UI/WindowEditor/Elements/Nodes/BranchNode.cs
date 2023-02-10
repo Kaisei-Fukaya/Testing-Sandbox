@@ -59,6 +59,12 @@ namespace SSL.Graph.Elements
         {
             base.Draw();
 
+            _outputPortTop.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 0).ToString();
+            _outputPortLeft.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 1).ToString();
+            _outputPortForward.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 2).ToString();
+            _outputPortRight.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 3).ToString();
+            _outputPortBackward.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 4).ToString();
+
             inputContainer.Add(_inputPortBottom);
             outputContainer.Add(_outputPortTop);
             outputContainer.Add(_outputPortLeft);

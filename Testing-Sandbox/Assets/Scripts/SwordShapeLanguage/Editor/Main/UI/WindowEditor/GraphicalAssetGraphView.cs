@@ -272,7 +272,7 @@ namespace SSL.Graph
 
         }
 
-        WorldOrientation EvaluateOrientation(WorldOrientation previousWorldOrientation, int faceIndex)
+        public static WorldOrientation EvaluateOrientation(WorldOrientation previousWorldOrientation, int faceIndex)
         {
             switch (previousWorldOrientation)
             {
