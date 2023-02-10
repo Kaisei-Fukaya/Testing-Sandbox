@@ -230,7 +230,13 @@ namespace SSL.Graph
                 {
                     var outputNode = (GraphViewNode)edge.input.node;
                     var inputNode = (GraphViewNode)edge.output.node;
-                    WorldOrientation orientation = inputNode.WorldOrientation + 1;
+
+                    //Find the index of output in input
+                    var outgoingList = inputNode.OutgoingPorts;
+                    var outputNodeConnectionData = outgoingList.Where(x => x.GetPort() == edge.output);
+                    var indexOfOutputInInput = outgoingList.IndexOf(outputNodeConnectionData.First());
+
+                    WorldOrientation orientation = EvaluateOrientation(inputNode.WorldOrientation, indexOfOutputInInput);
                     AssignChildOrientation(outputNode, orientation);
                 }
             }
@@ -249,19 +255,137 @@ namespace SSL.Graph
             void AssignChildOrientation(GraphViewNode currentNode, WorldOrientation orientation)
             {
                 currentNode.WorldOrientation = orientation;
-                orientation += 1; //Modify orientation
                 var outGoingConnections = currentNode.GetOutgoingConnectionIDs();
+
+                if (outGoingConnections.Count > 5)
+                    throw new System.Exception("The number of outgoing connection exceed the orientation limit of 5");
+
                 for (int i = 0; i < outGoingConnections.Count; i++)
                 {
                     var child = GAGenDataUtils.IDToGraphViewNode(outGoingConnections[i].iD, Nodes);
-                    Debug.Log($"child: {outGoingConnections[i].iD}");
                     if (child != null)
                     {
-                        AssignChildOrientation(child, orientation);
+                        AssignChildOrientation(child, EvaluateOrientation(orientation, i));
                     }
                 }
             }
 
+        }
+
+        WorldOrientation EvaluateOrientation(WorldOrientation previousWorldOrientation, int faceIndex)
+        {
+            switch (previousWorldOrientation)
+            {
+                case WorldOrientation.Up:
+                    return previousWorldOrientation + faceIndex;
+                case WorldOrientation.Left:
+                    return EvalLeft();
+                case WorldOrientation.Forward:
+                    return EvalForward();
+                case WorldOrientation.Right:
+                    return EvalRight();
+                case WorldOrientation.Backward:
+                    return EvalBackward();
+                case WorldOrientation.Down:
+                    return EvalDown();
+            }
+
+            return WorldOrientation.Up;
+
+            WorldOrientation EvalLeft()
+            {
+                switch (faceIndex)
+                {
+                    default:
+                        return WorldOrientation.Left;
+                    case 1:
+                        return WorldOrientation.Backward;
+                    case 2:
+                        return WorldOrientation.Down;
+                    case 3:
+                        return WorldOrientation.Forward;
+                    case 4:
+                        return WorldOrientation.Up;
+                    case 5:
+                        return WorldOrientation.Right;
+                }
+            }
+
+            WorldOrientation EvalForward()
+            {
+                switch (faceIndex)
+                {
+                    default:
+                        return WorldOrientation.Forward;
+                    case 1:
+                        return WorldOrientation.Left;
+                    case 2:
+                        return WorldOrientation.Down;
+                    case 3:
+                        return WorldOrientation.Right;
+                    case 4:
+                        return WorldOrientation.Up;
+                    case 5:
+                        return WorldOrientation.Backward;
+                }
+            }
+
+            WorldOrientation EvalRight()
+            {
+                switch (faceIndex)
+                {
+                    default:
+                        return WorldOrientation.Right;
+                    case 1:
+                        return WorldOrientation.Forward;
+                    case 2:
+                        return WorldOrientation.Down;
+                    case 3:
+                        return WorldOrientation.Backward;
+                    case 4:
+                        return WorldOrientation.Up;
+                    case 5:
+                        return WorldOrientation.Left;
+                }
+            }
+
+            WorldOrientation EvalBackward()
+            {
+                switch (faceIndex)
+                {
+                    default:
+                        return WorldOrientation.Backward;
+                    case 1:
+                        return WorldOrientation.Right;
+                    case 2:
+                        return WorldOrientation.Down;
+                    case 3:
+                        return WorldOrientation.Left;
+                    case 4:
+                        return WorldOrientation.Up;
+                    case 5:
+                        return WorldOrientation.Forward;
+                }
+            }
+
+            WorldOrientation EvalDown()
+            {
+                switch (faceIndex)
+                {
+                    default:
+                        return WorldOrientation.Down;
+                    case 1:
+                        return WorldOrientation.Left;
+                    case 2:
+                        return WorldOrientation.Forward;
+                    case 3:
+                        return WorldOrientation.Right;
+                    case 4:
+                        return WorldOrientation.Backward;
+                    case 5:
+                        return WorldOrientation.Up;
+                }
+            }
         }
 
         void AddStyles()
