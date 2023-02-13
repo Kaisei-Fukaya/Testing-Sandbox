@@ -145,7 +145,7 @@ namespace SSL
                 FlatShade(verts, uv, tris, bounds);
             int oldVerts = verts.Count;
             RemoveRedundantVerts(verts, uv, tris);
-            Debug.Log($"Verts culled: {oldVerts - verts.Count}");
+            //Debug.Log($"Verts culled: {oldVerts - verts.Count}");
             return (verts, uv, tris);
         }
 
@@ -1157,7 +1157,7 @@ namespace SSL
                 }
             }
 
-            Debug.Log($"NUMBER OF VERTS: {allVerts.Count}");
+            //Debug.Log($"NUMBER OF VERTS: {allVerts.Count}");
 
             //Create Tris
             List<int> allTris = new List<int>();

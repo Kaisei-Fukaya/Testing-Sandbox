@@ -25,6 +25,13 @@
 
 }
 
+.has-icon-bottom > .port-container > VisualElement
+{
+	width: 24px;
+	height: 24px;
+	background-image: url("project:/Assets/Textures/OrientationCube_bo.png");
+}
+
 .text-field{
 	width: 100%;
 	height: 100%;

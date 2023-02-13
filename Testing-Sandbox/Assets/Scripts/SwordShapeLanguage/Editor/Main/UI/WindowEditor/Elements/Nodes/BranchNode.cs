@@ -70,6 +70,8 @@ namespace SSL.Graph.Elements
             _outputPortRight.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 3).ToString();
             _outputPortBackward.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 4).ToString();
 
+            _inputPortBottom.AddToClassList("has-icon-bottom");
+
             inputContainer.Add(_inputPortBottom);
             outputContainer.Add(_outputPortTop);
             outputContainer.Add(_outputPortLeft);

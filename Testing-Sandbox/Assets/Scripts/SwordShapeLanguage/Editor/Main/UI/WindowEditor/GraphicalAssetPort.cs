@@ -86,6 +86,8 @@ namespace SSL.Graph
 
             portContainer.Add(_genPort);
 
+            VisualElement icon = new VisualElement();
+            portContainer.Insert(0, icon);
 
             //Different order depending on direction
             if (_direction == Direction.Input)
