@@ -17,6 +17,7 @@ namespace SSL.Graph
         StyleSheet _generateStyleVariables, _trainStyleVariables;
         StyleSheet _toolbarToggleStyles;
         GraphicalAssetGraphView _graphView;
+        PreviewBox _previewWindow;
         VisualElement _mainView;
         public bool inTrainingMode;
 
@@ -44,7 +45,7 @@ namespace SSL.Graph
             rootVisualElement.Add(_mainView);
             AddGraphView();
             AddStyles();
-            //AddPreviewWindow();
+            AddPreviewWindow();
             SetupDragAndDrop();
         }
 
@@ -133,10 +134,11 @@ namespace SSL.Graph
 
         private void AddPreviewWindow()
         {
-            GAPreview previewWindow = new GAPreview();
-            previewWindow.Initialise(_graphView, _saveData);
-            previewWindow.name = "previewWindow";
-            _mainView.Add(previewWindow);
+            _previewWindow = new PreviewBox();
+            _previewWindow.Initialise(_graphView, GAGenDataUtils.NodesToData(_graphView.Nodes));
+            _previewWindow.name = "previewWindow";
+            _graphView.PreviewWindow = _previewWindow;
+            rootVisualElement.Add(_previewWindow);
         }
 
         void Save()

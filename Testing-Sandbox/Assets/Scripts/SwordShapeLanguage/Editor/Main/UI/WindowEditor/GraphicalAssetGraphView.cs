@@ -23,15 +23,16 @@ namespace SSL.Graph
                 return _nodes;
             } 
         }
-        GAPreview _previewWindow;
+        PreviewBox _previewWindow;
+        public PreviewBox PreviewWindow { set { _previewWindow = value; } }
         bool _nodeUpdateFlag;
         public GraphicalAssetGraphView(GraphicalAssetGeneratorWindow editorWindow)
         {
             this.editorWindow = editorWindow;
             graphViewChanged += OnGraphViewChanged;
+            //AddPreviewWindow();
             AddGridBackground();
             //AddToolWindow();
-            AddPreviewWindow();
             AddSearchWindow();
             AddStyles();
             AddManipulators();
@@ -197,10 +198,11 @@ namespace SSL.Graph
 
         private void AddPreviewWindow()
         {
-            _previewWindow = new GAPreview();
+            _previewWindow = new PreviewBox();
             _previewWindow.Initialise(this, GAGenDataUtils.NodesToData(Nodes));
+            _previewWindow.StretchToParentSize();
             _previewWindow.name = "previewWindow";
-            Insert(1, _previewWindow);
+            Insert(0, _previewWindow);
         }
 
         public GraphViewChange OnGraphViewChanged(GraphViewChange gvc)

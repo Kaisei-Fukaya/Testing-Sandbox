@@ -4,14 +4,15 @@
 	align-content: center;
 }
 
-#main
+#top
 {
-
+	background-color: var(--gag-colors-grid-light-grey-3);
 }
 
 #extension
 {
 	padding: 5px;
+	background-color: var(--gag-colors-grid-light-grey-3);
 }
 
 #input
@@ -42,6 +43,16 @@ GraphicalAssetPort
 	padding-right: 4px;
 }
 
+#input > GraphicalAssetPort
+{
+	align-self: flex-start;
+}
+
+#output > GraphicalAssetPort
+{
+	align-self: flex-end;
+}
+
 GraphicalAssetPort > .port-Label
 {
 	flex-direction: column;
@@ -54,7 +65,7 @@ GraphicalAssetPort > .port-Label
 
 GraphicalAssetPort > VisualElement > Port
 {
-
+	
 }
 
 .train-port, .gen-port
