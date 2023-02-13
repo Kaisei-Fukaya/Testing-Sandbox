@@ -19,7 +19,6 @@ namespace SSL.Graph
         GraphicalAssetGraphView _graphView;
         VisualElement _mainView;
         public bool inTrainingMode;
-        bool _updateFlag = false;
 
         GAGenData _saveData;
 

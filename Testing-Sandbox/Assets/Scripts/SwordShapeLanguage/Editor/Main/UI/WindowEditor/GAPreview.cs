@@ -86,5 +86,15 @@ namespace SSL.Graph
                 Object.DestroyImmediate(_previewEditor);
             _previewEditor = Editor.CreateEditor(_swordGraph.Generate());
         }
+
+        //void ReplaceMeshData(Mesh newMesh)
+        //{
+        //    _mesh.vertices = newMesh.vertices;
+        //    _mesh.normals = newMesh.normals;
+        //    _mesh.uv = newMesh.uv;
+        //    _mesh.triangles = newMesh.triangles;
+        //    _mesh.tangents = newMesh.tangents;
+        //    _mesh.UploadMeshData(false);
+        //}
     }
 }

@@ -22,7 +22,11 @@ namespace SSL.Graph.Elements
             base.Initialise(position);
             _subMeshIndexField = new IntegerField();
             _sizeField = new Vector3Field();
-            
+
+            //Add callbacks
+            _subMeshIndexField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _sizeField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+
             //IO
             _ingoingPorts = new List<GraphicalAssetPort>();
             _outgoingPorts = new List<GraphicalAssetPort>();
