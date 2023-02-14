@@ -243,7 +243,7 @@ namespace SSL.Graph
                     var outputNodeConnectionData = outgoingList.Where(x => x.GetPort() == edge.output);
                     var indexOfOutputInInput = outgoingList.IndexOf(outputNodeConnectionData.First());
 
-                    WorldOrientation orientation = EvaluateOrientation(inputNode.WorldOrientation, indexOfOutputInInput);
+                    Orientation orientation = EvaluateOrientation(inputNode.WorldOrientation, indexOfOutputInInput);
                     AssignChildOrientation(outputNode, orientation);
                 }
             }
@@ -259,7 +259,7 @@ namespace SSL.Graph
                 }
             }
 
-            void AssignChildOrientation(GraphViewNode currentNode, WorldOrientation orientation)
+            void AssignChildOrientation(GraphViewNode currentNode, Orientation orientation)
             {
                 currentNode.WorldOrientation = orientation;
                 var outGoingConnections = currentNode.GetOutgoingConnectionIDs();
@@ -292,119 +292,149 @@ namespace SSL.Graph
                 OnNodeChange();
             }
         }
-        public static WorldOrientation EvaluateOrientation(WorldOrientation previousWorldOrientation, int faceIndex)
+        public static Orientation EvaluateOrientation(Orientation previousWorldOrientation, /*Orientation forwardOrientation,*/ int faceIndex)
         {
             switch (previousWorldOrientation)
             {
-                case WorldOrientation.Up:
+                case Orientation.Up:
                     return previousWorldOrientation + faceIndex;
-                case WorldOrientation.Left:
+                case Orientation.Left:
                     return EvalLeft();
-                case WorldOrientation.Forward:
+                case Orientation.Forward:
                     return EvalForward();
-                case WorldOrientation.Right:
+                case Orientation.Right:
                     return EvalRight();
-                case WorldOrientation.Backward:
+                case Orientation.Backward:
                     return EvalBackward();
-                case WorldOrientation.Down:
+                case Orientation.Down:
                     return EvalDown();
             }
 
-            return WorldOrientation.Up;
+            return Orientation.Up;
 
-            WorldOrientation EvalLeft()
+            Orientation EvalLeft()
             {
                 switch (faceIndex)
                 {
                     default:
-                        return WorldOrientation.Left;
+                        return Orientation.Left;
                     case 1:
-                        return WorldOrientation.Backward;
+                        return Orientation.Backward;
                     case 2:
-                        return WorldOrientation.Down;
+                        return Orientation.Down;
                     case 3:
-                        return WorldOrientation.Forward;
+                        return Orientation.Forward;
                     case 4:
-                        return WorldOrientation.Up;
+                        return Orientation.Up;
                     case 5:
-                        return WorldOrientation.Right;
+                        return Orientation.Right;
                 }
             }
 
-            WorldOrientation EvalForward()
+            Orientation EvalForward()
             {
                 switch (faceIndex)
                 {
                     default:
-                        return WorldOrientation.Forward;
+                        return Orientation.Forward;
                     case 1:
-                        return WorldOrientation.Left;
+                        return Orientation.Left;
                     case 2:
-                        return WorldOrientation.Down;
+                        return Orientation.Down;
                     case 3:
-                        return WorldOrientation.Right;
+                        return Orientation.Right;
                     case 4:
-                        return WorldOrientation.Up;
+                        return Orientation.Up;
                     case 5:
-                        return WorldOrientation.Backward;
+                        return Orientation.Backward;
                 }
             }
 
-            WorldOrientation EvalRight()
+            Orientation EvalRight()
             {
                 switch (faceIndex)
                 {
                     default:
-                        return WorldOrientation.Right;
+                        return Orientation.Right;
                     case 1:
-                        return WorldOrientation.Forward;
+                        return Orientation.Forward;
                     case 2:
-                        return WorldOrientation.Down;
+                        return Orientation.Down;
                     case 3:
-                        return WorldOrientation.Backward;
+                        return Orientation.Backward;
                     case 4:
-                        return WorldOrientation.Up;
+                        return Orientation.Up;
                     case 5:
-                        return WorldOrientation.Left;
+                        return Orientation.Left;
                 }
             }
 
-            WorldOrientation EvalBackward()
+            Orientation EvalBackward()
             {
                 switch (faceIndex)
                 {
                     default:
-                        return WorldOrientation.Backward;
+                        return Orientation.Backward;
                     case 1:
-                        return WorldOrientation.Right;
+                        return Orientation.Right;
                     case 2:
-                        return WorldOrientation.Down;
+                        return Orientation.Down;
                     case 3:
-                        return WorldOrientation.Left;
+                        return Orientation.Left;
                     case 4:
-                        return WorldOrientation.Up;
+                        return Orientation.Up;
                     case 5:
-                        return WorldOrientation.Forward;
+                        return Orientation.Forward;
                 }
             }
 
-            WorldOrientation EvalDown()
+            Orientation EvalDown()
             {
                 switch (faceIndex)
                 {
                     default:
-                        return WorldOrientation.Down;
+                        return Orientation.Down;
                     case 1:
-                        return WorldOrientation.Left;
+                        return Orientation.Left;
                     case 2:
-                        return WorldOrientation.Forward;
+                        return Orientation.Forward;
                     case 3:
-                        return WorldOrientation.Right;
+                        return Orientation.Right;
                     case 4:
-                        return WorldOrientation.Backward;
+                        return Orientation.Backward;
                     case 5:
-                        return WorldOrientation.Up;
+                        return Orientation.Up;
                 }
+            }
+
+            //Orientation ShiftForward(Orientation newOrientation)
+            //{
+            //    switch (forwardOrientation)
+            //    {
+            //        case Orientation.Up:
+            //            return newOrientation;
+            //        case Orientation.Left:
+            //            return Shift(newOrientation, 1);
+            //        case Orientation.Forward:
+            //            return Shift(newOrientation, 1);
+            //        case Orientation.Right:
+            //            return Shift(newOrientation, 1);
+            //        case Orientation.Backward:
+            //            return Shift(newOrientation, 1);
+            //        case Orientation.Down:
+            //            return Shift(newOrientation, 2);
+            //    }
+            //    return newOrientation;
+            //}
+
+            Orientation Shift(Orientation orientation, int amount)
+            {
+                int value = (int)orientation + amount;
+                if (value > 5)
+                {
+                    value = value - 6;
+                }
+                return (Orientation)value;
             }
         }
 

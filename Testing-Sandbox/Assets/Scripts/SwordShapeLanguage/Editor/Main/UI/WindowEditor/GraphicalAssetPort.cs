@@ -14,7 +14,7 @@ namespace SSL.Graph
         GraphViewNode _parentNode;
         public GAPortType PortType { get { return _portType; } }
         GAPortType _portType;
-        Orientation _orientation;
+        UnityEditor.Experimental.GraphView.Orientation _orientation;
         Direction _direction;
         Port.Capacity _capacity;
         Port _genPort;
@@ -37,7 +37,7 @@ namespace SSL.Graph
                 _portLabel.text = value;
             }
         }
-        public GraphicalAssetPort(GraphViewNode parent, GAPortType portType, Orientation orientation, Direction direction, Port.Capacity capacity, string customPortName = "")
+        public GraphicalAssetPort(GraphViewNode parent, GAPortType portType, UnityEditor.Experimental.GraphView.Orientation orientation, Direction direction, Port.Capacity capacity, string customPortName = "")
         {
             _parentNode = parent;
             _portType = portType;
@@ -87,7 +87,11 @@ namespace SSL.Graph
             portContainer.Add(_genPort);
 
             VisualElement icon = new VisualElement();
-            portContainer.Insert(0, icon);
+            if(_direction == Direction.Input)
+                portContainer.Add(icon);
+            else
+                portContainer.Insert(0, icon);
+
 
             //Different order depending on direction
             if (_direction == Direction.Input)

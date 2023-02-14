@@ -25,11 +25,46 @@
 
 }
 
-.has-icon-bottom > .port-container > VisualElement
+.has-icon-down > .port-container > VisualElement
 {
 	width: 24px;
 	height: 24px;
 	background-image: url("project:/Assets/Textures/OrientationCube_bo.png");
+}
+
+.has-icon-up > .port-container > VisualElement
+{
+	width: 24px;
+	height: 24px;
+	background-image: url("project:/Assets/Textures/OrientationCube_t.png");
+}
+
+.has-icon-left > .port-container > VisualElement
+{
+	width: 24px;
+	height: 24px;
+	background-image: url("project:/Assets/Textures/OrientationCube_l.png");
+}
+
+.has-icon-forward > .port-container > VisualElement
+{
+	width: 24px;
+	height: 24px;
+	background-image: url("project:/Assets/Textures/OrientationCube_f.png");
+}
+
+.has-icon-right > .port-container > VisualElement
+{
+	width: 24px;
+	height: 24px;
+	background-image: url("project:/Assets/Textures/OrientationCube_r.png");
+}
+
+.has-icon-backward > .port-container > VisualElement
+{
+	width: 24px;
+	height: 24px;
+	background-image: url("project:/Assets/Textures/OrientationCube_ba.png");
 }
 
 .text-field{

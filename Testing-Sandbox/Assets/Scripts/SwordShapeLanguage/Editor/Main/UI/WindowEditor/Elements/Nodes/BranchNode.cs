@@ -31,12 +31,12 @@ namespace SSL.Graph.Elements
             _ingoingPorts = new List<GraphicalAssetPort>();
             _outgoingPorts = new List<GraphicalAssetPort>();
 
-            _inputPortBottom = new GraphicalAssetPort(this, _inputPortType, Orientation.Horizontal, Direction.Input, Port.Capacity.Single, "Bottom");
-            _outputPortTop = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Top");
-            _outputPortLeft = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Left");
-            _outputPortForward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Forward");
-            _outputPortRight = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Right");
-            _outputPortBackward = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Back");
+            _inputPortBottom = new GraphicalAssetPort(this, _inputPortType, UnityEditor.Experimental.GraphView.Orientation.Horizontal, Direction.Input, Port.Capacity.Single, "Bottom");
+            _outputPortTop = new GraphicalAssetPort(this, _outputPortType, UnityEditor.Experimental.GraphView.Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Top");
+            _outputPortLeft = new GraphicalAssetPort(this, _outputPortType, UnityEditor.Experimental.GraphView.Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Left");
+            _outputPortForward = new GraphicalAssetPort(this, _outputPortType, UnityEditor.Experimental.GraphView.Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Forward");
+            _outputPortRight = new GraphicalAssetPort(this, _outputPortType, UnityEditor.Experimental.GraphView.Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Right");
+            _outputPortBackward = new GraphicalAssetPort(this, _outputPortType, UnityEditor.Experimental.GraphView.Orientation.Horizontal, Direction.Output, Port.Capacity.Single, "Back");
             _ingoingPorts.Add(_inputPortBottom);
             _outgoingPorts.Add(_outputPortTop);
             _outgoingPorts.Add(_outputPortLeft);
@@ -63,14 +63,12 @@ namespace SSL.Graph.Elements
         {
             base.Draw();
 
-            _inputPortBottom.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 5).ToString();
-            _outputPortTop.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 0).ToString();
-            _outputPortLeft.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 1).ToString();
-            _outputPortForward.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 2).ToString();
-            _outputPortRight.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 3).ToString();
-            _outputPortBackward.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 4).ToString();
-
-            _inputPortBottom.AddToClassList("has-icon-bottom");
+            ConfigPort(_inputPortBottom, 5);
+            ConfigPort(_outputPortTop, 0);
+            ConfigPort(_outputPortLeft, 1);
+            ConfigPort(_outputPortForward, 2);
+            ConfigPort(_outputPortRight, 3);
+            ConfigPort(_outputPortBackward, 4);
 
             inputContainer.Add(_inputPortBottom);
             outputContainer.Add(_outputPortTop);

@@ -62,7 +62,7 @@ namespace SSL.Graph
         Mesh
     }
 
-    public enum WorldOrientation
+    public enum Orientation
     {
         Up,
         Left,

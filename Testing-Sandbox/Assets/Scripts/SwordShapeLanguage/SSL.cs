@@ -460,40 +460,47 @@ namespace SSL
             Vector3[] verts = new Vector3[loopLen];
 
             //Determine loop curve offset (excl first and last loop)
-            Vector3 curveOffset;
-            Vector3 curveDir;
+            BezierPoint bezierPoint;
+
+            Vector3 origin = Vector3.zero;
+            Vector3 control =   new Vector3(storedParameters.curveParams.controlPoint.x, 
+                                            storedParameters.size.y / 2, 
+                                            storedParameters.curveParams.controlPoint.y);
+            Vector3 end =       new Vector3(storedParameters.curveParams.tipOffset.x,
+                                            storedParameters.size.y,
+                                            storedParameters.curveParams.tipOffset.y);
             if (index == 0)
             {
-                curveOffset = Vector3.zero;
-                curveDir = Vector3.zero;
+                bezierPoint = SampleQuadraticBezierPoint(Mathf.InverseLerp(0, nLoops - 1, index), origin, control, end);
             }
             else if (index == nLoops - 1)
             {
-                Vector2 tipOffset = TipOffset;
-                curveOffset = new Vector3(tipOffset.x, size.y, tipOffset.y);
-                curveDir = Vector3.zero;
+                bezierPoint = SampleQuadraticBezierPoint(Mathf.InverseLerp(0, nLoops - 1, index), origin, control, end);
             }
             else 
             {
-                (curveOffset, curveDir) = SampleQuadraticBezier(Mathf.InverseLerp(0, nLoops - 1, index));
+                bezierPoint = SampleQuadraticBezierPoint(Mathf.InverseLerp(0, nLoops - 1, index), origin, control, end);
             }
+
+            Vector3 curvePos = bezierPoint.position;
+            Vector3 curveTangent = bezierPoint.tangent;
+            Vector3 curveNormal = bezierPoint.normal;
 
             float yOffset = (size.y / (nLoops - 1)) * index;
             int quartOfLength = verts.Length / 4;
-            Matrix4x4 curveRotationMatrix = Matrix4x4.Rotate(Quaternion.LookRotation(Vector3.up, curveDir));
       
-            verts[0] =                 new Vector3(curveOffset.x + (-size.x / 2),
-                                                   curveOffset.y,
-                                                   curveOffset.z + (-size.z / 2)) + (deforms[0] * taperScale);
-            verts[quartOfLength] =     new Vector3(curveOffset.x + (size.x / 2),
-                                                   curveOffset.y,
-                                                   curveOffset.z + (-size.z / 2)) + (deforms[quartOfLength] * taperScale);
-            verts[quartOfLength * 2] = new Vector3(curveOffset.x + (size.x / 2),
-                                                   curveOffset.y,
-                                                   curveOffset.z + (size.z / 2)) + (deforms[quartOfLength * 2] * taperScale);
-            verts[quartOfLength * 3] = new Vector3(curveOffset.x + (-size.x / 2),
-                                                   curveOffset.y,
-                                                   curveOffset.z + (size.z / 2)) + (deforms[quartOfLength * 3] * taperScale);
+            verts[0] =                 new Vector3(curvePos.x + (-size.x / 2),
+                                                   curvePos.y,
+                                                   curvePos.z + (-size.z / 2)) + (deforms[0] * taperScale);
+            verts[quartOfLength] =     new Vector3(curvePos.x + (size.x / 2),
+                                                   curvePos.y,
+                                                   curvePos.z + (-size.z / 2)) + (deforms[quartOfLength] * taperScale);
+            verts[quartOfLength * 2] = new Vector3(curvePos.x + (size.x / 2),
+                                                   curvePos.y,
+                                                   curvePos.z + (size.z / 2)) + (deforms[quartOfLength * 2] * taperScale);
+            verts[quartOfLength * 3] = new Vector3(curvePos.x + (-size.x / 2),
+                                                   curvePos.y,
+                                                   curvePos.z + (size.z / 2)) + (deforms[quartOfLength * 3] * taperScale);
 
 
             //Debug.Log($"vertsL= {verts.Length}");
@@ -501,46 +508,58 @@ namespace SSL
             for (int j = 1; j < quartOfLength; j++)
             {
                 Vector3 baseOffset = new Vector3(
-                    curveOffset.x + (-size.x / 2) + ((size.x / quartOfLength) * j),
-                    curveOffset.y,
-                    curveOffset.z + (-size.z / 2)
+                    curvePos.x + (-size.x / 2) + ((size.x / quartOfLength) * j),
+                    curvePos.y,
+                    curvePos.z + (-size.z / 2)
                     );
                 verts[j] = baseOffset + (deforms[j] * taperScale);
             //Debug.Log($"j1= {j}");
-        }
+            }
             //Between 1-2
             for (int j = quartOfLength + 1; j < quartOfLength * 2; j++)
             {
                 Vector3 baseOffset = new Vector3(
-                   curveOffset.x + size.x / 2,
-                   curveOffset.y,
-                   curveOffset.z + (-size.z / 2) + ((size.z / quartOfLength) * (j - quartOfLength))
+                   curvePos.x + size.x / 2,
+                   curvePos.y,
+                   curvePos.z + (-size.z / 2) + ((size.z / quartOfLength) * (j - quartOfLength))
                    );
                 verts[j] = baseOffset + (deforms[j] * taperScale);
             //Debug.Log($"j2= {j}");
-        }
+            }
             //Between 2-3
             for (int j = (quartOfLength * 2) + 1; j < quartOfLength * 3; j++)
             {
                 Vector3 baseOffset = new Vector3(
-                    curveOffset.x + (size.x / 2) - ((size.x / quartOfLength) * (j - (quartOfLength * 2))),
-                    curveOffset.y,
-                    curveOffset.z + (size.z / 2)
+                    curvePos.x + (size.x / 2) - ((size.x / quartOfLength) * (j - (quartOfLength * 2))),
+                    curvePos.y,
+                    curvePos.z + (size.z / 2)
                     );
                 verts[j] = baseOffset + (deforms[j] * taperScale);
             //Debug.Log($"j3= {j}");
-        }
+            }
             //Between 3-0
             for (int j = (quartOfLength * 3) + 1; j < verts.Length; j++)
             {
                 Vector3 baseOffset = new Vector3(
-                    curveOffset.x + -size.x / 2,
-                    curveOffset.y,
-                    curveOffset.z + (size.z / 2) - ((size.z / quartOfLength) * (j - (quartOfLength * 3)))
+                    curvePos.x + -size.x / 2,
+                    curvePos.y,
+                    curvePos.z + (size.z / 2) - ((size.z / quartOfLength) * (j - (quartOfLength * 3)))
                     );
                 verts[j] = baseOffset + (deforms[j] * taperScale);
             //Debug.Log($"j4= {j}");
-        }
+            }
+
+            //if (bezierPoint.tangent != Vector3.zero)
+            //{
+            //    Matrix4x4 curveRotationMatrix = Matrix4x4.Rotate(Quaternion.LookRotation(bezierPoint.tangent, bezierPoint.normal));
+
+            //    for (int i = 0; i < verts.Length; i++)
+            //    {
+            //        verts[i] = curveRotationMatrix.MultiplyPoint3x4(verts[i]);
+            //    }
+            //}
+
+
             return verts;
         }
         protected int[] BuildTriangles(int loopLen, int loopIndex, int vertIndex)
@@ -661,17 +680,35 @@ namespace SSL
             }
             return newD;
         }
-        protected (Vector3, Vector3) SampleQuadraticBezier(float t)
+        protected BezierPoint SampleQuadraticBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
         {
-            Vector3 origin = Vector3.zero;
-            Vector3 control = new Vector3(storedParameters.curveParams.controlPoint.x, storedParameters.size.y/2, storedParameters.curveParams.controlPoint.y);
-            Vector3 end = new Vector3(storedParameters.curveParams.tipOffset.x, 
-                                      storedParameters.size.y, 
-                                      storedParameters.curveParams.tipOffset.y);
-            Vector3 p0 = Vector3.Lerp(origin, control, t);
-            Vector3 p1 = Vector3.Lerp(control, end, t);
-            return (Vector3.Lerp(p0, p1, t), p1 - p0.normalized);
+            BezierPoint result = new BezierPoint();
+            //Get point
+            float omt = 1f - t;
+            float omt2 = omt * omt;
+            float t2 = t * t;
+
+            result.position = p0 * omt2 +
+                              p1 * (2f * omt * t) +
+                              p2 * t2;
+
+            //Get tangent
+            result.tangent = 2f * (1f - t) * (p1 - p0) + 2f * t * (p2 - p1);
+
+            //Get normal
+            Vector3 binormal = Vector3.Cross(Vector3.up, result.tangent).normalized;
+            result.normal = Vector3.Cross(result.tangent, binormal);
+
+            return result;
         }
+
+        public struct BezierPoint
+        {
+            public Vector3 position;
+            public Vector3 tangent;
+            public Vector3 normal;
+        }
+
         protected FacePlanarNormals GenerateFacePlanarNormals(int nLoops, Vector3[] verts, int loopLen, int capLoopLen)
         {
             int quartOfLength = loopLen / 4;

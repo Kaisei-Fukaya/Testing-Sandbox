@@ -20,14 +20,23 @@ namespace SSL.Graph
         public string Text { get; set; }
         public NodeType NodeType { get; set; }
 
-        protected WorldOrientation _worldOrientation;
-        public WorldOrientation WorldOrientation { 
+        protected Orientation _worldOrientation;
+        protected Orientation _forwardOrientation;
+        public Orientation WorldOrientation { 
             get { return _worldOrientation; } 
             set 
             { 
                 _worldOrientation = value;
                 Draw();
             } 
+        }
+        public Orientation ForwardOrientation
+        {
+            get { return _forwardOrientation; }
+            set
+            {
+                _forwardOrientation = value;
+            }
         }
 
 
@@ -68,6 +77,39 @@ namespace SSL.Graph
         protected void CallSettingsEditEvent()
         {
             onSettingEdit?.Invoke();
+        }
+
+        protected void SetOrientationIcon(GraphicalAssetPort port, Orientation orientation)
+        {
+            port.ClearClassList();
+            switch (orientation)
+            {
+                case Orientation.Up:
+                    port.AddToClassList("has-icon-up");
+                    return;
+                case Orientation.Left:
+                    port.AddToClassList("has-icon-left");
+                    return;
+                case Orientation.Forward:
+                    port.AddToClassList("has-icon-forward");
+                    return;
+                case Orientation.Right:
+                    port.AddToClassList("has-icon-right");
+                    return;
+                case Orientation.Backward:
+                    port.AddToClassList("has-icon-backward");
+                    return;
+                case Orientation.Down:
+                    port.AddToClassList("has-icon-down");
+                    return;
+            }
+        }
+
+        protected void ConfigPort(GraphicalAssetPort port, int faceIndex)
+        {
+            Orientation orientation = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, /*ForwardOrientation,*/ faceIndex);
+            port.PortName = orientation.ToString();
+            SetOrientationIcon(port, orientation);
         }
 
         public virtual void Draw()

@@ -32,22 +32,10 @@ public class GraphReader : MonoBehaviour
             return;
         GAGenData.NodesAndEdges nodesAndEdges = data.GetNodesAndEdges(_subdiv);
 
-        //BuildNodes();
-
         sg.Load(_subdiv, 1f, nodesAndEdges.nodes, nodesAndEdges.edges, _useFlatshading);
         Mesh m = sg.Generate();
         mf.mesh = m;
     }
-
-    //void BuildNodes(SElement[] nodes)
-    //{
-    //    for (int i = 0; i < nodes.Length; i++)
-    //    {
-    //        nodes[i].Build(_subdiv);
-    //    }
-    //    _testTerminalNode.Build(_subdiv);
-    //}
-
 
     void OnValidate()
     {

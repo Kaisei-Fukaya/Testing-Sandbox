@@ -55,8 +55,8 @@ namespace SSL.Graph.Elements
             _ingoingPorts = new List<GraphicalAssetPort>();
             _outgoingPorts = new List<GraphicalAssetPort>();
 
-            _inputPort = new GraphicalAssetPort(this, _inputPortType, Orientation.Horizontal, Direction.Input, Port.Capacity.Single);
-            _outputPort = new GraphicalAssetPort(this, _outputPortType, Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
+            _inputPort = new GraphicalAssetPort(this, _inputPortType, UnityEditor.Experimental.GraphView.Orientation.Horizontal, Direction.Input, Port.Capacity.Single);
+            _outputPort = new GraphicalAssetPort(this, _outputPortType, UnityEditor.Experimental.GraphView.Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
             _ingoingPorts.Add(_inputPort);
             _outgoingPorts.Add(_outputPort);
 
@@ -105,8 +105,8 @@ namespace SSL.Graph.Elements
         {
             base.Draw();
 
-            _inputPort.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 5).ToString();
-            _outputPort.PortName = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, 0).ToString();
+            ConfigPort(_inputPort, 5);
+            ConfigPort(_outputPort, 0);
 
             inputContainer.Add(_inputPort);
             outputContainer.Add(_outputPort);
