@@ -100,7 +100,6 @@ namespace SSL.Graph.Elements
 
             optionsBlock.Add(sizeBlock);
             optionsBlock.Add(sMeshIndexBlock);
-            optionsBlock.Add(new Label($"WORLD ORIENTATION: {WorldOrientation}"));
             return optionsBlock;
         }
 

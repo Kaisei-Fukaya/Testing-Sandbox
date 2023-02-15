@@ -158,7 +158,6 @@ namespace SSL.Graph.Elements
             optionsBlock.Add(sMeshIndexBlock);
             optionsBlock.Add(_curveFoldout);
             optionsBlock.Add(_deformFoldout);
-            optionsBlock.Add(new Label($"WORLD ORIENTATION: {WorldOrientation}"));
             _deformFoldout.value = false;
             return optionsBlock;
         }

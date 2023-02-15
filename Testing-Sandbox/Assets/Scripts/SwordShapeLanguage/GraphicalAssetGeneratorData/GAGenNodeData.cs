@@ -71,4 +71,97 @@ namespace SSL.Graph
         Backward,
         Down
     }
+
+    public struct OrientationMap
+    {
+        Orientation Up;
+        Orientation Left;
+        Orientation Forward;
+        Orientation Right;
+        Orientation Backward;
+        Orientation Down;
+
+        public static OrientationMap GetDefault()
+        {
+            return new OrientationMap()
+            {
+                Up = Orientation.Up,
+                Left = Orientation.Left,
+                Forward = Orientation.Forward,
+                Right = Orientation.Right,
+                Backward = Orientation.Backward,
+                Down = Orientation.Down
+            };
+        }
+
+        public Orientation this[int index]
+        {
+            get
+            {
+                switch (index)
+                {
+                    default:
+                        return Up;
+                    case 1:
+                        return Left;
+                    case 2:
+                        return Forward;
+                    case 3:
+                        return Right;
+                    case 4:
+                        return Backward;
+                    case 5:
+                        return Down;
+                }
+            }
+        }
+
+        public OrientationMap TransformLeft()
+        {
+            OrientationMap result = new OrientationMap();
+            result.Up = Left;
+            result.Left = Backward;
+            result.Forward = Down;
+            result.Right = Forward;
+            result.Backward = Up;
+            result.Down = Right;
+            return result;
+        }
+
+        public OrientationMap TransformForward()
+        {
+            OrientationMap result = new OrientationMap();
+            result.Up = Forward;
+            result.Left = Left;
+            result.Forward = Down;
+            result.Right = Right;
+            result.Backward = Up;
+            result.Down = Backward;
+            return result;
+        }
+
+        public OrientationMap TransformRight()
+        {
+            OrientationMap result = new OrientationMap();
+            result.Up = Right;
+            result.Left = Forward;
+            result.Forward = Down;
+            result.Right = Backward;
+            result.Backward = Up;
+            result.Down = Left;
+            return result;
+        }
+
+        public OrientationMap TransformBackward()
+        {
+            OrientationMap result = new OrientationMap();
+            result.Up = Backward;
+            result.Left = Right;
+            result.Forward = Down;
+            result.Right = Left;
+            result.Backward = Up;
+            result.Down = Forward;
+            return result;
+        }
+    }
 }

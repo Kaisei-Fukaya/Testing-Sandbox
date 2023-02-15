@@ -20,23 +20,14 @@ namespace SSL.Graph
         public string Text { get; set; }
         public NodeType NodeType { get; set; }
 
-        protected Orientation _worldOrientation;
-        protected Orientation _forwardOrientation;
-        public Orientation WorldOrientation { 
-            get { return _worldOrientation; } 
+        protected OrientationMap _worldOrientationMap = OrientationMap.GetDefault();
+        public OrientationMap WorldOrientationMap { 
+            get { return _worldOrientationMap; } 
             set 
             { 
-                _worldOrientation = value;
+                _worldOrientationMap = value;
                 Draw();
             } 
-        }
-        public Orientation ForwardOrientation
-        {
-            get { return _forwardOrientation; }
-            set
-            {
-                _forwardOrientation = value;
-            }
         }
 
 
@@ -107,9 +98,9 @@ namespace SSL.Graph
 
         protected void ConfigPort(GraphicalAssetPort port, int faceIndex)
         {
-            Orientation orientation = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientation, /*ForwardOrientation,*/ faceIndex);
-            port.PortName = orientation.ToString();
-            SetOrientationIcon(port, orientation);
+            //OrientationMap orientationMap = GraphicalAssetGraphView.EvaluateOrientation(WorldOrientationMap, faceIndex);
+            port.PortName = WorldOrientationMap[faceIndex].ToString();
+            SetOrientationIcon(port, WorldOrientationMap[faceIndex]);
         }
 
         public virtual void Draw()
