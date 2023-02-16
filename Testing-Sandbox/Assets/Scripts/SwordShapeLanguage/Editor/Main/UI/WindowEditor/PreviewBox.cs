@@ -14,6 +14,7 @@ namespace SSL.Graph
     {
         Editor _previewEditor;
         SwordGraph _swordGraph;
+        Mesh _mesh;
 
         public void Initialise(GraphView graphView, GAGenData data)
         {
@@ -78,9 +79,13 @@ namespace SSL.Graph
         {
             GAGenData.NodesAndEdges nodesAndEdges = data.GetNodesAndEdges(2);
             _swordGraph.Load(2, 1f, nodesAndEdges.nodes, nodesAndEdges.edges, false);
-            if (_previewEditor != null)
-                Object.DestroyImmediate(_previewEditor);
-            _previewEditor = Editor.CreateEditor(_swordGraph.Generate());
+            if (_previewEditor == null)
+            {
+                _mesh = _swordGraph.Generate();
+                _previewEditor = Editor.CreateEditor(_mesh);
+                return;
+            }
+            _swordGraph.Generate(ref _mesh);
         }
     }
 }

@@ -41,6 +41,18 @@ namespace SSL
             _useFlatshade = useFlatshading;
         }
 
+        public void Generate(ref Mesh mesh)
+        {
+            Mesh newMesh = Generate();
+            mesh.Clear();
+            mesh.SetVertices(newMesh.vertices);
+            mesh.triangles = newMesh.triangles;
+            mesh.SetUVs(0, newMesh.uv);
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+            mesh.RecalculateTangents();
+        }
+
 
         public Mesh Generate()
         {
@@ -1026,9 +1038,8 @@ namespace SSL
             nLoops += 2;
 
             List<Vector2> uvs = new List<Vector2>();
-            float uFraction = 1f / loopLen;
-            float vFraction = 1f / nLoops;
-
+            float uFraction = 1f / (loopLen);
+            float vFraction = 1f / (nLoops + 1);
             //Ensure deforms matches looplen
             if (deforms.Length != loopLen)
             {
@@ -1049,7 +1060,7 @@ namespace SSL
 
                 for (int j = 0; j < newLoop.Length; j++)
                 {
-                        uvs.Add(new Vector2(uFraction * j, vFraction * i));
+                    uvs.Add(new Vector2(Mathf.InverseLerp(0, loopLen-1, j), Mathf.InverseLerp(0, nLoops - 1, i)));
                 }
 
                 //Add end-cap vert
