@@ -41,6 +41,7 @@ namespace SSL
             _useFlatshade = useFlatshading;
         }
 
+
         public Mesh Generate()
         {
             if (!(_nodes.Length > 0) || _edges.Count < _nodes.Length)
@@ -298,6 +299,16 @@ namespace SSL
             return meshA;
         }
 
+
+        public List<SElement.BezierPoint> GetBezierPoints()
+        {
+            List<SElement.BezierPoint> points = new List<SElement.BezierPoint>();
+            for (int i = 0; i < _nodes.Length; i++)
+            {
+                points.AddRange(_nodes[i].GetBezierPoints());
+            }
+            return points;
+        }
     }
 
     [Serializable]
@@ -370,11 +381,14 @@ namespace SSL
     [Serializable]
     public abstract class SElement
     {
-        [SerializeField] NodeParams storedParameters;
-        protected Mesh mesh;
-        public Mesh GetMesh() => mesh;
+        [SerializeField] NodeParams _storedParameters;
+        protected Mesh _mesh;
+        public Mesh GetMesh() => _mesh;
         protected FacePlanarNormals facePlanarNormals;
-        public int GetSubmeshIndex() => storedParameters.subMeshIndex;
+        public int GetSubmeshIndex() => _storedParameters.subMeshIndex;
+        protected List<BezierPoint> _bezierPoints = new List<BezierPoint>();
+        public List<BezierPoint> GetBezierPoints() => _bezierPoints;
+
         public ConnectionData GetConnectionData(int face)
         {
             ConnectionData newConnectionData = new ConnectionData();
@@ -409,6 +423,12 @@ namespace SSL
                         facePlanarNormals.ba_centre, 
                         Quaternion.LookRotation(Vector3.down, facePlanarNormals.ba), 
                         facePlanarNormals.ba_loop);
+                    break;
+                case 5:
+                    newConnectionData = new ConnectionData(
+                        facePlanarNormals.bo_centre,
+                        Quaternion.LookRotation(Vector3.down, facePlanarNormals.bo),
+                        facePlanarNormals.bo_loop);
                     break;
             }
 
@@ -447,11 +467,11 @@ namespace SSL
         }
         public virtual void Build(int subdivs)
         {
-            Build(subdivs, storedParameters);
+            Build(subdivs, _storedParameters);
         }
         public void Build(int subdiv, NodeParams parameters)
         {
-            storedParameters = parameters;
+            _storedParameters = parameters;
             Build(subdiv, parameters.rounding, parameters.size, parameters.relativeForwardTaper, parameters.relativeBackwardTaper, parameters.nLoops, parameters.deforms, parameters.curveParams, parameters.visibleFaces);
         }
         public abstract void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, VisibleFaces visibleFaces);
@@ -463,25 +483,20 @@ namespace SSL
             BezierPoint bezierPoint;
 
             Vector3 origin = Vector3.zero;
-            Vector3 control =   new Vector3(storedParameters.curveParams.controlPoint.x, 
-                                            storedParameters.size.y / 2, 
-                                            storedParameters.curveParams.controlPoint.y);
-            Vector3 end =       new Vector3(storedParameters.curveParams.tipOffset.x,
-                                            storedParameters.size.y,
-                                            storedParameters.curveParams.tipOffset.y);
-            if (index == 0)
-            {
-                bezierPoint = SampleQuadraticBezierPoint(Mathf.InverseLerp(0, nLoops - 1, index), origin, control, end);
-            }
-            else if (index == nLoops - 1)
-            {
-                bezierPoint = SampleQuadraticBezierPoint(Mathf.InverseLerp(0, nLoops - 1, index), origin, control, end);
-            }
-            else 
-            {
-                bezierPoint = SampleQuadraticBezierPoint(Mathf.InverseLerp(0, nLoops - 1, index), origin, control, end);
-            }
+            Vector3 control =   new Vector3(_storedParameters.curveParams.controlPoint.x, 
+                                            _storedParameters.size.y / 2, 
+                                            _storedParameters.curveParams.controlPoint.y);
+            Vector3 end =       new Vector3(_storedParameters.curveParams.tipOffset.x,
+                                            _storedParameters.size.y,
+                                            _storedParameters.curveParams.tipOffset.y);
 
+
+            float t = Mathf.InverseLerp(0, nLoops - 1, index);
+            bezierPoint = SampleQuadraticBezierPoint(t, origin, control, end);
+
+            if (index == 0)
+                bezierPoint = new BezierPoint();
+            
             Vector3 curvePos = bezierPoint.position;
             Vector3 curveTangent = bezierPoint.tangent;
             Vector3 curveNormal = bezierPoint.normal;
@@ -549,15 +564,18 @@ namespace SSL
             //Debug.Log($"j4= {j}");
             }
 
-            //if (bezierPoint.tangent != Vector3.zero)
-            //{
-            //    Matrix4x4 curveRotationMatrix = Matrix4x4.Rotate(Quaternion.LookRotation(bezierPoint.tangent, bezierPoint.normal));
 
-            //    for (int i = 0; i < verts.Length; i++)
-            //    {
-            //        verts[i] = curveRotationMatrix.MultiplyPoint3x4(verts[i]);
-            //    }
-            //}
+            if (bezierPoint.tangent != Vector3.zero && bezierPoint.normal != Vector3.zero)
+            {
+                _bezierPoints.Add(bezierPoint);
+
+                Matrix4x4 curveRotationMatrix = Matrix4x4.Rotate(Quaternion.LookRotation(bezierPoint.normal, bezierPoint.tangent));
+
+                for (int i = 0; i < verts.Length; i++)
+                {
+                    verts[i] = curveRotationMatrix.MultiplyPoint3x4(verts[i]);
+                }
+            }
 
 
             return verts;
@@ -696,8 +714,8 @@ namespace SSL
             result.tangent = 2f * (1f - t) * (p1 - p0) + 2f * t * (p2 - p1);
 
             //Get normal
-            Vector3 binormal = Vector3.Cross(Vector3.up, result.tangent).normalized;
-            result.normal = Vector3.Cross(result.tangent, binormal);
+            Vector3 binormal = Vector3.Cross(Vector3.forward, result.tangent).normalized;
+            result.normal = Vector3.Cross(result.tangent, binormal).normalized;
 
             return result;
         }
@@ -748,7 +766,7 @@ namespace SSL
             //    startOffset = 1;
 
             int endOffset = 0;
-            if (storedParameters.visibleFaces.top)
+            if (_storedParameters.visibleFaces.top)
                 endOffset = capLoopLen;
 
 
@@ -888,12 +906,12 @@ namespace SSL
 
 
             facePlanarNormals = new FacePlanarNormals(
-                bottom: Vector3.Cross(d-a+c-b, b-a+c-d).normalized,
-                top:    Vector3.Cross(a1-d1+b1-c1, a1-b1+d1-c1).normalized,
-                left:   Vector3.Cross(a-d+a1-d1, a-a1+d-d1).normalized,
-                front:  Vector3.Cross(d-c+d1-c1, d-d1+c-c1).normalized,
-                right:  Vector3.Cross(c-b+c1-b1, c-c1+b-b1).normalized,
-                back:   Vector3.Cross(b-a+b1-a1, b-b1+a-a1).normalized,
+                bottom: Vector3.Cross(d - a + c - b, b - a + c - d).normalized,
+                top: Vector3.Cross(a1 - d1 + b1 - c1, a1 - b1 + d1 - c1).normalized,
+                left: Vector3.Cross(a - d + a1 - d1, a - a1 + d - d1).normalized,
+                front: Vector3.Cross(d - c + d1 - c1, d - d1 + c - c1).normalized,
+                right: Vector3.Cross(c - b + c1 - b1, c - c1 + b - b1).normalized,
+                back: Vector3.Cross(b - a + b1 - a1, b - b1 + a - a1).normalized,
                 bottom_centre: (a+b+c+d)/4,
                 top_centre:    (a1+b1+c1+d1)/4,
                 left_centre:   (a+a1+d+d1)/4,
@@ -961,7 +979,7 @@ namespace SSL
             }
 
         }
-        protected Vector2 TipOffset => storedParameters.curveParams.tipOffset;
+        protected Vector2 TipOffset => _storedParameters.curveParams.tipOffset;
 
         protected float GetTaperScale(Vector3 size, int nLoops, int loopIndex, float relativeForwardTaper, float relativeBackwardTaper)
         {
@@ -979,7 +997,7 @@ namespace SSL
     {
         public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, VisibleFaces visibleFaces)
         {
-            mesh = new Mesh();
+            _mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
             List<Vector3> allVerts = new List<Vector3>();
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
@@ -1037,9 +1055,9 @@ namespace SSL
             }
 
 
-            mesh.vertices = allVerts.ToArray();
-            mesh.triangles = allTris.ToArray();
-            mesh.RecalculateNormals();
+            _mesh.vertices = allVerts.ToArray();
+            _mesh.triangles = allTris.ToArray();
+            _mesh.RecalculateNormals();
 
             //Apply rounding
             for (int i = 0; i < nLoops; i++)
@@ -1050,7 +1068,7 @@ namespace SSL
                     {
                         float roundingAmount = GetRoundingAmount(roundingRanges, j, k);
                         allVerts[roundingRanges[j][k] + (i * loopLen)] +=
-                        mesh.normals[roundingRanges[j][k] +
+                        _mesh.normals[roundingRanges[j][k] +
                         (i * loopLen)].normalized *
                         Mathf.Lerp(
                             0,
@@ -1117,11 +1135,11 @@ namespace SSL
                 allTris.AddRange(endCap);
             }
 
-            mesh.vertices = allVerts.ToArray();
-            mesh.triangles = allTris.ToArray();
-            mesh.SetUVs(0, uvs.ToArray());
-            mesh.RecalculateNormals();
-            mesh.RecalculateTangents();
+            _mesh.vertices = allVerts.ToArray();
+            _mesh.triangles = allTris.ToArray();
+            _mesh.SetUVs(0, uvs.ToArray());
+            _mesh.RecalculateNormals();
+            _mesh.RecalculateTangents();
         }
     }
 
@@ -1131,7 +1149,7 @@ namespace SSL
 
         public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, VisibleFaces visibleFaces)
         {
-            mesh = new Mesh();
+            _mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
             List<Vector3> allVerts = new List<Vector3>();
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
@@ -1215,9 +1233,9 @@ namespace SSL
             }
 
 
-            mesh.vertices = allVerts.ToArray();
-            mesh.triangles = allTris.ToArray();
-            mesh.RecalculateNormals();
+            _mesh.vertices = allVerts.ToArray();
+            _mesh.triangles = allTris.ToArray();
+            _mesh.RecalculateNormals();
 
             //Apply rounding
             for (int i = 0; i < nLoops; i++)
@@ -1228,7 +1246,7 @@ namespace SSL
                     {
                         float roundingAmount = GetRoundingAmount(roundingRanges, j, k);
                         allVerts[roundingRanges[j][k] + (i * loopLen)] +=
-                        mesh.normals[roundingRanges[j][k] +
+                        _mesh.normals[roundingRanges[j][k] +
                         (i * loopLen)].normalized *
                         Mathf.Lerp(
                             0,
@@ -1309,11 +1327,11 @@ namespace SSL
                     });
                 }
             }
-            mesh.vertices = allVerts.ToArray();
-            mesh.triangles = allTris.ToArray();
-            mesh.SetUVs(0, uvs.ToArray());
-            mesh.RecalculateNormals();
-            mesh.RecalculateTangents();
+            _mesh.vertices = allVerts.ToArray();
+            _mesh.triangles = allTris.ToArray();
+            _mesh.SetUVs(0, uvs.ToArray());
+            _mesh.RecalculateNormals();
+            _mesh.RecalculateTangents();
         }
     }
 
@@ -1322,7 +1340,7 @@ namespace SSL
     {
         public override void Build(int subdiv, float rounding, Vector3 size, float relativeForwardTaper, float relativeBackwardTaper, int nLoops, Vector3[] deforms, BezierParams sParams, VisibleFaces visibleFaces)
         {
-            mesh = new Mesh();
+            _mesh = new Mesh();
             int[][] roundingRanges = new int[0][];
             List<Vector3> allVerts = new List<Vector3>();
             int loopLen = 4 * (int)Math.Pow(2, subdiv);
@@ -1370,9 +1388,9 @@ namespace SSL
             }
 
 
-            mesh.vertices = allVerts.ToArray();
-            mesh.triangles = allTris.ToArray();
-            mesh.RecalculateNormals();
+            _mesh.vertices = allVerts.ToArray();
+            _mesh.triangles = allTris.ToArray();
+            _mesh.RecalculateNormals();
 
             //Apply rounding
             for (int i = 0; i < nLoops; i++)
@@ -1383,7 +1401,7 @@ namespace SSL
                     {
                         float roundingAmount = GetRoundingAmount(roundingRanges, j, k);
                         allVerts[roundingRanges[j][k] + (i * loopLen)] +=
-                        mesh.normals[roundingRanges[j][k] +
+                        _mesh.normals[roundingRanges[j][k] +
                         (i * loopLen)].normalized *
                         Mathf.Lerp(
                             0,
@@ -1409,10 +1427,10 @@ namespace SSL
             }
             allTris.AddRange(endCap);
 
-            mesh.vertices = allVerts.ToArray();
-            mesh.triangles = allTris.ToArray();
-            mesh.RecalculateNormals();
-            mesh.RecalculateTangents();
+            _mesh.vertices = allVerts.ToArray();
+            _mesh.triangles = allTris.ToArray();
+            _mesh.RecalculateNormals();
+            _mesh.RecalculateTangents();
         }
     }
 }

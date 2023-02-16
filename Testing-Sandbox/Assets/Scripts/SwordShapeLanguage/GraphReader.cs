@@ -59,6 +59,12 @@ public class GraphReader : MonoBehaviour
         AssetDatabase.SaveAssets();
     }
 
+    public List<SElement.BezierPoint> GetBezierPoints()
+    {
+        Debug.Log("aaaa");
+        return sg.GetBezierPoints();
+    }
+
     [System.Serializable]
     public class NestedList
     {
