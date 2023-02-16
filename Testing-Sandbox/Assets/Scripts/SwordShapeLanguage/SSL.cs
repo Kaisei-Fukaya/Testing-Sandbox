@@ -872,31 +872,53 @@ namespace SSL
             bottom_loop.AddRange(e02);
             bottom_loop.AddRange(e03);
             bottom_loop.AddRange(e04);
+            bottom_loop = bottom_loop.Distinct().ToList();
+            bottom_loop.Insert(0, bottom_loop.Last());
+            bottom_loop.RemoveAt(bottom_loop.Count-1);
 
             top_loop.AddRange(e05);
             top_loop.AddRange(e06);
             top_loop.AddRange(e07);
             top_loop.AddRange(e08);
+            top_loop = top_loop.Distinct().ToList();
+            top_loop.Insert(0, top_loop.Last());
+            top_loop.RemoveAt(top_loop.Count - 1);
+
 
             left_loop.AddRange(e08_Rev);
             left_loop.AddRange(e12_Rev);
             left_loop.AddRange(e04);
             left_loop.AddRange(e09);
+            left_loop = left_loop.Distinct().ToList();
+            left_loop.Insert(0, left_loop.Last());
+            left_loop.RemoveAt(left_loop.Count - 1);
+
 
             front_loop.AddRange(e07_Rev);
             front_loop.AddRange(e11_Rev);
             front_loop.AddRange(e03);
             front_loop.AddRange(e12);
+            front_loop = front_loop.Distinct().ToList();
+            front_loop.Insert(0, front_loop.Last());
+            front_loop.RemoveAt(front_loop.Count - 1);
+
 
             right_loop.AddRange(e06_Rev);
             right_loop.AddRange(e10_Rev);
             right_loop.AddRange(e02);
             right_loop.AddRange(e11);
+            right_loop = right_loop.Distinct().ToList();
+            right_loop.Insert(0, right_loop.Last());
+            right_loop.RemoveAt(right_loop.Count - 1);
 
             back_loop.AddRange(e05_Rev);
             back_loop.AddRange(e09_Rev);
             back_loop.AddRange(e01);
             back_loop.AddRange(e10);
+            back_loop = back_loop.Distinct().ToList();
+            back_loop.Insert(0, back_loop.Last());
+            back_loop.RemoveAt(back_loop.Count - 1);
+
 
             //Debug.Log($"left_loop count: {left_loop.Count}");
             //for (int i = 0; i < top_loop.Count; i++)
@@ -918,12 +940,12 @@ namespace SSL
                 front_centre:  (c+c1+d+d1)/4,
                 right_centre:  (b+b1+c+c1)/4,
                 back_centre:   (a+a1+b+b1)/4,
-                bottom_loop: bottom_loop.Distinct().ToArray(),
-                top_loop: top_loop.Distinct().ToArray(),
-                left_loop: left_loop.Distinct().ToArray(),
-                front_loop: front_loop.Distinct().ToArray(),
-                right_loop: right_loop.Distinct().ToArray(),
-                back_loop: back_loop.Distinct().ToArray()
+                bottom_loop: bottom_loop.ToArray(),
+                top_loop: top_loop.ToArray(),
+                left_loop: left_loop.ToArray(),
+                front_loop: front_loop.ToArray(),
+                right_loop: right_loop.ToArray(),
+                back_loop: back_loop.ToArray()
                 );
             return facePlanarNormals;
         }
