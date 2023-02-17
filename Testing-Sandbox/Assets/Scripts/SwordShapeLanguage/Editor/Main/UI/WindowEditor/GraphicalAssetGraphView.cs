@@ -123,7 +123,10 @@ namespace SSL.Graph
         private IManipulator CreateNodeContextualManipulator(string actionTitle, NodeType type)
         {
             ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
-                menuEvent => menuEvent.menu.AppendAction(actionTitle, actionEvent => AddElement(CreateNode(type, GetLocalMousePosition(actionEvent.eventInfo.localMousePosition))))
+                menuEvent => {
+                    menuEvent.menu.AppendAction(actionTitle, actionEvent => AddElement(CreateNode(type, GetLocalMousePosition(actionEvent.eventInfo.localMousePosition))));
+
+                }
             );
 
             return contextualMenuManipulator;

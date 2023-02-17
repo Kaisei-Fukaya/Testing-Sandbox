@@ -63,6 +63,21 @@ namespace SSL.Graph
             Text = "Hello world!";
             SetPosition(new Rect(position, Vector2.zero));
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetDefaultNodeStyle.uss", typeof(StyleSheet)));
+            AddContextualMenuOptions();
+        }
+
+        private void AddContextualMenuOptions()
+        {
+            this.AddManipulator(new ContextualMenuManipulator(menuEvent =>
+                menuEvent.menu.AppendAction("Copy Values", actionEvent =>
+                { 
+                    
+                })));
+            this.AddManipulator(new ContextualMenuManipulator(menuEvent =>
+                menuEvent.menu.AppendAction("Paste Values", actionEvent =>
+                {
+
+                })));
         }
 
         protected void CallSettingsEditEvent()
