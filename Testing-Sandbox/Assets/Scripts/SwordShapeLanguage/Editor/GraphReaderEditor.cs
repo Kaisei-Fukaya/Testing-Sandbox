@@ -32,6 +32,11 @@ public class GraphReaderEditor : Editor
             graphReader.SaveMesh();
         }
 
+        if(GUILayout.Button("Manual Gen Call"))
+        {
+            graphReader.UpdateMesh();
+        }
+
         TriggerScript();
 
     }

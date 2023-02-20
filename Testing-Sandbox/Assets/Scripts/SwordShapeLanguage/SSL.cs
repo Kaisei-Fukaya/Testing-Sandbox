@@ -147,6 +147,7 @@ namespace SSL
             }
             newMesh.RecalculateBounds();
             newMesh.RecalculateNormals();
+            newMesh.MarkDynamic();
             //newMesh.RecalculateTangents();
             return newMesh;
         }
