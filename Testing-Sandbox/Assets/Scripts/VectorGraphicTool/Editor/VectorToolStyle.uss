@@ -1,0 +1,17 @@
+VisualElement {}
+
+.canvas{
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+.draggable-node{
+	width: 25px;
+	height: 25px;
+	border-radius: 100%;
+	position: absolute;
+	left: 100px;
+	top: 100px;
+	background-color: black;
+}
