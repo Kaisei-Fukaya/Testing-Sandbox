@@ -79,10 +79,8 @@ public class VectorGraphicToolWindow : EditorWindow
     {
         VisualElement canvas = new VisualElement();
         canvas.AddToClassList("canvas");
-        VisualElement draggableNode = new VisualElement();
-        draggableNode.AddToClassList("draggable-node");
-        draggableNode.AddManipulator(new PointDragger());
-        canvas.Add(draggableNode);
+        VectorGraphic vg = new VectorGraphic();
+        canvas.Add(vg);
         rootVisualElement.Add(canvas);
     }
 

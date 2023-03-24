@@ -63,6 +63,9 @@ public class PointDragger : MouseManipulator
         target.style.top = Mathf.Clamp(target.layout.y + diff.y, -target.layout.height/2, target.parent.layout.height - (target.layout.height / 2));
         target.style.left = Mathf.Clamp(target.layout.x + diff.x, -target.layout.width/2, target.parent.layout.width - (target.layout.width / 2));
 
+        if (target is VectorPoint)
+            ((VectorPoint)target).Move();
+
         e.StopPropagation();
     }
     #endregion
