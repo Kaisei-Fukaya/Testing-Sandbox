@@ -15,11 +15,11 @@ G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-57908
+62944
 Successfully changed project path to: G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 36.47 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 35.10 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.6f1 (338bb68529b2)
 [Subsystems] Discovering subsystems at path G:/Unity 2018.3/2020.3.6f1/Editor/Data/Resources/UnitySubsystems
@@ -36,403 +36,495 @@ Initialize mono
 Mono path[0] = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/Managed'
 Mono path[1] = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56464
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56952
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: G:/Unity 2018.3/2020.3.6f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: G:/Unity 2018.3/2020.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.000915 seconds.
+Registered in 0.000899 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 33.84 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 33.31 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.063 seconds
+- Completed reload, in  1.064 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.001902 seconds.
+Registered in 0.001955 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 42.66 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 35.26 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.116 seconds
+- Completed reload, in  1.020 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 0.65 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 0.57 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2772 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 140.9 MB.
 System memory in use after: 141.1 MB.
 
 Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3215.
-Total: 2.350500 ms (FindLiveObjects: 0.354700 ms CreateObjectMapping: 0.069900 ms MarkObjects: 1.839400 ms  DeleteObjects: 0.085400 ms)
+Total: 2.558500 ms (FindLiveObjects: 0.375600 ms CreateObjectMapping: 0.076200 ms MarkObjects: 2.017700 ms  DeleteObjects: 0.088300 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Scripts/SwordShapeLanguage/SSL.cs
-  artifactKey: Guid(77a78f2e7c90ec945b6b3a42f7551fa4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/SSL.cs using Guid(77a78f2e7c90ec945b6b3a42f7551fa4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8cd75ffa544e38cbd72ef94b612c9390') in 0.051643 seconds
-  Import took 0.067604 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001940 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.656 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.4 MB.
-System memory in use after: 129.6 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3218.
-Total: 2.684600 ms (FindLiveObjects: 0.262400 ms CreateObjectMapping: 0.105800 ms MarkObjects: 2.253900 ms  DeleteObjects: 0.061700 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002138 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.53 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.663 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.58 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.4 MB.
-System memory in use after: 129.6 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3221.
-Total: 2.423000 ms (FindLiveObjects: 0.266000 ms CreateObjectMapping: 0.077500 ms MarkObjects: 2.021400 ms  DeleteObjects: 0.057100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002563 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.57 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.672 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.56 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.4 MB.
-System memory in use after: 129.6 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3224.
-Total: 2.250800 ms (FindLiveObjects: 0.220800 ms CreateObjectMapping: 0.059600 ms MarkObjects: 1.912800 ms  DeleteObjects: 0.056900 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003014 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.650 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.5 MB.
-System memory in use after: 129.7 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3227.
-Total: 2.367200 ms (FindLiveObjects: 0.276700 ms CreateObjectMapping: 0.071200 ms MarkObjects: 1.962700 ms  DeleteObjects: 0.055800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002057 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.657 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.56 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.4 MB.
-System memory in use after: 129.6 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3230.
-Total: 2.836500 ms (FindLiveObjects: 0.451600 ms CreateObjectMapping: 0.079200 ms MarkObjects: 2.235600 ms  DeleteObjects: 0.069000 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001939 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.637 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.5 MB.
-System memory in use after: 129.7 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3233.
-Total: 2.344300 ms (FindLiveObjects: 0.307300 ms CreateObjectMapping: 0.072500 ms MarkObjects: 1.905900 ms  DeleteObjects: 0.057600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002109 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.57 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.646 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.56 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.5 MB.
-System memory in use after: 129.7 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3236.
-Total: 2.593100 ms (FindLiveObjects: 0.241900 ms CreateObjectMapping: 0.073100 ms MarkObjects: 2.224800 ms  DeleteObjects: 0.052300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001976 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.657 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.5 MB.
-System memory in use after: 129.7 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3239.
-Total: 2.309400 ms (FindLiveObjects: 0.264700 ms CreateObjectMapping: 0.060700 ms MarkObjects: 1.929000 ms  DeleteObjects: 0.054100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002141 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.53 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.652 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.5 MB.
-System memory in use after: 129.7 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3242.
-Total: 2.318600 ms (FindLiveObjects: 0.231700 ms CreateObjectMapping: 0.069400 ms MarkObjects: 1.965500 ms  DeleteObjects: 0.051100 ms)
+  path: Assets/64 Swords
+  artifactKey: Guid(8653501f731d00a4e8588d0d91c3762e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/64 Swords using Guid(8653501f731d00a4e8588d0d91c3762e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45ccb69500c357114e8d185f59108540') in 0.008193 seconds
+  Import took 0.011861 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 9378.451815 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/PreviewBox.cs
-  artifactKey: Guid(fa204df574fd5194fb9e8e4992f0a8d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/PreviewBox.cs using Guid(fa204df574fd5194fb9e8e4992f0a8d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e2683b08884375d2e0cb0c157755b1b') in 0.020342 seconds
-  Import took 0.024510 seconds .
+  Time since last request: 0.000124 seconds.
+  path: Assets/64 Swords/Swords 64x64 WHITE OUTLINE.png
+  artifactKey: Guid(65f91090c30899e4bbcf8ff9e0df60c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/64 Swords/Swords 64x64 WHITE OUTLINE.png using Guid(65f91090c30899e4bbcf8ff9e0df60c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f87a054fc0aa749fc1385b82e500e3d') in 0.162240 seconds
+  Import took 0.165873 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 1.402451 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGraphView.cs
-  artifactKey: Guid(858ae054713e3804cbac351379af6b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGraphView.cs using Guid(858ae054713e3804cbac351379af6b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66f87df5016be01eb0e99a64ea5039b2') in 0.016694 seconds
-  Import took 0.021094 seconds .
+  Time since last request: 0.000146 seconds.
+  path: Assets/64 Swords/Swords 64x64 WHITE OUTLINE SHADE.png
+  artifactKey: Guid(5086f7f9cf02c27478fdeda4cd78894a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/64 Swords/Swords 64x64 WHITE OUTLINE SHADE.png using Guid(5086f7f9cf02c27478fdeda4cd78894a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd53da86593ceed135b69bb801a8ec25f') in 0.077208 seconds
+  Import took 0.080593 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000957 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGraphView.cs
-  artifactKey: Guid(858ae054713e3804cbac351379af6b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGraphView.cs using Guid(858ae054713e3804cbac351379af6b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66f87df5016be01eb0e99a64ea5039b2') in 0.001378 seconds
-  Import took 0.004136 seconds .
+  Time since last request: 0.000146 seconds.
+  path: Assets/64 Swords/Swords 64x64 TRANSPARENT.png
+  artifactKey: Guid(545f9c74323fe914c829180b85afb1b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/64 Swords/Swords 64x64 TRANSPARENT.png using Guid(545f9c74323fe914c829180b85afb1b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c155fa28dc4810e060620511da44c922') in 0.075305 seconds
+  Import took 0.079058 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.317161 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGeneratorWindow.cs
-  artifactKey: Guid(2bc29ec86840053478806631bb5ae4cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGeneratorWindow.cs using Guid(2bc29ec86840053478806631bb5ae4cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d44de819cec46a5f07219a867889abc') in 0.005056 seconds
-  Import took 0.009102 seconds .
+  Time since last request: 6.348031 seconds.
+  path: Assets/ICON Kit Sword
+  artifactKey: Guid(226c5743a28d94b429bf38a379b392cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword using Guid(226c5743a28d94b429bf38a379b392cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c7e66504c68829bbb422bcc8f78bafe') in 0.005329 seconds
+  Import took 0.009335 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.019600 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGeneratorWindow.cs
-  artifactKey: Guid(2bc29ec86840053478806631bb5ae4cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGeneratorWindow.cs using Guid(2bc29ec86840053478806631bb5ae4cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d44de819cec46a5f07219a867889abc') in 0.001752 seconds
-  Import took 0.004979 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001992 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.659 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.4 MB.
-System memory in use after: 129.6 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3245.
-Total: 2.275300 ms (FindLiveObjects: 0.263300 ms CreateObjectMapping: 0.071000 ms MarkObjects: 1.881400 ms  DeleteObjects: 0.058600 ms)
+  Time since last request: 5.480620 seconds.
+  path: Assets/sword icon
+  artifactKey: Guid(dd817e1e764691546b59c64d49ddc83c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon using Guid(dd817e1e764691546b59c64d49ddc83c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ff5f65edaf26eeb542836919ea4e20b') in 0.008956 seconds
+  Import took 0.013386 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 201.208910 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGraphView.cs
-  artifactKey: Guid(858ae054713e3804cbac351379af6b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGraphView.cs using Guid(858ae054713e3804cbac351379af6b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ff3f9f8e5b3c5c0b347412e3f0de061') in 0.006323 seconds
-  Import took 0.010306 seconds .
+  Time since last request: 0.045219 seconds.
+  path: Assets/sword icon/w_001.png
+  artifactKey: Guid(d9e60910a669ccf41800976c96607250) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_001.png using Guid(d9e60910a669ccf41800976c96607250) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa4912625cfdb01f9a5169721c198c5a') in 0.012322 seconds
+  Import took 0.016291 seconds .
 
 ========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002028 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.639 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.56 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.5 MB.
-System memory in use after: 129.7 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3248.
-Total: 2.262400 ms (FindLiveObjects: 0.244100 ms CreateObjectMapping: 0.070300 ms MarkObjects: 1.893300 ms  DeleteObjects: 0.053700 ms)
+Received Import Request.
+  Time since last request: 0.000131 seconds.
+  path: Assets/sword icon/w_011.png
+  artifactKey: Guid(f803c0b1e05500c40bee1e02eec4202d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_011.png using Guid(f803c0b1e05500c40bee1e02eec4202d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99c07930f579ac9b5918ad820610872b') in 0.011429 seconds
+  Import took 0.015031 seconds .
 
 ========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002997 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.650 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.5 MB.
-System memory in use after: 129.7 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3251.
-Total: 2.331200 ms (FindLiveObjects: 0.289700 ms CreateObjectMapping: 0.075600 ms MarkObjects: 1.907200 ms  DeleteObjects: 0.057700 ms)
+Received Import Request.
+  Time since last request: 0.000140 seconds.
+  path: Assets/sword icon/w_050.png
+  artifactKey: Guid(56cdb01435272f64f923221450161d3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_050.png using Guid(56cdb01435272f64f923221450161d3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5a3d1db31ac031b6b1e449b4cf93f0a') in 0.014750 seconds
+  Import took 0.018186 seconds .
 
 ========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001950 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.654 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.5 MB.
-System memory in use after: 129.7 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3254.
-Total: 2.205000 ms (FindLiveObjects: 0.227700 ms CreateObjectMapping: 0.059200 ms MarkObjects: 1.864200 ms  DeleteObjects: 0.053000 ms)
+Received Import Request.
+  Time since last request: 0.000145 seconds.
+  path: Assets/sword icon/w_021.png
+  artifactKey: Guid(1373d6042ddbda345a27c89755e90e39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_021.png using Guid(1373d6042ddbda345a27c89755e90e39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e2007f124f12745c0811617ecbe0fea') in 0.009786 seconds
+  Import took 0.012734 seconds .
 
 ========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002131 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.637 seconds
-Platform modules already initialized, skipping
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 129.5 MB.
-System memory in use after: 129.7 MB.
+Received Import Request.
+  Time since last request: 0.000152 seconds.
+  path: Assets/sword icon/w_043.png
+  artifactKey: Guid(6f17dec212717e64880adceb68e0e395) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_043.png using Guid(6f17dec212717e64880adceb68e0e395) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06286512d9d3f3bb27cba66f997ab3ef') in 0.010251 seconds
+  Import took 0.013210 seconds .
 
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3257.
-Total: 2.537100 ms (FindLiveObjects: 0.303000 ms CreateObjectMapping: 0.074500 ms MarkObjects: 2.100500 ms  DeleteObjects: 0.058000 ms)
+========================================================================
+Received Import Request.
+  Time since last request: 0.000122 seconds.
+  path: Assets/sword icon/w_004.png
+  artifactKey: Guid(02546c12667bcb145bcbd752b9aa31b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_004.png using Guid(02546c12667bcb145bcbd752b9aa31b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9662376a0767d6865a5430724aee4979') in 0.012566 seconds
+  Import took 0.016180 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000167 seconds.
+  path: Assets/sword icon/w_007.png
+  artifactKey: Guid(9714b1cb65407e945b9c9be678ca15d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_007.png using Guid(9714b1cb65407e945b9c9be678ca15d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '033ad9fef985b82571c3a99bdcb55433') in 0.019307 seconds
+  Import took 0.023170 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000130 seconds.
+  path: Assets/sword icon/w_030.png
+  artifactKey: Guid(104e0686c8ffd5646858c888abb7e436) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_030.png using Guid(104e0686c8ffd5646858c888abb7e436) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41cca86db8f2655fc4138ce350af1b6d') in 0.008804 seconds
+  Import took 0.012161 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000173 seconds.
+  path: Assets/sword icon/w_023.png
+  artifactKey: Guid(c9b87db7a5cd57a42bc837f964f8ee7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_023.png using Guid(c9b87db7a5cd57a42bc837f964f8ee7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6517c93913e8cd00273756d591d818ba') in 0.008698 seconds
+  Import took 0.012302 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000140 seconds.
+  path: Assets/sword icon/w_038.png
+  artifactKey: Guid(97d95e9aeb13f314da49aee0bcd4690f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_038.png using Guid(97d95e9aeb13f314da49aee0bcd4690f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b7d59e64b76a51a50879d84bf8f99157') in 0.009087 seconds
+  Import took 0.012780 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000146 seconds.
+  path: Assets/sword icon/w_003.png
+  artifactKey: Guid(0ab18b7d2c4a998418254f2501f6b544) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_003.png using Guid(0ab18b7d2c4a998418254f2501f6b544) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d50f42cd7d3ea78d34a73f2e30b3430') in 0.008912 seconds
+  Import took 0.012125 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000137 seconds.
+  path: Assets/sword icon/w_048.png
+  artifactKey: Guid(d25686b5c5bd7b24dbeb59e5719f27bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_048.png using Guid(d25686b5c5bd7b24dbeb59e5719f27bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0966c804b1e4a99639251c564f480a67') in 0.008655 seconds
+  Import took 0.011708 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000135 seconds.
+  path: Assets/sword icon/w_018.png
+  artifactKey: Guid(382fd1dc28fc0794691beb64ed947678) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_018.png using Guid(382fd1dc28fc0794691beb64ed947678) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66de58bac18006fb01b5ad7bdf17b355') in 0.008530 seconds
+  Import took 0.012224 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000130 seconds.
+  path: Assets/sword icon/w_025.png
+  artifactKey: Guid(9d88cfe62458b834f9fd0b2fc20042d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_025.png using Guid(9d88cfe62458b834f9fd0b2fc20042d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d7dca852c94712315396d80b7e9ab03') in 0.008886 seconds
+  Import took 0.011924 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000130 seconds.
+  path: Assets/sword icon/w_045.png
+  artifactKey: Guid(36d5459d6136b404a8b5379f9c4edd18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_045.png using Guid(36d5459d6136b404a8b5379f9c4edd18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9902e2c58daefaab6a53acf60b6c814c') in 0.010494 seconds
+  Import took 0.014084 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000141 seconds.
+  path: Assets/sword icon/w_017.png
+  artifactKey: Guid(31a4c3ae639d16247a0764c4f4556437) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_017.png using Guid(31a4c3ae639d16247a0764c4f4556437) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c80e2a6d1512f09c73a8a31d0697f011') in 0.008219 seconds
+  Import took 0.011249 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000149 seconds.
+  path: Assets/sword icon/w_014.png
+  artifactKey: Guid(8613474dc222ae74789340bc60f3f6b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_014.png using Guid(8613474dc222ae74789340bc60f3f6b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc44e19455abd2f44177428b8bd10278') in 0.008712 seconds
+  Import took 0.020262 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000170 seconds.
+  path: Assets/sword icon/w_041.png
+  artifactKey: Guid(fca2788492a84ae45866030c3072fa6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_041.png using Guid(fca2788492a84ae45866030c3072fa6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0f98eddd4cfd2ac4bfbb4833bb85128') in 0.008921 seconds
+  Import took 0.011957 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000139 seconds.
+  path: Assets/sword icon/w_020.png
+  artifactKey: Guid(60f88edad3bc90c4cbaf8ef71a175be9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_020.png using Guid(60f88edad3bc90c4cbaf8ef71a175be9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c5045a9eb261e4483057aef59335618a') in 0.009597 seconds
+  Import took 0.017735 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000144 seconds.
+  path: Assets/sword icon/w_036.png
+  artifactKey: Guid(e377f3227343a2d46b884ab021b2380f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_036.png using Guid(e377f3227343a2d46b884ab021b2380f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '85f25dd0ef1c06d53ebbb0d868b956e2') in 0.009230 seconds
+  Import took 0.012896 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000137 seconds.
+  path: Assets/sword icon/w_040.png
+  artifactKey: Guid(eb7fa8bdff819be4bab19774d643a100) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_040.png using Guid(eb7fa8bdff819be4bab19774d643a100) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12c741a9188b271f838d31cc7b768050') in 0.008529 seconds
+  Import took 0.011877 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000133 seconds.
+  path: Assets/sword icon/w_031.png
+  artifactKey: Guid(f2d83c5df6b19aa408a98f7a6a8bfcc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_031.png using Guid(f2d83c5df6b19aa408a98f7a6a8bfcc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75a73606d29faf0870a1a96da1ee957a') in 0.010562 seconds
+  Import took 0.013964 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000150 seconds.
+  path: Assets/sword icon/w_046.png
+  artifactKey: Guid(5fcd705ae3629474eb622371530efe70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_046.png using Guid(5fcd705ae3629474eb622371530efe70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e587315ec2101b631726665123c92ad8') in 0.009883 seconds
+  Import took 0.013286 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000115 seconds.
+  path: Assets/sword icon/w_006.png
+  artifactKey: Guid(56cc49709959bd343b8f0225a8cf8e17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_006.png using Guid(56cc49709959bd343b8f0225a8cf8e17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '623534afc20e038350d7e85d18d11390') in 0.007934 seconds
+  Import took 0.011139 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000140 seconds.
+  path: Assets/sword icon/w_032.png
+  artifactKey: Guid(5418724fc89f2744baeee3cb32813fd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_032.png using Guid(5418724fc89f2744baeee3cb32813fd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '50665a54632786edeabd6f2e9d5cc079') in 0.008934 seconds
+  Import took 0.011987 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/sword icon/w_002.png
+  artifactKey: Guid(15bbbfdfa172f0048b3e3ba8ceab6e6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_002.png using Guid(15bbbfdfa172f0048b3e3ba8ceab6e6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1592919835d486dcbfe770ae2067565') in 0.008462 seconds
+  Import took 0.011569 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000167 seconds.
+  path: Assets/sword icon/w_026.png
+  artifactKey: Guid(dec57b040169f5d47ba6db54b1f532f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_026.png using Guid(dec57b040169f5d47ba6db54b1f532f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e9ad772940179658e8dbe1c2d0ff348') in 0.008317 seconds
+  Import took 0.011583 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000158 seconds.
+  path: Assets/sword icon/w_047.png
+  artifactKey: Guid(362e9ac27bd64ed4bb07f4362afa4415) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_047.png using Guid(362e9ac27bd64ed4bb07f4362afa4415) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04b83adb7bec7bc2142b2a258476658b') in 0.008460 seconds
+  Import took 0.012040 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000139 seconds.
+  path: Assets/sword icon/w_019.png
+  artifactKey: Guid(56de7994af88d5f4a9b707e012a95159) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_019.png using Guid(56de7994af88d5f4a9b707e012a95159) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e5945fa5a188668c1b14cc7c52bd429') in 0.010481 seconds
+  Import took 0.013940 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000147 seconds.
+  path: Assets/sword icon/w_035.png
+  artifactKey: Guid(e938463539883ab40a52617c1eaa964a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_035.png using Guid(e938463539883ab40a52617c1eaa964a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17cd2cc90da5865c94a114534dc05ba9') in 0.010285 seconds
+  Import took 0.013489 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000135 seconds.
+  path: Assets/sword icon/w_022.png
+  artifactKey: Guid(89064b64789adf44c95d91f195d43a23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_022.png using Guid(89064b64789adf44c95d91f195d43a23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f02a0c2492cc972cd645a9e4362d83b') in 0.008647 seconds
+  Import took 0.012328 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000142 seconds.
+  path: Assets/sword icon/w_008.png
+  artifactKey: Guid(bb7e4326062e6d041a141c5ee367950e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_008.png using Guid(bb7e4326062e6d041a141c5ee367950e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d39626305fab4f2338aaef5c55bf644') in 0.010239 seconds
+  Import took 0.025672 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000142 seconds.
+  path: Assets/sword icon/w_049.png
+  artifactKey: Guid(11a4e7975ff159c46ab77f69f4c65dd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_049.png using Guid(11a4e7975ff159c46ab77f69f4c65dd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '701127df767302cab9e225e85837485a') in 0.011214 seconds
+  Import took 0.015072 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000127 seconds.
+  path: Assets/sword icon/w_029.png
+  artifactKey: Guid(7599b02bd9bb45944955348128246a70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_029.png using Guid(7599b02bd9bb45944955348128246a70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b62573dc06219f3ed9e28d645daea94') in 0.010912 seconds
+  Import took 0.014651 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000125 seconds.
+  path: Assets/sword icon/w_039.png
+  artifactKey: Guid(47a503ee9c0040b45ad2d15fb9fd4423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_039.png using Guid(47a503ee9c0040b45ad2d15fb9fd4423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5290ef274650eaea0a82dc8b048e7b9') in 0.009796 seconds
+  Import took 0.013343 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000129 seconds.
+  path: Assets/sword icon/w_044.png
+  artifactKey: Guid(2c7c0e33d0dd84643981109237a11de4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_044.png using Guid(2c7c0e33d0dd84643981109237a11de4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0225b79948312fb278a185c496620593') in 0.008940 seconds
+  Import took 0.012735 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000137 seconds.
+  path: Assets/sword icon/w_013.png
+  artifactKey: Guid(18c06625a3fff744d9a1348683bf6430) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_013.png using Guid(18c06625a3fff744d9a1348683bf6430) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f9024f692479c39b5c24c4a369372890') in 0.008384 seconds
+  Import took 0.011487 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000132 seconds.
+  path: Assets/sword icon/w_009.png
+  artifactKey: Guid(50fe65027efb32d4aa119556957d9025) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_009.png using Guid(50fe65027efb32d4aa119556957d9025) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '141749deaccf70ab3a2049b238a5478a') in 0.009602 seconds
+  Import took 0.013616 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000142 seconds.
+  path: Assets/sword icon/w_012.png
+  artifactKey: Guid(f4957afc3729d7f449708444a7ca2993) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_012.png using Guid(f4957afc3729d7f449708444a7ca2993) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '306331568dcf4693c7d4d2d09c2a5926') in 0.008517 seconds
+  Import took 0.011596 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000133 seconds.
+  path: Assets/sword icon/w_028.png
+  artifactKey: Guid(d47ebed138d0b94448bad4ae916dfdaa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_028.png using Guid(d47ebed138d0b94448bad4ae916dfdaa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c956aa2c3042e2a620e64a43ff595962') in 0.009897 seconds
+  Import took 0.013176 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000147 seconds.
+  path: Assets/sword icon/w_042.png
+  artifactKey: Guid(80177e2bd989ef744ad7f44461a7738e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_042.png using Guid(80177e2bd989ef744ad7f44461a7738e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88d5c23ed6fc2bb8370a7a6626706583') in 0.009153 seconds
+  Import took 0.012846 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000230 seconds.
+  path: Assets/sword icon/w_034.png
+  artifactKey: Guid(b20833c3f4daa844193e625c05270f7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_034.png using Guid(b20833c3f4daa844193e625c05270f7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8dbcf1fff009918c7b7158f0bcae79ed') in 0.008457 seconds
+  Import took 0.013164 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000160 seconds.
+  path: Assets/sword icon/w_024.png
+  artifactKey: Guid(e894d6d9a999acf47854dd19db91ba77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_024.png using Guid(e894d6d9a999acf47854dd19db91ba77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5df0499d1a548549fc42a243ebf67169') in 0.008743 seconds
+  Import took 0.012190 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000144 seconds.
+  path: Assets/sword icon/w_037.png
+  artifactKey: Guid(3504e40025ef10e45ae5cdca13dbe299) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_037.png using Guid(3504e40025ef10e45ae5cdca13dbe299) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ee3ed99363de6bcdff495e1f2b4561f') in 0.009357 seconds
+  Import took 0.012872 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/sword icon/w_015.png
+  artifactKey: Guid(76c3a325befce944cbaff2ed4dee70ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_015.png using Guid(76c3a325befce944cbaff2ed4dee70ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0fcb0ad7c5fafbb1e9d441d5b019971b') in 0.008648 seconds
+  Import took 0.012243 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000155 seconds.
+  path: Assets/sword icon/w_027.png
+  artifactKey: Guid(1d038b7d2bbc1e4418f4e505f2c7c810) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_027.png using Guid(1d038b7d2bbc1e4418f4e505f2c7c810) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6434cc9bcbd5a7fba45d43aacbfc57d3') in 0.008885 seconds
+  Import took 0.012293 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000127 seconds.
+  path: Assets/sword icon/w_016.png
+  artifactKey: Guid(ed9a3e4cc842e9349816c48bdbd875e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_016.png using Guid(ed9a3e4cc842e9349816c48bdbd875e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f0077fa4368508cd51bbffe4eefe4053') in 0.009449 seconds
+  Import took 0.012508 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000141 seconds.
+  path: Assets/sword icon/w_027.png
+  artifactKey: Guid(1d038b7d2bbc1e4418f4e505f2c7c810) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_027.png using Guid(1d038b7d2bbc1e4418f4e505f2c7c810) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6434cc9bcbd5a7fba45d43aacbfc57d3') in 0.009973 seconds
+  Import took 0.013596 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000131 seconds.
+  path: Assets/sword icon/w_033.png
+  artifactKey: Guid(f171887fcfe56cf49b0b70acbcefdc88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_033.png using Guid(f171887fcfe56cf49b0b70acbcefdc88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c69b21f2f95ec1deafd40b3ff240d625') in 0.008036 seconds
+  Import took 0.011743 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000134 seconds.
+  path: Assets/sword icon/w_005.png
+  artifactKey: Guid(875e780675f3072448f9450848f52d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_005.png using Guid(875e780675f3072448f9450848f52d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad6699650cee8dc89541f61768fd6c61') in 0.010722 seconds
+  Import took 0.014041 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000130 seconds.
+  path: Assets/sword icon/w_010.png
+  artifactKey: Guid(258ae5f357c016b429719c2969f95077) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sword icon/w_010.png using Guid(258ae5f357c016b429719c2969f95077) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49b5f1b1b498708962e54491d2252460') in 0.009858 seconds
+  Import took 0.013307 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

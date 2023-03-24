@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.6f1 (338bb68529b2) revision 3378102'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Pro; OS build 19044.2604; Version 2009; 64bit' Language: 'en' Physical Memory: 40885 MB
+OS: 'Windows 10 Pro; OS build 19044.2728; Version 2009; 64bit' Language: 'en' Physical Memory: 40885 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -15,11 +15,11 @@ G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-53045
+51707
 Successfully changed project path to: G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 34.05 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 36.39 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.6f1 (338bb68529b2)
 [Subsystems] Discovering subsystems at path G:/Unity 2018.3/2020.3.6f1/Editor/Data/Resources/UnitySubsystems
@@ -36,77 +36,516 @@ Initialize mono
 Mono path[0] = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/Managed'
 Mono path[1] = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56284
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56484
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: G:/Unity 2018.3/2020.3.6f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: G:/Unity 2018.3/2020.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.234167 seconds.
+Registered in 0.249472 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 34.18 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 34.56 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  3.764 seconds
+- Completed reload, in  3.607 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.242260 seconds.
+Registered in 0.230655 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 33.28 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 34.58 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.683 seconds
+- Completed reload, in  4.045 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 0.58 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 0.57 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2772 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 140.9 MB.
 System memory in use after: 141.1 MB.
 
 Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3215.
-Total: 2.985000 ms (FindLiveObjects: 0.492700 ms CreateObjectMapping: 0.214800 ms MarkObjects: 2.186200 ms  DeleteObjects: 0.090500 ms)
+Total: 2.226400 ms (FindLiveObjects: 0.228100 ms CreateObjectMapping: 0.076300 ms MarkObjects: 1.844300 ms  DeleteObjects: 0.077200 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Scripts/SwordShapeLanguage/SSL.cs
-  artifactKey: Guid(77a78f2e7c90ec945b6b3a42f7551fa4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/SSL.cs using Guid(77a78f2e7c90ec945b6b3a42f7551fa4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd09440c5e12973f424cc6077287b1cb2') in 0.039722 seconds
-  Import took 0.044107 seconds .
+  path: Assets/Scripts/VectorGraphicTool/Editor
+  artifactKey: Guid(00ee9772b6a3ae047878f00a9f8d10f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/VectorGraphicTool/Editor using Guid(00ee9772b6a3ae047878f00a9f8d10f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15369f14ef1abb9739ad1d70af42b0a5') in 0.008655 seconds
+  Import took 0.011926 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000121 seconds.
+  path: Assets/Scripts/VectorGraphicTool
+  artifactKey: Guid(54369a9ae5f7c2548b186806c6c288b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/VectorGraphicTool using Guid(54369a9ae5f7c2548b186806c6c288b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c9e4fe21623354de27ad85ba7576c53') in 0.005123 seconds
+  Import took 0.008039 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.599865 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGraphView.cs
+  artifactKey: Guid(858ae054713e3804cbac351379af6b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGraphView.cs using Guid(858ae054713e3804cbac351379af6b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4959771b6364a408769233bbf9705c92') in 0.038940 seconds
+  Import took 0.042903 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000816 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGraphView.cs
+  artifactKey: Guid(858ae054713e3804cbac351379af6b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/UI/WindowEditor/GraphicalAssetGraphView.cs using Guid(858ae054713e3804cbac351379af6b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4959771b6364a408769233bbf9705c92') in 0.001255 seconds
+  Import took 0.029038 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 75.272766 seconds.
+  path: Assets/Scripts/VectorGraphicTool/Editor/VectorGraphicToolWindow.cs
+  artifactKey: Guid(3684e784e7c4a934d9be41a2b88f1a99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/VectorGraphicTool/Editor/VectorGraphicToolWindow.cs using Guid(3684e784e7c4a934d9be41a2b88f1a99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d6e6f1a931c06bb099892ab7f114943') in 0.006152 seconds
+  Import took 0.010371 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000874 seconds.
+  path: Assets/Scripts/VectorGraphicTool/Editor/VectorGraphicToolWindow.cs
+  artifactKey: Guid(3684e784e7c4a934d9be41a2b88f1a99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/VectorGraphicTool/Editor/VectorGraphicToolWindow.cs using Guid(3684e784e7c4a934d9be41a2b88f1a99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d6e6f1a931c06bb099892ab7f114943') in 0.001284 seconds
+  Import took 0.004161 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 238.337527 seconds.
+  path: Assets/Scripts/VectorGraphicTool/Editor/VectorGraphicToolWindow.cs
+  artifactKey: Guid(3684e784e7c4a934d9be41a2b88f1a99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/VectorGraphicTool/Editor/VectorGraphicToolWindow.cs using Guid(3684e784e7c4a934d9be41a2b88f1a99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '83edaf8005260aeddfe4b2777cdadf48') in 0.001927 seconds
+  Import took 0.006209 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002069 seconds.
+Registered in 0.001894 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.658 seconds
+- Completed reload, in  0.642 seconds
 Platform modules already initialized, skipping
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.60 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2616 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 2617 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 129.4 MB.
 System memory in use after: 129.6 MB.
 
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3218.
-Total: 2.428900 ms (FindLiveObjects: 0.307800 ms CreateObjectMapping: 0.068600 ms MarkObjects: 1.984700 ms  DeleteObjects: 0.066800 ms)
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3219.
+Total: 2.280600 ms (FindLiveObjects: 0.265000 ms CreateObjectMapping: 0.059900 ms MarkObjects: 1.895500 ms  DeleteObjects: 0.059400 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 1361.858803 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/GraphReaderEditor.cs
-  artifactKey: Guid(be5eafd72d733dd48b9b3d2a88e521ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/GraphReaderEditor.cs using Guid(be5eafd72d733dd48b9b3d2a88e521ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e0a468ecd7a43c7c7fe964eba25efead') in 0.020585 seconds
-  Import took 0.024487 seconds .
+  Time since last request: 84.559933 seconds.
+  path: Assets/ICON Kit Sword/sword_01.png
+  artifactKey: Guid(9a5db01688f3f433dbbb7914b72a9571) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_01.png using Guid(9a5db01688f3f433dbbb7914b72a9571) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d6f54b62e02ac1754899cc1a6227636') in 0.125886 seconds
+  Import took 0.130655 seconds .
 
-AssetImportWorkerClient::OnTransportError - code=2 error=End of file
+========================================================================
+Received Import Request.
+  Time since last request: 0.000158 seconds.
+  path: Assets/ICON Kit Sword/sword_39.png
+  artifactKey: Guid(7bd3c97c5c97149cab4fb272cfff3fdb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_39.png using Guid(7bd3c97c5c97149cab4fb272cfff3fdb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16eec40b808e028e7fb34bf17846c78e') in 0.027267 seconds
+  Import took 0.030485 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000154 seconds.
+  path: Assets/ICON Kit Sword/sword_23.png
+  artifactKey: Guid(479d97ff764104e6d94a74660c06748a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_23.png using Guid(479d97ff764104e6d94a74660c06748a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af8bfe13526554da0bcb37c9bbf57a7f') in 0.040714 seconds
+  Import took 0.044108 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000160 seconds.
+  path: Assets/ICON Kit Sword/sword_37.png
+  artifactKey: Guid(a68db688da61a46498465ce20a5c506e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_37.png using Guid(a68db688da61a46498465ce20a5c506e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f83521a4e0f1137de25178586265395') in 0.037463 seconds
+  Import took 0.041010 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000167 seconds.
+  path: Assets/ICON Kit Sword/sword_40.png
+  artifactKey: Guid(6d1279b8e97034a8f8a65bd6e93154c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_40.png using Guid(6d1279b8e97034a8f8a65bd6e93154c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4efb73ef60ef24f21dfaa77a5f61b885') in 0.044842 seconds
+  Import took 0.047885 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000157 seconds.
+  path: Assets/ICON Kit Sword/sword_46.png
+  artifactKey: Guid(c274ac55b31b64a31bb25c9b3ac0e329) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_46.png using Guid(c274ac55b31b64a31bb25c9b3ac0e329) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09d0cd8af9067096a2ed4171a096692f') in 0.043396 seconds
+  Import took 0.046902 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000162 seconds.
+  path: Assets/ICON Kit Sword/sword_04.png
+  artifactKey: Guid(77626a6b216ca4fefa87fab8c7e8205a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_04.png using Guid(77626a6b216ca4fefa87fab8c7e8205a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79321a27e14aab7bad65468629930f3b') in 0.048352 seconds
+  Import took 0.051905 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000160 seconds.
+  path: Assets/ICON Kit Sword/sword_42.png
+  artifactKey: Guid(d8f0a1a7dc77849818ce5ded903987ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_42.png using Guid(d8f0a1a7dc77849818ce5ded903987ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2cf9e98779eab499e54f58807d6edfec') in 0.045854 seconds
+  Import took 0.049031 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000130 seconds.
+  path: Assets/ICON Kit Sword/sword_11.png
+  artifactKey: Guid(71c8436c28ae94adbb53d75503e54b28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_11.png using Guid(71c8436c28ae94adbb53d75503e54b28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a431de50af7cef286e8910c0718ffc24') in 0.039209 seconds
+  Import took 0.042218 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000146 seconds.
+  path: Assets/ICON Kit Sword/sword_16.png
+  artifactKey: Guid(dd316acb737144041b3814b7eeee130d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_16.png using Guid(dd316acb737144041b3814b7eeee130d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd2e6373042e36f22476b09ac995b57fe') in 0.047017 seconds
+  Import took 0.050197 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/ICON Kit Sword/sword_14.png
+  artifactKey: Guid(edf92a9292bdb4d1c95712c5e092e5ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_14.png using Guid(edf92a9292bdb4d1c95712c5e092e5ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd1f0b63c126d556ee2767826790722b6') in 0.040621 seconds
+  Import took 0.043889 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000154 seconds.
+  path: Assets/ICON Kit Sword/sword_35.png
+  artifactKey: Guid(263faee9bb32f4134b882d5675e1ddda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_35.png using Guid(263faee9bb32f4134b882d5675e1ddda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f89c5ce9e0690b3dd89076c58c640e5') in 0.029128 seconds
+  Import took 0.032544 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000141 seconds.
+  path: Assets/ICON Kit Sword/sword_41.png
+  artifactKey: Guid(6d77d3e493f8440a0918334cceeb4f68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_41.png using Guid(6d77d3e493f8440a0918334cceeb4f68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '320bfdc356dcfc2579d17a2e8ee76025') in 0.050698 seconds
+  Import took 0.054155 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/ICON Kit Sword/sword_06.png
+  artifactKey: Guid(4ef22696eb9714a7da66ce13a6e4875f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_06.png using Guid(4ef22696eb9714a7da66ce13a6e4875f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f9f909a32ebef2335840523bd36780d9') in 0.043842 seconds
+  Import took 0.047045 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000142 seconds.
+  path: Assets/ICON Kit Sword/sword_27.png
+  artifactKey: Guid(4f489d37cd3f447a09b339b6f3ca97d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_27.png using Guid(4f489d37cd3f447a09b339b6f3ca97d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de0109106fe7b5396928edf4513f0040') in 0.056800 seconds
+  Import took 0.060016 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000147 seconds.
+  path: Assets/ICON Kit Sword/sword_29.png
+  artifactKey: Guid(d57a9a309a0244671b6aff51d5ef5910) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_29.png using Guid(d57a9a309a0244671b6aff51d5ef5910) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd520adafafeafd118c7b8fb942e87cac') in 0.047189 seconds
+  Import took 0.050312 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/ICON Kit Sword/sword_34.png
+  artifactKey: Guid(06e3aa573337c446280408ddbbb43fe5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_34.png using Guid(06e3aa573337c446280408ddbbb43fe5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33cd66b9e83029436b4f38abbbd6c198') in 0.035459 seconds
+  Import took 0.039038 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000152 seconds.
+  path: Assets/ICON Kit Sword/sword_50.png
+  artifactKey: Guid(414d65f37bd544f9693facbe34f0e7b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_50.png using Guid(414d65f37bd544f9693facbe34f0e7b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7fa46bb0db7b149d75732d1d4cf3a6c6') in 0.037103 seconds
+  Import took 0.047043 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/ICON Kit Sword/sword_30.png
+  artifactKey: Guid(6a30349cab51a46ed98a1c4f901c4bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_30.png using Guid(6a30349cab51a46ed98a1c4f901c4bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0fae5bc420011513079bd1b1ec061122') in 0.046032 seconds
+  Import took 0.049262 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000137 seconds.
+  path: Assets/ICON Kit Sword/sword_22.png
+  artifactKey: Guid(58d10fd1e4063403a9faccc510789cc3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_22.png using Guid(58d10fd1e4063403a9faccc510789cc3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2c2d450d45de4b6b649de7b633fd230') in 0.043175 seconds
+  Import took 0.046372 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/ICON Kit Sword/sword_33.png
+  artifactKey: Guid(cfd545ae524df40cb9f7960f468f483b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_33.png using Guid(cfd545ae524df40cb9f7960f468f483b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3fecdf2825a2ae26da35d084073ef522') in 0.046156 seconds
+  Import took 0.049948 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000153 seconds.
+  path: Assets/ICON Kit Sword/sword_18.png
+  artifactKey: Guid(e68c334fa95604894bb18d45bb508207) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_18.png using Guid(e68c334fa95604894bb18d45bb508207) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '503ee6f78f0693076ea6a1fb0b987abc') in 0.045135 seconds
+  Import took 0.048049 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000146 seconds.
+  path: Assets/ICON Kit Sword/sword_02.png
+  artifactKey: Guid(0b28349f5aa83430590b6029ae19b4de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_02.png using Guid(0b28349f5aa83430590b6029ae19b4de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34cc15ac7fff66cb0347d6f78750160d') in 0.042040 seconds
+  Import took 0.045289 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000147 seconds.
+  path: Assets/ICON Kit Sword/sword_19.png
+  artifactKey: Guid(429110cdd5ecb4665a309717a1428034) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_19.png using Guid(429110cdd5ecb4665a309717a1428034) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '05598d8ec5f0dae186f530c282d8ac90') in 0.047195 seconds
+  Import took 0.050324 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000147 seconds.
+  path: Assets/ICON Kit Sword/sword_07.png
+  artifactKey: Guid(3016339d9def74af6966cf80514f325d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_07.png using Guid(3016339d9def74af6966cf80514f325d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c3ffff90dd9529a0b8b6fc5bb582cc2') in 0.076663 seconds
+  Import took 0.079586 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000142 seconds.
+  path: Assets/ICON Kit Sword/sword_05.png
+  artifactKey: Guid(e26b4a58239ba4fdfb1febee03deec71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_05.png using Guid(e26b4a58239ba4fdfb1febee03deec71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9691391022a01de344f443d3a4f80778') in 0.037174 seconds
+  Import took 0.047235 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/ICON Kit Sword/sword_03.png
+  artifactKey: Guid(97962ab456f03493fba8fd14225dc096) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_03.png using Guid(97962ab456f03493fba8fd14225dc096) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7716bb692af06123cb938d10160655e8') in 0.025499 seconds
+  Import took 0.028804 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000140 seconds.
+  path: Assets/ICON Kit Sword/sword_08.png
+  artifactKey: Guid(0ad79ff39b98a4028a85dcd93c5a6c63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_08.png using Guid(0ad79ff39b98a4028a85dcd93c5a6c63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd06a34a1af4ec09b7865269f0827d2f5') in 0.043539 seconds
+  Import took 0.046653 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000129 seconds.
+  path: Assets/ICON Kit Sword/sword_20.png
+  artifactKey: Guid(de77dddc15ecf4f68bc037960c7f1a1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_20.png using Guid(de77dddc15ecf4f68bc037960c7f1a1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '359d6dadbdb28174e02ef24c64100190') in 0.068071 seconds
+  Import took 0.071413 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/ICON Kit Sword/sword_21.png
+  artifactKey: Guid(c6ecd9e4ac779408c8112bfb10f35f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_21.png using Guid(c6ecd9e4ac779408c8112bfb10f35f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1760d60846c0911b1f63ec8d263aa801') in 0.036769 seconds
+  Import took 0.039765 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000164 seconds.
+  path: Assets/ICON Kit Sword/sword_31.png
+  artifactKey: Guid(d63a65504133b47be9fc962f16d85ada) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_31.png using Guid(d63a65504133b47be9fc962f16d85ada) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8564e6dcd07fadc1437ef2890abf19dc') in 0.043808 seconds
+  Import took 0.053593 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000144 seconds.
+  path: Assets/ICON Kit Sword/sword_10.png
+  artifactKey: Guid(e7cb18d6a9fc144449ef8243d5a1c6fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_10.png using Guid(e7cb18d6a9fc144449ef8243d5a1c6fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e187c70346ac773617090774cf5c1ea5') in 0.036550 seconds
+  Import took 0.039844 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000155 seconds.
+  path: Assets/ICON Kit Sword/sword_13.png
+  artifactKey: Guid(442b826854b9a4e449d08e723af2a8bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_13.png using Guid(442b826854b9a4e449d08e723af2a8bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15ad4632de740c073e891cf66702c4cd') in 0.040664 seconds
+  Import took 0.044082 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000182 seconds.
+  path: Assets/ICON Kit Sword/sword_38.png
+  artifactKey: Guid(9ddac521cb2b44b46b5357faa80dd1f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_38.png using Guid(9ddac521cb2b44b46b5357faa80dd1f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc30f847edf8ecaa388d95f244c73b3e') in 0.037956 seconds
+  Import took 0.041387 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/ICON Kit Sword/sword_36.png
+  artifactKey: Guid(0c1d2e4706b43406fa0d5f0019022833) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_36.png using Guid(0c1d2e4706b43406fa0d5f0019022833) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06d78bd4fd198125afa44835630aadff') in 0.040340 seconds
+  Import took 0.043588 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000134 seconds.
+  path: Assets/ICON Kit Sword/sword_45.png
+  artifactKey: Guid(f799ff87704184ba48e04291360e62ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_45.png using Guid(f799ff87704184ba48e04291360e62ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b9c28bc46070dc864647c93c236de3d') in 0.043862 seconds
+  Import took 0.046813 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000157 seconds.
+  path: Assets/ICON Kit Sword/sword_32.png
+  artifactKey: Guid(eb56cb9f5131d467c8fb561f562aa6a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_32.png using Guid(eb56cb9f5131d467c8fb561f562aa6a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd601a5a4c3429925d41cd922dc43b54b') in 0.040304 seconds
+  Import took 0.043564 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000152 seconds.
+  path: Assets/ICON Kit Sword/sword_17.png
+  artifactKey: Guid(cacc592427c664dcea6a911048f9e1c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_17.png using Guid(cacc592427c664dcea6a911048f9e1c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '686e0d1e762e194c516dc23737ed5a27') in 0.040091 seconds
+  Import took 0.057112 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000149 seconds.
+  path: Assets/ICON Kit Sword/sword_47.png
+  artifactKey: Guid(fd37fc53c269f4218a722472429e2c73) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_47.png using Guid(fd37fc53c269f4218a722472429e2c73) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca1bde4b0a9c1001e7f509bb91f89c31') in 0.040074 seconds
+  Import took 0.043148 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000132 seconds.
+  path: Assets/ICON Kit Sword/sword_26.png
+  artifactKey: Guid(146cf165a53cb4b7d86160c58dea060e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_26.png using Guid(146cf165a53cb4b7d86160c58dea060e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4bea93fb96be03f4d94dcd1ad13f74fa') in 0.039139 seconds
+  Import took 0.042363 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/ICON Kit Sword/sword_25.png
+  artifactKey: Guid(8f6e255b7ee074b5dbedc78205d7cae7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_25.png using Guid(8f6e255b7ee074b5dbedc78205d7cae7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ccca23af3cf1794d16abbe482a1ec72') in 0.044146 seconds
+  Import took 0.047366 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000140 seconds.
+  path: Assets/ICON Kit Sword/sword_48.png
+  artifactKey: Guid(fe5485fd57bc443ca8f647f354f28d16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_48.png using Guid(fe5485fd57bc443ca8f647f354f28d16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92dd990f163ad463eb9bd87d39bb49d6') in 0.159686 seconds
+  Import took 0.162915 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000149 seconds.
+  path: Assets/ICON Kit Sword/sword_24.png
+  artifactKey: Guid(cf0e8ddd6144549a79154350bc8bb33d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_24.png using Guid(cf0e8ddd6144549a79154350bc8bb33d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3be337ef021f2e89eb2ab27030477c8') in 0.042206 seconds
+  Import took 0.045372 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000137 seconds.
+  path: Assets/ICON Kit Sword/sword_15.png
+  artifactKey: Guid(13c561221612e43469fd4037bde7392e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_15.png using Guid(13c561221612e43469fd4037bde7392e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9efbc4c1107b59e509efc4a736ab1986') in 0.047340 seconds
+  Import took 0.050563 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/ICON Kit Sword/sword_12.png
+  artifactKey: Guid(e19886950590e4356ab2c4c7fac31c26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_12.png using Guid(e19886950590e4356ab2c4c7fac31c26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae1cee5ba57cc695a3d2d7e8de2f64b9') in 0.040643 seconds
+  Import took 0.043798 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000137 seconds.
+  path: Assets/ICON Kit Sword/sword_43.png
+  artifactKey: Guid(f3893470a76804926a086eebb4c0a948) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_43.png using Guid(f3893470a76804926a086eebb4c0a948) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bcdfb90b1606a00e155d8ea1052c01c6') in 0.035405 seconds
+  Import took 0.038357 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000142 seconds.
+  path: Assets/ICON Kit Sword/sword_09.png
+  artifactKey: Guid(c108fb4653192439e8f6c68bde79a853) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_09.png using Guid(c108fb4653192439e8f6c68bde79a853) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c7bc3a0b6a3953a769e224a21d712fa') in 0.026428 seconds
+  Import took 0.041235 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/ICON Kit Sword/sword_49.png
+  artifactKey: Guid(23c8e4fcb6932454fb19a36e497b24ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_49.png using Guid(23c8e4fcb6932454fb19a36e497b24ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ddff10c5ab58b878c1c13164d2918d8') in 0.039512 seconds
+  Import took 0.051539 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/ICON Kit Sword/sword_44.png
+  artifactKey: Guid(8f4de0cb311f14c64935cb6adaadf75e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_44.png using Guid(8f4de0cb311f14c64935cb6adaadf75e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bfcd49fa165e067248634c6e02183818') in 0.049823 seconds
+  Import took 0.053197 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000173 seconds.
+  path: Assets/ICON Kit Sword/sword_28.png
+  artifactKey: Guid(679b271b07d3c44f6b6a859d3e88cb4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ICON Kit Sword/sword_28.png using Guid(679b271b07d3c44f6b6a859d3e88cb4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '511d8f4e29665c9a7ef6b99e2fdad279') in 0.042738 seconds
+  Import took 0.045834 seconds .
+
