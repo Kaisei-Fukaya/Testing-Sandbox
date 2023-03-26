@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor;
 
 public class VectorGraphic : VisualElement
 {
@@ -14,14 +15,28 @@ public class VectorGraphic : VisualElement
     {
         generateVisualContent += OnGenerateVisualContent;
         handles = new VectorPoint[points.Length];
-        for (int i = 0; i < points.Length; i++)
+        EditorApplication.delayCall += InitHandles;
+    }
+
+    void InitHandles()
+    {
+        for (int i = 0; i < handles.Length; i++)
         {
             handles[i] = new VectorPoint();
             handles[i].onMove += UpdatePoints;
             handles[i].AddToClassList("draggable-node");
-            handles[i].layout.Set(points[i].x, points[i].y, handles[i].layout.width, handles[i].layout.height);
             handles[i].AddManipulator(new PointDragger());
             contentContainer.Add(handles[i]);
+        }
+        EditorApplication.delayCall += SetHandlePos;
+    }
+
+    void SetHandlePos()
+    {
+        for (int i = 0; i < handles.Length; i++)
+        {
+            handles[i].style.left = points[i].x - handles[i].style.width.value.value / 2;
+            handles[i].style.top = points[i].y - handles[i].style.height.value.value / 2;
         }
     }
 

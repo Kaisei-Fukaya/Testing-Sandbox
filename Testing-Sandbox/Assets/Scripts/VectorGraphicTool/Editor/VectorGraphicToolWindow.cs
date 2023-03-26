@@ -5,7 +5,6 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 using System;
-using UnityEditor.Experimental.GraphView;
 using SSL.Data;
 using SSL.Data.Utils;
 
@@ -13,11 +12,7 @@ using SSL.Data.Utils;
 public class VectorGraphicToolWindow : EditorWindow
 {
     StyleSheet style;
-    StyleSheet _toolbarToggleStyles;
     VisualElement _mainView;
-    public bool inTrainingMode;
-
-    GAGenData _saveData;
 
     [MenuItem("Window/Vector Editor")]
     public static void ShowWindow()
@@ -29,6 +24,7 @@ public class VectorGraphicToolWindow : EditorWindow
     {
         this.titleContent = new GUIContent("Vector Editor");
         style = (StyleSheet)AssetDatabase.LoadAssetAtPath($"Assets/Scripts/VectorGraphicTool/Editor/VectorToolStyle.uss", typeof(StyleSheet));
+        AddToolbar();
         _mainView = new VisualElement()
         {
             name = "mainView"
@@ -37,7 +33,6 @@ public class VectorGraphicToolWindow : EditorWindow
         //mainView.StretchToParentSize();
         rootVisualElement.Add(_mainView);
         rootVisualElement.styleSheets.Add(style);
-        AddToolbar();
         AddCanvas();
     }
 
@@ -81,7 +76,8 @@ public class VectorGraphicToolWindow : EditorWindow
         canvas.AddToClassList("canvas");
         VectorGraphic vg = new VectorGraphic();
         canvas.Add(vg);
-        rootVisualElement.Add(canvas);
+        _mainView.Add(canvas);
+        _mainView.AddManipulator(new CanvasPan());
     }
 
     void Save()
