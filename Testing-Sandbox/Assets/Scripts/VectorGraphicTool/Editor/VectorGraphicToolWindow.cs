@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 using System;
 using SSL.Data;
 using SSL.Data.Utils;
+using System.Xml.Serialization;
 
 
 public class VectorGraphicToolWindow : EditorWindow
@@ -92,6 +93,6 @@ public class VectorGraphicToolWindow : EditorWindow
 
     void Load()
     {
-
+        
     }
 }
