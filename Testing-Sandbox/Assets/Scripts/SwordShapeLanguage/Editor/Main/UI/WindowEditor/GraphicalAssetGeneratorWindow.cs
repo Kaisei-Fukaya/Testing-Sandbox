@@ -22,6 +22,7 @@ namespace SSL.Graph
         public bool inTrainingMode;
 
         GAGenData _saveData;
+        Inference _inference;
 
         [MenuItem("Window/Graphical Asset Generator")]
         public static void ShowWindow()
@@ -119,6 +120,12 @@ namespace SSL.Graph
             };
             loadButton.clicked += Load;
 
+            ToolbarButton img2ModelButton = new ToolbarButton()
+            {
+                text = "Generate from Image"
+            };
+            img2ModelButton.clicked += GenerateFromImage;
+
             ToolbarSpacer spacer1 = new ToolbarSpacer();
             ToolbarSpacer spacer2 = new ToolbarSpacer();
             ToolbarSpacer spacer3 = new ToolbarSpacer();
@@ -127,6 +134,7 @@ namespace SSL.Graph
             toolbar.Add(saveAsButton);
             toolbar.Add(loadButton);
             toolbar.Add(spacer2);
+            toolbar.Add(img2ModelButton);
             toolbar.Add(spacer3);
 
             rootVisualElement.Add(toolbar);
@@ -264,6 +272,25 @@ namespace SSL.Graph
             path = path.Replace(Application.dataPath, "Assets");
             GAGenData data = AssetDatabase.LoadAssetAtPath<GAGenData>(path);
             Load(data);
+        }
+
+        void GenerateFromImage()
+        {
+            Generate(1);
+        }
+        void Generate(int mode = 0)
+        {
+            //Lazy load inference instance
+            if (_inference == null)
+                _inference = new Inference();
+
+            switch (mode)
+            {
+                default:
+                    string filePath = EditorUtility.OpenFilePanel("Please provide an image", "", "");
+                    Load(_inference.Img2Model(filePath));
+                    break;
+            }
         }
 
         struct NodeAndData
