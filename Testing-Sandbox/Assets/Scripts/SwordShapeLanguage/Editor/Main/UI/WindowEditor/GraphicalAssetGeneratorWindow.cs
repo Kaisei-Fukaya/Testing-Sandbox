@@ -126,6 +126,12 @@ namespace SSL.Graph
             };
             img2ModelButton.clicked += GenerateFromImage;
 
+            ToolbarButton rand2ModelButton = new ToolbarButton()
+            {
+                text = "Generate Random"
+            };
+            rand2ModelButton.clicked += GenerateFromRandom;
+
             ToolbarSpacer spacer1 = new ToolbarSpacer();
             ToolbarSpacer spacer2 = new ToolbarSpacer();
             ToolbarSpacer spacer3 = new ToolbarSpacer();
@@ -135,6 +141,7 @@ namespace SSL.Graph
             toolbar.Add(loadButton);
             toolbar.Add(spacer2);
             toolbar.Add(img2ModelButton);
+            toolbar.Add(rand2ModelButton);
             toolbar.Add(spacer3);
 
             rootVisualElement.Add(toolbar);
@@ -276,8 +283,14 @@ namespace SSL.Graph
 
         void GenerateFromImage()
         {
+            Generate(0);
+        }
+
+        void GenerateFromRandom()
+        {
             Generate(1);
         }
+
         void Generate(int mode = 0)
         {
             //Lazy load inference instance
@@ -288,7 +301,14 @@ namespace SSL.Graph
             {
                 default:
                     string filePath = EditorUtility.OpenFilePanel("Please provide an image", "", "");
-                    Load(_inference.Img2Model(filePath));
+                    var im2result = _inference.Img2Model(filePath);
+                    if(im2result != null)
+                        Load(im2result);
+                    break;
+                case 1:
+                    var r2result = _inference.Rand2Model();
+                    if (r2result != null)
+                        Load(r2result);
                     break;
             }
         }
