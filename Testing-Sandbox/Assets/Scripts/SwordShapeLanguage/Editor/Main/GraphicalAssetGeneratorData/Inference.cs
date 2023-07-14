@@ -15,34 +15,35 @@ namespace SSL.Data
         Model _modelEncoder, _modelBottleneck, _modelDecoder;
         IWorker _workerEncoder, _workerBottleneck, _workerDecoder;
         System.Random _random;
+        float _sizeScale = 15f;
 
         public Inference()
         {
-            _modelAssetEncoder = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/encoder_v1.onnx", typeof(NNModel));
+            _modelAssetEncoder = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/encoder_v2.onnx", typeof(NNModel));
             _modelEncoder = ModelLoader.Load(_modelAssetEncoder);
-            _workerEncoder = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, _modelEncoder, verbose:true);
+            _workerEncoder = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, _modelEncoder);
 
-            _modelAssetBottleneck = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/bottleneck_v1.onnx", typeof(NNModel));
+            _modelAssetBottleneck = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/bottleneck_v2.onnx", typeof(NNModel));
             _modelBottleneck = ModelLoader.Load(_modelAssetBottleneck);
             _workerBottleneck = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, _modelBottleneck);
 
-            _modelAssetDecoder = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/decoder_v1.onnx", typeof(NNModel));
+            _modelAssetDecoder = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/decoder_v2.onnx", typeof(NNModel));
             _modelDecoder = ModelLoader.Load(_modelAssetDecoder);
             _workerDecoder = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, _modelDecoder);
             _random = new System.Random();
         }
 
         //Image to Model
-        public GAGenData Img2Model(string path)
+        public (GAGenData, Texture2D) Img2Model(string path)
         {
             Texture2D image = LoadImage(path);
             if (image == null)
-                return null;
-            Tensor input = new Tensor(image, channels: 1);
-            input = input.Reshape(new int[] { 1, 1, 64, 64 });
-            Debug.Log(input.shape);
+                return (null, null);
+            //Tensor input = new Tensor(image);
+            float[,,,] imageData = LoadChannelAsFloatArray(image);
+            Tensor input = new Tensor(1, 64, 64, 1, imageData);
             var output = ReconstructInference(input);
-            return output;
+            return (output, image);
         }
 
         //Latent generation
@@ -51,8 +52,18 @@ namespace SSL.Data
             Tensor input = new Tensor(1, 512);
             for (int i = 0; i < input.length; i++)
             {
-                input[i] = (float)_random.NextDouble();
+                var mean = 0f;
+                var stdDev = 1f;
+                double u1 = 1.0 - _random.NextDouble(); //uniform(0,1] random doubles
+                double u2 = 1.0 - _random.NextDouble();
+                double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) *
+                             Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
+                double randNormal =
+                             mean + stdDev * randStdNormal; //random normal(mean,stdDev^2)
+
+                input[i] = (float)randNormal;
             }
+            //Debug.Log(input);
             var output = LatentInference(input);
             return output;
         }
@@ -62,8 +73,10 @@ namespace SSL.Data
         {
             Texture2D imageA = LoadImage(pathA);
             Texture2D imageB = LoadImage(pathB);
-            Tensor inputA = new Tensor(imageA);
-            Tensor inputB = new Tensor(imageB);
+            float[,,,] imageDataA = LoadChannelAsFloatArray(imageA);
+            float[,,,] imageDataB = LoadChannelAsFloatArray(imageB);
+            Tensor inputA = new Tensor(1, 64, 64, 1, imageDataA);
+            Tensor inputB = new Tensor(1, 64, 64, 1, imageDataB);
             Tensor latentA = EncodeInference(inputA);
             Tensor latentB = EncodeInference(inputB);
             Tensor latentLerp = new Tensor(new int[] { 1, 512 });
@@ -83,41 +96,69 @@ namespace SSL.Data
             if (File.Exists(path))
             {
                 data = File.ReadAllBytes(path);
-                texture = new Texture2D(2, 2, TextureFormat.RFloat, false);
-                texture.LoadImage(data);
-                texture.Resize(64, 64);
+                texture = new Texture2D(2, 2, TextureFormat.ARGB32, 1, false);
+                bool imageloaded = texture.LoadImage(data);
+                TextureScale.Scale(texture, 64, 64);
+                //var pixels = texture.GetPixels(0);
+                //for (int i = 0; i < pixels.Length; i++)
+                //{
+                //    Debug.Log(pixels[i]);
+                //}
+                Debug.Log($"Texture readable: {texture.isReadable}, Image loaded: {imageloaded}, Mipmaps: {texture.mipmapCount}");
             }
             else
-                throw new Exception("No File was selected");
-
+                throw new Exception("Compatible file was not selected");
             return texture;
+        }
+
+        float[,,,] LoadChannelAsFloatArray(Texture2D texture)
+        {
+            float[,,,] data = new float[1, texture.width, texture.height, 1];
+            var pixels = texture.GetPixels(0);
+            for (int i = 0; i < texture.width; i++)
+            {
+                for (int j = 0; j < texture.height; j++)
+                {
+                    //data[0, i, j, 0] = texture.GetPixel(i, (texture.height - 1) - j).a;
+                    data[0, i, j, 0] = pixels[i + (((texture.height - 1) - j) * texture.width)].r;
+                    //Debug.Log(data[0, i, j, 0]);
+                }
+            }
+            return data;
         }
 
         GAGenData ReconstructInference(Tensor input)
         {
             _workerEncoder.Execute(input);
             Tensor result = _workerEncoder.PeekOutput();
+            //FileStream fs = new FileStream("test.txt", FileMode.OpenOrCreate);
+            //using (StreamWriter sw = new StreamWriter(fs))
+            //{
+            //    sw.Write(result.DataToString());
+            //}
             _workerBottleneck.Execute(result);
             result = _workerBottleneck.PeekOutput();
             _workerDecoder.Execute(result);
             result = _workerDecoder.PeekOutput();
 
             result.Flatten();
+
+            
             var output = Tensor2Graph(result);
-            _workerEncoder.Dispose();
-            _workerBottleneck.Dispose();
-            _workerDecoder.Dispose();
+            //_workerEncoder.Dispose();
+            //_workerBottleneck.Dispose();
+            //_workerDecoder.Dispose();
             return output;
         }
 
         GAGenData LatentInference(Tensor input)
         {
-            Debug.Log(input.shape);
+            //Debug.Log(input.shape);
             _workerDecoder.Execute(input);
             Tensor result = _workerDecoder.PeekOutput();
             result.Flatten();
             var output = Tensor2Graph(result);
-            _workerDecoder.Dispose();
+            //_workerDecoder.Dispose();
             return output;
         }
         Tensor EncodeInference(Tensor input)
@@ -127,32 +168,53 @@ namespace SSL.Data
             _workerBottleneck.Execute(result);
             result = _workerBottleneck.PeekOutput();
             var output = result.DeepCopy();
-            _workerEncoder.Dispose();
-            _workerBottleneck.Dispose();
+            //_workerEncoder.Dispose();
+            //_workerBottleneck.Dispose();
             return output;
+        }
+
+        GAGenData GraphVariator(GAGenData data)
+        {
+            return data;
         }
 
 
         GAGenData Tensor2Graph(Tensor result)
         {
             List<GAGenNodeData> newNodes = new List<GAGenNodeData>();
+            string lastGuid = string.Empty;
             for (int i = 0; i < 12; i++)
             {
+                //Debug.Log(i * 6 + 5);
+                //Debug.Log($"x:{result[i * 6]}");
+                //Debug.Log($"y:{result[(i * 6) + 1]}");
                 GAGenNodeData newNodeData = new GAGenNodeData();
                 newNodeData.ID = Guid.NewGuid().ToString();
                 newNodeData.NodeType = Graph.NodeType.Segment;
                 NodeSetting newSettings = new NodeSetting();
-                newSettings.parameters.size = new Vector3(result[i * 12], result[i * 12 + 1], 1f);
-                newSettings.parameters.curveParams.controlPoint = new Vector2(result[i * 12 + 2], 0f);
-                newSettings.parameters.curveParams.tipOffset = new Vector2(result[i * 12 + 3], 0f);
+                newSettings.parameters.size = new Vector3(
+                    ((result[i * 6]       + 1) / 2) * _sizeScale, 
+                    ((result[(i * 6) + 1] + 1) / 2) * _sizeScale, 
+                    1f);
+                newSettings.parameters.curveParams.controlPoint = new Vector2((result[(i * 6) + 2] * _sizeScale), 0f);
+                newSettings.parameters.curveParams.tipOffset =    new Vector2((result[(i * 6) + 3] * _sizeScale), 0f);
                 newSettings.parameters.nLoops = 5;
-                newSettings.parameters.relativeBackwardTaper = result[i * 12 + 4];
-                newSettings.parameters.relativeForwardTaper = result[i * 12 + 5];
-                newNodeData.Settings = new NodeSetting();
+                newSettings.parameters.relativeBackwardTaper = result[(i * 6) + 4];
+                newSettings.parameters.relativeForwardTaper = result[(i * 6) + 5];
+                newSettings.parameters.curveNotAffectNormal = true;
+                newNodeData.Settings = newSettings;
+                if (i != 0)
+                {
+                    newNodeData.InGoingConnections = new List<ConnectionData>() { new ConnectionData(lastGuid, 0, 0, newNodeData.ID, Graph.GAPortType.Mesh) };
+                    newNodeData.Position = new Vector2(i * 400f, 0f);
+                }
+                lastGuid = newNodeData.ID;
                 newNodes.Add(newNodeData);
             }
+            result.Dispose();
             GAGenData output = ScriptableObject.CreateInstance<GAGenData>();
             output.Nodes = newNodes;
+            Debug.Log(output.Nodes[0].Settings.parameters.curveNotAffectNormal);
             return output;
         }
 

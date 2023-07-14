@@ -341,6 +341,8 @@ namespace SSL
         public int subMeshIndex;
         [HideInInspector]
         public VisibleFaces visibleFaces;
+        [HideInInspector]
+        public bool curveNotAffectNormal;
 
         public NodeParams(
             int loops, 
@@ -351,7 +353,8 @@ namespace SSL
             Vector3[] deformations, 
             BezierParams splineParams, 
             int subMeshIndex, 
-            VisibleFaces visibleFaces)
+            VisibleFaces visibleFaces,
+            bool curveNotAffectNormal)
         {
             this.nLoops = loops;
             this.rounding = rounding;
@@ -362,13 +365,14 @@ namespace SSL
             this.curveParams = splineParams;
             this.subMeshIndex = subMeshIndex;
             this.visibleFaces = visibleFaces;
+            this.curveNotAffectNormal = curveNotAffectNormal;
         }
 
         public static NodeParams defaultParams
         {
             get
             {
-                return new NodeParams(0, 0f, new Vector3(1f,1f,1f), 1f, 1f, new Vector3[8], new BezierParams(), 0, new VisibleFaces());
+                return new NodeParams(0, 0f, new Vector3(1f,1f,1f), 1f, 1f, new Vector3[8], new BezierParams(), 0, new VisibleFaces(), false);
             }
         }
     }
@@ -582,11 +586,14 @@ namespace SSL
             {
                 _bezierPoints.Add(bezierPoint);
 
-                Matrix4x4 curveRotationMatrix = Matrix4x4.Rotate(Quaternion.LookRotation(bezierPoint.normal, bezierPoint.tangent));
-
-                for (int i = 0; i < verts.Length; i++)
+                if (!_storedParameters.curveNotAffectNormal)
                 {
-                    verts[i] = curveRotationMatrix.MultiplyPoint3x4(verts[i]);
+                    Matrix4x4 curveRotationMatrix = Matrix4x4.Rotate(Quaternion.LookRotation(bezierPoint.normal, bezierPoint.tangent));
+
+                    for (int i = 0; i < verts.Length; i++)
+                    {
+                        verts[i] = curveRotationMatrix.MultiplyPoint3x4(verts[i]);
+                    }
                 }
             }
 

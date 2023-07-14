@@ -24,6 +24,8 @@ namespace SSL.Graph
         GAGenData _saveData;
         Inference _inference;
 
+        Image _imageTest;
+
         [MenuItem("Window/Graphical Asset Generator")]
         public static void ShowWindow()
         {
@@ -132,6 +134,8 @@ namespace SSL.Graph
             };
             rand2ModelButton.clicked += GenerateFromRandom;
 
+            _imageTest = new Image();
+
             ToolbarSpacer spacer1 = new ToolbarSpacer();
             ToolbarSpacer spacer2 = new ToolbarSpacer();
             ToolbarSpacer spacer3 = new ToolbarSpacer();
@@ -150,6 +154,7 @@ namespace SSL.Graph
         private void AddPreviewWindow()
         {
             _previewWindow = new PreviewBox();
+            _previewWindow.contentContainer.Add(_imageTest);
             _previewWindow.Initialise(_graphView, GAGenDataUtils.NodesToData(_graphView.Nodes));
             _previewWindow.name = "previewWindow";
             _graphView.PreviewWindow = _previewWindow;
@@ -302,8 +307,19 @@ namespace SSL.Graph
                 default:
                     string filePath = EditorUtility.OpenFilePanel("Please provide an image", "", "");
                     var im2result = _inference.Img2Model(filePath);
-                    if(im2result != null)
-                        Load(im2result);
+                    var model = im2result.Item1;
+                    var image = im2result.Item2;
+                    if (model != null)
+                    {
+                        Load(model);
+                        _imageTest.image = image;
+                        _imageTest.tintColor = Color.white;
+                        //_imageTest.style.backgroundImage = image;
+                        _imageTest.style.width = 256;
+                        _imageTest.style.height = 256;
+                        _imageTest.style.position = Position.Absolute;
+                        _imageTest.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
+                    }
                     break;
                 case 1:
                     var r2result = _inference.Rand2Model();

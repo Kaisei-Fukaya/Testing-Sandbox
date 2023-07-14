@@ -21,6 +21,7 @@ namespace SSL.Graph.Elements
         protected Vector3Field[] _deformFields;
         protected Vector2Field _tipOffsetField;
         protected Vector2Field _curveControlField;
+        protected bool _curveNotAffectNormal;
 
         public override void Initialise(Vector2 position)
         {
@@ -73,6 +74,7 @@ namespace SSL.Graph.Elements
             setting.parameters.subMeshIndex = _subMeshIndexField.value;
             setting.parameters.curveParams.tipOffset = _tipOffsetField.value;
             setting.parameters.curveParams.controlPoint = _curveControlField.value;
+            setting.parameters.curveNotAffectNormal = _curveNotAffectNormal;
             for (int i = 0; i < setting.parameters.deforms.Length; i++)
             {
                 setting.parameters.deforms[i] = _deformFields[i].value;
@@ -99,6 +101,8 @@ namespace SSL.Graph.Elements
                 _deformFields[i].SetValueWithoutNotify(setting.parameters.deforms[i]);
                 _deformFoldout.Add(_deformFields[i]);
             }
+
+            _curveNotAffectNormal = setting.parameters.curveNotAffectNormal;
         }
 
         public override void Draw()
