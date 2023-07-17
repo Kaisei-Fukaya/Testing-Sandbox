@@ -5,13 +5,11 @@ GAPreview
 
 #topContainer
 {
-	width: 100%;
 	align-content: center;
 }
 
 #mainContainer
 {
-	width: 100%;
 	border-radius: 10px;
 }
 

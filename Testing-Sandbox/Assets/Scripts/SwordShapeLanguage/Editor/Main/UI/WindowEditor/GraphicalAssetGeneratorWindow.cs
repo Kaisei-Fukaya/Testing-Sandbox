@@ -18,6 +18,8 @@ namespace SSL.Graph
         StyleSheet _toolbarToggleStyles;
         GraphicalAssetGraphView _graphView;
         PreviewBox _previewWindow;
+        ConfigBox _configBox;
+        VisualElement _previewConfigBox;
         VisualElement _mainView;
         public bool inTrainingMode;
 
@@ -34,6 +36,7 @@ namespace SSL.Graph
 
         private void CreateGUI()
         {
+            _inference = new Inference();
             this.titleContent = new GUIContent("Graphical Asset Generator");
             _generateStyleVariables = (StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetGeneratorVariablesGenerate.uss", typeof(StyleSheet));
             _trainStyleVariables = (StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetGeneratorVariablesTrain.uss", typeof(StyleSheet));
@@ -48,7 +51,7 @@ namespace SSL.Graph
             rootVisualElement.Add(_mainView);
             AddGraphView();
             AddStyles();
-            AddPreviewWindow();
+            AddPreviewConfigWindow();
             SetupDragAndDrop();
         }
 
@@ -134,6 +137,12 @@ namespace SSL.Graph
             };
             rand2ModelButton.clicked += GenerateFromRandom;
 
+            ToolbarButton interpButton = new ToolbarButton()
+            {
+                text = "Interpolate"
+            };
+            interpButton.clicked += Interpolate;
+
             _imageTest = new Image();
 
             ToolbarSpacer spacer1 = new ToolbarSpacer();
@@ -146,19 +155,36 @@ namespace SSL.Graph
             toolbar.Add(spacer2);
             toolbar.Add(img2ModelButton);
             toolbar.Add(rand2ModelButton);
+            toolbar.Add(interpButton);
             toolbar.Add(spacer3);
 
             rootVisualElement.Add(toolbar);
         }
 
-        private void AddPreviewWindow()
+        private void AddPreviewConfigWindow()
         {
+            _previewConfigBox = new VisualElement()
+            {
+                name = "previewConfigWindow"
+            };
+
             _previewWindow = new PreviewBox();
             _previewWindow.contentContainer.Add(_imageTest);
             _previewWindow.Initialise(_graphView, GAGenDataUtils.NodesToData(_graphView.Nodes));
             _previewWindow.name = "previewWindow";
             _graphView.PreviewWindow = _previewWindow;
-            rootVisualElement.Add(_previewWindow);
+            _previewConfigBox.Add(_previewWindow);
+
+            _configBox = new ConfigBox()
+            {
+                name = "configWindow",
+                inference = _inference
+            };
+            _configBox.Initialise(Load);
+
+            _previewConfigBox.Add(_configBox);
+
+            rootVisualElement.Add(_previewConfigBox);
         }
 
         void Save()
@@ -296,6 +322,11 @@ namespace SSL.Graph
             Generate(1);
         }
 
+        void Interpolate()
+        {
+            Generate(2);
+        }
+
         void Generate(int mode = 0)
         {
             //Lazy load inference instance
@@ -307,24 +338,25 @@ namespace SSL.Graph
                 default:
                     string filePath = EditorUtility.OpenFilePanel("Please provide an image", "", "");
                     var im2result = _inference.Img2Model(filePath);
-                    var model = im2result.Item1;
-                    var image = im2result.Item2;
+                    var model = im2result;
                     if (model != null)
                     {
                         Load(model);
-                        _imageTest.image = image;
-                        _imageTest.tintColor = Color.white;
-                        //_imageTest.style.backgroundImage = image;
-                        _imageTest.style.width = 256;
-                        _imageTest.style.height = 256;
-                        _imageTest.style.position = Position.Absolute;
-                        _imageTest.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
                     }
                     break;
                 case 1:
                     var r2result = _inference.Rand2Model();
                     if (r2result != null)
                         Load(r2result);
+                    break;
+                case 2:
+                    string filePath1 = EditorUtility.OpenFilePanel("Please provide an image", "", "");
+                    string filePath2 = EditorUtility.OpenFilePanel("Please provide an image", "", "");
+
+                    var interpResult = _inference.Interp(filePath1, filePath2, 0.5f);
+
+                    if (interpResult != null)
+                        Load(interpResult);
                     break;
             }
         }

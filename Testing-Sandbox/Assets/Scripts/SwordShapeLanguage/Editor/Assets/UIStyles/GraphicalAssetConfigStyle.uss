@@ -1,0 +1,86 @@
+GAPreview
+{
+	background-color: var(--gag-colors-grid-dark-grey-1);
+}
+
+#topContainer
+{
+	width: 100%;
+	align-content: center;
+}
+
+#mainContainer
+{
+	width: 100%;
+	flex: 1;
+	border-radius: 10px;
+}
+
+#imageFieldGroup
+{
+	flex-direction: row;
+}
+
+#imageFieldGroup > ImageField
+{
+	flex: 1;
+}
+
+.tab
+{
+	flex-direction: column;
+	height: 100%;
+	justify-content: space-between;
+}
+
+.tab >
+{
+	flex: 1;
+}
+
+.tab > Button
+{
+	flex: 0.2;
+}
+
+#titleElement
+{
+	padding: 5px;
+	-unity-text-align: middle-center;
+}
+
+#tabButtonRow
+{
+	display: flex;
+	flex-direction: row;
+}
+
+.tabButton
+{
+	display: flex;
+	background-color: #32a852;
+	flex: 1;
+	-unity-text-align: middle-center;
+	padding: 4;
+}
+
+.tabButton:hover
+{
+	background-color: #ffffff;
+}
+
+.tabFocused
+{
+	background-color: #ffffff;
+}
+
+.hiddenTab
+{
+	display: none;
+}
+
+Slider
+{
+	width: 50%;
+	align-self: center;
+}

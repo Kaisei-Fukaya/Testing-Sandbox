@@ -99,6 +99,7 @@ namespace SSL.Graph.Elements
             {
                 _deformFields[i] = new Vector3Field();
                 _deformFields[i].SetValueWithoutNotify(setting.parameters.deforms[i]);
+                _deformFields[i].RegisterValueChangedCallback(x => CallSettingsEditEvent());
                 _deformFoldout.Add(_deformFields[i]);
             }
 

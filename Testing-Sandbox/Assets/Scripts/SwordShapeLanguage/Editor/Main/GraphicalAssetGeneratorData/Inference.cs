@@ -19,41 +19,42 @@ namespace SSL.Data
 
         public Inference()
         {
-            _modelAssetEncoder = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/encoder_v2.onnx", typeof(NNModel));
+            _modelAssetEncoder = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/encoder_v3.onnx", typeof(NNModel));
             _modelEncoder = ModelLoader.Load(_modelAssetEncoder);
             _workerEncoder = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, _modelEncoder);
 
-            _modelAssetBottleneck = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/bottleneck_v2.onnx", typeof(NNModel));
+            _modelAssetBottleneck = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/bottleneck_v3.onnx", typeof(NNModel));
             _modelBottleneck = ModelLoader.Load(_modelAssetBottleneck);
             _workerBottleneck = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, _modelBottleneck);
 
-            _modelAssetDecoder = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/decoder_v2.onnx", typeof(NNModel));
+            _modelAssetDecoder = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/decoder_v3.onnx", typeof(NNModel));
             _modelDecoder = ModelLoader.Load(_modelAssetDecoder);
             _workerDecoder = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, _modelDecoder);
             _random = new System.Random();
         }
 
         //Image to Model
-        public (GAGenData, Texture2D) Img2Model(string path)
+        public GAGenData Img2Model(string path)
         {
             Texture2D image = LoadImage(path);
             if (image == null)
-                return (null, null);
+                return null;
             //Tensor input = new Tensor(image);
             float[,,,] imageData = LoadChannelAsFloatArray(image);
             Tensor input = new Tensor(1, 64, 64, 1, imageData);
             var output = ReconstructInference(input);
-            return (output, image);
+            return output;
         }
 
         //Latent generation
         public GAGenData Rand2Model()
         {
             Tensor input = new Tensor(1, 512);
+            var mean = 0f;
+            var stdDev = 1f;
+
             for (int i = 0; i < input.length; i++)
             {
-                var mean = 0f;
-                var stdDev = 1f;
                 double u1 = 1.0 - _random.NextDouble(); //uniform(0,1] random doubles
                 double u2 = 1.0 - _random.NextDouble();
                 double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) *
@@ -63,7 +64,6 @@ namespace SSL.Data
 
                 input[i] = (float)randNormal;
             }
-            //Debug.Log(input);
             var output = LatentInference(input);
             return output;
         }
@@ -88,7 +88,7 @@ namespace SSL.Data
             return output;
         }
 
-        Texture2D LoadImage(string path)
+        public static Texture2D LoadImage(string path)
         {
             Texture2D texture = null;
             byte[] data;
