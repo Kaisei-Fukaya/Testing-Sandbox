@@ -89,7 +89,13 @@ GAPreview
 	display: none;
 }
 
-Slider
+#tSlider
+{
+	width: 50%;
+	align-self: center;
+}
+
+#tField
 {
 	width: 50%;
 	align-self: center;

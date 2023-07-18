@@ -11,7 +11,7 @@
 
 #extension
 {
-	padding: 5px;
+	padding-bottom: 5px;
 	background-color: var(--gag-colors-grid-light-grey-3);
 }
 
@@ -75,6 +75,7 @@
 Label
 {
 	-unity-text-align: middle-center;
+	background-color: rgba(0,0,0,0.05);
 }
 
 GraphicalAssetPort
@@ -124,15 +125,22 @@ GraphicalAssetPort > VisualElement > Port > Label
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	margin-left: 3px;
+	margin-right: 3px;
+	height: 19px;
 }
 
 .slider-group > Label{
 	-unity-text-align: middle-center;
 }
 
-.slider-group > Slider{
-	width: 200px;
+.slider-group > Slider
+{
+	min-width: 150px;
 }
+
 
 .label-field-block{
 	display: flex;
@@ -151,4 +159,36 @@ GraphicalAssetPort > VisualElement > Port > Label
 
 .curve-foldout > VisualElement{
 	margin-left: 5px;
+}
+
+.group
+{
+	margin-bottom: 1px;
+}
+
+.header
+{
+	font-size: 14;
+	background-color: var(--gag-colors-dark-1);
+	padding-left: 25px;
+}
+
+Vector3Field > VisualElement
+{
+	flex-direction: column;
+}
+
+#shapeBlockContent
+{
+	flex-direction: row;
+}
+
+.label-field-block
+{
+	flex-direction: column;
+}
+
+.label-field-block > FloatField > FloatInput
+{
+	min-width: 60px;
 }

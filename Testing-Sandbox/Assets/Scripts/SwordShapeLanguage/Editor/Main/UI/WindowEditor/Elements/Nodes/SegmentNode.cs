@@ -16,7 +16,7 @@ namespace SSL.Graph.Elements
         protected IntegerField _nLoopsField, _subMeshIndexField;
         protected FloatField _roundingField;
         protected Slider _relativeForwardTaperField, _relativeBackwardTaperField;
-        protected Vector3Field _sizeField;
+        protected FloatField _sizeWidthField, _sizeHeightField, _sizeDepthField;
         protected Foldout _deformFoldout, _curveFoldout;
         protected Vector3Field[] _deformFields;
         protected Vector2Field _tipOffsetField;
@@ -31,10 +31,12 @@ namespace SSL.Graph.Elements
             //Initialise fields
             _nLoopsField = new IntegerField();
             _subMeshIndexField = new IntegerField();
-            _roundingField = new FloatField();
+            _roundingField = new FloatField() { label = "Rounding:" };
             _relativeForwardTaperField = new Slider(0f, 1f);
             _relativeBackwardTaperField = new Slider(0f, 1f);
-            _sizeField = new Vector3Field();
+            _sizeWidthField = new FloatField()  { label = "Width:" }; 
+            _sizeHeightField = new FloatField() { label = "Height:" };
+            _sizeDepthField = new FloatField()  { label = "Depth:" };
             _deformFoldout = new Foldout() { text = "Deforms" };
             _deformFields = new Vector3Field[0];
             _curveFoldout = new Foldout() { text = "Curve" };
@@ -48,7 +50,9 @@ namespace SSL.Graph.Elements
             _roundingField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
             _relativeForwardTaperField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
             _relativeBackwardTaperField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
-            _sizeField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _sizeWidthField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _sizeHeightField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _sizeDepthField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
             _tipOffsetField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
             _curveControlField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
 
@@ -67,7 +71,7 @@ namespace SSL.Graph.Elements
         {
             NodeSetting setting = base.GetSettings();
             setting.parameters.nLoops = _nLoopsField.value;
-            setting.parameters.size = _sizeField.value;
+            setting.parameters.size = new Vector3(_sizeWidthField.value, _sizeHeightField.value, _sizeDepthField.value);
             setting.parameters.relativeForwardTaper = _relativeForwardTaperField.value;
             setting.parameters.relativeBackwardTaper = _relativeBackwardTaperField.value;
             setting.parameters.rounding = _roundingField.value;
@@ -85,7 +89,9 @@ namespace SSL.Graph.Elements
         public override void LoadSettings(NodeSetting setting)
         {
             _nLoopsField.SetValueWithoutNotify(setting.parameters.nLoops);
-            _sizeField.SetValueWithoutNotify(setting.parameters.size);
+            _sizeWidthField.SetValueWithoutNotify(setting.parameters.size.x);
+            _sizeHeightField.SetValueWithoutNotify(setting.parameters.size.y);
+            _sizeDepthField.SetValueWithoutNotify(setting.parameters.size.z);
             _relativeForwardTaperField.SetValueWithoutNotify(setting.parameters.relativeForwardTaper);
             _relativeBackwardTaperField.SetValueWithoutNotify(setting.parameters.relativeBackwardTaper);
             _roundingField.SetValueWithoutNotify(setting.parameters.rounding);
@@ -125,42 +131,73 @@ namespace SSL.Graph.Elements
         {
             VisualElement optionsBlock = new VisualElement();
 
-            VisualElement nLoopsBlock = new VisualElement();
-            nLoopsBlock.AddToClassList("label-field-block");
-            nLoopsBlock.Add(new Label("nLoops:"));
-            nLoopsBlock.Add(_nLoopsField);
+            VisualElement shapeGroup = new VisualElement();
+            shapeGroup.AddToClassList("group");
+            TextElement shapeHeader = new TextElement() 
+            {
+                text = "Shape"
+            };
+            shapeHeader.AddToClassList("header");
 
             VisualElement sizeBlock = new VisualElement();
             sizeBlock.AddToClassList("label-field-block");
-            sizeBlock.Add(new Label("Size:"));
-            sizeBlock.Add(_sizeField);
+            sizeBlock.Add(_sizeWidthField);
+            sizeBlock.Add(_sizeHeightField);
+            sizeBlock.Add(_sizeDepthField);
+
+
 
             VisualElement roundingBlock = new VisualElement();
             roundingBlock.AddToClassList("label-field-block");
-            roundingBlock.Add(new Label("Rounding:"));
             roundingBlock.Add(_roundingField);
 
             VisualElement forwardTaperBlock = new VisualElement();
-            forwardTaperBlock.AddToClassList("label-field-block");
+            forwardTaperBlock.AddToClassList("slider-group");
             forwardTaperBlock.Add(new Label("Taper:"));
             forwardTaperBlock.Add(_relativeForwardTaperField);
 
             VisualElement backwardTaperBlock = new VisualElement();
-            backwardTaperBlock.AddToClassList("label-field-block");
+            backwardTaperBlock.AddToClassList("slider-group");
             backwardTaperBlock.Add(new Label("Taper:"));
             backwardTaperBlock.Add(_relativeBackwardTaperField);
+            
+            VisualElement roundingAndTaperBlock = new VisualElement();
+            roundingAndTaperBlock.Add(roundingBlock);
+            roundingAndTaperBlock.Add(forwardTaperBlock);
+            roundingAndTaperBlock.Add(backwardTaperBlock);
+
+            VisualElement shapeContentContainer = new VisualElement() { name = "shapeBlockContent" };
+            shapeContentContainer.Add(sizeBlock);
+            shapeContentContainer.Add(roundingAndTaperBlock);
+
+            shapeGroup.Add(shapeHeader);
+            shapeGroup.Add(shapeContentContainer);
+
+            VisualElement meshDetailsGroup = new VisualElement();
+            meshDetailsGroup.AddToClassList("group");
+            TextElement meshDetailsHeader = new TextElement()
+            {
+                text = "Mesh Details"
+            };
+            meshDetailsHeader.AddToClassList("header");
+
+            VisualElement nLoopsBlock = new VisualElement();
+            nLoopsBlock.AddToClassList("label-field-block");
+            nLoopsBlock.Add(new Label("Loop count:"));
+            nLoopsBlock.Add(_nLoopsField);
 
             VisualElement sMeshIndexBlock = new VisualElement();
             sMeshIndexBlock.AddToClassList("label-field-block");
             sMeshIndexBlock.Add(new Label("Submesh Index:"));
             sMeshIndexBlock.Add(_subMeshIndexField);
 
-            optionsBlock.Add(nLoopsBlock);
-            optionsBlock.Add(sizeBlock);
-            optionsBlock.Add(roundingBlock);
-            optionsBlock.Add(forwardTaperBlock);
-            optionsBlock.Add(backwardTaperBlock);
-            optionsBlock.Add(sMeshIndexBlock);
+            meshDetailsGroup.Add(meshDetailsHeader);
+            meshDetailsGroup.Add(nLoopsBlock);
+            meshDetailsGroup.Add(sMeshIndexBlock);
+
+
+            optionsBlock.Add(shapeGroup);
+            optionsBlock.Add(meshDetailsGroup);
             optionsBlock.Add(_curveFoldout);
             optionsBlock.Add(_deformFoldout);
             _deformFoldout.value = false;

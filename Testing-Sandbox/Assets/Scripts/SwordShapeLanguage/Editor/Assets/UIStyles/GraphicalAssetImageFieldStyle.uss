@@ -1,5 +1,6 @@
 #image
 {
+	margin-top: 5px;
 	width: 128px;
 	height: 128px;
 	align-self: center;

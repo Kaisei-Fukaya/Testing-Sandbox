@@ -111,7 +111,7 @@ namespace SSL.Data
                 //{
                 //    Debug.Log(pixels[i]);
                 //}
-                Debug.Log($"Texture readable: {texture.isReadable}, Image loaded: {imageloaded}, Mipmaps: {texture.mipmapCount}");
+                //Debug.Log($"Texture readable: {texture.isReadable}, Image loaded: {imageloaded}, Mipmaps: {texture.mipmapCount}");
             }
             else
                 throw new Exception("Compatible file was not selected");

@@ -34,8 +34,6 @@ namespace SSL.Graph
         GAGenData _saveData;
         Inference _inference;
 
-        Image _imageTest;
-
         [MenuItem("Window/Graphical Asset Generator")]
         public static void ShowWindow()
         {
@@ -133,25 +131,24 @@ namespace SSL.Graph
             };
             loadButton.clicked += Load;
 
-            ToolbarButton img2ModelButton = new ToolbarButton()
-            {
-                text = "Generate from Image"
-            };
-            img2ModelButton.clicked += GenerateFromImage;
+            //ToolbarButton img2ModelButton = new ToolbarButton()
+            //{
+            //    text = "Generate from Image"
+            //};
+            //img2ModelButton.clicked += GenerateFromImage;
 
-            ToolbarButton rand2ModelButton = new ToolbarButton()
-            {
-                text = "Generate Random"
-            };
-            rand2ModelButton.clicked += GenerateFromRandom;
+            //ToolbarButton rand2ModelButton = new ToolbarButton()
+            //{
+            //    text = "Generate Random"
+            //};
+            //rand2ModelButton.clicked += GenerateFromRandom;
 
-            ToolbarButton interpButton = new ToolbarButton()
-            {
-                text = "Interpolate"
-            };
-            interpButton.clicked += Interpolate;
+            //ToolbarButton interpButton = new ToolbarButton()
+            //{
+            //    text = "Interpolate"
+            //};
+            //interpButton.clicked += Interpolate;
 
-            _imageTest = new Image();
 
             ToolbarSpacer spacer1 = new ToolbarSpacer();
             ToolbarSpacer spacer2 = new ToolbarSpacer();
@@ -161,9 +158,9 @@ namespace SSL.Graph
             toolbar.Add(saveAsButton);
             toolbar.Add(loadButton);
             toolbar.Add(spacer2);
-            toolbar.Add(img2ModelButton);
-            toolbar.Add(rand2ModelButton);
-            toolbar.Add(interpButton);
+            //toolbar.Add(img2ModelButton);
+            //toolbar.Add(rand2ModelButton);
+            //toolbar.Add(interpButton);
             toolbar.Add(spacer3);
 
             rootVisualElement.Add(toolbar);
@@ -177,7 +174,6 @@ namespace SSL.Graph
             };
 
             _previewWindow = new PreviewBox();
-            _previewWindow.contentContainer.Add(_imageTest);
             _previewWindow.Initialise(_graphView, GAGenDataUtils.NodesToData(_graphView.Nodes));
             _previewWindow.name = "previewWindow";
             _graphView.PreviewWindow = _previewWindow;

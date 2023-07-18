@@ -222,8 +222,25 @@ namespace SSL.Graph
             Slider tSlider = new Slider()
             {
                 name = "tSlider",
-                tooltip = "Set the 't' value of the interpolation, 0 = image A, 1 = image B"
+                tooltip = "Set the 't' value of the interpolation, 0 = image A, 1 = image B",
+                lowValue = 0f,
+                highValue = 1f,
+                value = 0.5f
             };
+
+            FloatField tField = new FloatField()
+            {
+                name = "tField",
+                label = "Interpolation",
+                value = 0.5f
+            };
+
+            tField.RegisterValueChangedCallback(x => {
+                float v = Mathf.Clamp(x.newValue, 0f, 1f);
+                tField.SetValueWithoutNotify(v);
+                tSlider.SetValueWithoutNotify(v);
+            });
+            tSlider.RegisterValueChangedCallback(x => tField.SetValueWithoutNotify(x.newValue));
 
             ImageField imageAField = new ImageField("First image")
             {
@@ -254,6 +271,7 @@ namespace SSL.Graph
             tab.Add(tabSpacer);
             tab.Add(imageFieldGroup);
             tab.Add(tSlider);
+            tab.Add(tField);
             tab.Add(generateButton);
             tab.AddToClassList("tab");
             _mainContainer.Add(tab);
