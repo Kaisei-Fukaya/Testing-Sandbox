@@ -43,6 +43,7 @@ namespace SSL.Data
             float[,,,] imageData = LoadChannelAsFloatArray(image);
             Tensor input = new Tensor(1, 64, 64, 1, imageData);
             var output = ReconstructInference(input);
+            input.Dispose();
             return output;
         }
 
@@ -65,6 +66,7 @@ namespace SSL.Data
                 input[i] = (float)randNormal;
             }
             var output = LatentInference(input);
+            input.Dispose();
             return output;
         }
 
@@ -85,6 +87,11 @@ namespace SSL.Data
                 latentLerp[i] = Mathf.Lerp(latentA[i], latentB[i], t);
             }
             var output = LatentInference(latentLerp);
+            inputA.Dispose();
+            inputB.Dispose();
+            latentA.Dispose();
+            latentB.Dispose();
+            latentLerp.Dispose();
             return output;
         }
 
@@ -196,6 +203,11 @@ namespace SSL.Data
                     ((result[i * 6]       + 1) / 2) * _sizeScale, 
                     ((result[(i * 6) + 1] + 1) / 2) * _sizeScale, 
                     1f);
+
+                float sizeMagnitude = Mathf.Sqrt((newSettings.parameters.size.x * newSettings.parameters.size.x) + (newSettings.parameters.size.y * newSettings.parameters.size.y));
+                if (sizeMagnitude < 1f)
+                    break; //Remove vestigial nodes
+
                 newSettings.parameters.curveParams.controlPoint = new Vector2((result[(i * 6) + 2] * _sizeScale), 0f);
                 newSettings.parameters.curveParams.tipOffset =    new Vector2((result[(i * 6) + 3] * _sizeScale), 0f);
                 newSettings.parameters.nLoops = 5;
@@ -214,7 +226,7 @@ namespace SSL.Data
             result.Dispose();
             GAGenData output = ScriptableObject.CreateInstance<GAGenData>();
             output.Nodes = newNodes;
-            Debug.Log(output.Nodes[0].Settings.parameters.curveNotAffectNormal);
+            //Debug.Log(output.Nodes[0].Settings.parameters.curveNotAffectNormal);
             return output;
         }
 

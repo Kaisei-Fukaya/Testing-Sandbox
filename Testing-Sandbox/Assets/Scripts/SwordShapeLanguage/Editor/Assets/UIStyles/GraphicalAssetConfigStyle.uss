@@ -40,7 +40,12 @@ GAPreview
 
 .tab > Button
 {
-	flex: 0.2;
+	height: 25px;
+}
+
+.tabSpacer
+{
+	height: 5px;
 }
 
 #titleElement
@@ -58,20 +63,25 @@ GAPreview
 .tabButton
 {
 	display: flex;
-	background-color: #32a852;
+	background-color: var(--gag-colors-light-3);
 	flex: 1;
 	-unity-text-align: middle-center;
 	padding: 4;
+	border-left-color: rgba(0,0,0,0.2);
+	border-left-width: 2px;
+	border-right-color: rgba(0,0,0,0.2);
+	border-right-width: 2px;
+	color: #ffffff;
 }
 
 .tabButton:hover
 {
-	background-color: #ffffff;
+	background-color: var(--gag-colors-light-2);
 }
 
 .tabFocused
 {
-	background-color: #ffffff;
+	background-color: var(--gag-colors-light-1);
 }
 
 .hiddenTab
@@ -83,4 +93,28 @@ Slider
 {
 	width: 50%;
 	align-self: center;
+}
+
+#paramBox
+{
+	border-color: rgba(0,0,0,0.2);
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+}
+
+.inputBlock
+{
+	flex-direction: row;
+	width: 100%;
+	align-content: stretch;
+}
+
+.inputBlock > Label
+{
+	flex: 1;
+}
+
+.inputBlock > SliderInt
+{
+	flex: 2;
 }

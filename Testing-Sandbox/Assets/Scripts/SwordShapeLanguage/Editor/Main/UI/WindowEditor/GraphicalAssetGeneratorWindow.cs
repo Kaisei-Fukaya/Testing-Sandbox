@@ -23,6 +23,14 @@ namespace SSL.Graph
         VisualElement _mainView;
         public bool inTrainingMode;
 
+        public int subdiv { get; private set; } = 2;
+
+        void SetSubdiv(int value)
+        {
+            subdiv = value;
+            _graphView.NodeUpdateFlag();
+        }
+
         GAGenData _saveData;
         Inference _inference;
 
@@ -180,7 +188,7 @@ namespace SSL.Graph
                 name = "configWindow",
                 inference = _inference
             };
-            _configBox.Initialise(Load);
+            _configBox.Initialise(Load, SetSubdiv);
 
             _previewConfigBox.Add(_configBox);
 

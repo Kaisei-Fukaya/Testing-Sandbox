@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -17,12 +18,14 @@ namespace SSL.Graph
         List<VisualElement> _tabs = new List<VisualElement>();
         List<TextElement> _tabButtons = new List<TextElement>();
         public Inference inference;
-        System.Action<GAGenData> _loadMethod;
+        Action<GAGenData> _loadMethod;
+        Action<int> _setSubdivMethod;
 
-        public void Initialise(System.Action<GAGenData> loadMethod)
+        public void Initialise(Action<GAGenData> loadMethod, Action<int> setSubdivMethod)
         {
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetConfigStyle.uss", typeof(StyleSheet)));
             _loadMethod = loadMethod;
+            _setSubdivMethod = setSubdivMethod;
 
             VisualElement topContainer = new VisualElement()
             {
@@ -44,6 +47,29 @@ namespace SSL.Graph
             contentContainer.Add(topContainer);
             contentContainer.Add(_mainContainer);
             PopulateTabs();
+            AddParamSection();
+        }
+
+        void AddParamSection()
+        {
+            VisualElement paramBox = new VisualElement()
+            {
+                name = "paramBox"
+            };
+
+            VisualElement resolutionBlock = new VisualElement();
+            resolutionBlock.AddToClassList("inputBlock");
+            Label resolutionLabel = new Label("Subdivisions:");
+            SliderInt resolutionSlider = new SliderInt(1, 5);
+            resolutionBlock.Add(resolutionLabel);
+            resolutionBlock.Add(resolutionSlider);
+
+            resolutionSlider.SetValueWithoutNotify(2);
+            resolutionSlider.RegisterValueChangedCallback(x => _setSubdivMethod(x.newValue));
+
+            paramBox.Add(resolutionBlock);
+
+            _mainContainer.Insert(0, paramBox);
         }
 
         void PopulateTabs()
@@ -114,6 +140,9 @@ namespace SSL.Graph
                 name = "randomTab"
             };
 
+            VisualElement tabSpacer = new VisualElement();
+            tabSpacer.AddToClassList("tabSpacer");
+
             Button generateButton = new Button()
             {
                 name = "randomGenerateButton",
@@ -128,6 +157,7 @@ namespace SSL.Graph
                 }
             };
 
+            tab.Add(tabSpacer);
             tab.Add(generateButton);
             tab.AddToClassList("tab");
             _mainContainer.Add(tab);
@@ -141,6 +171,9 @@ namespace SSL.Graph
             {
                 name = "im2Tab"
             };
+
+            VisualElement tabSpacer = new VisualElement();
+            tabSpacer.AddToClassList("tabSpacer");
 
             Button generateButton = new Button()
             {
@@ -161,6 +194,7 @@ namespace SSL.Graph
                 }
             };
 
+            tab.Add(tabSpacer);
             tab.Add(imageField);
             tab.Add(generateButton);
             tab.AddToClassList("tab");
@@ -175,6 +209,9 @@ namespace SSL.Graph
             {
                 name = "interpTab"
             };
+
+            VisualElement tabSpacer = new VisualElement();
+            tabSpacer.AddToClassList("tabSpacer");
 
             Button generateButton = new Button()
             {
@@ -214,6 +251,7 @@ namespace SSL.Graph
             imageFieldGroup.Add(imageAField);
             imageFieldGroup.Add(imageBField);
 
+            tab.Add(tabSpacer);
             tab.Add(imageFieldGroup);
             tab.Add(tSlider);
             tab.Add(generateButton);
