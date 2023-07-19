@@ -72,13 +72,13 @@ namespace SSL.Graph
             focusable = true;
 
             _swordGraph = new SwordGraph();
-            UpdateMesh(data, 2);
+            UpdateMesh(data, 2, 0f);
         }
 
-        public void UpdateMesh(GAGenData data, int subdiv)
+        public void UpdateMesh(GAGenData data, int subdiv, float spacing)
         {
             GAGenData.NodesAndEdges nodesAndEdges = data.GetNodesAndEdges(subdiv);
-            _swordGraph.Load(subdiv, 1f, nodesAndEdges.nodes, nodesAndEdges.edges, false);
+            _swordGraph.Load(subdiv, spacing, nodesAndEdges.nodes, nodesAndEdges.edges, false);
             if (_previewEditor == null)
             {
                 _mesh = _swordGraph.Generate();

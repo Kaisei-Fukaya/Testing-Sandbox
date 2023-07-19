@@ -20,12 +20,14 @@ namespace SSL.Graph
         public Inference inference;
         Action<GAGenData> _loadMethod;
         Action<int> _setSubdivMethod;
+        Action<float> _setSpacingMethod;
 
-        public void Initialise(Action<GAGenData> loadMethod, Action<int> setSubdivMethod)
+        public void Initialise(Action<GAGenData> loadMethod, Action<int> setSubdivMethod, Action<float> setSpacingMethod)
         {
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetConfigStyle.uss", typeof(StyleSheet)));
             _loadMethod = loadMethod;
             _setSubdivMethod = setSubdivMethod;
+            _setSpacingMethod = setSpacingMethod;
 
             VisualElement topContainer = new VisualElement()
             {
@@ -59,15 +61,21 @@ namespace SSL.Graph
 
             VisualElement resolutionBlock = new VisualElement();
             resolutionBlock.AddToClassList("inputBlock");
-            Label resolutionLabel = new Label("Subdivisions:");
             SliderInt resolutionSlider = new SliderInt(1, 5);
-            resolutionBlock.Add(resolutionLabel);
+            resolutionSlider.label = "Subdivisions:";
             resolutionBlock.Add(resolutionSlider);
+
+            VisualElement spacingBlock = new VisualElement();
+            spacingBlock.AddToClassList("inputBlock");
+            FloatField spacingField = new FloatField() { label = "Segment Gap:" };
+            spacingBlock.Add(spacingField);
 
             resolutionSlider.SetValueWithoutNotify(2);
             resolutionSlider.RegisterValueChangedCallback(x => _setSubdivMethod(x.newValue));
+            spacingField.RegisterValueChangedCallback(x => { float v = Mathf.Max(0f, x.newValue); spacingField.SetValueWithoutNotify(v); _setSpacingMethod(v); });
 
             paramBox.Add(resolutionBlock);
+            paramBox.Add(spacingBlock);
 
             _mainContainer.Insert(0, paramBox);
         }

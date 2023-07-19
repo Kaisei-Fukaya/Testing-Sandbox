@@ -31,6 +31,14 @@ namespace SSL.Graph
             _graphView.NodeUpdateFlag();
         }
 
+        public float spacing { get; private set; } = 0f;
+
+        void SetSpacing(float value)
+        {
+            spacing = value;
+            _graphView.NodeUpdateFlag();
+        }
+
         GAGenData _saveData;
         Inference _inference;
 
@@ -184,7 +192,7 @@ namespace SSL.Graph
                 name = "configWindow",
                 inference = _inference
             };
-            _configBox.Initialise(Load, SetSubdiv);
+            _configBox.Initialise(Load, SetSubdiv, SetSpacing);
 
             _previewConfigBox.Add(_configBox);
 

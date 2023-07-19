@@ -24,7 +24,7 @@
 
 #configWindow
 {
-	max-width: 500px;
+	max-width: 450px;
 	border-left-width: 5px;
 	border-left-color: var(--gag-colors-grid-dark-grey-1);
 }

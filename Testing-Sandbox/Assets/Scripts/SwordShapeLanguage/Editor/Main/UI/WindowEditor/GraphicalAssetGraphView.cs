@@ -117,7 +117,7 @@ namespace SSL.Graph
 
         public void OnNodeChange()
         {
-            _previewWindow.UpdateMesh(GAGenDataUtils.NodesToData(Nodes), editorWindow.subdiv);
+            _previewWindow.UpdateMesh(GAGenDataUtils.NodesToData(Nodes), editorWindow.subdiv, editorWindow.spacing);
         }
 
         private IManipulator CreateNodeContextualManipulator(string actionTitle, NodeType type)

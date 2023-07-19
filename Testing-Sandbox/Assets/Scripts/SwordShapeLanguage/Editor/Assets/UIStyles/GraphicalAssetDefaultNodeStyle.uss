@@ -127,8 +127,6 @@ GraphicalAssetPort > VisualElement > Port > Label
 	justify-content: space-between;
 	margin-top: 1px;
 	margin-bottom: 1px;
-	margin-left: 3px;
-	margin-right: 3px;
 	height: 19px;
 }
 
@@ -138,7 +136,7 @@ GraphicalAssetPort > VisualElement > Port > Label
 
 .slider-group > Slider
 {
-	min-width: 150px;
+	min-width: 50px;
 }
 
 
@@ -154,7 +152,7 @@ GraphicalAssetPort > VisualElement > Port > Label
 }
 
 .label-field-block > Slider{
-	width: 200px;
+	width: 100px;
 }
 
 .curve-foldout > VisualElement{
@@ -178,7 +176,7 @@ Vector3Field > VisualElement
 	flex-direction: column;
 }
 
-#shapeBlockContent
+.twoColBlock
 {
 	flex-direction: row;
 }
@@ -191,4 +189,29 @@ Vector3Field > VisualElement
 .label-field-block > FloatField > FloatInput
 {
 	min-width: 60px;
+}
+
+.label-field-block > FloatField > Label
+{
+	min-width: 75px;
+}
+
+.slider-group > FloatField > Label
+{
+	min-width: 75px;
+}
+
+.slider-group > FloatField > FloatInput
+{
+	min-width: 35px;
+}
+
+FloatField > FloatInput
+{
+	min-width: 60px;
+}
+
+FloatField > Label
+{
+	min-width: 75px;
 }
