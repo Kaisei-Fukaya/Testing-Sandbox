@@ -117,7 +117,7 @@ namespace SSL.Graph
 
         public void OnNodeChange()
         {
-            _previewWindow.UpdateMesh(GAGenDataUtils.NodesToData(Nodes), editorWindow.subdiv, editorWindow.spacing);
+            _previewWindow.UpdateMesh(GAGenDataUtils.NodesToData(Nodes), editorWindow.subdiv, editorWindow.spacing, editorWindow.GetMatList());
         }
 
         private IManipulator CreateNodeContextualManipulator(string actionTitle, NodeType type)
@@ -202,7 +202,7 @@ namespace SSL.Graph
         private void AddPreviewWindow()
         {
             _previewWindow = new PreviewBox();
-            _previewWindow.Initialise(this, GAGenDataUtils.NodesToData(Nodes));
+            _previewWindow.Initialise(this, GAGenDataUtils.NodesToData(Nodes), editorWindow.GetMatList());
             _previewWindow.StretchToParentSize();
             _previewWindow.name = "previewWindow";
             Insert(0, _previewWindow);

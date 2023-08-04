@@ -14,10 +14,17 @@ namespace SSL.Graph
     {
         Editor _previewEditor;
         SwordGraph _swordGraph;
+        GameObject _previewObject;
+        MeshRenderer _previewMR;
+        MeshFilter _previewMF;
 
         public void Initialise(GraphView graphView, GAGenData data)
         {
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetPreviewStyle.uss", typeof(StyleSheet)));
+
+            _previewObject = new GameObject();
+            _previewMR = _previewObject.AddComponent<MeshRenderer>();
+            _previewMF = _previewObject.AddComponent<MeshFilter>();
 
             VisualElement topContainer = new VisualElement()
             {
@@ -84,7 +91,9 @@ namespace SSL.Graph
             _swordGraph.Load(2, 1f, nodesAndEdges.nodes, nodesAndEdges.edges, false);
             if(_previewEditor != null)
                 Object.DestroyImmediate(_previewEditor);
-            _previewEditor = Editor.CreateEditor(_swordGraph.Generate());
+            _previewMF.mesh = _swordGraph.Generate();
+            //_previewMR.materials = new Material[] {Material. };
+            _previewEditor = Editor.CreateEditor(_previewObject);
         }
 
         //void ReplaceMeshData(Mesh newMesh)

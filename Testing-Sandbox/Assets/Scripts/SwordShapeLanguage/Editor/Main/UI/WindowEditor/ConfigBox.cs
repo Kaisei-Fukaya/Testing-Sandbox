@@ -22,6 +22,8 @@ namespace SSL.Graph
         Action<int> _setSubdivMethod;
         Action<float> _setSpacingMethod;
 
+        ObjectField _materialField;
+
         public void Initialise(Action<GAGenData> loadMethod, Action<int> setSubdivMethod, Action<float> setSpacingMethod)
         {
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetConfigStyle.uss", typeof(StyleSheet)));
@@ -70,14 +72,39 @@ namespace SSL.Graph
             FloatField spacingField = new FloatField() { label = "Segment Gap:" };
             spacingBlock.Add(spacingField);
 
+            Button materialsButton = new Button();
+            materialsButton.text = "Assign Materials";
+            materialsButton.AddToClassList("inputBlock");
+            materialsButton.clicked += OpenMaterialsWindow;
+
+            _materialField = new ObjectField();
+            _materialField.AddToClassList("inputBlock");
+            _materialField.objectType = typeof(Material);
+
             resolutionSlider.SetValueWithoutNotify(2);
             resolutionSlider.RegisterValueChangedCallback(x => _setSubdivMethod(x.newValue));
             spacingField.RegisterValueChangedCallback(x => { float v = Mathf.Max(0f, x.newValue); spacingField.SetValueWithoutNotify(v); _setSpacingMethod(v); });
 
             paramBox.Add(resolutionBlock);
-            paramBox.Add(spacingBlock);
+            //paramBox.Add(spacingBlock);
+            paramBox.Add(materialsButton);
+            paramBox.Add(_materialField);
 
             _mainContainer.Insert(0, paramBox);
+        }
+
+        public Material[] GetMaterialList()
+        {
+            if(_materialField.value != null && _materialField.value is Material)
+            {
+                return new Material[] { (Material)_materialField.value };
+            }
+            return new Material[0];
+        }
+
+        void OpenMaterialsWindow()
+        {
+            
         }
 
         void PopulateTabs()
@@ -189,7 +216,7 @@ namespace SSL.Graph
                 text = "Generate"
             };
 
-            ImageField imageField = new ImageField("Image")
+            ImageField imageField = new ImageField("Image", "rec")
             {
                 name = "imageField"
             };
@@ -250,12 +277,12 @@ namespace SSL.Graph
             });
             tSlider.RegisterValueChangedCallback(x => tField.SetValueWithoutNotify(x.newValue));
 
-            ImageField imageAField = new ImageField("First image")
+            ImageField imageAField = new ImageField("First image", "intA")
             {
                 name = "imageAField"
             };
 
-            ImageField imageBField = new ImageField("Second image")
+            ImageField imageBField = new ImageField("Second image", "intB")
             {
                 name = "imageBField"
             };

@@ -16,12 +16,17 @@ namespace SSL.Graph
         Button _pickerButton;
         TextElement _pickerTag;
         string _loadedPath = "";
+        string _tmpName; //Name of temporary file created after preprocessing
+        string _tmpPath;
 
         Image _image;
 
-        public ImageField(string tagText)
+        public ImageField(string tagText, string tmpName)
         {
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetImageFieldStyle.uss", typeof(StyleSheet)));
+
+            _tmpName = tmpName + ".png";
+            _tmpPath = Preprocess.tmp_path + "/" + _tmpName;
 
             _picker = new VisualElement() 
             {
@@ -47,18 +52,27 @@ namespace SSL.Graph
                 scaleMode = ScaleMode.StretchToFill
             };
 
-            _pickerButton.clicked += LoadImage;
+            _pickerButton.clicked += CommenceLoadImage;
 
             this.Add(_picker);
             this.Add(_image);
         }
 
-        void LoadImage()
+        void CommenceLoadImage()
         {
             string filePath = EditorUtility.OpenFilePanel("Please provide an image", "", "");
-            Texture2D loadedImage = Inference.LoadImage(filePath);
+            if (filePath == string.Empty)
+                return;
+            Preprocess.PreprocessImage(filePath, _tmpName);
             _loadedPath = filePath;
+            EditorApplication.delayCall += FinishLoadingImage;
+        }
+
+        void FinishLoadingImage()
+        {
+            Texture2D loadedImage = Inference.LoadImage(_tmpPath);
             _image.image = loadedImage;
+            //_image.im
         }
 
         public Texture2D GetImage()
@@ -70,7 +84,8 @@ namespace SSL.Graph
 
         public string GetLoadedPath()
         {
-            return _loadedPath;
+            //return _loadedPath;
+            return _tmpPath;
         }
     }
 }

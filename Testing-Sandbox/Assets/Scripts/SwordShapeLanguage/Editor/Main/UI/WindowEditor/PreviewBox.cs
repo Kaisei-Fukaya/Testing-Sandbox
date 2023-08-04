@@ -15,10 +15,19 @@ namespace SSL.Graph
         Editor _previewEditor;
         SwordGraph _swordGraph;
         Mesh _mesh;
+        GameObject _previewObject;
+        MeshRenderer _previewMR;
+        MeshFilter _previewMF;
 
-        public void Initialise(GraphView graphView, GAGenData data)
+        public void Initialise(GraphView graphView, GAGenData data, Material[] materials)
         {
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetPreviewStyle.uss", typeof(StyleSheet)));
+
+            //var previewObjectTemplate = (GameObject)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/PreviewTemplate.prefab", typeof(GameObject));
+            _previewObject = new GameObject();
+            _previewMR = _previewObject.AddComponent<MeshRenderer>();
+            _previewMF = _previewObject.AddComponent<MeshFilter>();
+            _previewObject.hideFlags = HideFlags.HideInHierarchy;
 
             VisualElement topContainer = new VisualElement()
             {
@@ -72,20 +81,25 @@ namespace SSL.Graph
             focusable = true;
 
             _swordGraph = new SwordGraph();
-            UpdateMesh(data, 2, 0f);
+            UpdateMesh(data, 2, 0f, materials);
         }
 
-        public void UpdateMesh(GAGenData data, int subdiv, float spacing)
+        public void UpdateMesh(GAGenData data, int subdiv, float spacing, Material[] materials)
         {
             GAGenData.NodesAndEdges nodesAndEdges = data.GetNodesAndEdges(subdiv);
             _swordGraph.Load(subdiv, spacing, nodesAndEdges.nodes, nodesAndEdges.edges, false);
             if (_previewEditor == null)
             {
                 _mesh = _swordGraph.Generate();
-                _previewEditor = Editor.CreateEditor(_mesh);
+                _previewMF.mesh = _mesh;
+                _previewMR.sharedMaterials = materials;
+                _previewEditor = Editor.CreateEditor(_previewObject);
                 return;
             }
+            if(_previewMR.sharedMaterials != materials)
+                _previewMR.sharedMaterials = materials;
             _swordGraph.Generate(ref _mesh);
+            _previewEditor.ReloadPreviewInstances();
         }
     }
 }

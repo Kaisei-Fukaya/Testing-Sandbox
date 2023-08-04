@@ -114,7 +114,7 @@ namespace SSL.Data
                 //Debug.Log($"Texture readable: {texture.isReadable}, Image loaded: {imageloaded}, Mipmaps: {texture.mipmapCount}");
             }
             else
-                throw new Exception("Compatible file was not selected");
+                throw new Exception($"Compatible file was not selected: {path}");
             return texture;
         }
 

@@ -174,6 +174,13 @@ namespace SSL.Graph
             rootVisualElement.Add(toolbar);
         }
 
+        public Material[] GetMatList()
+        {
+            if(_configBox != null)
+                return _configBox.GetMaterialList();
+            return new Material[0];
+        }
+
         private void AddPreviewConfigWindow()
         {
             _previewConfigBox = new VisualElement()
@@ -182,7 +189,7 @@ namespace SSL.Graph
             };
 
             _previewWindow = new PreviewBox();
-            _previewWindow.Initialise(_graphView, GAGenDataUtils.NodesToData(_graphView.Nodes));
+            _previewWindow.Initialise(_graphView, GAGenDataUtils.NodesToData(_graphView.Nodes), GetMatList());
             _previewWindow.name = "previewWindow";
             _graphView.PreviewWindow = _previewWindow;
             _previewConfigBox.Add(_previewWindow);
