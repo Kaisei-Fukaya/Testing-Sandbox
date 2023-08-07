@@ -23,6 +23,7 @@ namespace SSL.Data
 
             SortNodes();
 
+
             //Nodes
             for (int i = 0; i < Nodes.Count; i++)
             {
@@ -69,6 +70,7 @@ namespace SSL.Data
                         break;
                 }
                 newNode.Build(subdiv, newParams);
+                //Debug.Log(newParams.subMeshIndex);
                 newNodes.Add(newNode);
                 indexLookup.Add(Nodes[i].ID, i);
             }

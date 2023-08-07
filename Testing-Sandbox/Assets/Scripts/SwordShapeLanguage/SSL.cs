@@ -48,6 +48,12 @@ namespace SSL
             mesh.SetVertices(newMesh.vertices);
             mesh.triangles = newMesh.triangles;
             mesh.SetUVs(0, newMesh.uv);
+            UnityEngine.Rendering.SubMeshDescriptor[] submeshdesc = new UnityEngine.Rendering.SubMeshDescriptor[newMesh.subMeshCount];
+            for (int i = 0; i < newMesh.subMeshCount; i++)
+            {
+                submeshdesc[i] = newMesh.GetSubMesh(i);
+            }
+            mesh.SetSubMeshes(submeshdesc);
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
             mesh.RecalculateTangents();

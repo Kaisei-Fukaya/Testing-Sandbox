@@ -22,18 +22,27 @@ namespace SSL.Graph
         Action<int> _setSubdivMethod;
         Action<bool> _setShadingMethod;
         Action<float> _setSpacingMethod;
-
-        ObjectField _materialField;
+        Action<List<(int, Material)>> _setMaterialsMethod;
 
         private MaterialsPopupWindow _matPopupWindow;
 
-        public void Initialise(Action<GAGenData> loadMethod, Action<int> setSubdivMethod, Action<float> setSpacingMethod, Action<bool> setShadingMethod)
+        GraphicalAssetGeneratorWindow _parentWindow;
+
+        public void Initialise(GraphicalAssetGeneratorWindow parentWindow,
+            Action<GAGenData> loadMethod, 
+            Action<int> setSubdivMethod, 
+            Action<float> setSpacingMethod, 
+            Action<bool> setShadingMethod, 
+            Action<List<(int, Material)>> setMaterialsMethod)
         {
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetConfigStyle.uss", typeof(StyleSheet)));
             _loadMethod = loadMethod;
             _setSubdivMethod = setSubdivMethod;
             _setSpacingMethod = setSpacingMethod;
             _setShadingMethod = setShadingMethod;
+            _setMaterialsMethod = setMaterialsMethod;
+
+            _parentWindow = parentWindow;
 
             VisualElement topContainer = new VisualElement()
             {
@@ -88,10 +97,6 @@ namespace SSL.Graph
             materialsButton.AddToClassList("inputBlock");
             materialsButton.clicked += () => OpenMaterialsWindow(materialsButton);
 
-            _materialField = new ObjectField();
-            _materialField.AddToClassList("inputBlock");
-            _materialField.objectType = typeof(Material);
-
             resolutionSlider.SetValueWithoutNotify(2);
             resolutionSlider.RegisterValueChangedCallback(x => _setSubdivMethod(x.newValue));
             spacingField.RegisterValueChangedCallback(x => { float v = Mathf.Max(0f, x.newValue); spacingField.SetValueWithoutNotify(v); _setSpacingMethod(v); });
@@ -102,19 +107,10 @@ namespace SSL.Graph
             paramBox.Add(facetedShadingBlock);
             //paramBox.Add(spacingBlock);
             paramBox.Add(materialsButton);
-            paramBox.Add(_materialField);
 
             _mainContainer.Insert(0, paramBox);
         }
 
-        public Material[] GetMaterialList()
-        {
-            if(_materialField.value != null && _materialField.value is Material)
-            {
-                return new Material[] { (Material)_materialField.value };
-            }
-            return new Material[0];
-        }
 
         void OpenMaterialsWindow(Button button)
         {
@@ -122,6 +118,8 @@ namespace SSL.Graph
             {
                 _matPopupWindow = EditorWindow.CreateInstance<MaterialsPopupWindow>();
                 _matPopupWindow.ShowUtility();
+                _matPopupWindow.Initialise(_parentWindow.materials, _setMaterialsMethod);
+
                 return;
             }
             _matPopupWindow.Close();

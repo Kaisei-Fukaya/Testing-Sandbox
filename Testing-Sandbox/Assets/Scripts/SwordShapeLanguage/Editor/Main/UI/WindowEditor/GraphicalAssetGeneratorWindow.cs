@@ -25,6 +25,7 @@ namespace SSL.Graph
 
         public int subdiv { get; private set; } = 2;
         public bool facetedShading { get; private set; } = false;
+        public List<(int, Material)> materials = new List<(int, Material)>() { (0, null) };
 
         void SetSubdiv(int value)
         {
@@ -44,6 +45,26 @@ namespace SSL.Graph
         {
             facetedShading = value;
             _graphView.NodeUpdateFlag();
+        }
+
+        void SetMaterials(List<(int, Material)> mats)
+        {
+            if (mats != materials)
+            {
+                materials = mats;
+                _graphView.NodeUpdateFlag();
+            }
+        }
+
+        Material[] GetMaterials()
+        {
+            materials.Sort((x, y) => x.Item1.CompareTo(y.Item1));
+            Material[] materialsArray = new Material[materials.Count];
+            for (int i = 0; i < materialsArray.Length; i++)
+            {
+                materialsArray[i] = materials[i].Item2;
+            }
+            return materialsArray;
         }
 
         GAGenData _saveData;
@@ -188,9 +209,10 @@ namespace SSL.Graph
 
         public Material[] GetMatList()
         {
-            if(_configBox != null)
-                return _configBox.GetMaterialList();
-            return new Material[0];
+            //if(_configBox != null)
+            //    return _configBox.GetMaterialList();
+            //return new Material[0];
+            return GetMaterials();
         }
 
         private void AddPreviewConfigWindow()
@@ -211,7 +233,7 @@ namespace SSL.Graph
                 name = "configWindow",
                 inference = _inference
             };
-            _configBox.Initialise(Load, SetSubdiv, SetSpacing, SetShading);
+            _configBox.Initialise(this, Load, SetSubdiv, SetSpacing, SetShading, SetMaterials);
 
             _previewConfigBox.Add(_configBox);
 

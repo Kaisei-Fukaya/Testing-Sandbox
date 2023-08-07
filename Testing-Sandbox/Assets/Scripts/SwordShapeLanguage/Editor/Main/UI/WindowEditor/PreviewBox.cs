@@ -96,8 +96,14 @@ namespace SSL.Graph
                 _previewEditor = Editor.CreateEditor(_previewObject);
                 return;
             }
-            if(_previewMR.sharedMaterials != materials)
-                _previewMR.sharedMaterials = materials;
+            //if (_previewMR.sharedMaterials != materials)
+            //{
+            //    if (materials.Length > 0)
+            //        Debug.Log(materials[0]);
+            //    if(materials.Length > 1)
+            //        Debug.Log(materials[1]);
+            //}
+            _previewMR.sharedMaterials = materials;
             _swordGraph.Generate(ref _mesh);
             _previewEditor.ReloadPreviewInstances();
         }
