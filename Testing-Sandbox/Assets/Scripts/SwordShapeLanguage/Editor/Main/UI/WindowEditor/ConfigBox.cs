@@ -20,16 +20,20 @@ namespace SSL.Graph
         public Inference inference;
         Action<GAGenData> _loadMethod;
         Action<int> _setSubdivMethod;
+        Action<bool> _setShadingMethod;
         Action<float> _setSpacingMethod;
 
         ObjectField _materialField;
 
-        public void Initialise(Action<GAGenData> loadMethod, Action<int> setSubdivMethod, Action<float> setSpacingMethod)
+        private MaterialsPopupWindow _matPopupWindow;
+
+        public void Initialise(Action<GAGenData> loadMethod, Action<int> setSubdivMethod, Action<float> setSpacingMethod, Action<bool> setShadingMethod)
         {
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetConfigStyle.uss", typeof(StyleSheet)));
             _loadMethod = loadMethod;
             _setSubdivMethod = setSubdivMethod;
             _setSpacingMethod = setSpacingMethod;
+            _setShadingMethod = setShadingMethod;
 
             VisualElement topContainer = new VisualElement()
             {
@@ -67,6 +71,13 @@ namespace SSL.Graph
             resolutionSlider.label = "Subdivisions:";
             resolutionBlock.Add(resolutionSlider);
 
+            VisualElement facetedShadingBlock = new VisualElement();
+            facetedShadingBlock.AddToClassList("inputBlock");
+            Toggle facetedShadingToggle = new Toggle();
+            facetedShadingToggle.label = "Faceted Shading:";
+            facetedShadingBlock.Add(facetedShadingToggle);
+
+
             VisualElement spacingBlock = new VisualElement();
             spacingBlock.AddToClassList("inputBlock");
             FloatField spacingField = new FloatField() { label = "Segment Gap:" };
@@ -75,7 +86,7 @@ namespace SSL.Graph
             Button materialsButton = new Button();
             materialsButton.text = "Assign Materials";
             materialsButton.AddToClassList("inputBlock");
-            materialsButton.clicked += OpenMaterialsWindow;
+            materialsButton.clicked += () => OpenMaterialsWindow(materialsButton);
 
             _materialField = new ObjectField();
             _materialField.AddToClassList("inputBlock");
@@ -84,8 +95,11 @@ namespace SSL.Graph
             resolutionSlider.SetValueWithoutNotify(2);
             resolutionSlider.RegisterValueChangedCallback(x => _setSubdivMethod(x.newValue));
             spacingField.RegisterValueChangedCallback(x => { float v = Mathf.Max(0f, x.newValue); spacingField.SetValueWithoutNotify(v); _setSpacingMethod(v); });
+            facetedShadingToggle.SetValueWithoutNotify(false);
+            facetedShadingToggle.RegisterValueChangedCallback(x => _setShadingMethod(x.newValue));
 
             paramBox.Add(resolutionBlock);
+            paramBox.Add(facetedShadingBlock);
             //paramBox.Add(spacingBlock);
             paramBox.Add(materialsButton);
             paramBox.Add(_materialField);
@@ -102,9 +116,21 @@ namespace SSL.Graph
             return new Material[0];
         }
 
-        void OpenMaterialsWindow()
+        void OpenMaterialsWindow(Button button)
         {
-            
+            if (_matPopupWindow == null)
+            {
+                _matPopupWindow = EditorWindow.CreateInstance<MaterialsPopupWindow>();
+                _matPopupWindow.ShowUtility();
+                return;
+            }
+            _matPopupWindow.Close();
+        }
+
+        public void CloseMaterialsWindow()
+        {
+            if (_matPopupWindow != null)
+                _matPopupWindow.Close();
         }
 
         void PopulateTabs()

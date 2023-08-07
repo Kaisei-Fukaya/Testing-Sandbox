@@ -178,13 +178,13 @@ namespace SSL
                 }
                 seen.Add(tris[i]);
             }
-            for (int i = 0; i < uv.Count; i++)
+            //for (int i = 0; i < uv.Count; i++)
             //{
             //    uv[i] = new Vector2(
             //        Mathf.InverseLerp(bounds.min.x, bounds.max.x, verts[i].x),
             //        Mathf.InverseLerp(bounds.min.y, bounds.max.y, verts[i].y));
             //}
-            Debug.Log($"verts {verts.Count}, uvs {uv.Count}");
+            //Debug.Log($"verts {verts.Count}, uvs {uv.Count}");
             return (verts, uv, tris);
         }
 

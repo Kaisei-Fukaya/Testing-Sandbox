@@ -24,6 +24,7 @@ namespace SSL.Graph
         public bool inTrainingMode;
 
         public int subdiv { get; private set; } = 2;
+        public bool facetedShading { get; private set; } = false;
 
         void SetSubdiv(int value)
         {
@@ -36,6 +37,12 @@ namespace SSL.Graph
         void SetSpacing(float value)
         {
             spacing = value;
+            _graphView.NodeUpdateFlag();
+        }
+
+        void SetShading(bool value)
+        {
+            facetedShading = value;
             _graphView.NodeUpdateFlag();
         }
 
@@ -67,6 +74,11 @@ namespace SSL.Graph
             AddStyles();
             AddPreviewConfigWindow();
             SetupDragAndDrop();
+        }
+
+        private void OnDestroy()
+        {
+            _configBox.CloseMaterialsWindow();
         }
 
         private void SetupDragAndDrop()
@@ -199,7 +211,7 @@ namespace SSL.Graph
                 name = "configWindow",
                 inference = _inference
             };
-            _configBox.Initialise(Load, SetSubdiv, SetSpacing);
+            _configBox.Initialise(Load, SetSubdiv, SetSpacing, SetShading);
 
             _previewConfigBox.Add(_configBox);
 

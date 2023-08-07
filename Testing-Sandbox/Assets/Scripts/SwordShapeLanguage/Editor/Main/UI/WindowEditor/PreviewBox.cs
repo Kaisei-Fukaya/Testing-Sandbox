@@ -23,11 +23,11 @@ namespace SSL.Graph
         {
             styleSheets.Add((StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetPreviewStyle.uss", typeof(StyleSheet)));
 
-            //var previewObjectTemplate = (GameObject)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/PreviewTemplate.prefab", typeof(GameObject));
-            _previewObject = new GameObject();
-            _previewMR = _previewObject.AddComponent<MeshRenderer>();
-            _previewMF = _previewObject.AddComponent<MeshFilter>();
-            _previewObject.hideFlags = HideFlags.HideInHierarchy;
+            _previewObject = (GameObject)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/PreviewTemplate.prefab", typeof(GameObject));
+            //_previewObject = new GameObject();
+            _previewMR = _previewObject.GetComponent<MeshRenderer>();
+            _previewMF = _previewObject.GetComponent<MeshFilter>();
+            //_previewObject.hideFlags = HideFlags.HideInHierarchy;
 
             VisualElement topContainer = new VisualElement()
             {
@@ -81,13 +81,13 @@ namespace SSL.Graph
             focusable = true;
 
             _swordGraph = new SwordGraph();
-            UpdateMesh(data, 2, 0f, materials);
+            UpdateMesh(data, 2, 0f, materials, false);
         }
 
-        public void UpdateMesh(GAGenData data, int subdiv, float spacing, Material[] materials)
+        public void UpdateMesh(GAGenData data, int subdiv, float spacing, Material[] materials, bool facetedShading)
         {
             GAGenData.NodesAndEdges nodesAndEdges = data.GetNodesAndEdges(subdiv);
-            _swordGraph.Load(subdiv, spacing, nodesAndEdges.nodes, nodesAndEdges.edges, false);
+            _swordGraph.Load(subdiv, spacing, nodesAndEdges.nodes, nodesAndEdges.edges, facetedShading);
             if (_previewEditor == null)
             {
                 _mesh = _swordGraph.Generate();
