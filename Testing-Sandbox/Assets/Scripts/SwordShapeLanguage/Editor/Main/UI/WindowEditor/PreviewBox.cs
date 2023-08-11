@@ -84,6 +84,23 @@ namespace SSL.Graph
             UpdateMesh(data, 2, 0f, materials, false);
         }
 
+        public GameObject GetCurrentObject(string savePath)
+        {
+            var outObject = Object.Instantiate(_previewObject);
+            var outMR = outObject.GetComponent<MeshRenderer>();
+            var mats = outMR.sharedMaterials;
+            var newMats = new Material[mats.Length];
+            for (int i = 0; i < mats.Length; i++)
+            {
+                string newMaterialPath = savePath + $"_{i}.mat";
+                AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(mats[i]), newMaterialPath);
+                newMats[i] = AssetDatabase.LoadAssetAtPath<Material>(newMaterialPath);
+            }
+            outMR.sharedMaterials = newMats;
+            AssetDatabase.CreateAsset(outObject.GetComponent<MeshFilter>().sharedMesh, savePath + ".mesh");
+            return outObject;
+        }
+
         public void UpdateMesh(GAGenData data, int subdiv, float spacing, Material[] materials, bool facetedShading)
         {
             GAGenData.NodesAndEdges nodesAndEdges = data.GetNodesAndEdges(subdiv);
@@ -91,7 +108,7 @@ namespace SSL.Graph
             if (_previewEditor == null)
             {
                 _mesh = _swordGraph.Generate();
-                _previewMF.mesh = _mesh;
+                _previewMF.sharedMesh = _mesh;
                 _previewMR.sharedMaterials = materials;
                 _previewEditor = Editor.CreateEditor(_previewObject);
                 return;

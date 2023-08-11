@@ -8,6 +8,7 @@ using System;
 using UnityEditor.Experimental.GraphView;
 using SSL.Data;
 using SSL.Data.Utils;
+using System.IO;
 
 namespace SSL.Graph
 {
@@ -243,6 +244,31 @@ namespace SSL.Graph
         public void RandomiseSelectedNodes(int valueGroupIndex)
         {
             _graphView.RandomiseSelectedNodes(valueGroupIndex);
+        }
+
+        public void SaveProcessPack()
+        {
+            string name = AutoGenName();
+            GAGenData dataToSave = GetGraphData();
+            //Get tmp images and original images from each image field
+            //Export obj of result including materials (use the prefab instance?).
+            if (!Directory.Exists("Assets/Generator Results"))
+                AssetDatabase.CreateFolder("Assets", "Generator Results");
+            AssetDatabase.CreateFolder("Assets/Generator Results", name);
+            AssetDatabase.CreateAsset(dataToSave, $"Assets/Generator Results/{name}/{name}.asset");
+            GameObject currentObject = _previewWindow.GetCurrentObject($"Assets/Generator Results/{name}/{name}");
+            PrefabUtility.SaveAsPrefabAsset(currentObject, $"Assets/Generator Results/{name}/{name}.prefab");
+
+            //Create zip file
+            System.IO.Compression.ZipFile.CreateFromDirectory($"Assets/Generator Results/{name}", $"Assets/Generator Results/{name}.zip");
+
+            DestroyImmediate(currentObject);
+        }
+
+        string AutoGenName()
+        {
+            DateTime currentDateTime = DateTime.Now;
+            return currentDateTime.ToString("yyyy-MM-dd-HH-mm-ss");
         }
 
         void Save()

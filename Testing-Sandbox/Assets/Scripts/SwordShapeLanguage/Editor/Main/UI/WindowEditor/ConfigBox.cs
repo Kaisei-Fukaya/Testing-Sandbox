@@ -95,7 +95,7 @@ namespace SSL.Graph
             Button saveProcessButton = new Button();
             saveProcessButton.text = "Save Process";
             saveProcessButton.AddToClassList("inputBlock");
-            saveProcessButton.clicked += SaveProcessPack;
+            saveProcessButton.clicked += _parentWindow.SaveProcessPack;
 
 
             Button materialsButton = new Button();
@@ -116,13 +116,6 @@ namespace SSL.Graph
             paramBox.Add(saveProcessButton);
 
             _mainContainer.Insert(0, paramBox);
-        }
-
-        void SaveProcessPack()
-        {
-            GAGenData dataToSave = _parentWindow.GetGraphData();
-            //Get tmp images and original images from each image field
-            //Export obj of result including materials (use the prefab instance?).
         }
 
 
