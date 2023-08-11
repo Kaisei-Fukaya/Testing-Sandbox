@@ -14,6 +14,9 @@ namespace SSL.Data
         [field: SerializeField] public List<GAGenNodeData> Nodes { get; set; } = new List<GAGenNodeData>();
         [field: SerializeField] public bool UpdateRequiredFlag { get; set; } = false;
 
+        [field: SerializeField] public int creator = -1; //-1: manual, 0: random, 1: reconstruction, 2: interpolation
+        [field: SerializeField] public bool hasBeenManuallyEdited = false;
+
         public NodesAndEdges GetNodesAndEdges(int subdiv)
         {
             NodesAndEdges nodesAndEdges = new NodesAndEdges();

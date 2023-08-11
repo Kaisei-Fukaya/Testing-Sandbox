@@ -240,6 +240,11 @@ namespace SSL.Graph
             rootVisualElement.Add(_previewConfigBox);
         }
 
+        public void RandomiseSelectedNodes(int valueGroupIndex)
+        {
+            _graphView.RandomiseSelectedNodes(valueGroupIndex);
+        }
+
         void Save()
         {
             //If save data doesn't exist, call save as
@@ -296,6 +301,18 @@ namespace SSL.Graph
             AssetDatabase.CreateAsset(_saveData, savePath);
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = _saveData;
+        }
+
+        public GAGenData GetGraphData()
+        {
+            List<GraphViewNode> nodes = _graphView.Nodes;
+            GAGenData graph = CreateInstance<GAGenData>();
+            graph.Nodes = new List<GAGenNodeData>();
+            foreach (GraphViewNode node in nodes)
+            {
+                graph.Nodes.Add(GAGenDataUtils.GraphNodeToNodeData(node));
+            }
+            return graph;
         }
 
         public void Load(GAGenData data)

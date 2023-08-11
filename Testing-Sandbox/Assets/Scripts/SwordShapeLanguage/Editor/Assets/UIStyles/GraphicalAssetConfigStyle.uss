@@ -111,8 +111,15 @@ GAPreview
 .inputBlock
 {
 	flex-direction: row;
-	width: 100%;
+	width: 98%;
 	align-content: stretch;
+	align-self: center;
+}
+
+.inputBlock > .unity-base-field > Label
+{
+	-unity-text-align: middle-left;
+	min-width: 110px;
 }
 
 .inputBlock > Label

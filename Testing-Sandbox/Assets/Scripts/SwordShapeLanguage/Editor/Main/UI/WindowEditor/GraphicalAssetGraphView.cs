@@ -115,6 +115,18 @@ namespace SSL.Graph
             canPasteSerializedData += x => true;
         }
 
+        public void RandomiseSelectedNodes(int valueGroupIndex)
+        {
+            foreach(var item in selection)
+            {
+                if(item.GetType() == typeof(SegmentNode))
+                {
+                    SegmentNode sNode = (SegmentNode)item;
+                    sNode.SetRandomValue(valueGroupIndex);
+                }
+            }
+        }
+
         public void OnNodeChange()
         {
             _previewWindow.UpdateMesh(GAGenDataUtils.NodesToData(Nodes), editorWindow.subdiv, editorWindow.spacing, editorWindow.GetMatList(), editorWindow.facetedShading);

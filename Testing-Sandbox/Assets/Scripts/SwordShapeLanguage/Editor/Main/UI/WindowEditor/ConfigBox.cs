@@ -92,6 +92,12 @@ namespace SSL.Graph
             FloatField spacingField = new FloatField() { label = "Segment Gap:" };
             spacingBlock.Add(spacingField);
 
+            Button saveProcessButton = new Button();
+            saveProcessButton.text = "Save Process";
+            saveProcessButton.AddToClassList("inputBlock");
+            saveProcessButton.clicked += SaveProcessPack;
+
+
             Button materialsButton = new Button();
             materialsButton.text = "Assign Materials";
             materialsButton.AddToClassList("inputBlock");
@@ -103,12 +109,20 @@ namespace SSL.Graph
             facetedShadingToggle.SetValueWithoutNotify(false);
             facetedShadingToggle.RegisterValueChangedCallback(x => _setShadingMethod(x.newValue));
 
+            paramBox.Add(materialsButton);
             paramBox.Add(resolutionBlock);
             paramBox.Add(facetedShadingBlock);
             //paramBox.Add(spacingBlock);
-            paramBox.Add(materialsButton);
+            paramBox.Add(saveProcessButton);
 
             _mainContainer.Insert(0, paramBox);
+        }
+
+        void SaveProcessPack()
+        {
+            GAGenData dataToSave = _parentWindow.GetGraphData();
+            //Get tmp images and original images from each image field
+            //Export obj of result including materials (use the prefab instance?).
         }
 
 
@@ -202,6 +216,30 @@ namespace SSL.Graph
             VisualElement tabSpacer = new VisualElement();
             tabSpacer.AddToClassList("tabSpacer");
 
+            Button randProportionsButton = new Button()
+            {
+                text = "Randomise selected (Dimensions)"
+            };
+            randProportionsButton.AddToClassList("randomButton");
+
+            randProportionsButton.clicked += () => _parentWindow.RandomiseSelectedNodes(0);
+
+            Button randEdgeButton = new Button()
+            {
+                text = "Randomise selected (Edge shape)"
+            };
+            randEdgeButton.AddToClassList("randomButton");
+
+            randEdgeButton.clicked += () => _parentWindow.RandomiseSelectedNodes(1);
+
+            Button randCurveButton = new Button()
+            {
+                text = "Randomise selected (Curves)"
+            };
+            randCurveButton.AddToClassList("randomButton");
+
+            randCurveButton.clicked += () => _parentWindow.RandomiseSelectedNodes(2);
+
             Button generateButton = new Button()
             {
                 name = "randomGenerateButton",
@@ -217,6 +255,9 @@ namespace SSL.Graph
             };
 
             tab.Add(tabSpacer);
+            tab.Add(randProportionsButton);
+            tab.Add(randEdgeButton);
+            tab.Add(randCurveButton);
             tab.Add(generateButton);
             tab.AddToClassList("tab");
             _mainContainer.Add(tab);

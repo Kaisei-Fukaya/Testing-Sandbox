@@ -165,6 +165,29 @@ namespace SSL.Graph.Elements
             RefreshExpandedState();
         }
 
+        public void SetRandomValue(int valueGroupIndex)
+        {
+            switch (valueGroupIndex)
+            {
+                default:
+                    _sizeWidthField.value = Random.value * 15f;
+                    _sizeHeightField.value = Random.value * 15f;
+                    break;
+                case 1:
+                    _edgeBevelXField.value = Random.value;
+                    _edgeBevelZField.value = Random.value;
+                    //_edgeField.value = Random.value;
+                    _midThicknessField.value = Random.value;
+                    break;
+                case 2:
+                    _curveOffsetXField.value = (Random.value - .5f) * 5f;
+                    _tipOffsetXField.value = (Random.value - .5f) * 5f;
+                    break;
+                case 3:
+                    break;
+            }
+        }
+
         protected VisualElement CreateOptions()
         {
             VisualElement optionsBlock = new VisualElement();
