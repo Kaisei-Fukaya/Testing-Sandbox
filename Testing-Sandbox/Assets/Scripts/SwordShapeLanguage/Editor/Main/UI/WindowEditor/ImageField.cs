@@ -12,7 +12,7 @@ namespace SSL.Graph
 {
     public class ImageField : VisualElement
     {
-        VisualElement _picker;
+        VisualElement _picker, _imageGroup;
         Button _pickerButton;
         TextElement _pickerTag;
         Slider _rotationSlider;
@@ -45,11 +45,18 @@ namespace SSL.Graph
                 name = "pickerTag",
                 text = tagText
             };
+
+            _imageGroup = new VisualElement()
+            {
+                name = "imageGroup"
+            };
+
             _rotationSlider = new Slider()
             {
                 name = "pickerSlider",
                 lowValue = 0f,
-                highValue = 360f
+                highValue = 360f,
+                direction = SliderDirection.Vertical
             };
 
 
@@ -67,9 +74,11 @@ namespace SSL.Graph
 
             _pickerButton.clicked += CommenceLoadImage;
 
+            _imageGroup.Add(_image);
+            _imageGroup.Add(_rotationSlider);
+
             this.Add(_picker);
-            this.Add(_image);
-            this.Add(_rotationSlider);
+            this.Add(_imageGroup);
         }
 
         void CommenceLoadImage()

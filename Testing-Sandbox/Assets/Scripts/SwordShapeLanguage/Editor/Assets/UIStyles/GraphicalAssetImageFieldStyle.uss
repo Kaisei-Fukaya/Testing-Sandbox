@@ -1,9 +1,15 @@
+#imageGroup
+{
+	flex-direction: row;
+	align-self: center;
+}
+
 #image
 {
-	margin-top: 5px;
+	padding-top: 5px;
+	padding-bottom: 10px;
 	width: 128px;
 	height: 128px;
-	align-self: center;
 	background-color: rgba(0,0,0,0.1);
 }
 
