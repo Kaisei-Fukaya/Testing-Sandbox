@@ -7,7 +7,7 @@ namespace SSL.Data.Utils
 {
     public class Preprocess
     {
-        public static string tmp_path = $"{GAGenDataUtils.BasePath}Editor/Main/GraphicalAssetGeneratorData/Preprocessing/tmp";
+        public static string tmp_path =         $"{GAGenDataUtils.BasePath}Editor/Main/GraphicalAssetGeneratorData/Preprocessing/tmp";
         public static string PreprocessImage(string imagePath, string tmpID)
         {
             string toolPath = $"{Application.dataPath}/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/preprocess_for_unity1file.exe";

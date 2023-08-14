@@ -306,7 +306,8 @@ namespace SSL.Graph
             };
 
             generateButton.clicked += () => {
-                GAGenData result = inference.Img2Model(imageField.GetLoadedPath());
+                imageField.ApplyTextureRotation();
+                GAGenData result = inference.Img2Model(imageField.GetRotatedPath());
                 if (result != null)
                 {
                     result.creator = 1;
@@ -378,7 +379,9 @@ namespace SSL.Graph
             };
 
             generateButton.clicked += () => {
-                GAGenData interpResult = inference.Interp(imageAField.GetLoadedPath(), imageBField.GetLoadedPath(), tSlider.value);
+                imageAField.ApplyTextureRotation();
+                imageBField.ApplyTextureRotation();
+                GAGenData interpResult = inference.Interp(imageAField.GetRotatedPath(), imageBField.GetRotatedPath(), tSlider.value);
                 if (interpResult != null)
                 {
                     interpResult.creator = 2;
