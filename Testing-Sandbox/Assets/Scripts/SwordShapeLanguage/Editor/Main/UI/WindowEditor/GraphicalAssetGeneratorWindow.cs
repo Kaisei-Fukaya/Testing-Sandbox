@@ -248,8 +248,8 @@ namespace SSL.Graph
 
         public void SaveProcessPack()
         {
-            string name = AutoGenName();
             GAGenData dataToSave = GetGraphData();
+            string name = AutoGenName(dataToSave.creator);
             //Get tmp images and original images from each image field
             //Export obj of result including materials (use the prefab instance?).
             if (!Directory.Exists("Assets/Generator Results"))
@@ -259,16 +259,47 @@ namespace SSL.Graph
             GameObject currentObject = _previewWindow.GetCurrentObject($"Assets/Generator Results/{name}/{name}");
             PrefabUtility.SaveAsPrefabAsset(currentObject, $"Assets/Generator Results/{name}/{name}.prefab");
 
+            var imagePaths = _configBox.GetImagePaths();
+            if (imagePaths.sourceImagePaths[0] != "")
+                File.Copy(imagePaths.sourceImagePaths[0], $"Assets/Generator Results/{name}/{name}_source-recon{Path.GetExtension(imagePaths.sourceImagePaths[0])}");
+            if (imagePaths.sourceImagePaths[1] != "")
+                File.Copy(imagePaths.sourceImagePaths[1], $"Assets/Generator Results/{name}/{name}_source-interpA{Path.GetExtension(imagePaths.sourceImagePaths[1])}");
+            if (imagePaths.sourceImagePaths[2] != "")
+                File.Copy(imagePaths.sourceImagePaths[2], $"Assets/Generator Results/{name}/{name}_source-interpB{Path.GetExtension(imagePaths.sourceImagePaths[2])}");
+
+            if (imagePaths.processedImagePaths[0] != "")
+                File.Copy(imagePaths.processedImagePaths[0], $"Assets/Generator Results/{name}/{name}_processed-recon{Path.GetExtension(imagePaths.processedImagePaths[0])}");
+            if (imagePaths.processedImagePaths[1] != "")
+                File.Copy(imagePaths.processedImagePaths[1], $"Assets/Generator Results/{name}/{name}_processed-interpA{Path.GetExtension(imagePaths.processedImagePaths[1])}");
+            if (imagePaths.processedImagePaths[2] != "")
+                File.Copy(imagePaths.processedImagePaths[2], $"Assets/Generator Results/{name}/{name}_processed-interpB{Path.GetExtension(imagePaths.processedImagePaths[2])}");
+
             //Create zip file
             System.IO.Compression.ZipFile.CreateFromDirectory($"Assets/Generator Results/{name}", $"Assets/Generator Results/{name}.zip");
 
             DestroyImmediate(currentObject);
         }
 
-        string AutoGenName()
+        string AutoGenName(int creatorID)
         {
             DateTime currentDateTime = DateTime.Now;
-            return currentDateTime.ToString("yyyy-MM-dd-HH-mm-ss");
+            string creatorType = "";
+            switch (creatorID) 
+            {
+                default:
+                    creatorType = "manual";
+                    break;
+                case 0:
+                    creatorType = "random";
+                    break;
+                case 1:
+                    creatorType = "reconstruction";
+                    break;
+                case 2:
+                    creatorType = "interpolation";
+                    break;
+            }
+            return creatorType + "_" + currentDateTime.ToString("yyyy-MM-dd-HH-mm-ss");
         }
 
         void Save()
@@ -314,6 +345,7 @@ namespace SSL.Graph
             {
                 saveData.Nodes.Add(GAGenDataUtils.GraphNodeToNodeData(node));
             }
+            saveData.materials = materials;
             EditorUtility.SetDirty(saveData);
         }
 
@@ -338,6 +370,8 @@ namespace SSL.Graph
             {
                 graph.Nodes.Add(GAGenDataUtils.GraphNodeToNodeData(node));
             }
+            graph.materials = materials;
+            graph.creator = _saveData.creator;
             return graph;
         }
 
@@ -395,6 +429,8 @@ namespace SSL.Graph
                 }
             }
 
+            if(_saveData.materials.Count > 0 && _saveData.materials[0].Item2 != null)
+                materials = _saveData.materials;
             EditorApplication.delayCall += _graphView.CentreGraphOnNodes;
             _graphView.NodeUpdateFlag();
             titleContent = new GUIContent($"{_saveData.name} (Graphical Asset Generator)");

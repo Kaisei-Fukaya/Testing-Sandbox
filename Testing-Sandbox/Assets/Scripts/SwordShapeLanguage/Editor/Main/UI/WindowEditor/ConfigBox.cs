@@ -28,6 +28,8 @@ namespace SSL.Graph
 
         GraphicalAssetGeneratorWindow _parentWindow;
 
+        ImageField imageField, imageAField, imageBField;
+
         public void Initialise(GraphicalAssetGeneratorWindow parentWindow,
             Action<GAGenData> loadMethod, 
             Action<int> setSubdivMethod, 
@@ -199,6 +201,29 @@ namespace SSL.Graph
             SelectAndLoadTab(10); //Deliberately pick out of bounds index so that nothing is selected to begin with.
         }
 
+        public (string[] sourceImagePaths, string[] processedImagePaths) GetImagePaths()
+        {
+            string[] sourceImagePaths = new string[3];
+            string[] processedImagePaths = new string[3];
+
+            if(imageField != null)
+            {
+                sourceImagePaths[0] = imageField.GetSourcePath();
+                processedImagePaths[0] = imageField.GetLoadedPath();
+            }
+            if (imageAField != null)
+            {
+                sourceImagePaths[1] = imageAField.GetSourcePath();
+                processedImagePaths[1] = imageAField.GetLoadedPath();
+            }
+            if (imageBField != null)
+            {
+                sourceImagePaths[2] = imageBField.GetSourcePath();
+                processedImagePaths[2] = imageBField.GetLoadedPath();
+            }
+            return (sourceImagePaths, processedImagePaths);
+        }
+
         VisualElement CreateRandomTab()
         {
             VisualElement tab = new VisualElement()
@@ -243,6 +268,7 @@ namespace SSL.Graph
                 GAGenData result = inference.Rand2Model();
                 if (result != null)
                 {
+                    result.creator = 0;
                     _loadMethod(result);
                 }
             };
@@ -274,7 +300,7 @@ namespace SSL.Graph
                 text = "Generate"
             };
 
-            ImageField imageField = new ImageField("Image", "rec")
+            imageField = new ImageField("Image", "rec")
             {
                 name = "imageField"
             };
@@ -283,6 +309,7 @@ namespace SSL.Graph
                 GAGenData result = inference.Img2Model(imageField.GetLoadedPath());
                 if (result != null)
                 {
+                    result.creator = 1;
                     _loadMethod(result);
                 }
             };
@@ -335,12 +362,12 @@ namespace SSL.Graph
             });
             tSlider.RegisterValueChangedCallback(x => tField.SetValueWithoutNotify(x.newValue));
 
-            ImageField imageAField = new ImageField("First image", "intA")
+            imageAField = new ImageField("First image", "intA")
             {
                 name = "imageAField"
             };
 
-            ImageField imageBField = new ImageField("Second image", "intB")
+            imageBField = new ImageField("Second image", "intB")
             {
                 name = "imageBField"
             };
@@ -354,6 +381,7 @@ namespace SSL.Graph
                 GAGenData interpResult = inference.Interp(imageAField.GetLoadedPath(), imageBField.GetLoadedPath(), tSlider.value);
                 if (interpResult != null)
                 {
+                    interpResult.creator = 2;
                     _loadMethod(interpResult);
                 }
             };

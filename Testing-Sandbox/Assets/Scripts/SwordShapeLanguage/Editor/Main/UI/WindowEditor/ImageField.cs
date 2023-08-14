@@ -15,7 +15,7 @@ namespace SSL.Graph
         VisualElement _picker;
         Button _pickerButton;
         TextElement _pickerTag;
-        string _loadedPath = "";
+        string _sourcePath = "";
         string _tmpName; //Name of temporary file created after preprocessing
         string _tmpPath;
 
@@ -64,7 +64,7 @@ namespace SSL.Graph
             if (filePath == string.Empty)
                 return;
             Preprocess.PreprocessImage(filePath, _tmpName);
-            _loadedPath = filePath;
+            _sourcePath = filePath;
             EditorApplication.delayCall += FinishLoadingImage;
         }
 
@@ -84,8 +84,12 @@ namespace SSL.Graph
 
         public string GetLoadedPath()
         {
-            //return _loadedPath;
             return _tmpPath;
+        }
+
+        public string GetSourcePath()
+        {
+            return _sourcePath;
         }
     }
 }

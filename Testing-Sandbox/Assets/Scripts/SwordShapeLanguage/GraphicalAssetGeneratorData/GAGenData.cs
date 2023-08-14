@@ -16,6 +16,7 @@ namespace SSL.Data
 
         [field: SerializeField] public int creator = -1; //-1: manual, 0: random, 1: reconstruction, 2: interpolation
         [field: SerializeField] public bool hasBeenManuallyEdited = false;
+        [field: SerializeField] public List<(int, Material)> materials = new List<(int, Material)>() { (0, null) };
 
         public NodesAndEdges GetNodesAndEdges(int subdiv)
         {
