@@ -208,8 +208,10 @@ namespace SSL.Data
                 if (sizeMagnitude < 1f)
                     break; //Remove vestigial nodes
 
-                newSettings.parameters.curveParams.controlPoint = new Vector2((result[(i * 6) + 2] * _sizeScale), 0f);
-                newSettings.parameters.curveParams.tipOffset =    new Vector2((result[(i * 6) + 3] * _sizeScale), 0f);
+                float curveScale = 0.3f;
+
+                newSettings.parameters.curveParams.controlPoint = new Vector2((result[(i * 6) + 2] * _sizeScale), 0f) * curveScale;
+                newSettings.parameters.curveParams.tipOffset =    new Vector2((result[(i * 6) + 3] * _sizeScale), 0f) * curveScale;
                 newSettings.parameters.nLoops = 5;
                 newSettings.parameters.relativeBackwardTaper = result[(i * 6) + 4];
                 newSettings.parameters.relativeForwardTaper = result[(i * 6) + 5];

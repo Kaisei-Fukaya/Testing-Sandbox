@@ -14,18 +14,23 @@ namespace SSL.Graph.Elements
         protected GraphicalAssetPort _inputPortBottom, _outputPortTop, _outputPortLeft, _outputPortForward, _outputPortRight, _outputPortBackward;
         protected GAPortType _inputPortType, _outputPortType;
         protected IntegerField _subMeshIndexField;
-        protected Vector3Field _sizeField;
+        protected FloatField _sizeWidthField, _sizeHeightField, _sizeDepthField;
 
         public override void Initialise(Vector2 position)
         {
             NodeType = NodeType.Branch;
             base.Initialise(position);
             _subMeshIndexField = new IntegerField();
-            _sizeField = new Vector3Field();
 
             //Add callbacks
             _subMeshIndexField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
-            _sizeField.RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            _sizeWidthField = new FloatField() { label = "Width:" };
+            _sizeHeightField = new FloatField() { label = "Height:" };
+            _sizeDepthField = new FloatField() { label = "Depth:" };
+
+            _sizeWidthField.RegisterValueChangedCallback(x => { float v = Mathf.Max(0, x.newValue); _sizeWidthField.SetValueWithoutNotify(v); CallSettingsEditEvent(); });
+            _sizeHeightField.RegisterValueChangedCallback(x => { float v = Mathf.Max(0, x.newValue); _sizeHeightField.SetValueWithoutNotify(v); CallSettingsEditEvent(); });
+            _sizeDepthField.RegisterValueChangedCallback(x => { float v = Mathf.Max(0, x.newValue); _sizeDepthField.SetValueWithoutNotify(v); CallSettingsEditEvent(); });
 
             //IO
             _ingoingPorts = new List<GraphicalAssetPort>();
@@ -48,14 +53,16 @@ namespace SSL.Graph.Elements
         public override NodeSetting GetSettings()
         {
             NodeSetting setting = base.GetSettings();
-            setting.parameters.size = _sizeField.value;
+            setting.parameters.size = new Vector3(_sizeWidthField.value, _sizeHeightField.value, _sizeDepthField.value);
             setting.parameters.subMeshIndex = _subMeshIndexField.value;
             return setting;
         }
 
         public override void LoadSettings(NodeSetting setting)
         {
-            _sizeField.SetValueWithoutNotify(setting.parameters.size);
+            _sizeWidthField.SetValueWithoutNotify(setting.parameters.size.x);
+            _sizeHeightField.SetValueWithoutNotify(setting.parameters.size.y);
+            _sizeDepthField.SetValueWithoutNotify(setting.parameters.size.z);
             _subMeshIndexField.SetValueWithoutNotify(setting.parameters.subMeshIndex);
         }
 
@@ -81,25 +88,61 @@ namespace SSL.Graph.Elements
 
             RefreshExpandedState();
         }
+        public override void SetSize(float width, float heigth)
+        {
+            _sizeWidthField.value = width;
+            _sizeHeightField.value = heigth;
+        }
+
+        public override void SetEdgeGeom(float bevelX, float bevelZ, float midThickness)
+        {
+
+        }
+
+        public override void SetCurves(float curveX, float tipX)
+        {
+
+        }
 
         protected VisualElement CreateOptions()
         {
             VisualElement optionsBlock = new VisualElement();
 
+            VisualElement shapeGroup = new VisualElement();
+            shapeGroup.AddToClassList("group");
+            TextElement shapeHeader = new TextElement()
+            {
+                text = "Shape"
+            };
+            shapeHeader.AddToClassList("header");
+
             VisualElement sizeBlock = new VisualElement();
             sizeBlock.AddToClassList("label-field-block");
-            sizeBlock.Add(new Label("Size:"));
-            sizeBlock.Add(_sizeField);
+            sizeBlock.Add(_sizeWidthField);
+            sizeBlock.Add(_sizeHeightField);
+            sizeBlock.Add(_sizeDepthField);
+
+            shapeGroup.Add(shapeHeader);
+            shapeGroup.Add(sizeBlock);
+
+            VisualElement meshDetailsGroup = new VisualElement();
+            meshDetailsGroup.AddToClassList("group");
+            TextElement meshDetailsHeader = new TextElement()
+            {
+                text = "Mesh Details"
+            };
+            meshDetailsHeader.AddToClassList("header");
 
             VisualElement sMeshIndexBlock = new VisualElement();
             sMeshIndexBlock.AddToClassList("label-field-block");
             sMeshIndexBlock.Add(new Label("Submesh Index:"));
             sMeshIndexBlock.Add(_subMeshIndexField);
 
+            meshDetailsGroup.Add(meshDetailsHeader);
+            meshDetailsGroup.Add(sMeshIndexBlock);
 
-
-            optionsBlock.Add(sizeBlock);
-            optionsBlock.Add(sMeshIndexBlock);
+            optionsBlock.Add(shapeGroup);
+            optionsBlock.Add(meshDetailsGroup);
             return optionsBlock;
         }
 

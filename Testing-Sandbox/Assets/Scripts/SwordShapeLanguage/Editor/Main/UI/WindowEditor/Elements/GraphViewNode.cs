@@ -278,5 +278,11 @@ namespace SSL.Graph
             }
             return ingoingConnections;
         }
+
+        public abstract void SetSize(float width, float heigth);
+
+        public abstract void SetEdgeGeom(float bevelX, float bevelZ, float midThickness);
+
+        public abstract void SetCurves(float curveX, float tipX);
     }
 }

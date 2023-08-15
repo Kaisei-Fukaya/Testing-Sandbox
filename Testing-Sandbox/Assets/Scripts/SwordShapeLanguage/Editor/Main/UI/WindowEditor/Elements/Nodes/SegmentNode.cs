@@ -47,8 +47,8 @@ namespace SSL.Graph.Elements
             _edgeBevelZField = new FloatField()  { label = "Edge-bevel Z:", value = 1 };
             _edgeField = new FloatField()        { label = "Edge:", value = 1 };
 
-            _deformFoldout = new Foldout() { text = "Deforms" };
-            _deformFields = new Vector3Field[0];
+            //_deformFoldout = new Foldout() { text = "Deforms" };
+            //_deformFields = new Vector3Field[0];
             _tipOffsetXField = new FloatField("Tip offset X:");
             _tipOffsetZField = new FloatField("Tip offset Z:");
             _curveOffsetXField = new FloatField("Curve X:");
@@ -99,10 +99,10 @@ namespace SSL.Graph.Elements
             setting.parameters.curveParams.tipOffset = new Vector2(_tipOffsetXField.value, _tipOffsetZField.value);
             setting.parameters.curveParams.controlPoint = new Vector2(_curveOffsetXField.value, _curveOffsetZField.value);
             setting.parameters.curveNotAffectNormal = _curveNotAffectNormal;
-            for (int i = 0; i < setting.parameters.deforms.Length; i++)
-            {
-                setting.parameters.deforms[i] = _deformFields[i].value;
-            }
+            //for (int i = 0; i < setting.parameters.deforms.Length; i++)
+            //{
+            //    setting.parameters.deforms[i] = _deformFields[i].value;
+            //}
 
             float edgeBevelTrueX =   Mathf.Lerp(-setting.parameters.size.x/2, 0, _edgeBevelXField.value);
             float edgeBevelTrueZ =   Mathf.Lerp(-setting.parameters.size.z/2, 0, _edgeBevelZField.value);
@@ -133,19 +133,25 @@ namespace SSL.Graph.Elements
             _relativeBackwardTaperFloatField.SetValueWithoutNotify(setting.parameters.relativeBackwardTaper);
             _roundingField.SetValueWithoutNotify(setting.parameters.rounding);
             _subMeshIndexField.SetValueWithoutNotify(setting.parameters.subMeshIndex);
-            _deformFields = new Vector3Field[setting.parameters.deforms.Length];
+            //_deformFields = new Vector3Field[setting.parameters.deforms.Length];
             _tipOffsetXField.SetValueWithoutNotify(setting.parameters.curveParams.tipOffset.x);
             _tipOffsetZField.SetValueWithoutNotify(setting.parameters.curveParams.tipOffset.y);
             _curveOffsetXField.SetValueWithoutNotify(setting.parameters.curveParams.controlPoint.x);
             _curveOffsetZField.SetValueWithoutNotify(setting.parameters.curveParams.controlPoint.y);
-            
-            for (int i = 0; i < _deformFields.Length; i++)
-            {
-                _deformFields[i] = new Vector3Field();
-                _deformFields[i].SetValueWithoutNotify(setting.parameters.deforms[i]);
-                _deformFields[i].RegisterValueChangedCallback(x => CallSettingsEditEvent());
-                _deformFoldout.Add(_deformFields[i]);
-            }
+
+            _edgeBevelXField.SetValueWithoutNotify(Mathf.InverseLerp(-setting.parameters.size.x / 2, 0f, Mathf.Abs(setting.parameters.deforms[0].x)));
+            _edgeBevelZField.SetValueWithoutNotify(Mathf.InverseLerp(-setting.parameters.size.z / 2, 0f, Mathf.Abs(setting.parameters.deforms[0].z)));
+            _edgeField.SetValueWithoutNotify(Mathf.InverseLerp(-setting.parameters.size.x / 2, 0f, Mathf.Abs(setting.parameters.deforms[3].x)));
+            _midThicknessField.SetValueWithoutNotify(Mathf.InverseLerp(-setting.parameters.size.z / 2, 0f, Mathf.Abs(setting.parameters.deforms[1].z)));
+
+
+            //for (int i = 0; i < _deformFields.Length; i++)
+            //{
+            //    _deformFields[i] = new Vector3Field();
+            //    _deformFields[i].SetValueWithoutNotify(setting.parameters.deforms[i]);
+            //    _deformFields[i].RegisterValueChangedCallback(x => CallSettingsEditEvent());
+            //    _deformFoldout.Add(_deformFields[i]);
+            //}
 
             _curveNotAffectNormal = setting.parameters.curveNotAffectNormal;
         }
@@ -165,27 +171,46 @@ namespace SSL.Graph.Elements
             RefreshExpandedState();
         }
 
-        public void SetRandomValue(int valueGroupIndex)
+        //public void SetRandomValue(int valueGroupIndex)
+        //{
+        //    switch (valueGroupIndex)
+        //    {
+        //        default:
+        //            _sizeWidthField.value = Random.value * 15f;
+        //            _sizeHeightField.value = Random.value * 15f;
+        //            break;
+        //        case 1:
+        //            _edgeBevelXField.value = Random.value;
+        //            _edgeBevelZField.value = Random.value;
+        //            //_edgeField.value = Random.value;
+        //            _midThicknessField.value = Random.value;
+        //            break;
+        //        case 2:
+        //            _curveOffsetXField.value = (Random.value - .5f) * 5f;
+        //            _tipOffsetXField.value = (Random.value - .5f) * 5f;
+        //            break;
+        //        case 3:
+        //            break;
+        //    }
+        //}
+
+        public override void SetSize(float width, float heigth)
         {
-            switch (valueGroupIndex)
-            {
-                default:
-                    _sizeWidthField.value = Random.value * 15f;
-                    _sizeHeightField.value = Random.value * 15f;
-                    break;
-                case 1:
-                    _edgeBevelXField.value = Random.value;
-                    _edgeBevelZField.value = Random.value;
-                    //_edgeField.value = Random.value;
-                    _midThicknessField.value = Random.value;
-                    break;
-                case 2:
-                    _curveOffsetXField.value = (Random.value - .5f) * 5f;
-                    _tipOffsetXField.value = (Random.value - .5f) * 5f;
-                    break;
-                case 3:
-                    break;
-            }
+            _sizeWidthField.value = width;
+            _sizeHeightField.value = heigth;
+        }
+
+        public override void SetEdgeGeom(float bevelX, float bevelZ, float midThickness)
+        {
+            _edgeBevelXField.value = bevelX;
+            _edgeBevelZField.value = bevelZ;
+            _midThicknessField.value = midThickness;
+        }
+
+        public override void SetCurves(float curveX, float tipX)
+        {
+            _curveOffsetXField.value = curveX;
+            _tipOffsetXField.value = tipX;
         }
 
         protected VisualElement CreateOptions()
@@ -292,8 +317,8 @@ namespace SSL.Graph.Elements
             optionsBlock.Add(shapeGroup);
             optionsBlock.Add(meshDetailsGroup);
             optionsBlock.Add(refinementGroup);
-            optionsBlock.Add(_deformFoldout);
-            _deformFoldout.value = false;
+            //optionsBlock.Add(_deformFoldout);
+            //_deformFoldout.value = false;
             return optionsBlock;
         }
 

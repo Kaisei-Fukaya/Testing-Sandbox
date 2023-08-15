@@ -91,6 +91,7 @@ namespace SSL.Graph
             };
             _mainView.AddToClassList("root");
             //mainView.StretchToParentSize();
+            _saveData = CreateInstance<GAGenData>();
             rootVisualElement.Add(_mainView);
             AddGraphView();
             AddStyles();
@@ -157,21 +158,27 @@ namespace SSL.Graph
 
             ToolbarButton saveButton = new ToolbarButton()
             {
-                text = "Save"
+                text = "Save Graph"
             };
             saveButton.clicked += Save;
 
             ToolbarButton saveAsButton = new ToolbarButton()
             {
-                text = "Save As"
+                text = "Save Graph As"
             };
             saveAsButton.clicked += SaveAs;
 
             ToolbarButton loadButton = new ToolbarButton()
             {
-                text = "Load"
+                text = "Load Graph"
             };
             loadButton.clicked += Load;
+
+            ToolbarButton savePrefabButton = new ToolbarButton()
+            {
+                text = "Export Prefab"
+            };
+            savePrefabButton.clicked += ExportPrefab;
 
             //ToolbarButton img2ModelButton = new ToolbarButton()
             //{
@@ -204,6 +211,7 @@ namespace SSL.Graph
             //toolbar.Add(rand2ModelButton);
             //toolbar.Add(interpButton);
             toolbar.Add(spacer3);
+            toolbar.Add(savePrefabButton);
 
             rootVisualElement.Add(toolbar);
         }
@@ -244,6 +252,16 @@ namespace SSL.Graph
         public void RandomiseSelectedNodes(int valueGroupIndex)
         {
             _graphView.RandomiseSelectedNodes(valueGroupIndex);
+        }
+
+        public void ExportPrefab()
+        {
+            string path = EditorUtility.SaveFilePanelInProject("Please select a location to save the prefab to.", "Generated Prefab", "", "");
+            if (path == "")
+                return;
+            GameObject currentObject = _previewWindow.GetCurrentObject(path);
+            PrefabUtility.SaveAsPrefabAsset(currentObject, $"{path}.prefab");
+            DestroyImmediate(currentObject);
         }
 
         public void SaveProcessPack()

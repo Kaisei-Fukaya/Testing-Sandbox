@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEditor;
 using SSL.Graph.Elements;
 using SSL.Data.Utils;
+using Random = UnityEngine.Random;
 
 namespace SSL.Graph
 {
@@ -117,12 +118,30 @@ namespace SSL.Graph
 
         public void RandomiseSelectedNodes(int valueGroupIndex)
         {
+            float randA = Random.value;
+            float randB = Random.value;
+            float randC = Random.value;
+
             foreach(var item in selection)
             {
-                if(item.GetType() == typeof(SegmentNode))
+                if(item is GraphViewNode)
                 {
-                    SegmentNode sNode = (SegmentNode)item;
-                    sNode.SetRandomValue(valueGroupIndex);
+
+                    GraphViewNode sNode = (GraphViewNode)item;
+                    switch (valueGroupIndex)
+                    {
+                        default:
+                            sNode.SetSize(Random.value * 15f, Random.value * 15f);
+                            break;
+                        case 1:
+                            sNode.SetEdgeGeom(randA, randB, randC);
+                            break;
+                        case 2:
+                            sNode.SetCurves((randA - .5f) * 5f, (randB - .5f) * 5f);
+                            break;
+                        case 3:
+                            break;
+                    }
                 }
             }
         }
