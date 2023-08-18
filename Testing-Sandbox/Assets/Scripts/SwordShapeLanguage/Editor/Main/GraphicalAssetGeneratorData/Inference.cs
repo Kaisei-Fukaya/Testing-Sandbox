@@ -14,6 +14,7 @@ namespace SSL.Data
         NNModel _modelAssetEncoder, _modelAssetBottleneck, _modelAssetDecoder;
         Model _modelEncoder, _modelBottleneck, _modelDecoder;
         IWorker _workerEncoder, _workerBottleneck, _workerDecoder;
+
         System.Random _random;
         float _sizeScale = 15f;
 
@@ -30,13 +31,15 @@ namespace SSL.Data
             _modelAssetDecoder = (NNModel)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/ONNX/decoder_v3.onnx", typeof(NNModel));
             _modelDecoder = ModelLoader.Load(_modelAssetDecoder);
             _workerDecoder = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, _modelDecoder);
+
+
             _random = new System.Random();
         }
 
         //Image to Model
         public GAGenData Img2Model(string path)
         {
-            Texture2D image = LoadImage(path);
+            Texture2D image = LoadImage(path, out (int, int) ogDims);
             if (image == null)
                 return null;
             //Tensor input = new Tensor(image);
@@ -73,8 +76,8 @@ namespace SSL.Data
         //Latent interpolation
         public GAGenData Interp(string pathA, string pathB, float t)
         {
-            Texture2D imageA = LoadImage(pathA);
-            Texture2D imageB = LoadImage(pathB);
+            Texture2D imageA = LoadImage(pathA, out (int, int) ogDimsA);
+            Texture2D imageB = LoadImage(pathB, out (int, int) ogDimsB);
             float[,,,] imageDataA = LoadChannelAsFloatArray(imageA);
             float[,,,] imageDataB = LoadChannelAsFloatArray(imageB);
             Tensor inputA = new Tensor(1, 64, 64, 1, imageDataA);
@@ -95,7 +98,7 @@ namespace SSL.Data
             return output;
         }
 
-        public static Texture2D LoadImage(string path)
+        public static Texture2D LoadImage(string path, out (int, int) originalDims, int scale = 64)
         {
             Texture2D texture = null;
             byte[] data;
@@ -105,7 +108,8 @@ namespace SSL.Data
                 data = File.ReadAllBytes(path);
                 texture = new Texture2D(2, 2, TextureFormat.ARGB32, 1, false);
                 bool imageloaded = texture.LoadImage(data);
-                TextureScale.Scale(texture, 64, 64);
+                originalDims = (texture.width, texture.height);
+                TextureScale.Scale(texture, scale, scale);
                 //var pixels = texture.GetPixels(0);
                 //for (int i = 0; i < pixels.Length; i++)
                 //{
@@ -118,9 +122,9 @@ namespace SSL.Data
             return texture;
         }
 
-        float[,,,] LoadChannelAsFloatArray(Texture2D texture)
+        public static float[,,,] LoadChannelAsFloatArray(Texture2D texture, int channels = 1)
         {
-            float[,,,] data = new float[1, texture.width, texture.height, 1];
+            float[,,,] data = new float[1, texture.width, texture.height, channels];
             var pixels = texture.GetPixels(0);
             for (int i = 0; i < texture.width; i++)
             {

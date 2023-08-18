@@ -93,7 +93,7 @@ namespace SSL.Graph
 
         void FinishLoadingImage()
         {
-            Texture2D loadedImage = Inference.LoadImage(_tmpPath);
+            Texture2D loadedImage = Inference.LoadImage(_tmpPath, out (int, int) ogDims);
             _image.image = loadedImage;
             //_image.im
         }

@@ -15,11 +15,11 @@ G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-58580
+51230
 Successfully changed project path to: G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 37.19 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 36.33 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.6f1 (338bb68529b2)
 [Subsystems] Discovering subsystems at path G:/Unity 2018.3/2020.3.6f1/Editor/Data/Resources/UnitySubsystems
@@ -36,84 +36,124 @@ Initialize mono
 Mono path[0] = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/Managed'
 Mono path[1] = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56432
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56768
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: G:/Unity 2018.3/2020.3.6f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: G:/Unity 2018.3/2020.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.000959 seconds.
+Registered in 0.000956 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 47.52 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 37.29 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.117 seconds
+- Completed reload, in  1.087 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.003862 seconds.
+Registered in 0.003780 seconds.
 Begin MonoManager ReloadAssembly
 Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
 Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
 
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 36.44 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 35.79 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.020 seconds
+- Completed reload, in  1.012 seconds
 Platform modules already initialized, skipping
 Assertion failed on expression: 'reloadOk'
 
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 0.66 ms, found 1 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2923 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 141.5 MB.
 System memory in use after: 141.7 MB.
 
 Unloading 29 unused Assets to reduce memory usage. Loaded Objects now: 3350.
-Total: 2.317700 ms (FindLiveObjects: 0.217700 ms CreateObjectMapping: 0.067200 ms MarkObjects: 1.970000 ms  DeleteObjects: 0.062300 ms)
+Total: 2.515800 ms (FindLiveObjects: 0.366700 ms CreateObjectMapping: 0.079000 ms MarkObjects: 1.997900 ms  DeleteObjects: 0.071300 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Generated Prefab.mesh
-  artifactKey: Guid(f7ce7bb2474f373469a8b5752c8d8ed9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Generated Prefab.mesh using Guid(f7ce7bb2474f373469a8b5752c8d8ed9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8c1b3a24f426bb5e9e53d50444b42905') in 0.081660 seconds
-  Import took 0.085652 seconds .
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab
+  artifactKey: Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab using Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23b080d5cb4010f6667946090dd45984') in 0.068776 seconds
+  Import took 0.072803 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000157 seconds.
-  path: Assets/Generated Prefab.prefab
-  artifactKey: Guid(a67d3dfc23f350a40b960323e03bdce8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Generated Prefab.prefab using Guid(a67d3dfc23f350a40b960323e03bdce8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45f720cb2501a5a2823727bd0cbdc4b3') in 0.104008 seconds
-  Import took 0.108154 seconds .
+  Time since last request: 83.621684 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2net.onnx
+  artifactKey: Guid(738ee6aa8b9c8e74c851d5f4d1343c96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2net.onnx using Guid(738ee6aa8b9c8e74c851d5f4d1343c96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'babe0e459a6daa58fbd182bffea8c513') in 0.781895 seconds
+  Import took 0.786419 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000185 seconds.
-  path: Assets/Generated Prefab_0.mat
-  artifactKey: Guid(27f63abc01ac05642bea8a7856b8f77b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Generated Prefab_0.mat using Guid(27f63abc01ac05642bea8a7856b8f77b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf96cc24d603dfd063aa13bd6f060dc2') in 0.022292 seconds
-  Import took 0.026128 seconds .
+  Time since last request: 43.426303 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
+  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b934fe78f862ad0bc7a1761e44781988') in 0.040030 seconds
+  Import took 0.044456 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.007900 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
+  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b934fe78f862ad0bc7a1761e44781988') in 0.001695 seconds
+  Import took 0.005030 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 707.540197 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
+  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdac074a35015369122c9c34920e39ec') in 0.001730 seconds
+  Import took 0.006064 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002351 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
+  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdac074a35015369122c9c34920e39ec') in 0.001484 seconds
+  Import took 0.004950 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 41.887031 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
+  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2944fc486910a63c6abf2e8da999400') in 0.001718 seconds
+  Import took 0.006168 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002313 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
+  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2944fc486910a63c6abf2e8da999400') in 0.001386 seconds
+  Import took 0.004385 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.003887 seconds.
+Registered in 0.003959 seconds.
 Begin MonoManager ReloadAssembly
 Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
 Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
 
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.74 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.60 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.707 seconds
+- Completed reload, in  0.672 seconds
 Platform modules already initialized, skipping
 Assertion failed on expression: 'reloadOk'
 
@@ -121,35 +161,675 @@ Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Ren
 Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 135.7 MB.
-System memory in use after: 135.9 MB.
+System memory in use before: 130.2 MB.
+System memory in use after: 130.4 MB.
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3434.
-Total: 2.242300 ms (FindLiveObjects: 0.221600 ms CreateObjectMapping: 0.076300 ms MarkObjects: 1.927900 ms  DeleteObjects: 0.015700 ms)
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3353.
+Total: 2.346000 ms (FindLiveObjects: 0.263900 ms CreateObjectMapping: 0.072400 ms MarkObjects: 1.994400 ms  DeleteObjects: 0.014400 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003943 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.652 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.3 MB.
+System memory in use after: 130.5 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3356.
+Total: 2.342100 ms (FindLiveObjects: 0.280800 ms CreateObjectMapping: 0.081800 ms MarkObjects: 1.961600 ms  DeleteObjects: 0.017200 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004369 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.659 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.3 MB.
+System memory in use after: 130.6 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3359.
+Total: 2.313500 ms (FindLiveObjects: 0.249400 ms CreateObjectMapping: 0.077000 ms MarkObjects: 1.968800 ms  DeleteObjects: 0.016900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003967 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.666 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.64 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.6 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3362.
+Total: 2.387900 ms (FindLiveObjects: 0.262400 ms CreateObjectMapping: 0.075400 ms MarkObjects: 2.032400 ms  DeleteObjects: 0.016800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003715 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.653 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.6 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3365.
+Total: 2.146300 ms (FindLiveObjects: 0.300400 ms CreateObjectMapping: 0.075500 ms MarkObjects: 1.754900 ms  DeleteObjects: 0.014600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005223 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.68 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.678 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.6 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3368.
+Total: 2.293900 ms (FindLiveObjects: 0.334700 ms CreateObjectMapping: 0.069000 ms MarkObjects: 1.872500 ms  DeleteObjects: 0.016700 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003759 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.662 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.64 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.6 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3371.
+Total: 2.305600 ms (FindLiveObjects: 0.268500 ms CreateObjectMapping: 0.107200 ms MarkObjects: 1.910500 ms  DeleteObjects: 0.018100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003980 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.674 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.6 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3374.
+Total: 2.592500 ms (FindLiveObjects: 0.431600 ms CreateObjectMapping: 0.069700 ms MarkObjects: 2.072500 ms  DeleteObjects: 0.017500 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003876 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.67 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.668 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.6 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3377.
+Total: 2.236300 ms (FindLiveObjects: 0.267600 ms CreateObjectMapping: 0.074600 ms MarkObjects: 1.877200 ms  DeleteObjects: 0.016200 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 793.023311 seconds.
-  path: Assets/Cool design.mesh
-  artifactKey: Guid(c8ee788d541be0c4b88b389b5d62f37d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Cool design.mesh using Guid(c8ee788d541be0c4b88b389b5d62f37d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1770f2fed399976c759397af2d5c4423') in 0.051089 seconds
-  Import took 0.077119 seconds .
+  Time since last request: 5789.525523 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2net.onnx
+  artifactKey: Guid(738ee6aa8b9c8e74c851d5f4d1343c96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2net.onnx using Guid(738ee6aa8b9c8e74c851d5f4d1343c96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf9b7b568e7b1f340e7c698dac7e8831') in 0.890082 seconds
+  Import took 0.894960 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000157 seconds.
-  path: Assets/Cool design.prefab
-  artifactKey: Guid(fe57e4c941ed77744be9c451925b568c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Cool design.prefab using Guid(fe57e4c941ed77744be9c451925b568c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5f61b4e6c752161175a6077c04a66fa') in 0.090402 seconds
-  Import took 0.094733 seconds .
+  Time since last request: 7574.572671 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2netp.onnx
+  artifactKey: Guid(9cbd5a8868fcc5f408c50733d8cf531d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2netp.onnx using Guid(9cbd5a8868fcc5f408c50733d8cf531d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fcd831ea3ce263bbf6bf3760cd44e2e4') in 0.024934 seconds
+  Import took 0.029539 seconds .
 
 ========================================================================
-Received Import Request.
-  Time since last request: 0.000154 seconds.
-  path: Assets/Cool design_0.mat
-  artifactKey: Guid(ea9bd4a2e77926541b7348fd828dfa36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Cool design_0.mat using Guid(ea9bd4a2e77926541b7348fd828dfa36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a99181622b674c9e188dd6febee5417') in 0.026836 seconds
-  Import took 0.031287 seconds .
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004412 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.685 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.6 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3380.
+Total: 2.313500 ms (FindLiveObjects: 0.225700 ms CreateObjectMapping: 0.063000 ms MarkObjects: 1.954700 ms  DeleteObjects: 0.069200 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003839 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.669 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.6 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3383.
+Total: 2.499600 ms (FindLiveObjects: 0.310500 ms CreateObjectMapping: 0.078200 ms MarkObjects: 2.044200 ms  DeleteObjects: 0.065200 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003751 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.60 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.669 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3386.
+Total: 2.348900 ms (FindLiveObjects: 0.341500 ms CreateObjectMapping: 0.074900 ms MarkObjects: 1.915700 ms  DeleteObjects: 0.016100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004753 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.65 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.681 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3389.
+Total: 2.427500 ms (FindLiveObjects: 0.437400 ms CreateObjectMapping: 0.077700 ms MarkObjects: 1.893000 ms  DeleteObjects: 0.018600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003909 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.68 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.676 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.4 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3392.
+Total: 2.230000 ms (FindLiveObjects: 0.225900 ms CreateObjectMapping: 0.074100 ms MarkObjects: 1.913000 ms  DeleteObjects: 0.016100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.623467 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.65 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  4.401 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.81 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3395.
+Total: 3.631800 ms (FindLiveObjects: 0.374200 ms CreateObjectMapping: 0.160800 ms MarkObjects: 3.070000 ms  DeleteObjects: 0.025800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003742 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.70 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.674 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3398.
+Total: 2.267300 ms (FindLiveObjects: 0.240000 ms CreateObjectMapping: 0.099500 ms MarkObjects: 1.907700 ms  DeleteObjects: 0.019400 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004163 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.670 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3401.
+Total: 2.368400 ms (FindLiveObjects: 0.272300 ms CreateObjectMapping: 0.074900 ms MarkObjects: 1.999600 ms  DeleteObjects: 0.020500 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004426 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.671 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3404.
+Total: 2.298000 ms (FindLiveObjects: 0.253700 ms CreateObjectMapping: 0.074200 ms MarkObjects: 1.952700 ms  DeleteObjects: 0.016600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004479 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.671 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3407.
+Total: 2.300100 ms (FindLiveObjects: 0.255900 ms CreateObjectMapping: 0.075200 ms MarkObjects: 1.949800 ms  DeleteObjects: 0.018400 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003779 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.677 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3410.
+Total: 2.361300 ms (FindLiveObjects: 0.253400 ms CreateObjectMapping: 0.076400 ms MarkObjects: 2.013900 ms  DeleteObjects: 0.016600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003839 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.64 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.676 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3413.
+Total: 2.275700 ms (FindLiveObjects: 0.313200 ms CreateObjectMapping: 0.076500 ms MarkObjects: 1.869100 ms  DeleteObjects: 0.016000 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003740 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.685 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3416.
+Total: 2.915500 ms (FindLiveObjects: 0.544000 ms CreateObjectMapping: 0.115000 ms MarkObjects: 2.234900 ms  DeleteObjects: 0.020200 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004290 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.66 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.711 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.7 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3419.
+Total: 2.816400 ms (FindLiveObjects: 0.419900 ms CreateObjectMapping: 0.105000 ms MarkObjects: 2.270500 ms  DeleteObjects: 0.019500 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003849 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.673 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.8 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3422.
+Total: 2.276100 ms (FindLiveObjects: 0.290300 ms CreateObjectMapping: 0.067500 ms MarkObjects: 1.901200 ms  DeleteObjects: 0.016500 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004301 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.679 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.64 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.8 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3425.
+Total: 2.553600 ms (FindLiveObjects: 0.320100 ms CreateObjectMapping: 0.143000 ms MarkObjects: 2.070800 ms  DeleteObjects: 0.018600 ms)
 
 ========================================================================
 Received Prepare
@@ -161,207 +841,37 @@ Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Com
 
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.707 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 135.9 MB.
-System memory in use after: 136.1 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3473.
-Total: 2.415500 ms (FindLiveObjects: 0.323300 ms CreateObjectMapping: 0.075000 ms MarkObjects: 1.999300 ms  DeleteObjects: 0.017000 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004792 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.704 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.80 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 135.9 MB.
-System memory in use after: 136.2 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3476.
-Total: 2.761300 ms (FindLiveObjects: 0.532000 ms CreateObjectMapping: 0.098200 ms MarkObjects: 2.111400 ms  DeleteObjects: 0.018800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003832 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.66 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.738 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.70 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 136.0 MB.
-System memory in use after: 136.2 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3479.
-Total: 2.511900 ms (FindLiveObjects: 0.321100 ms CreateObjectMapping: 0.067500 ms MarkObjects: 2.104700 ms  DeleteObjects: 0.017700 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004418 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
 Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.705 seconds
+- Completed reload, in  0.694 seconds
 Platform modules already initialized, skipping
 Assertion failed on expression: 'reloadOk'
 
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.02 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.8 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3428.
+Total: 2.513900 ms (FindLiveObjects: 0.291900 ms CreateObjectMapping: 0.071000 ms MarkObjects: 2.131400 ms  DeleteObjects: 0.018800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005060 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
 Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 136.0 MB.
-System memory in use after: 136.2 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3482.
-Total: 3.742400 ms (FindLiveObjects: 0.343600 ms CreateObjectMapping: 0.124200 ms MarkObjects: 3.247900 ms  DeleteObjects: 0.025600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003616 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.675 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 136.0 MB.
-System memory in use after: 136.2 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3485.
-Total: 2.415400 ms (FindLiveObjects: 0.307800 ms CreateObjectMapping: 0.075600 ms MarkObjects: 2.015200 ms  DeleteObjects: 0.015900 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 3107.436354 seconds.
-  path: Assets/Cool design_1.mat
-  artifactKey: Guid(0e7d9555009bc6e468780b2c7b5969c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Cool design_1.mat using Guid(0e7d9555009bc6e468780b2c7b5969c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71d0b659559e26a96441267fd200122c') in 0.111307 seconds
-  Import took 0.116104 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004452 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.690 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 136.1 MB.
-System memory in use after: 136.3 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3524.
-Total: 2.559400 ms (FindLiveObjects: 0.288900 ms CreateObjectMapping: 0.110000 ms MarkObjects: 2.144800 ms  DeleteObjects: 0.014900 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003722 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.65 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.669 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.69 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 136.1 MB.
-System memory in use after: 136.4 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3527.
-Total: 2.441100 ms (FindLiveObjects: 0.278800 ms CreateObjectMapping: 0.076400 ms MarkObjects: 2.069300 ms  DeleteObjects: 0.015800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004154 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.69 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.681 seconds
+- Completed reload, in  0.686 seconds
 Platform modules already initialized, skipping
 Assertion failed on expression: 'reloadOk'
 
@@ -369,9 +879,36 @@ Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Ren
 Refreshing native plugins compatible for Editor in 0.64 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 136.1 MB.
-System memory in use after: 136.4 MB.
+System memory in use before: 130.5 MB.
+System memory in use after: 130.8 MB.
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3530.
-Total: 3.318700 ms (FindLiveObjects: 0.496400 ms CreateObjectMapping: 0.102800 ms MarkObjects: 2.692600 ms  DeleteObjects: 0.025700 ms)
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3431.
+Total: 2.331900 ms (FindLiveObjects: 0.285600 ms CreateObjectMapping: 0.072700 ms MarkObjects: 1.953900 ms  DeleteObjects: 0.018600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003700 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.667 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 130.5 MB.
+System memory in use after: 130.8 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3434.
+Total: 2.326200 ms (FindLiveObjects: 0.273600 ms CreateObjectMapping: 0.101000 ms MarkObjects: 1.931200 ms  DeleteObjects: 0.019300 ms)
 
