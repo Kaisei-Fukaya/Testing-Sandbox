@@ -1,6 +1,4 @@
-using System.Diagnostics;
 using UnityEngine;
-using Python.Runtime;
 using System;
 using Unity.Barracuda;
 using UnityEditor;

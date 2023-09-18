@@ -27,6 +27,7 @@ namespace SSL.Graph
             //_previewObject = new GameObject();
             _previewMR = _previewObject.GetComponent<MeshRenderer>();
             _previewMF = _previewObject.GetComponent<MeshFilter>();
+            _mesh = _previewMF.sharedMesh;
             //_previewObject.hideFlags = HideFlags.HideInHierarchy;
 
             VisualElement topContainer = new VisualElement()
@@ -86,9 +87,24 @@ namespace SSL.Graph
 
         public GameObject GetCurrentObject(string savePath)
         {
-            var outObject = Object.Instantiate(_previewObject);
+            //var outObject = Object.Instantiate(_previewObject);
+            AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(_previewObject), savePath + ".prefab");
+            var outObject = AssetDatabase.LoadAssetAtPath<GameObject>(savePath + ".prefab");
             var outMR = outObject.GetComponent<MeshRenderer>();
+            var baseMF = _previewObject.GetComponent<MeshFilter>();
+            var outMF = outObject.GetComponent<MeshFilter>();
+            var outMFMesh = baseMF.sharedMesh;
             var mats = outMR.sharedMaterials;
+
+            //Duplicate mesh
+            //Mesh outMesh = new Mesh();
+            //outMesh.vertices = outMFMesh.vertices;
+            //outMesh.triangles = outMFMesh.triangles;
+            //outMesh.uv = outMFMesh.uv;
+            //outMesh.normals = outMFMesh.normals;
+            //outMesh.colors = outMFMesh.colors;
+            //outMesh.tangents = outMFMesh.tangents;
+
             var newMats = new Material[mats.Length];
             for (int i = 0; i < mats.Length; i++)
             {
@@ -97,7 +113,9 @@ namespace SSL.Graph
                 newMats[i] = AssetDatabase.LoadAssetAtPath<Material>(newMaterialPath);
             }
             outMR.sharedMaterials = newMats;
-            AssetDatabase.CreateAsset(outObject.GetComponent<MeshFilter>().sharedMesh, savePath + ".mesh");
+            bool duplicateSucceeded = AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(outMFMesh), savePath + ".mesh");
+            //Debug.Log(duplicateSucceeded);
+            outMF.sharedMesh = AssetDatabase.LoadAssetAtPath<Mesh>(savePath + ".mesh");
             return outObject;
         }
 
@@ -107,8 +125,8 @@ namespace SSL.Graph
             _swordGraph.Load(subdiv, spacing, nodesAndEdges.nodes, nodesAndEdges.edges, facetedShading);
             if (_previewEditor == null)
             {
-                _mesh = _swordGraph.Generate();
-                _previewMF.sharedMesh = _mesh;
+                _swordGraph.Generate(ref _mesh);
+                //_previewMF.sharedMesh = _mesh;
                 _previewMR.sharedMaterials = materials;
                 _previewEditor = Editor.CreateEditor(_previewObject);
                 return;

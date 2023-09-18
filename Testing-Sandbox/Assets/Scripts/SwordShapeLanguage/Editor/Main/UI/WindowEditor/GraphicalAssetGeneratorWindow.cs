@@ -26,7 +26,7 @@ namespace SSL.Graph
 
         public int subdiv { get; private set; } = 2;
         public bool facetedShading { get; private set; } = false;
-        public List<(int, Material)> materials = new List<(int, Material)>() { (0, null) };
+        public List<(int, Material)> materials = new List<(int, Material)>() {};
 
         void SetSubdiv(int value)
         {
@@ -79,6 +79,9 @@ namespace SSL.Graph
 
         private void CreateGUI()
         {
+            Material defaultMat = (Material)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/DefaultMat.mat", typeof(Material));
+            materials.Add((0, defaultMat));
+
             _inference = new Inference();
             this.titleContent = new GUIContent("Graphical Asset Generator");
             _generateStyleVariables = (StyleSheet)AssetDatabase.LoadAssetAtPath($"{GAGenDataUtils.BasePath}Editor/Assets/UIStyles/GraphicalAssetGeneratorVariablesGenerate.uss", typeof(StyleSheet));
@@ -260,8 +263,8 @@ namespace SSL.Graph
             if (path == "")
                 return;
             GameObject currentObject = _previewWindow.GetCurrentObject(path);
-            PrefabUtility.SaveAsPrefabAsset(currentObject, $"{path}.prefab");
-            DestroyImmediate(currentObject);
+            //PrefabUtility.SaveAsPrefabAsset(currentObject, $"{path}.prefab");
+            //DestroyImmediate(currentObject);
         }
 
         public void SaveProcessPack()
@@ -275,7 +278,7 @@ namespace SSL.Graph
             AssetDatabase.CreateFolder("Assets/Generator Results", name);
             AssetDatabase.CreateAsset(dataToSave, $"Assets/Generator Results/{name}/{name}.asset");
             GameObject currentObject = _previewWindow.GetCurrentObject($"Assets/Generator Results/{name}/{name}");
-            PrefabUtility.SaveAsPrefabAsset(currentObject, $"Assets/Generator Results/{name}/{name}.prefab");
+            //PrefabUtility.SaveAsPrefabAsset(currentObject, $"Assets/Generator Results/{name}/{name}.prefab");
 
             var imagePaths = _configBox.GetImagePaths();
             if (imagePaths.sourceImagePaths[0] != "")
@@ -295,7 +298,7 @@ namespace SSL.Graph
             //Create zip file
             System.IO.Compression.ZipFile.CreateFromDirectory($"Assets/Generator Results/{name}", $"Assets/Generator Results/{name}.zip");
 
-            DestroyImmediate(currentObject);
+            //DestroyImmediate(currentObject);
         }
 
         string AutoGenName(int creatorID)

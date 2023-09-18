@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.6f1 (338bb68529b2) revision 3378102'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Pro; OS build 19045.3324; Version 2009; 64bit' Language: 'en' Physical Memory: 40885 MB
+OS: 'Windows 10 Pro; OS build 19045.3448; Version 2009; 64bit' Language: 'en' Physical Memory: 40885 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -15,11 +15,11 @@ G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-51230
+50867
 Successfully changed project path to: G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 G:/Projects/TestingSandbox/Testing-Sandbox/Testing-Sandbox
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 36.33 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 152.02 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.6f1 (338bb68529b2)
 [Subsystems] Discovering subsystems at path G:/Unity 2018.3/2020.3.6f1/Editor/Data/Resources/UnitySubsystems
@@ -36,330 +36,178 @@ Initialize mono
 Mono path[0] = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/Managed'
 Mono path[1] = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'G:/Unity 2018.3/2020.3.6f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56768
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56128
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: G:/Unity 2018.3/2020.3.6f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: G:/Unity 2018.3/2020.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.000956 seconds.
+Registered in 0.001158 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 37.29 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 34.71 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.087 seconds
+- Completed reload, in  1.644 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.003780 seconds.
+Registered in 0.003845 seconds.
 Begin MonoManager ReloadAssembly
 Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
 Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
 
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 35.79 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 33.88 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.012 seconds
+- Completed reload, in  1.851 seconds
 Platform modules already initialized, skipping
 Assertion failed on expression: 'reloadOk'
 
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 0.65 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2923 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 2922 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 141.5 MB.
 System memory in use after: 141.7 MB.
 
-Unloading 29 unused Assets to reduce memory usage. Loaded Objects now: 3350.
-Total: 2.515800 ms (FindLiveObjects: 0.366700 ms CreateObjectMapping: 0.079000 ms MarkObjects: 1.997900 ms  DeleteObjects: 0.071300 ms)
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 3350.
+Total: 2.515700 ms (FindLiveObjects: 0.214600 ms CreateObjectMapping: 0.067900 ms MarkObjects: 2.158000 ms  DeleteObjects: 0.074400 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab
-  artifactKey: Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab using Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23b080d5cb4010f6667946090dd45984') in 0.068776 seconds
-  Import took 0.072803 seconds .
+  path: Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54.prefab
+  artifactKey: Guid(84e879ee78ea1644bbe78bd3439eb973) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54.prefab using Guid(84e879ee78ea1644bbe78bd3439eb973) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8c143d6250ac515fb844317165e707b') in 0.078374 seconds
+  Import took 0.083143 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 83.621684 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2net.onnx
-  artifactKey: Guid(738ee6aa8b9c8e74c851d5f4d1343c96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2net.onnx using Guid(738ee6aa8b9c8e74c851d5f4d1343c96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'babe0e459a6daa58fbd182bffea8c513') in 0.781895 seconds
-  Import took 0.786419 seconds .
+  Time since last request: 0.000144 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-31-54
+  artifactKey: Guid(9593e5620b15e744282e5977d7bb70f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-31-54 using Guid(9593e5620b15e744282e5977d7bb70f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98e0335aa1c4b5aa11ffd46fb91be3f2') in 0.001637 seconds
+  Import took 0.005135 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 43.426303 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
-  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b934fe78f862ad0bc7a1761e44781988') in 0.040030 seconds
-  Import took 0.044456 seconds .
+  Time since last request: 0.000124 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54_processed-interpA.png
+  artifactKey: Guid(233b144dd6417ce45873870232c7a2fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54_processed-interpA.png using Guid(233b144dd6417ce45873870232c7a2fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a9f5a27563a338ab964b0cfcaafdb8c') in 0.056504 seconds
+  Import took 0.060205 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.007900 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
-  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b934fe78f862ad0bc7a1761e44781988') in 0.001695 seconds
-  Import took 0.005030 seconds .
+  Time since last request: 0.000156 seconds.
+  path: Assets/Generator Results/random_2023-09-18-11-00-55
+  artifactKey: Guid(eb540072f97e92c4693a1a6255299a8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-11-00-55 using Guid(eb540072f97e92c4693a1a6255299a8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73497d68e3f2028a42f0d12cb359d0f8') in 0.005805 seconds
+  Import took 0.009147 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 707.540197 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
-  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdac074a35015369122c9c34920e39ec') in 0.001730 seconds
-  Import took 0.006064 seconds .
+  Time since last request: 0.000126 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54.asset
+  artifactKey: Guid(656a540c5d96cf14b8c2d1efe704c05c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54.asset using Guid(656a540c5d96cf14b8c2d1efe704c05c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c8a3cbcf2731378b0136863adcc44fa1') in 0.005798 seconds
+  Import took 0.009013 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.002351 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
-  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdac074a35015369122c9c34920e39ec') in 0.001484 seconds
-  Import took 0.004950 seconds .
+  Time since last request: 0.000134 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54_processed-interpB.png
+  artifactKey: Guid(9d42329a625510246bb486fee5e86d1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54_processed-interpB.png using Guid(9d42329a625510246bb486fee5e86d1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b7d834593cdd04ea92b2fa5a85a702b') in 0.010993 seconds
+  Import took 0.029995 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 41.887031 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
-  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2944fc486910a63c6abf2e8da999400') in 0.001718 seconds
-  Import took 0.006168 seconds .
+  Time since last request: 0.000206 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54_0.mat
+  artifactKey: Guid(43518f640afba1349bf301fb60c3a861) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54_0.mat using Guid(43518f640afba1349bf301fb60c3a861) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1fb01a133d74427a9d4bd95ac6ac6da') in 0.128985 seconds
+  Import took 0.132886 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.002313 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs
-  artifactKey: Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/Preprocess.cs using Guid(c8998c6411da42f4b90394cac73bb6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2944fc486910a63c6abf2e8da999400') in 0.001386 seconds
-  Import took 0.004385 seconds .
+  Time since last request: 0.000161 seconds.
+  path: Assets/Generator Results/random_2023-09-18-11-00-38
+  artifactKey: Guid(6b46e5d2013314749a2515b87e4bfb5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-11-00-38 using Guid(6b46e5d2013314749a2515b87e4bfb5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '153a46438fde27e7de7e2bdb718f2bb1') in 0.005111 seconds
+  Import took 0.008416 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000125 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54_processed-recon.png
+  artifactKey: Guid(3e4941a35374215439a9cc826e9599d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-31-54/random_2023-09-18-13-31-54_processed-recon.png using Guid(3e4941a35374215439a9cc826e9599d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7bee4c4383adbe5ba9cbec6fe93e77b6') in 0.010211 seconds
+  Import took 0.015183 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 105.168294 seconds.
+  path: Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38.asset
+  artifactKey: Guid(31ab7df146b223742922270ca34e1d17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38.asset using Guid(31ab7df146b223742922270ca34e1d17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d6547cd1cc9865af3f89d9e87205f02') in 0.010615 seconds
+  Import took 0.015528 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38_processed-recon.png
+  artifactKey: Guid(51267b0783c0ec94eb12732492b99905) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38_processed-recon.png using Guid(51267b0783c0ec94eb12732492b99905) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7794fb43513189f43250a29f85976b3') in 0.091134 seconds
+  Import took 0.095061 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000141 seconds.
+  path: Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38_processed-interpA.png
+  artifactKey: Guid(8654def594b1ec245a0b8df98567187a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38_processed-interpA.png using Guid(8654def594b1ec245a0b8df98567187a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4e188132266e6c6a56ee58fbabc1750') in 0.013095 seconds
+  Import took 0.017497 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000162 seconds.
+  path: Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38_processed-interpB.png
+  artifactKey: Guid(1acf0fe7be57d804f99b14a93ba11d6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38_processed-interpB.png using Guid(1acf0fe7be57d804f99b14a93ba11d6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cbe9ba0448371d79c3a29a35bfce44b') in 0.012496 seconds
+  Import took 0.016292 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000147 seconds.
+  path: Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38.prefab
+  artifactKey: Guid(2a70e66243187cb48962a0c24be9f166) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38.prefab using Guid(2a70e66243187cb48962a0c24be9f166) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '398972d264b9d8cf05550eec894cac22') in 0.007236 seconds
+  Import took 0.010801 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000135 seconds.
+  path: Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38_0.mat
+  artifactKey: Guid(085179b19001d9e4399e064f36e8f16c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38_0.mat using Guid(085179b19001d9e4399e064f36e8f16c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '31b09e09b07c50e4f48de5e636dc7a31') in 0.015470 seconds
+  Import took 0.018993 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38.mesh
+  artifactKey: Guid(eeb0678f0b38b794e914589a0eb2aee2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-11-00-38/random_2023-09-18-11-00-38.mesh using Guid(eeb0678f0b38b794e914589a0eb2aee2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60e66bb57965ca4b230bfd7023349e75') in 0.068754 seconds
+  Import took 0.072139 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.003959 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.60 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.672 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.2 MB.
-System memory in use after: 130.4 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3353.
-Total: 2.346000 ms (FindLiveObjects: 0.263900 ms CreateObjectMapping: 0.072400 ms MarkObjects: 1.994400 ms  DeleteObjects: 0.014400 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003943 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.652 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.3 MB.
-System memory in use after: 130.5 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3356.
-Total: 2.342100 ms (FindLiveObjects: 0.280800 ms CreateObjectMapping: 0.081800 ms MarkObjects: 1.961600 ms  DeleteObjects: 0.017200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004369 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.659 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.3 MB.
-System memory in use after: 130.6 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3359.
-Total: 2.313500 ms (FindLiveObjects: 0.249400 ms CreateObjectMapping: 0.077000 ms MarkObjects: 1.968800 ms  DeleteObjects: 0.016900 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003967 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.666 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.64 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.6 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3362.
-Total: 2.387900 ms (FindLiveObjects: 0.262400 ms CreateObjectMapping: 0.075400 ms MarkObjects: 2.032400 ms  DeleteObjects: 0.016800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003715 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.653 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.6 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3365.
-Total: 2.146300 ms (FindLiveObjects: 0.300400 ms CreateObjectMapping: 0.075500 ms MarkObjects: 1.754900 ms  DeleteObjects: 0.014600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005223 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.68 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.678 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.6 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3368.
-Total: 2.293900 ms (FindLiveObjects: 0.334700 ms CreateObjectMapping: 0.069000 ms MarkObjects: 1.872500 ms  DeleteObjects: 0.016700 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003759 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.662 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.64 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.6 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3371.
-Total: 2.305600 ms (FindLiveObjects: 0.268500 ms CreateObjectMapping: 0.107200 ms MarkObjects: 1.910500 ms  DeleteObjects: 0.018100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003980 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.674 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.6 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3374.
-Total: 2.592500 ms (FindLiveObjects: 0.431600 ms CreateObjectMapping: 0.069700 ms MarkObjects: 2.072500 ms  DeleteObjects: 0.017500 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003876 seconds.
+Registered in 0.066877 seconds.
 Begin MonoManager ReloadAssembly
 Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
 Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
@@ -369,229 +217,262 @@ Native extension for WebGL target not found
 Refreshing native plugins compatible for Editor in 0.67 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.668 seconds
+- Completed reload, in  0.777 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.79 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2768 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 135.7 MB.
+System memory in use after: 135.9 MB.
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 3435.
+Total: 4.811200 ms (FindLiveObjects: 0.796300 ms CreateObjectMapping: 0.176300 ms MarkObjects: 3.811500 ms  DeleteObjects: 0.025900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004292 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.707 seconds
 Platform modules already initialized, skipping
 Assertion failed on expression: 'reloadOk'
 
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
 Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.6 MB.
+Unloading 2768 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 135.7 MB.
+System memory in use after: 136.0 MB.
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3377.
-Total: 2.236300 ms (FindLiveObjects: 0.267600 ms CreateObjectMapping: 0.074600 ms MarkObjects: 1.877200 ms  DeleteObjects: 0.016200 ms)
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 3438.
+Total: 2.242200 ms (FindLiveObjects: 0.233400 ms CreateObjectMapping: 0.077400 ms MarkObjects: 1.915800 ms  DeleteObjects: 0.014700 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004345 seconds.
+Begin MonoManager ReloadAssembly
+Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
+Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
+
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.695 seconds
+Platform modules already initialized, skipping
+Assertion failed on expression: 'reloadOk'
+
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.65 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2768 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 135.9 MB.
+System memory in use after: 136.1 MB.
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 3441.
+Total: 2.293200 ms (FindLiveObjects: 0.257200 ms CreateObjectMapping: 0.064600 ms MarkObjects: 1.954500 ms  DeleteObjects: 0.016100 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 5789.525523 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2net.onnx
-  artifactKey: Guid(738ee6aa8b9c8e74c851d5f4d1343c96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2net.onnx using Guid(738ee6aa8b9c8e74c851d5f4d1343c96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf9b7b568e7b1f340e7c698dac7e8831') in 0.890082 seconds
-  Import took 0.894960 seconds .
+  Time since last request: 366.373397 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-14
+  artifactKey: Guid(0614adc5d8235f24cbfe955601446ed1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-14 using Guid(0614adc5d8235f24cbfe955601446ed1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38e24ddf87b65e887790d757d288528a') in 0.011006 seconds
+  Import took 0.015306 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 7574.572671 seconds.
-  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2netp.onnx
-  artifactKey: Guid(9cbd5a8868fcc5f408c50733d8cf531d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/ONNX/u2netp.onnx using Guid(9cbd5a8868fcc5f408c50733d8cf531d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fcd831ea3ce263bbf6bf3760cd44e2e4') in 0.024934 seconds
-  Import took 0.029539 seconds .
+  Time since last request: 0.031242 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14.asset
+  artifactKey: Guid(a7e25d0ca7303574cb7de40dcdb6e5a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14.asset using Guid(a7e25d0ca7303574cb7de40dcdb6e5a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a5517e859f3286bab1251dd1d21de9e') in 0.008996 seconds
+  Import took 0.013199 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000124 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14_processed-recon.png
+  artifactKey: Guid(75553334636373f4685f06e5b77921b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14_processed-recon.png using Guid(75553334636373f4685f06e5b77921b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f64cb9a9f66fc1234e7411b8513403d') in 0.019544 seconds
+  Import took 0.023202 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14_processed-interpA.png
+  artifactKey: Guid(54739d583f514344384ce9b18803b3b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14_processed-interpA.png using Guid(54739d583f514344384ce9b18803b3b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6675261e9cc5b39903a47be36aa2844') in 0.009426 seconds
+  Import took 0.013142 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000141 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14_0.mat
+  artifactKey: Guid(cbfa2a85e1859424d8bd5df6c054ea8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14_0.mat using Guid(cbfa2a85e1859424d8bd5df6c054ea8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '573bf9cb21174eb5ae24513714bfaa94') in 0.094448 seconds
+  Import took 0.098102 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000150 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14_processed-interpB.png
+  artifactKey: Guid(8ab53d1f649133543a278e088a092fbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14_processed-interpB.png using Guid(8ab53d1f649133543a278e088a092fbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f8e9fa8b7b6921f8d154a7208d86fd1') in 0.008840 seconds
+  Import took 0.012243 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000177 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14.mesh
+  artifactKey: Guid(55f346a322116554aafcc2df7c4d4e1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14.mesh using Guid(55f346a322116554aafcc2df7c4d4e1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4725541ceabdc4292467c0ffd091c580') in 0.018967 seconds
+  Import took 0.022406 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000153 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14.prefab
+  artifactKey: Guid(36d674d35a9603d4c8d9771d5e77b072) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14.prefab using Guid(36d674d35a9603d4c8d9771d5e77b072) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0fbf3ad47ca20e37cb16bd8bd92d1482') in 0.005430 seconds
+  Import took 0.008285 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.525664 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14.prefab
+  artifactKey: Guid(36d674d35a9603d4c8d9771d5e77b072) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14.prefab using Guid(36d674d35a9603d4c8d9771d5e77b072) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97074cf83f6197e3546cf9942c7b1bca') in 0.014601 seconds
+  Import took 0.019254 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 26.886323 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14.mesh
+  artifactKey: Guid(55f346a322116554aafcc2df7c4d4e1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-14/random_2023-09-18-13-40-14.mesh using Guid(55f346a322116554aafcc2df7c4d4e1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb76842369804b664089b2b3b5406467') in 0.015320 seconds
+  Import took 0.019440 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.125135 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-50
+  artifactKey: Guid(4e4b1a86ca847ea4698ec0dbebb9274c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-50 using Guid(4e4b1a86ca847ea4698ec0dbebb9274c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c64db604cb4f5035fae5ab8e04e38559') in 0.006878 seconds
+  Import took 0.011094 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.035063 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50.asset
+  artifactKey: Guid(da7769d785d8a2742be5964b552ad6b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50.asset using Guid(da7769d785d8a2742be5964b552ad6b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'abfd7b821deedc2d9a8dbfd9a1e455e2') in 0.002418 seconds
+  Import took 0.006246 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000127 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_0.mat
+  artifactKey: Guid(2c00f4aba13f0254e92d37425e21c4cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_0.mat using Guid(2c00f4aba13f0254e92d37425e21c4cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '74974588b0e4d6f05d2a5dc157dca18c') in 0.009965 seconds
+  Import took 0.013288 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50.prefab
+  artifactKey: Guid(b61130e652a546e4bbb9c58fab88c5f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50.prefab using Guid(b61130e652a546e4bbb9c58fab88c5f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d1b92bd9b19aa2bbc375abdb4d95e86') in 0.012340 seconds
+  Import took 0.015902 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 389.887107 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_processed-interpA.png
+  artifactKey: Guid(2b598ecc58caee64486fbbb15833cc66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_processed-interpA.png using Guid(2b598ecc58caee64486fbbb15833cc66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '595559e7fc4d8527a8be38bd7da0c5dd') in 0.010810 seconds
+  Import took 0.015273 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000160 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_processed-interpB.png
+  artifactKey: Guid(1d0097615377c4c43ba2db0d994b2cc3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_processed-interpB.png using Guid(1d0097615377c4c43ba2db0d994b2cc3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '762b5a60606f52d5c6d4899d28db7a53') in 0.010474 seconds
+  Import took 0.014098 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000146 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_processed-recon.png
+  artifactKey: Guid(764d28c73dd2eb147850cb86d0f36ac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_processed-recon.png using Guid(764d28c73dd2eb147850cb86d0f36ac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f224f87140ef69003ec48c208ce86f3b') in 0.009860 seconds
+  Import took 0.013714 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000153 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_processed-interpB.png
+  artifactKey: Guid(1d0097615377c4c43ba2db0d994b2cc3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_processed-interpB.png using Guid(1d0097615377c4c43ba2db0d994b2cc3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '762b5a60606f52d5c6d4899d28db7a53') in 0.004321 seconds
+  Import took 0.007597 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000146 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_processed-recon.png
+  artifactKey: Guid(764d28c73dd2eb147850cb86d0f36ac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-40-50/random_2023-09-18-13-40-50_processed-recon.png using Guid(764d28c73dd2eb147850cb86d0f36ac6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f224f87140ef69003ec48c208ce86f3b') in 0.004887 seconds
+  Import took 0.008975 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 57.685194 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab
+  artifactKey: Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab using Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39d8c8d46f448bdb98ded4a3745956b3') in 0.012450 seconds
+  Import took 0.016883 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000282 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab
+  artifactKey: Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab using Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39d8c8d46f448bdb98ded4a3745956b3') in 0.011467 seconds
+  Import took 0.015000 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.357528 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab
+  artifactKey: Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab using Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '374b328fcdb19f6b7af2c70e8f3101b2') in 0.006674 seconds
+  Import took 0.010596 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001591 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab
+  artifactKey: Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab using Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '374b328fcdb19f6b7af2c70e8f3101b2') in 0.008118 seconds
+  Import took 0.011643 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.004412 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.685 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.6 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3380.
-Total: 2.313500 ms (FindLiveObjects: 0.225700 ms CreateObjectMapping: 0.063000 ms MarkObjects: 1.954700 ms  DeleteObjects: 0.069200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003839 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.669 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.6 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3383.
-Total: 2.499600 ms (FindLiveObjects: 0.310500 ms CreateObjectMapping: 0.078200 ms MarkObjects: 2.044200 ms  DeleteObjects: 0.065200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003751 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.60 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.669 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.7 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3386.
-Total: 2.348900 ms (FindLiveObjects: 0.341500 ms CreateObjectMapping: 0.074900 ms MarkObjects: 1.915700 ms  DeleteObjects: 0.016100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004753 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.65 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.681 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.7 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3389.
-Total: 2.427500 ms (FindLiveObjects: 0.437400 ms CreateObjectMapping: 0.077700 ms MarkObjects: 1.893000 ms  DeleteObjects: 0.018600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003909 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.68 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.676 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.4 MB.
-System memory in use after: 130.7 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3392.
-Total: 2.230000 ms (FindLiveObjects: 0.225900 ms CreateObjectMapping: 0.074100 ms MarkObjects: 1.913000 ms  DeleteObjects: 0.016100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.623467 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.65 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  4.401 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.81 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.7 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3395.
-Total: 3.631800 ms (FindLiveObjects: 0.374200 ms CreateObjectMapping: 0.160800 ms MarkObjects: 3.070000 ms  DeleteObjects: 0.025800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003742 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.70 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.674 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.7 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3398.
-Total: 2.267300 ms (FindLiveObjects: 0.240000 ms CreateObjectMapping: 0.099500 ms MarkObjects: 1.907700 ms  DeleteObjects: 0.019400 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004163 seconds.
+Registered in 0.003844 seconds.
 Begin MonoManager ReloadAssembly
 Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
 Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
@@ -601,213 +482,107 @@ Native extension for WebGL target not found
 Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.670 seconds
+- Completed reload, in  0.698 seconds
 Platform modules already initialized, skipping
 Assertion failed on expression: 'reloadOk'
 
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
 Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.7 MB.
+Unloading 2768 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 136.0 MB.
+System memory in use after: 136.3 MB.
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3401.
-Total: 2.368400 ms (FindLiveObjects: 0.272300 ms CreateObjectMapping: 0.074900 ms MarkObjects: 1.999600 ms  DeleteObjects: 0.020500 ms)
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 3480.
+Total: 2.567500 ms (FindLiveObjects: 0.296900 ms CreateObjectMapping: 0.067500 ms MarkObjects: 2.184600 ms  DeleteObjects: 0.017800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 105.971400 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-50-18
+  artifactKey: Guid(24f49b0f92a8e514e9de3994fc9f4848) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-50-18 using Guid(24f49b0f92a8e514e9de3994fc9f4848) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ae86416b8f88adafe1405b964f0b5bf') in 0.010951 seconds
+  Import took 0.015573 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.027814 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18.asset
+  artifactKey: Guid(375f8b347ba294f408001da25da7010c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18.asset using Guid(375f8b347ba294f408001da25da7010c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec5e77a1ee952d0bf341cd34711c90db') in 0.014790 seconds
+  Import took 0.018989 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000146 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18.prefab
+  artifactKey: Guid(62efecd547ba0ff40936b0f528ee9165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18.prefab using Guid(62efecd547ba0ff40936b0f528ee9165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dcfc5a4559ade7721265a4f7c91b5009') in 0.009539 seconds
+  Import took 0.012962 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000136 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18_processed-interpA.png
+  artifactKey: Guid(e8cb98f8e73395142836cdc312ef3db9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18_processed-interpA.png using Guid(e8cb98f8e73395142836cdc312ef3db9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '167126b1c431f0da4bc5bddaa83a1b76') in 0.016294 seconds
+  Import took 0.019711 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000136 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18_0.mat
+  artifactKey: Guid(e8eba858fa4acf54fbc1c0e19501de4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18_0.mat using Guid(e8eba858fa4acf54fbc1c0e19501de4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'caee55456b11dfd1784016b79bc8b9a3') in 0.093883 seconds
+  Import took 0.097424 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000152 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18_processed-interpB.png
+  artifactKey: Guid(cafcfa915f062d44ab79151235db7a03) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18_processed-interpB.png using Guid(cafcfa915f062d44ab79151235db7a03) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '860f96b2b1b9ca02b87c25696995cde1') in 0.009284 seconds
+  Import took 0.012353 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000140 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18_processed-recon.png
+  artifactKey: Guid(d4cc1bd11535a5240b72d142ee2d1171) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-50-18/random_2023-09-18-13-50-18_processed-recon.png using Guid(d4cc1bd11535a5240b72d142ee2d1171) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '903f57f39fd5ba03cff04f1ffff05a64') in 0.013229 seconds
+  Import took 0.016722 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.004426 seconds.
+Registered in 0.004572 seconds.
 Begin MonoManager ReloadAssembly
 Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
 Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
 
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.73 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.671 seconds
+- Completed reload, in  0.713 seconds
 Platform modules already initialized, skipping
 Assertion failed on expression: 'reloadOk'
 
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.71 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.7 MB.
+Unloading 2768 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 136.2 MB.
+System memory in use after: 136.4 MB.
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3404.
-Total: 2.298000 ms (FindLiveObjects: 0.253700 ms CreateObjectMapping: 0.074200 ms MarkObjects: 1.952700 ms  DeleteObjects: 0.016600 ms)
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 3519.
+Total: 2.334200 ms (FindLiveObjects: 0.253000 ms CreateObjectMapping: 0.072800 ms MarkObjects: 1.992700 ms  DeleteObjects: 0.014900 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.004479 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.671 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.7 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3407.
-Total: 2.300100 ms (FindLiveObjects: 0.255900 ms CreateObjectMapping: 0.075200 ms MarkObjects: 1.949800 ms  DeleteObjects: 0.018400 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003779 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.677 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.7 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3410.
-Total: 2.361300 ms (FindLiveObjects: 0.253400 ms CreateObjectMapping: 0.076400 ms MarkObjects: 2.013900 ms  DeleteObjects: 0.016600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003839 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.64 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.676 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.7 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3413.
-Total: 2.275700 ms (FindLiveObjects: 0.313200 ms CreateObjectMapping: 0.076500 ms MarkObjects: 1.869100 ms  DeleteObjects: 0.016000 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003740 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.685 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.7 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3416.
-Total: 2.915500 ms (FindLiveObjects: 0.544000 ms CreateObjectMapping: 0.115000 ms MarkObjects: 2.234900 ms  DeleteObjects: 0.020200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004290 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.66 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.711 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.7 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3419.
-Total: 2.816400 ms (FindLiveObjects: 0.419900 ms CreateObjectMapping: 0.105000 ms MarkObjects: 2.270500 ms  DeleteObjects: 0.019500 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003849 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.673 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.8 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3422.
-Total: 2.276100 ms (FindLiveObjects: 0.290300 ms CreateObjectMapping: 0.067500 ms MarkObjects: 1.901200 ms  DeleteObjects: 0.016500 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004301 seconds.
+Registered in 0.003912 seconds.
 Begin MonoManager ReloadAssembly
 Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
 Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
@@ -817,24 +592,392 @@ Native extension for WebGL target not found
 Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.679 seconds
+- Completed reload, in  0.700 seconds
 Platform modules already initialized, skipping
 Assertion failed on expression: 'reloadOk'
 
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.64 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.67 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.8 MB.
+Unloading 2768 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 136.2 MB.
+System memory in use after: 136.4 MB.
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3425.
-Total: 2.553600 ms (FindLiveObjects: 0.320100 ms CreateObjectMapping: 0.143000 ms MarkObjects: 2.070800 ms  DeleteObjects: 0.018600 ms)
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 3522.
+Total: 2.415600 ms (FindLiveObjects: 0.337300 ms CreateObjectMapping: 0.073200 ms MarkObjects: 1.988200 ms  DeleteObjects: 0.015800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 243.763178 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab
+  artifactKey: Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab using Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ac7fc2a58142dcbc2a1a9d8f494a3e3') in 0.022032 seconds
+  Import took 0.026463 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000145 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh
+  artifactKey: Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh using Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ce2be31ef73cf374e4c1e79564e2d98') in 0.032398 seconds
+  Import took 0.035994 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.582944 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab
+  artifactKey: Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplate.prefab using Guid(799a69155d06eef4f905967a2af0b75f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44563a62cff0ab338e3b2671b622c346') in 0.077822 seconds
+  Import took 0.082054 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.810765 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh
+  artifactKey: Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh using Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1bf9723013021a3ee69c02d306ea4f9f') in 0.009440 seconds
+  Import took 0.013626 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.174043 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-54-54
+  artifactKey: Guid(514af696e9a555044bf6dc193658621e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-54-54 using Guid(514af696e9a555044bf6dc193658621e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7fdbb9db4667fcf6b28db22fa452c3ce') in 0.008679 seconds
+  Import took 0.013086 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.045600 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54.asset
+  artifactKey: Guid(8e1f56889312f7340a454909f8e52c35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54.asset using Guid(8e1f56889312f7340a454909f8e52c35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc5a477e60f211fe3f0ecaa7b16bb4bf') in 0.004641 seconds
+  Import took 0.008676 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000125 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54_0.mat
+  artifactKey: Guid(54dbe76b71d7f3b4bb3f43381255befc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54_0.mat using Guid(54dbe76b71d7f3b4bb3f43381255befc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a3235708aeaf79f53fd6aec249339f35') in 0.020006 seconds
+  Import took 0.023737 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000282 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54.prefab
+  artifactKey: Guid(e096e8bdddcfba04998ed7722e21a56f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54.prefab using Guid(e096e8bdddcfba04998ed7722e21a56f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5bd77a5a87115f3e83359eb5d53e65ba') in 0.013277 seconds
+  Import took 0.017486 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.371651 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54.prefab
+  artifactKey: Guid(e096e8bdddcfba04998ed7722e21a56f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54.prefab using Guid(e096e8bdddcfba04998ed7722e21a56f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce3d6c32af1ceda8516c5d2244d6bba3') in 0.007108 seconds
+  Import took 0.011076 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.005955 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54.prefab
+  artifactKey: Guid(e096e8bdddcfba04998ed7722e21a56f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54.prefab using Guid(e096e8bdddcfba04998ed7722e21a56f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce3d6c32af1ceda8516c5d2244d6bba3') in 0.008425 seconds
+  Import took 0.012540 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 71.240741 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54.mesh
+  artifactKey: Guid(358a9f4f42a666a4bba0bbf0caa4981f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-54-54/random_2023-09-18-13-54-54.mesh using Guid(358a9f4f42a666a4bba0bbf0caa4981f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f9c81a9a34796f106713c83715c9676') in 0.009589 seconds
+  Import took 0.013268 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.351430 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-56-13
+  artifactKey: Guid(d1d45d54cbd8fbb41a80d864a5604d01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-56-13 using Guid(d1d45d54cbd8fbb41a80d864a5604d01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c21bef82e86e74726e0e70873fbbe08d') in 0.006578 seconds
+  Import took 0.010914 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.031922 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-56-13/random_2023-09-18-13-56-13.asset
+  artifactKey: Guid(eddad63eaf1e4f249833906c189eb4d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-56-13/random_2023-09-18-13-56-13.asset using Guid(eddad63eaf1e4f249833906c189eb4d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f6775440a0bc073cf51c82a5960ac6a') in 0.002375 seconds
+  Import took 0.006477 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000129 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-56-13/random_2023-09-18-13-56-13.prefab
+  artifactKey: Guid(a7e028dffc2f8bb43a02331b08ff858b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-56-13/random_2023-09-18-13-56-13.prefab using Guid(a7e028dffc2f8bb43a02331b08ff858b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b9998aa5381d374fea0e9789ab4d624') in 0.009612 seconds
+  Import took 0.012884 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000139 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-56-13/random_2023-09-18-13-56-13_0.mat
+  artifactKey: Guid(02103bae92cd44e4ea632fe050a376b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-56-13/random_2023-09-18-13-56-13_0.mat using Guid(02103bae92cd44e4ea632fe050a376b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd93b2fb013c11bc808b9a20b697a35de') in 0.009842 seconds
+  Import took 0.013324 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.841600 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-56-13/random_2023-09-18-13-56-13.prefab
+  artifactKey: Guid(a7e028dffc2f8bb43a02331b08ff858b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-56-13/random_2023-09-18-13-56-13.prefab using Guid(a7e028dffc2f8bb43a02331b08ff858b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c0ef209603da983380b6e4542f4d3b6') in 0.006511 seconds
+  Import took 0.010497 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.005905 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-56-13/random_2023-09-18-13-56-13.prefab
+  artifactKey: Guid(a7e028dffc2f8bb43a02331b08ff858b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-56-13/random_2023-09-18-13-56-13.prefab using Guid(a7e028dffc2f8bb43a02331b08ff858b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c0ef209603da983380b6e4542f4d3b6') in 0.007698 seconds
+  Import took 0.011513 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 31.438525 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh
+  artifactKey: Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh using Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4932bcab5fc0b9ab9922ecac47b77453') in 0.010530 seconds
+  Import took 0.014656 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 24.657466 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/tmp/rotated_rec.png
+  artifactKey: Guid(2d6cafde6b6be7648be8e8769419ac9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/tmp/rotated_rec.png using Guid(2d6cafde6b6be7648be8e8769419ac9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ad8c2b435412051c51b65d456045f1e') in 0.066531 seconds
+  Import took 0.071057 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 24.538320 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/tmp/rec.png
+  artifactKey: Guid(3726220f9e2d50a4ea9401742bd976d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/tmp/rec.png using Guid(3726220f9e2d50a4ea9401742bd976d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9bb68e0760fc6cfdf94924a758182b56') in 0.022155 seconds
+  Import took 0.026771 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/tmp/rotated_rec.png
+  artifactKey: Guid(2d6cafde6b6be7648be8e8769419ac9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Main/GraphicalAssetGeneratorData/Preprocessing/tmp/rotated_rec.png using Guid(2d6cafde6b6be7648be8e8769419ac9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f8de6cea666bb4b131fc12b0399635a') in 0.004059 seconds
+  Import took 0.007597 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 39.615316 seconds.
+  path: Assets/Generator Results/reconstruction_2023-09-18-13-57-34
+  artifactKey: Guid(799986f0d1f41184eb3c68d341d7b157) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/reconstruction_2023-09-18-13-57-34 using Guid(799986f0d1f41184eb3c68d341d7b157) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b0598214117c0ce6786e02951b1ecb9') in 0.007039 seconds
+  Import took 0.011208 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.035896 seconds.
+  path: Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34.asset
+  artifactKey: Guid(647bcbde13251f14e8da0bd3658e9c70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34.asset using Guid(647bcbde13251f14e8da0bd3658e9c70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a089c5feb5cdcb98b7b36b7893fd2d3') in 0.002224 seconds
+  Import took 0.005707 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000101 seconds.
+  path: Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34_source-recon.png
+  artifactKey: Guid(ff10ffe3daa6f7e4ebbcc1292e1a52af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34_source-recon.png using Guid(ff10ffe3daa6f7e4ebbcc1292e1a52af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71205d4b0c3b2cb4fc669796f7de9fdc') in 0.009461 seconds
+  Import took 0.012804 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000121 seconds.
+  path: Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34_processed-recon.png
+  artifactKey: Guid(4ccd09cd9d5c6f54f9392aea636fc23f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34_processed-recon.png using Guid(4ccd09cd9d5c6f54f9392aea636fc23f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa5265bf7d4d0ed87addac75abf7826b') in 0.010540 seconds
+  Import took 0.014535 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000145 seconds.
+  path: Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34_0.mat
+  artifactKey: Guid(bc2babea079c2684abd7c74418de3aaf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34_0.mat using Guid(bc2babea079c2684abd7c74418de3aaf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a07d59549edbd683b76fc46493a0662') in 0.010640 seconds
+  Import took 0.014120 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000146 seconds.
+  path: Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34.prefab
+  artifactKey: Guid(ec0396f33e481934d94efb5faff33887) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34.prefab using Guid(ec0396f33e481934d94efb5faff33887) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b8de83e5732009fe38aa528d245f179c') in 0.011406 seconds
+  Import took 0.014956 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000139 seconds.
+  path: Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34_processed-interpB.png
+  artifactKey: Guid(9680a83706e0ed44796ea3302bc523f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34_processed-interpB.png using Guid(9680a83706e0ed44796ea3302bc523f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '204db2d7d17b59fe619f276462707fab') in 0.009144 seconds
+  Import took 0.012616 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000130 seconds.
+  path: Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34_processed-interpA.png
+  artifactKey: Guid(bbd659e5a0cc44b4badcff4ac40c5606) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34_processed-interpA.png using Guid(bbd659e5a0cc44b4badcff4ac40c5606) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6e35209aad15d1016b5de26805cd319') in 0.009254 seconds
+  Import took 0.012707 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000135 seconds.
+  path: Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34.mesh
+  artifactKey: Guid(3d33b5ed1ec151c4e8f8e9c4f4bff519) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/reconstruction_2023-09-18-13-57-34/reconstruction_2023-09-18-13-57-34.mesh using Guid(3d33b5ed1ec151c4e8f8e9c4f4bff519) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c5af9c731601e962bd90162df52f388') in 0.010472 seconds
+  Import took 0.014417 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 47.243009 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh
+  artifactKey: Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh using Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f60b73d8293aed9f6e550428a31dd40') in 0.011736 seconds
+  Import took 0.015890 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000241 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh
+  artifactKey: Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh using Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f60b73d8293aed9f6e550428a31dd40') in 0.005874 seconds
+  Import took 0.009142 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 31.206677 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh
+  artifactKey: Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Editor/Assets/PreviewTemplateMesh.mesh using Guid(02ce5983d388c5040985d0a6609a2612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70d1706ca3d8391804815ae4394e3ca0') in 0.014784 seconds
+  Import took 0.019148 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.482098 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-59-44
+  artifactKey: Guid(613c3c3a2b2cafb45beba42858379e15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-59-44 using Guid(613c3c3a2b2cafb45beba42858379e15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a0dd6a035bfb95a24a9654fff0a25c8') in 0.006309 seconds
+  Import took 0.010503 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.020532 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44.asset
+  artifactKey: Guid(0fe38937c614a674e98d50db044d8331) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44.asset using Guid(0fe38937c614a674e98d50db044d8331) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00a54e8d9e1c216aeed2a94031a2f488') in 0.002572 seconds
+  Import took 0.006656 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000117 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44_processed-interpB.png
+  artifactKey: Guid(7e9cd21537461df49aad054fc536dc83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44_processed-interpB.png using Guid(7e9cd21537461df49aad054fc536dc83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1927fd8b2cb7d605249040f919a3f7a8') in 0.009728 seconds
+  Import took 0.013218 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000128 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44_processed-interpA.png
+  artifactKey: Guid(570ccf514c0a55b439a824b9aed2502a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44_processed-interpA.png using Guid(570ccf514c0a55b439a824b9aed2502a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'afa984f37b3cc3cc4b1f251f0008e290') in 0.014878 seconds
+  Import took 0.018543 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000133 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44_0.mat
+  artifactKey: Guid(7d190a934cbcf504da42ca4fdc5454b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44_0.mat using Guid(7d190a934cbcf504da42ca4fdc5454b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd257d71337fe17fbc4851d7e59c09bcf') in 0.010288 seconds
+  Import took 0.013798 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000132 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44_processed-recon.png
+  artifactKey: Guid(d59620de69c7cc24eb8ea584d3ad5ac1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44_processed-recon.png using Guid(d59620de69c7cc24eb8ea584d3ad5ac1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a7aa8c24e92bcdf03a6295a937c8b25') in 0.011213 seconds
+  Import took 0.014588 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000135 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44.prefab
+  artifactKey: Guid(314baf08a175a0d4e94e84bfd2aedb7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44.prefab using Guid(314baf08a175a0d4e94e84bfd2aedb7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbef30520f333c305721d487559e23a6') in 0.014702 seconds
+  Import took 0.018054 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.955552 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44.prefab
+  artifactKey: Guid(314baf08a175a0d4e94e84bfd2aedb7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44.prefab using Guid(314baf08a175a0d4e94e84bfd2aedb7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ea1eedd9eecc5de8d2bad0bd0696baa') in 0.006324 seconds
+  Import took 0.010178 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.004497 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44.prefab
+  artifactKey: Guid(314baf08a175a0d4e94e84bfd2aedb7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44.prefab using Guid(314baf08a175a0d4e94e84bfd2aedb7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ea1eedd9eecc5de8d2bad0bd0696baa') in 0.006431 seconds
+  Import took 0.010403 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 48.776364 seconds.
+  path: Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44.mesh
+  artifactKey: Guid(ce6b0bce62c9dfd4390562bce92aa312) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/random_2023-09-18-13-59-44/random_2023-09-18-13-59-44.mesh using Guid(ce6b0bce62c9dfd4390562bce92aa312) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '868995b0db195b06a6d04134ceabe968') in 0.006040 seconds
+  Import took 0.010088 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.323463 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Designs/Generated Prefab.prefab
+  artifactKey: Guid(3d43d5fdc7b0125478149b89c6ea1da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Designs/Generated Prefab.prefab using Guid(3d43d5fdc7b0125478149b89c6ea1da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90704f4cc2dec0b8af9e49dd15b8c919') in 0.010101 seconds
+  Import took 0.014623 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000142 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Designs/Generated Prefab_0.mat
+  artifactKey: Guid(49d31d85b84edb2418ef4b3e816202ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Designs/Generated Prefab_0.mat using Guid(49d31d85b84edb2418ef4b3e816202ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b6542fa0d4fb916a043ae1dba5e6925') in 0.009196 seconds
+  Import took 0.012063 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.968465 seconds.
+  path: Assets/Scripts/SwordShapeLanguage/Designs/Generated Prefab.prefab
+  artifactKey: Guid(3d43d5fdc7b0125478149b89c6ea1da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/SwordShapeLanguage/Designs/Generated Prefab.prefab using Guid(3d43d5fdc7b0125478149b89c6ea1da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc0f9269f83e8e886a546cf45b2f86b3') in 0.006495 seconds
+  Import took 0.011283 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.003957 seconds.
+Registered in 0.003885 seconds.
 Begin MonoManager ReloadAssembly
 Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
 Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
@@ -844,71 +987,34 @@ Native extension for WebGL target not found
 Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.694 seconds
+- Completed reload, in  0.692 seconds
 Platform modules already initialized, skipping
 Assertion failed on expression: 'reloadOk'
 
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 1.02 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.8 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3428.
-Total: 2.513900 ms (FindLiveObjects: 0.291900 ms CreateObjectMapping: 0.071000 ms MarkObjects: 2.131400 ms  DeleteObjects: 0.018800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005060 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.686 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
-
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.64 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.8 MB.
-
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3431.
-Total: 2.331900 ms (FindLiveObjects: 0.285600 ms CreateObjectMapping: 0.072700 ms MarkObjects: 1.953900 ms  DeleteObjects: 0.018600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003700 seconds.
-Begin MonoManager ReloadAssembly
-Failed loading assembly 'Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll' reason: File does not contain a valid CIL image
-Loading assembly failed: "Assets/Scripts/SwordShapeLanguage/Editor/System.IO.Compression.FileSystem.dll" reason: File does not contain a valid CIL image
-
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
 Refreshing native plugins compatible for Editor in 0.62 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.667 seconds
-Platform modules already initialized, skipping
-Assertion failed on expression: 'reloadOk'
+Unloading 2768 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 136.4 MB.
+System memory in use after: 136.6 MB.
 
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2769 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 130.5 MB.
-System memory in use after: 130.8 MB.
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 3562.
+Total: 2.439000 ms (FindLiveObjects: 0.246400 ms CreateObjectMapping: 0.076400 ms MarkObjects: 2.099500 ms  DeleteObjects: 0.016200 ms)
 
-Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 3434.
-Total: 2.326200 ms (FindLiveObjects: 0.273600 ms CreateObjectMapping: 0.101000 ms MarkObjects: 1.931200 ms  DeleteObjects: 0.019300 ms)
+========================================================================
+Received Import Request.
+  Time since last request: 5960.271526 seconds.
+  path: Assets/Generator Results/manual_2023-09-18-15-18-01/manual_2023-09-18-15-18-01_0.mat
+  artifactKey: Guid(718a433b1a1949b43b1986ec4a6d183e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/manual_2023-09-18-15-18-01/manual_2023-09-18-15-18-01_0.mat using Guid(718a433b1a1949b43b1986ec4a6d183e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2bcf7465f71d8f33ac098fbdb1225276') in 0.169014 seconds
+  Import took 0.174158 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000161 seconds.
+  path: Assets/Generator Results/manual_2023-09-18-15-18-01/manual_2023-09-18-15-18-01_1.mat
+  artifactKey: Guid(747baa9cf0d092b489350254574db5a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Generator Results/manual_2023-09-18-15-18-01/manual_2023-09-18-15-18-01_1.mat using Guid(747baa9cf0d092b489350254574db5a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bcf8a004b6a5a176eaff75ada17ec4e0') in 0.025919 seconds
+  Import took 0.029547 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
