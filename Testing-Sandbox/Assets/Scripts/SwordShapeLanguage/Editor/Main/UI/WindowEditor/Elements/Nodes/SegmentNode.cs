@@ -139,11 +139,12 @@ namespace SSL.Graph.Elements
             _curveOffsetXField.SetValueWithoutNotify(setting.parameters.curveParams.controlPoint.x);
             _curveOffsetZField.SetValueWithoutNotify(setting.parameters.curveParams.controlPoint.y);
 
-            _edgeBevelXField.SetValueWithoutNotify(Mathf.InverseLerp(-setting.parameters.size.x / 2, 0f, Mathf.Abs(setting.parameters.deforms[0].x)));
-            _edgeBevelZField.SetValueWithoutNotify(Mathf.InverseLerp(-setting.parameters.size.z / 2, 0f, Mathf.Abs(setting.parameters.deforms[0].z)));
-            _edgeField.SetValueWithoutNotify(Mathf.InverseLerp(-setting.parameters.size.x / 2, 0f, Mathf.Abs(setting.parameters.deforms[3].x)));
-            _midThicknessField.SetValueWithoutNotify(Mathf.InverseLerp(-setting.parameters.size.z / 2, 0f, Mathf.Abs(setting.parameters.deforms[1].z)));
+            _edgeBevelXField.SetValueWithoutNotify(Mathf.InverseLerp(setting.parameters.size.x / 2, 0f, Mathf.Abs(setting.parameters.deforms[0].x)));
+            _edgeBevelZField.SetValueWithoutNotify(Mathf.InverseLerp(setting.parameters.size.z / 2, 0f, Mathf.Abs(setting.parameters.deforms[0].z)));
+            _edgeField.SetValueWithoutNotify(Mathf.InverseLerp(setting.parameters.size.x / 2, 0f, Mathf.Abs(setting.parameters.deforms[3].x)));
+            _midThicknessField.SetValueWithoutNotify(Mathf.InverseLerp(setting.parameters.size.z / 2, 0f, Mathf.Abs(setting.parameters.deforms[1].z)));
 
+            //Debug.Log($"edgebevelx: {_edgeBevelXField.value}, deform0: {setting.parameters.deforms[0].x}, sizexdiv2: {setting.parameters.size.x/2}");
 
             //for (int i = 0; i < _deformFields.Length; i++)
             //{

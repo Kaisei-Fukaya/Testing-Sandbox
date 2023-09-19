@@ -70,13 +70,14 @@ namespace SSL.Graph
         {
             this.AddManipulator(new ContextualMenuManipulator(menuEvent =>
                 menuEvent.menu.AppendAction("Copy Values", actionEvent =>
-                { 
-                    
+                {
+                    GraphView.copiedValues = this.GetSettings();
                 })));
             this.AddManipulator(new ContextualMenuManipulator(menuEvent =>
                 menuEvent.menu.AppendAction("Paste Values", actionEvent =>
                 {
-
+                    if (GraphView.copiedValues != null)
+                        LoadSettings(GraphView.copiedValues);
                 })));
         }
 

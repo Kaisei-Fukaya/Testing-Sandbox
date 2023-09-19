@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEditor;
 using SSL.Graph.Elements;
 using SSL.Data.Utils;
+using SSL.Data;
 using Random = UnityEngine.Random;
 
 namespace SSL.Graph
@@ -16,6 +17,7 @@ namespace SSL.Graph
     {
         GASearchWindow _searchWindow;
         public GraphicalAssetGeneratorWindow editorWindow;
+        public NodeSetting copiedValues;
         List<GraphViewNode> _nodes = new List<GraphViewNode>();
         public List<GraphViewNode> Nodes 
         { 
@@ -80,6 +82,7 @@ namespace SSL.Graph
                 output += "," + node.ID;
             }
             output.TrimStart(new char[1] { ',' });
+            Debug.Log("copying");
             return output;
         }
 
